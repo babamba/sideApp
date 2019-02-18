@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
 
-const FeedScreen = props => (
+
+const TodayScreen = props => (
      <ScrollView
           refreshControl = {
                <RefreshControl 
@@ -28,10 +29,10 @@ const styles = StyleSheet.create({
      }
 });
 
-FeedScreen.propTypes = {
+TodayScreen.propTypes = {
      isFetching : PropTypes.bool.isRequired,
      refresh: PropTypes.func.isRequired,
      //feed : PropTypes.array
 }
 
-export default FeedScreen;
+export default TodayScreen;

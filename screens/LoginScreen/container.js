@@ -13,7 +13,7 @@ class Container extends Component {
      }
 
      static propsType = {
-          //login:PropTypes.func.isRequired,
+          login:PropTypes.func.isRequired,
           //fbLogin:PropTypes.func.isRequired
      }
 
@@ -39,26 +39,26 @@ class Container extends Component {
 
      _submit = async() => {
           const { username, password, isSubmiting } = this.state;
-     //      const { login } = this.props;
-     //      if(!isSubmiting){
-     //           if(username && password){
-     //                //submit
-     //                this.setState({
-     //                     isSubmiting : true
-     //                })
-     //                //redux action  결과값을 얻는방식으로 할수 있는게 더생김
-     //                const loginResult = await login(username, password)
-     //                if(!loginResult){
-     //                     Alert.alert('Something went wrong, try again');
-     //                     this.setState({
-     //                          isSubmiting : false
-     //                     });
-     //                }
-     //           }else{
-     //                Alert.alert('All fileds are require')
-     //           }
-     //      }
-     // }
-}
+          const { login } = this.props;
+          if(!isSubmiting){
+               if(username && password){
+                    //submit
+                    this.setState({
+                         isSubmiting : true
+                    })
+                    //redux action  결과값을 얻는방식으로 할수 있는게 더생김
+                    const loginResult = await login(username, password)
+                    console.log("loginResult" , loginResult)
+                    if(!loginResult){
+                         Alert.alert('Something went wrong, try again');
+                         this.setState({
+                              isSubmiting : false
+                         });
+                    }
+               }else{
+                    Alert.alert('All fileds are require')
+               }
+          }
+     }
 }
 export default Container;

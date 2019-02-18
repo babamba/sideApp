@@ -4,27 +4,21 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapStateToProps = (state, ownProps) => {
      const { user } = state;
+     console.log(user.isLoggedIn);
+     console.log(user.already)
      return {
           isLoggedIn: user.isLoggedIn,
-          //profile: user.profile
+          profile: user.profile
      };
 };
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//      return {
-//           initApp: () => {
-//                //getFeed
-//                dispatch(photoActions.getFeed());
-//                //getSearch
-//                dispatch(photoActions.getSearch());
-//                //getNotifications
-//                dispatch(userActions.getNotifications());
-//                //getProfile
-//                dispatch(userActions.getOwnProfile());
 
-//                dispatch(userActions.registerForPush());
-//           }
-//      };
-// };
+const mapDispatchToProps = (dispatch, ownProps) => {
+     return {
+          setAlreadyLaunch : (launched) => {
+               dispatch(userActions.setAlreadyLaunch(launched));
+          }
+     }
+}
 
-export default connect(mapStateToProps)(AppContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

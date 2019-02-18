@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sideApp",
-    "slug": "sideApp",
+    "name": "TodaySalary",
+    "slug": "TodaySalary",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [

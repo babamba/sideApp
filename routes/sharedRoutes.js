@@ -1,5 +1,5 @@
 import React from "react";
-import MenuSlider from "../screens/MenuScreen";
+// import LikesScreen from "../screens/LikesScreen";
 // import CommentsScreen from "../screens/CommentsScreen";
 // import ProfileDetailScreen from "../screens/ProfileDetailScreen";
 // import PhotoScreen from "../screens/PhotoScreen";
@@ -7,12 +7,12 @@ import MenuSlider from "../screens/MenuScreen";
 
 //공통요소들
 const sharedRoutes = {
-     Menu: {
-          screen : MenuSlider,
-          navigationOptions: {
-               // headerTitle: "Likes"
-          }
-     },
+     // Menu: {
+     //      screen : LikesScreen,
+     //      navigationOptions: {
+     //           headerTitle: "Likes"
+     //      }
+     // },
      // Likes: {
      //      screen : LikesScreen,
      //      navigationOptions: {

@@ -1,7 +1,8 @@
 import React from "react";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator,createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
 import { Image } from "react-native";
 import TodayScreen from "../screens/TodayScreen";
+import MealScreen from "../screens/MealScreen";
 import sharedRoutes, { sharedOptions } from "./sharedRoutes";
 import MenuButton from "../components/MenuButton"
 
@@ -17,15 +18,37 @@ const HomeRoute = createStackNavigator(
                     // ),
                     headerLeft:(
                          <MenuButton iconName={"md-menu"} 
-                                    onPress={() => navigation.navigate("MenuSlider")}
+                                    onPress={() => console.log(navigation.toggleDrawer('SideTabs'))}
+                         />
+                    ),
+               })
+          },
+          Meal:{
+               screen: MealScreen,
+               navigationOptions: ({ navigation }) => ({
+                    // headerTitle : (
+                    //      <Image source={require("../assets/images/icon.png")}
+                    //             style={{height:35}} resizeMode={"contain"}
+                    //      />
+                    // ),
+                    headerLeft:(
+                         <MenuButton iconName={"md-menu"} 
+                                    onPress={() => navigation.navigate("Tabs")}
                          />
                     )
                })
           },
+          
           ...sharedRoutes
      },
      {
-          ...sharedOptions
+          //initialRouteName: 'Home',
+          swipeEnabled:true,
+          animationEnabled:true,
+          tabBarOptions: {
+               style: { display: "none" }
+             }
+          //...sharedOptions
      }
 );
 

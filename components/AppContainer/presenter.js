@@ -70,7 +70,7 @@ class AppContainer extends Component {
      render(){
           const { isLoggedIn, profile } = this.props;
           console.log("isLogged / " , isLoggedIn);
-          console.log("profile / " , profile);
+          console.log("isLogged / " , isLoggedIn);
           if (this.state.showRealApp) {
                return (
                     <View style={styles.container} >

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import TodayScreen from "./presenter";
+import MonthScreen from "./presenter";
 import { image } from "react-native";
 
 class Container extends Component {
@@ -11,10 +11,6 @@ class Container extends Component {
           // feed : PropTypes.array,
           // getFeed : PropTypes.func.isRequired
      };
-
-     static navigationOptions = {
-          gesturesEnabled: false
-     }  
 
      state = {
           isFetching : false
@@ -36,7 +32,7 @@ class Container extends Component {
 
      render() {
           return (
-               <TodayScreen 
+               <MonthScreen 
                     {...this.props} 
                     {...this.state} 
                     refresh={this._refresh} 

@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
+import { View, Text,Button, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
 
-
-const TodayScreen = props => (
+const ReportScreen = props => (
      <ScrollView
           refreshControl = {
                <RefreshControl 
@@ -15,7 +14,7 @@ const TodayScreen = props => (
           // contentContainerStyle = {styles.container}
     >
     <View style={styles.container}>
-          <Text>TodayScreen</Text>
+          <Text>ReportScreen</Text>
           {/* {props.feed && 
                props.feed.map(photo => <Photo {...photo} key={photo.id} />)} */}
     </View>
@@ -24,16 +23,16 @@ const TodayScreen = props => (
 );
 
 const styles = StyleSheet.create({
-     container:{
+     container : {
           flex:1,
           backgroundColor: "white"
-      }
+     }
 });
 
-TodayScreen.propTypes = {
+ReportScreen.propTypes = {
      isFetching : PropTypes.bool.isRequired,
      refresh: PropTypes.func.isRequired,
      //feed : PropTypes.array
 }
 
-export default TodayScreen;
+export default ReportScreen;

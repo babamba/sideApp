@@ -1,75 +1,69 @@
-import SideMenu from "react-native-side-menu"
-import React, {Component} from "react";
+import React, {Component} from 'react';
+import {NavigationActions} from 'react-navigation';
 import PropTypes from 'prop-types';
-import {
-  Dimensions,
-  StyleSheet,
-  ScrollView,
-  View,
-  Image,
-  Text,
-} from 'react-native';
-const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
-const window = Dimensions.get('window');
+import {ScrollView, Text, View, StyleSheet} from 'react-native';
+import { DrawerActions } from 'react-navigation';
 
-const styles = StyleSheet.create({
-  menu: {
-    flex: 1,
-    width: window.width,
-    height: window.height,
-    backgroundColor: 'gray',
-    padding: 20,
-  },
-  avatarContainer: {
-    marginBottom: 20,
-    marginTop: 20,
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    flex: 1,
-  },
-  name: {
-    position: 'absolute',
-    left: 70,
-    top: 20,
-  },
-  item: {
-    fontSize: 14,
-    fontWeight: '300',
-    paddingTop: 5,
-  },
-});
+class MenuScreen extends Component {
+  navigateToScreen = (route) => () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    console.log(NavigationActions)
+    console.log()
+    //this.props.navigation.dispatch(navigateAction);
+    this.props.navigation.dispatch(DrawerActions.closeDrawer())
+  }
 
-export default function MenuSlider({ onItemSelected }) {
-  return (
-    <ScrollView scrollsToTop={false} style={styles.menu}>
-      <View style={styles.avatarContainer}>
-        <Image
-          style={styles.avatar}
-          source={{ uri }}
-        />
-        <Text style={styles.name}>Your name</Text>
+  render () {
+    return (
+      <View>
+        <ScrollView>
+          <View>
+            <View style={styles.menuItem}>
+              <Text onPress={this.navigateToScreen('Today')}>
+              Today
+              </Text>
+            </View>
+            <View style={styles.menuItem}>
+              <Text onPress={this.navigateToScreen('Analysis')}>
+              Analysis
+              </Text>
+            </View>
+            <View style={styles.menuItem}>
+              <Text onPress={this.navigateToScreen('Report')}>
+              Report
+              </Text>
+            </View>
+          </View>
+        </ScrollView>
       </View>
-
-      <Text
-        onPress={() => onItemSelected('About')}
-        style={styles.item}
-      >
-        About
-      </Text>
-
-      <Text
-        onPress={() => onItemSelected('Contacts')}
-        style={styles.item}
-      >
-        Contacts
-      </Text>
-    </ScrollView>
-  );
+    );
+  }
 }
 
-MenuSlider.propTypes = {
-  onItemSelected: PropTypes.func.isRequired,
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#fff',
+  },
+  heading: {
+      fontSize: 20,
+      textAlign: 'center',
+      margin: 10,
+  },
+  menuItem:{
+      padding: 10,
+      borderWidth: 0.5,
+      borderColor: '#d6d7da'
+  }
+});
+
+
+MenuScreen.propTypes = {
+  navigation: PropTypes.object
 };
+
+export default MenuScreen;

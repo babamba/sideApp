@@ -4,6 +4,7 @@ import SideNavigation from "./SideNavigation";
 import InputScreen from "../screens/InputScreen";
 import MenuButton from "../components/MenuButton"
 import React from "react";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const RootNavigator = createStackNavigator(
      {
@@ -25,12 +26,13 @@ const RootNavigator = createStackNavigator(
                          <MenuButton iconName={"md-menu"} 
                                     onPress={() => console.log(navigation.toggleDrawer('Side'))}
                          />
-                    )
+                    ),
+                    headerTransparent:'true',
                })
           },
      },
      {
-          mode : "modal",
+          mode : "card"
      
      }
 );

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
-
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const MonthScreen = props => (
      <ScrollView
@@ -26,6 +26,7 @@ const MonthScreen = props => (
 const styles = StyleSheet.create({
      container : {
           flex:1,
+          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
           backgroundColor: "white"
      }
 });

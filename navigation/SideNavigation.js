@@ -10,6 +10,7 @@ import AnalysisScreen from "../screens/AnalysisScreen"
 import ReportScreen from "../screens/ReportScreen"
 import MainTabsNavigator from "./MainTabsNavigation"
 import MenuButton from "../components/MenuButton"
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const SideNavigation = createDrawerNavigator (
      {
@@ -40,20 +41,27 @@ const SideNavigation = createDrawerNavigator (
      },
      {
           initialRouteName: 'Side',
-          drawerWidth: 300
+          drawerWidth: 300,
 
           // initialRouteName: 'Today',
           // contentComponent: SideRoute,
           // drawerWidth: 300,
-          
+          contentOptions: {
+               activeTintColor: '#e91e63',
+               itemsContainerStyle: {
+                 marginVertical: 0,
+               },
+               iconContainerStyle: {
+                    ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
+               }
+          }
           // tabBarOptions:{
           //      //lockMode: 'locked-closed',
-          //      showLabel:false,
-          //      swipeEnabled: true,
-          //      animationEnabled: true,
+          //      // showLabel:false,
+          //      // swipeEnabled: true,
+          //      // animationEnabled: true,
           //      style:{
-          //           backgroundColor:"#FBFBFB",
-          //           height:45
+          //           ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
           //      },
           // },
      },

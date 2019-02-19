@@ -9,7 +9,6 @@ import PurchaseScreen from "../screens/MonthScreen";
 import MealScreen from "../screens/MealScreen";
 
 import MenuButton from "../components/MenuButton"
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const MainTabsNavigator = createMaterialTopTabNavigator(
      {
@@ -63,7 +62,7 @@ const MainTabsNavigator = createMaterialTopTabNavigator(
                          <MenuButton iconName={"md-menu"} 
                                     onPress={() => navigation.toggleDrawer('MenuScreen')}
                          />
-                    )
+                    ),
                }
           }
      },
@@ -108,6 +107,7 @@ const MainTabsNavigator = createMaterialTopTabNavigator(
                style:{
                     backgroundColor: '#f4511e',
                     //height:45
+                    
                     display:'none'
                },
           },

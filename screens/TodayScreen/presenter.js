@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import AddButton from "../../components/AddButton";
-
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 class TodayScreen extends Component {
 
@@ -26,6 +26,7 @@ class TodayScreen extends Component {
 const styles = StyleSheet.create({
      container:{
           flex:1,
+          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
           backgroundColor: "white"
      },
      MainText:{

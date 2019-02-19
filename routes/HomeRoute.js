@@ -18,7 +18,7 @@ const HomeRoute = createStackNavigator(
                     // ),
                     headerLeft:(
                          <MenuButton iconName={"md-menu"} 
-                                    onPress={() => console.log(navigation.toggleDrawer('SideTabs'))}
+                                    onPress={() => navigation.toggleDrawer('SideTabs')}
                          />
                     ),
                })

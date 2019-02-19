@@ -6,47 +6,35 @@ import ReportRoute from "../routes/ReportRoute";
 import HomeRoute from "../routes/HomeRoute";
 import { Ionicons } from "@expo/vector-icons";
 import SideRoute from "../routes/SideRoute";
-import MenuScreen from "../screens/MenuScreen"
 import AnalysisScreen from "../screens/AnalysisScreen"
 import ReportScreen from "../screens/ReportScreen"
 import MainTabsNavigator from "./MainTabsNavigation"
+import MenuButton from "../components/MenuButton"
 
 const SideNavigation = createDrawerNavigator (
      {
           Side : {
                screen : MainTabsNavigator,
-               navigationOptions:{
-                    // tabBarIcon: ({ focused }) => (
-                    //      <Ionicons
-                    //        name={focused ? 'ios-checkmark-circle-outline' : 'ios-home'}
-                    //        size={30}
-                    //        color={"black"}
-                    //      />
-                    // ),
-               }
+               navigationOptions: ({ navigation }) => ({
+                    title:"오늘의급여",
+                    headerLeft:(
+                         <MenuButton iconName={"ios-arrow-back"} 
+                                    onPress={() => navigation.toggleDrawer('Side')}
+                         />
+                    )
+               })
           },
           Tabs1 : {
                screen : AnalysisScreen,
                navigationOptions:{
-                    // tabBarIcon: ({ focused }) => (
-                    //      <Ionicons
-                    //        name={focused ? 'ios-checkmark-circle-outline' : 'ios-home'}
-                    //        size={30}
-                    //        color={"black"}
-                    //      />
-                    // ),
+                    title:"통계",
                }
+               
           },
           Tabs2 : {
                screen : ReportScreen,
                navigationOptions:{
-                    // tabBarIcon: ({ focused }) => (
-                    //      <Ionicons
-                    //        name={focused ? 'ios-checkmark-circle-outline' : 'ios-home'}
-                    //        size={30}
-                    //        color={"black"}
-                    //      />
-                    // ),
+                    title:"문의하기",
                }
           },
      },

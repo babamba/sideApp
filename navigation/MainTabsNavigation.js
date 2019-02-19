@@ -23,11 +23,6 @@ const MainTabsNavigator = createMaterialTopTabNavigator(
                     //        color={"black"}
                     //      />
                     // ),
-                    headerLeft:(
-                         <MenuButton iconName={"md-menu"} 
-                                    onPress={() => navigation.toggleDrawer('MenuScreen')}
-                         />
-                    ),
                }
           },
           Month:{
@@ -40,11 +35,6 @@ const MainTabsNavigator = createMaterialTopTabNavigator(
                     //        color={"black"}
                     //      />    
                     // ),
-                    headerLeft:(
-                         <MenuButton iconName={"md-menu"} 
-                                    onPress={() => navigation.toggleDrawer('MenuScreen')}
-                         />
-                    )
                }
           },
           Meal: {
@@ -57,11 +47,6 @@ const MainTabsNavigator = createMaterialTopTabNavigator(
                     //        color={"black"}
                     //      />
                     // )
-                    headerLeft:(
-                         <MenuButton iconName={"md-menu"} 
-                                    onPress={() => navigation.toggleDrawer('MenuScreen')}
-                         />
-                    )
                }
           },
           Purchase: {
@@ -123,7 +108,7 @@ const MainTabsNavigator = createMaterialTopTabNavigator(
                style:{
                     backgroundColor: '#f4511e',
                     //height:45
-                    //display:'none'
+                    display:'none'
                },
           },
      },

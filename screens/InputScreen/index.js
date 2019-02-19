@@ -1,0 +1,36 @@
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
+import Modal from "react-native-modal";
+
+class InputScreen extends Component {
+     state = {
+       isModalVisible: false
+     };
+    
+     _toggleModal = () =>
+       this.setState({ isModalVisible: !this.state.isModalVisible });
+    
+     render() {
+       return (
+         <View style={{ flex: 2 }}>
+          <TouchableOpacity onPress={this._toggleModal}>
+             <Text>Show Modal</Text>
+          </TouchableOpacity>
+               <Modal 
+                    isVisible={this.state.isModalVisible}
+                    
+               >
+               <View style={{ flex: 1 }}>
+               <Text>Hello!</Text>
+               <TouchableOpacity onPress={this._toggleModal}>
+                 <Text>Hide me!</Text>
+               </TouchableOpacity>
+             </View>
+           </Modal>
+         </View>
+       );
+     }
+   }
+
+   export default InputScreen

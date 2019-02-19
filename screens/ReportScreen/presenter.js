@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { View, Text,Button, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
 
 const ReportScreen = props => (
+
+     
      <ScrollView
           refreshControl = {
                <RefreshControl 

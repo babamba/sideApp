@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import MainTabsNavigation from "./MainTabsNavigation"
 import SideNavigation from "./SideNavigation";
+import InputScreen from "../screens/InputScreen";
 import MenuButton from "../components/MenuButton"
 import React from "react";
 
@@ -29,7 +30,8 @@ const RootNavigator = createStackNavigator(
           },
      },
      {
-          mode : "modal"
+          mode : "modal",
+     
      }
 );
 

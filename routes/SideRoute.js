@@ -27,14 +27,10 @@ const SideRoute = createDrawerNavigator(
           Analysis:{
                screen: AnalysisScreen,
                navigationOptions: ({ navigation }) => ({
-                    // headerTitle : (
-                    //      <Image source={require("../assets/images/icon.png")}
-                    //             style={{height:35}} resizeMode={"contain"}
-                    //      />
-                    // ),
+                    // headerTitle : "통계",
                     // headerLeft:(
-                    //      <MenuButton iconName={"md-menu"} 
-                    //                 onPress={() => navigation.navigate("MenuSlider")}
+                    //      <MenuButton iconName={"ios-arrow-back"} 
+                    //                 onPress={() => navigation.goBack(null)}
                     //      />
                     // )
                })

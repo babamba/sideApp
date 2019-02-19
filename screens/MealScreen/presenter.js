@@ -1,33 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
-
+import AddButton from "../../components/AddButton";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const MealScreen = props => (
-     <ScrollView
-          refreshControl = {
-               <RefreshControl 
-                    refreshing ={props.isFetching} 
-                    onRefresh={props.refresh}
-                    tintColor={"black"}
-               />
-          }
-          // contentContainerStyle = {styles.container}
-    >
     <View style={styles.container}>
-          <Text>MealScreen</Text>
-          {/* {props.feed && 
-               props.feed.map(photo => <Photo {...photo} key={photo.id} />)} */}
+          <Text style={styles.MainText}>MealScreen</Text>
+          <AddButton AddText={"수입등록"} onPress={() => console.log("addButton")}/>
     </View>
-    
-    </ScrollView>
 );
 
 const styles = StyleSheet.create({
-     container : {
+     container:{
           flex:1,
+          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
           backgroundColor: "white"
-     }
+     },
+     MainText:{
+          flex:1,
+          fontSize:17,
+          justifyContent: 'center',
+          textAlign:'center',
+          alignItems: 'center'
+     },
 });
 
 MealScreen.propTypes = {

@@ -41,19 +41,15 @@ const SideNavigation = createDrawerNavigator (
      },
      {
           initialRouteName: 'Side',
-          drawerWidth: 300,
+          drawerWidth: 200,
 
           // initialRouteName: 'Today',
           // contentComponent: SideRoute,
           // drawerWidth: 300,
           contentOptions: {
-               activeTintColor: '#e91e63',
                itemsContainerStyle: {
-                 marginVertical: 0,
-               },
-               iconContainerStyle: {
                     ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
-               }
+               },
           }
           // tabBarOptions:{
           //      //lockMode: 'locked-closed',

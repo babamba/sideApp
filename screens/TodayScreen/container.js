@@ -58,7 +58,7 @@ class Container extends Component {
           const minuteSallery = Math.floor( hourSallery / 60 );
           console.log("todayPercent!!!!" , minuteSallery);
 
-          const percent = 
+          //const percent = 
 
           // const { initApp } = this.props;
           // initApp();

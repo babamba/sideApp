@@ -35,8 +35,13 @@ class Container extends Component {
                })
           }
      }
-
      componentDidMount = () => {
+          // const { initApp } = this.props;
+          // initApp();
+          //const progressValue = Math.floor(todaySallery)
+     }
+
+     componentWillMount = () => {
           const { monthSallery, workingWeekDay, workingHour } = this.state
 
           const weekCount = dayInMonth();
@@ -60,9 +65,11 @@ class Container extends Component {
 
           //const percent = 
 
-          // const { initApp } = this.props;
-          // initApp();
-          //const progressValue = Math.floor(todaySallery)
+
+          this.setState({
+               todaySallery : minuteSallery
+          })
+          
 
      };
 

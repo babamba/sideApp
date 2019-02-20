@@ -4,8 +4,8 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapStateToProps = (state, ownProps) => {
      const { user } = state;
-     console.log(user.isLoggedIn);
-     console.log(user.already)
+     //console.log(user.isLoggedIn);
+     //console.log(user.already)
      return {
           isLoggedIn: user.isLoggedIn,
           profile: user.profile

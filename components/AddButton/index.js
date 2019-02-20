@@ -7,7 +7,7 @@ import Modal from "react-native-modal";
 class AddButton extends Component {
      constructor(props){
           super(props);
-          console.log(props)
+          //console.log(props)
      }
 
      state = {
@@ -37,7 +37,7 @@ class AddButton extends Component {
           const deviceWidth = Dimensions.get("window").width;
           const deviceHeight = Dimensions.get("window").height;
 
-          console.log(this.props);
+          //console.log(this.props);
           return (
                <View>
                     <TouchableHighlight 

@@ -1,19 +1,13 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import MainTabsNavigation from "./MainTabsNavigation"
 import SideNavigation from "./SideNavigation";
 import InputScreen from "../screens/InputScreen";
 import MenuButton from "../components/MenuButton"
 import React from "react";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import Swiper from "../screens/SwipeScreen";
 
 const RootNavigator = createStackNavigator(
      {
-          // Main : {
-          //      screen:MainTabsNavigation,
-          //      navigationOptions:{
-          //           header:null
-          //      }
-          // },
           Side:{
                screen: SideNavigation,
                navigationOptions: ({ navigation }) => ({
@@ -30,10 +24,21 @@ const RootNavigator = createStackNavigator(
                     headerTransparent:'true',
                })
           },
+          Today : {
+               screen : Swiper,
+               navigationOptions:{
+                    // tabBarIcon: ({ focused }) => (
+                    //      <Ionicons
+                    //        name={focused ? 'ios-checkmark-circle-outline' : 'ios-home'}
+                    //        size={30}
+                    //        color={"black"}
+                    //      />
+                    // ),
+               }
+          },
      },
      {
           mode : "card"
-     
      }
 );
 

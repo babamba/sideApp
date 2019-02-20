@@ -1,28 +1,18 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { createAppContainer , createDrawerNavigator} from "react-navigation";
-import AnalysisRoute from "../routes/AnalysisRoute";
-import ReportRoute from "../routes/ReportRoute";
-import HomeRoute from "../routes/HomeRoute";
 import { Ionicons } from "@expo/vector-icons";
-import SideRoute from "../routes/SideRoute";
 import AnalysisScreen from "../screens/AnalysisScreen"
 import ReportScreen from "../screens/ReportScreen"
-import MainTabsNavigator from "./MainTabsNavigation"
-import MenuButton from "../components/MenuButton"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import SwipeScreen from "../screens/SwipeScreen"
 
 const SideNavigation = createDrawerNavigator (
      {
           Side : {
-               screen : MainTabsNavigator,
+               screen : SwipeScreen,
                navigationOptions: ({ navigation }) => ({
                     title:"오늘의급여",
-                    headerLeft:(
-                         <MenuButton iconName={"ios-arrow-back"} 
-                                    onPress={() => navigation.toggleDrawer('Side')}
-                         />
-                    )
                })
           },
           Tabs1 : {

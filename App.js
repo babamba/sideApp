@@ -47,7 +47,9 @@ class App extends React.Component {
       ]),
       Font.loadAsync({
         ...Ionicons.font,
-        ...MaterialIcons.font
+        ...MaterialIcons.font,
+        'NanumBarunGothicUltraLight': require('./assets/font/NanumBarunGothicUltraLight.ttf'),
+        'NanumBarunGothicLight': require('./assets/font/NanumBarunGothicLight.ttf')
       })
     ]);
   };

@@ -1,9 +1,6 @@
 import React from "react";
 import { createAppContainer , createDrawerNavigator} from "react-navigation";
-import AnalysisRoute from "../routes/AnalysisRoute";
 import AnalysisScreen from "../screens/AnalysisScreen"
-
-import MainTabsNavigator from "./MainTabsNavigation"
 
 const AnalysisNavigation = createDrawerNavigator (
      {

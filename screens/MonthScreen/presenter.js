@@ -8,8 +8,27 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 const MonthScreen = props => (
 
     <View style={styles.container}>
-          <Text style={styles.MainText}>MonthScreen</Text>
-          <AddButton AddText={"수입등록"} onPress={() => console.log("addButton")}/>
+          <View style={styles.container}>
+                    <Text style={styles.MainText1}>
+                         나는 지금 
+                    </Text>
+                    <Text style={styles.TodayMoney}>
+                        20,000
+                    </Text>
+                    <Text style={styles.TodayMoneyWon}>
+                         원
+                    </Text>
+                    <Text style={styles.MainText2}>
+                         벌었다.
+                     </Text>
+                    <AddButton 
+                         style={styles.addButton} 
+                         AddText={"수입등록"} 
+                         onPress={() => console.log("addButton")}
+                    />
+
+               </View>
+          
     </View>
 );
 
@@ -19,13 +38,40 @@ const styles = StyleSheet.create({
           ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
           backgroundColor: "white"
      },
-     MainText:{
+     container:{
           flex:1,
-          fontSize:17,
+          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
+          backgroundColor: "white",
+          alignItems:"center",
+          alignContent: 'center',
+     },
+     MainText1:{
+          fontSize:45,
+          justifyContent: 'center',
+          textAlign:'center',
+          alignItems: 'center',
+          fontFamily: 'NanumBarunGothicUltraLight',
+     },
+     MainText2:{
+          fontSize:45,
+          justifyContent: 'center',
+          textAlign:'center',
+          alignItems: 'center',
+          fontFamily: 'NanumBarunGothicUltraLight',
+     },
+     TodayMoney:{
+          fontSize:45,
           justifyContent: 'center',
           textAlign:'center',
           alignItems: 'center'
      },
+     TodayMoneyWon:{
+          fontSize:45,
+          fontFamily: 'NanumBarunGothicUltraLight',
+     },
+     addButton:{
+          flex:1,
+     }
 });
 
 MonthScreen.propTypes = {

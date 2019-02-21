@@ -14,8 +14,8 @@ const mapStateToProps = (state, ownProps) => {
           currentSecondSallery: timer.currentSecondSallery,
           elapsedTime: timer.elapsedTime,
           currentDate:timer.currentDate,
-          //isPlaying:timer.isPlaying,
-          isPlaying:true,
+          isPlaying:timer.isPlaying,
+          //isPlaying:true,
           workingTime: timer.workingTime
      }
      //const { timer } = state;

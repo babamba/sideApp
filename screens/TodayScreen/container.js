@@ -136,7 +136,7 @@ class Container extends Component {
      }  
 
      componentWillReceiveProps = nextProps => {
-
+          console.log("next ",nextProps.currentSecondSallery)
      }
 
      componentDidMount = () => {

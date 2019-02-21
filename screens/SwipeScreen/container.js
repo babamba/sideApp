@@ -78,28 +78,31 @@ class Container extends Component {
      }
 
      componentDidMount() {
-        const currentProps = this.props;
+          const currentProps = this.props;
+          console.log(currentProps)
 
-        console.log("currentProps" , currentProps);
+          const { secondSallery, WORKING_SECOND, INTERVAL_SECOND, PERCENT, currentSecondSallery } = this.state;
+          console.log(secondSallery)
 
-        //console.log(`The current props ar : ${currentProps.isPlaying} and the new ones are ${nextProps.isPlaying} `);
-        //if(!currentProps.isPlaying && nextProps.isPlaying){
-        console.log("should start");
+          //if(currentProps.isPlaying && INTERVAL_SECOND < WORKING_SECOND ){
+        //     if(currentProps.isPlaying  ){
+        //        const timerInterval = setInterval(() => {
+        //             console.log("실행 중");
+        //             console.log("PERCENT",PERCENT);
+        //             currentProps.SetSecondMoney(secondSallery);
+        //             currentProps.addSecond();
+        //             currentProps.addPercent(PERCENT);
 
-        const timerInterval = setInterval(() => {
-            console.log("asdfasdf");
-            currentProps.addSecond();
-        }, 1000);
+        //             this.setState({
+        //                 currentSecondSallery,
+        //                 PERCENT
+        //             })
 
-        this.setState({
-            timerInterval
-        })
-              // start interval
-          //}else if(currentProps.isPlaying && !nextProps.isPlaying){
-              // stop interval ( clear )
-          //    console.log("should stop")
-          //    clearInterval(this.state.timerInterval);
-          //}
+        //        }, 1000);
+        //   }else if(!currentProps.isPlaying ){
+        //      console.log("정지")
+        //      clearInterval(this.state.timerInterval);
+        //   }
      }
 
      static navigationOptions = {
@@ -107,16 +110,16 @@ class Container extends Component {
      }  
 
      componentWillReceiveProps = nextProps => {
+        console.log("next ",nextProps)
+    }
 
-     }
+    //  componentDidMount = () => {
 
-     componentDidMount = () => {
+    //  }
 
-     }
-
-     componentWillMount = () => {
+    //  componentWillMount = () => {
  
-     };
+    //  };
 
      render() {
           return (

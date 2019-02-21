@@ -1,29 +1,45 @@
 import { connect } from "react-redux";
 import Container from "./container";
-// import { actionCreators as userActions} from "../../redux/modules/user"
+import { ThemeProvider } from "react-native-paper";
+import { actionCreators as timerActions } from "../../redux/modules/timer";
 
-// const mapStateToProps = (state, ownProps ) => {
-//      const { photos : { feed } } = state
-//      //console.log(state);
-//      //console.log(feed)
+// const mapStateToProps = (state, ownProps) => {
+//      const { timer } = state;
 //      return {
-          
-//           feed
+//           monthSallery : timer.monthSallery,
+//           workingWeekDay: timer.workingWeekDay,
+//           workingHour: timer.workingHour,
+//           startHour : timer.startHour,
+//           endHour : timer.endHour,
+//           currentSecondSallery: timer.currentSecondSallery,
+//           elapsedTime: timer.elapsedTime,
+//           currentDate:timer.currentDate,
+//           //isPlaying:timer.isPlaying,
+//           isPlaying:true,
+//           workingTime: timer.workingTime
 //      }
-// }
+//      const { timer } = state;
+//      console.log(state);
+//      console.log(user.isLoggedIn);
+//      console.log(user.already)
+//      return {
+//           isLoggedIn: user.isLoggedIn,
+//           profile: user.profile
+//      };
+// };
+
 
 // const mapDispatchToProps = (dispatch, ownProps) => {
 //      return {
-//           getFeed : () => {
-//                dispatch(photoActions.getFeed());
+//           addSecond : () => {
+//                dispatch(timerActions.addSecond())
 //           },
-//           initApp: () => {
-//                dispatch(photoActions.getFeed());
-//                dispatch(photoActions.getSearch());
-//                dispatch(userActions.getNotifications());
-//                dispatch(userActions.getOwnProfile());
-//                dispatch(userActions.registerForPush());
-//              }
+//           SetSecondMoney : (sallery) => {
+//                dispatch(timerActions.SetSecondMoney(sallery))
+//           },
+//           addPercent : (percent) => {
+//                dispatch(timerActions.addPercent(percent))
+//           },
 //      }
 // }
 

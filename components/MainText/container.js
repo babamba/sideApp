@@ -10,7 +10,6 @@ class Container extends Component {
      }
      
      render() {
-          console.log("asdfasdf",this.props)
           return (
                <MainText 
                     {...this.props} 

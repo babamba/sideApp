@@ -19,6 +19,7 @@ const MainText = props => (
                          </Text>
                          <MoneyText 
                               todaySallery={props.todaySallery}
+                              {...props}
                          />
                          <Text style={styles.MainText2}>
                               벌었다.

@@ -3,121 +3,148 @@ import PropTypes from "prop-types";
 import TodayScreen from "./presenter";
 import { image } from "react-native";
 
+// 계산에 사용될 Date객체 
+// const TODAY_DATE = new Date();
 
+// // 계산에 필요한 연원일
+// const getDay = TODAY_DATE.getDay();
+// const getDate = TODAY_DATE.getDate();
+// const getMonth = TODAY_DATE.getMonth();
+// const getYear = TODAY_DATE.getFullYear();
+
+// dayInMonth = () =>  {
+//      const date = new Date();
+//      const year  = Number(date.toLocaleDateString("de-DE", {year: "numeric"}));
+//      const month = Number(date.toLocaleDateString("de-DE", {month: "2-digit"}));
+//      const nowDate = new Date(year, month-1, 1);
+//      const lastDate = new Date(year, month, 0).getDate();
+//      const monthSWeek = nowDate.getDay();
+//      const weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1)/7) + 1;
+
+//      return weekSeq;
+// }
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
      // static navigationOptions  = ({ navigation }) => ({
      // })
-     static propTypes = {
-          // feed : PropTypes.array,
-          // getFeed : PropTypes.func.isRequired
-     };
+
+     state = {
+          isFetching : false,
+     }
+
+     // 계산에 사용될 Date객체 
+
+     // constructor(props){
+     //      super(props);
+     //      //console.log(this.props); // prints out whatever is inside props
+     //      const { monthSallery, workingWeekDay, currentSecondSallery, workingHour, startHour, endHour ,SetSecondMoney ,addSecond ,isPlaying} = this.props
+
+     //       // 근무시작 근무종료 객체들
+     //      const TODAY_START_DATE = new Date(getYear, getMonth, getDate, startHour);
+     //      const TODAY_END_DATE = new Date(getYear, getMonth, getDate, endHour);
+     //      console.log("start and end : ", TODAY_START_DATE.toLocaleString(), "  / " ,  TODAY_END_DATE.toLocaleString())
+
+     //      const WORKING_SECOND = Math.floor((TODAY_END_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
+
+
+     //      //시작 시작부터 흐른 시간
+     //      const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
+
+     //      const weekCount = dayInMonth();
+     //      console.log(weekCount);
+
+     //      const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
+     //      // console.log("percent!!!!" , percent);
+     
+     //      const weekSallery = (monthSallery / weekCount);
+
+     //      const hourSallery = Math.floor( weekSallery / workingHour );
+
+     //      const minuteSallery = Math.floor( hourSallery / 60 );
+
+     //      const secondSallery = Math.floor( minuteSallery / 60 );
+
+     //      console.log(weekSallery , "  " ,hourSallery , "  " ,minuteSallery , "  " ,secondSallery , "  " );
+
+     //      this.state = {
+     //           isFetching : false,
+     //           isPlaying,
+     //           secondSallery,
+     //           INTERVAL_SECOND,
+     //           WORKING_SECOND,
+     //           PERCENT
+     //      };
+     // }
+
+     // static propsType = {
+     //      SetSecondMoney:PropTypes.func.isRequired,
+     // }
+
+     // componentWillReceiveProps(nextProps){
+     //      const currentProps = this.props;
+
+     //      console.log("currentProps" , currentProps);
+
+     //      //console.log(`The current props ar : ${currentProps.isPlaying} and the new ones are ${nextProps.isPlaying} `);
+     //      //if(!currentProps.isPlaying && nextProps.isPlaying){
+     //          console.log("should start");
+
+     //          const timerInterval = setInterval(() => {
+     //                console.log("asdfasdf");
+     //                currentProps.addSecond();
+     //          }, 1000);
+
+     //          this.setState({
+     //                timerInterval
+     //          })
+     //          // start interval
+     //      //}else if(currentProps.isPlaying && !nextProps.isPlaying){
+     //          // stop interval ( clear )
+     //      //    console.log("should stop")
+     //      //    clearInterval(this.state.timerInterval);
+     //      //}
+     // }
+
+     componentDidMount() {
+          // const currentProps = this.props;
+
+          // console.log("currentProps" , currentProps);
+
+          // //console.log(`The current props ar : ${currentProps.isPlaying} and the new ones are ${nextProps.isPlaying} `);
+          // if(!currentProps.isPlaying && nextProps.isPlaying){
+          //     console.log("should start");
+
+          //     const timerInterval = setInterval(() => {
+          //           console.log("asdfasdf");
+          //           currentProps.addSecond();
+          //     }, 1000);
+
+          //     this.setState({
+          //           timerInterval
+          //     })
+          //     // start interval
+          // }else if(currentProps.isPlaying && !nextProps.isPlaying){
+          //     //stop interval ( clear )
+          //    console.log("should stop")
+          //    clearInterval(this.state.timerInterval);
+          // }
+     }
 
      static navigationOptions = {
           gesturesEnabled: false,
      }  
 
-     state = {
-          isFetching : false,
-          // monthSallery : 2300000,
-          // todaySallery : 0,
-          // progress: 20,
-          // progressWithOnComplete: 0,
-          // progressCustomized: 0,
-          // workingWeekDay : 5,
-          // workingHour: 8,
-          // startHour:10,
-          // endHour:19
-     };
-
      componentWillReceiveProps = nextProps => {
-          //console.log("nextProps.feed", nextProps.feed);
-          // if(nextProps.feed){
-          //      this.setState({
-          //           isFetching : false
-          //      })
-          // }
+
      }
+
      componentDidMount = () => {
-          // const { initApp } = this.props;
-          // initApp();
-          //const progressValue = Math.floor(todaySallery)
+
      }
 
      componentWillMount = () => {
-          // const { monthSallery, workingWeekDay, workingHour, startHour, endHour } = this.state
-
-          // const Todaydate = new Date();
-
-          // const getDay = Todaydate.getDay();
-          // const getDate = Todaydate.getDate();
-          // const getMonth = Todaydate.getMonth();
-          // const getYear = date.getFullYear();
-
-
-          // const ToadyStartDate = new Date(getYear, getMonth, getDate, startHour);
-          // const ToadyEndDate = new Date(getYear, getMonth, getDate, endHour);
-
-          // console.log("ToadyStartDate :" , ToadyStartDate.toLocaleString());
-          // console.log("시작시간 :" , ToadyStartDate.getHours());
-          
-          // console.log("ToadyEndDate :" , ToadyEndDate.toLocaleString());
-          // console.log("종료시간 :" , ToadyEndDate.getHours());
-          
-          // //시작 시간 부터 현재 시간까지 밀리초 계산
-          // const intervalSecond = Math.floor((Todaydate.getTime() - ToadyStartDate.getTime()) / 1000);
-          
-          // //시작 시간 부터 현재 시간까지 분 계산
-          // const intervalMinute = Math.floor(intervalSecond / 60);
-          
-          // console.log("지난시간 " , intervalSecond, "초");
-          // console.log("지난시간 " , intervalMinute, "분");
-          
-          // //시작 시간 부터 종료시간까지 밀리초 계산
-          // const workingHours = Math.floor((ToadyEndDate.getTime() - ToadyStartDate.getTime()) / 1000);
-          // console.log("근무시간 초", workingHours);
-          // console.log("근무시간 분", Math.floor(workingHours) / 60);
-          // console.log("근무시간",  Math.floor( Math.floor( workingHours / 60 ) / 60 ) );
-          
-          // // 경과시간 초 / 총근무시간 초  * 100 = 퍼센트
-          // const percent = Math.floor(( intervalSecond / workingHours  ) * 100);
-          // console.log("percent!!!!" , percent);
-
-          // const weekCount = _dayInMonth();
-          // console.log("weekCount!!!!" , weekCount);
-
-          // //주간 급여   -> 월 실수령액 / 한달에 주 수(ex 5주 / 6주 )
-          // const weekSallery = monthSallery / weekCount;
-          // console.log("weekSallery!!!!" , weekSallery);
-          
-          // //하루 일당   -> 주간급여 / 주간일하는 날수
-          // const todaySallery = Math.floor( weekSallery / workingWeekDay );
-          // console.log("todaySallery!!!!" , todaySallery);
-          
-          // // 1시간 급여 -> 일급여 / 하루 일하는 시간 = 시급
-          // const hourSallery = Math.floor( todaySallery / workingHour );
-          // console.log("hourSallery!!!!" , hourSallery);
-          
-          // // 1분 급여 => 
-          // const minuteSallery = Math.floor( hourSallery / 60 );
-          // console.log("minuteSallery!!!!" , minuteSallery);
-
-          // // 1초 급여 => 
-          // const secontSallery = Math.floor( minuteSallery / 60 );
-          // console.log("secontSallery!!!!" , secontSallery);
-              
-          // 경과 시간  => 등록된 startHour 
-          //const elapsedTime = 
-
-          //const percent = 
-          // default  minute 0 +  current minute현재 시간 초 / 하르근무 총 초 * 100
-
-          // this.setState({
-          //      todaySallery : minuteSallery
-          // })
-          
-
+ 
      };
 
      render() {
@@ -129,35 +156,6 @@ class Container extends Component {
                />
           );
      }
-
-     // _refresh = () => {
-     //      //const { getSalary } = this.props;
-     //      this.setState({
-     //           isFetching : true
-     //      });
-     //      //getFeed();
-     //      console.log("isFetch refresh")
-     // }
-}
-
-const date = new Date();
-// const dayCount = 
-
-_getPercent = () => {
-
-}
-
-_dayInMonth = () => {
-     const date = new Date();
-
-     const year  = Number(date.toLocaleDateString("de-DE", {year: "numeric"}));
-     const month = Number(date.toLocaleDateString("de-DE", {month: "2-digit"}));
-     const nowDate = new Date(year, month-1, 1);
-     const lastDate = new Date(year, month, 0).getDate();
-     const monthSWeek = nowDate.getDay();
-     const weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1)/7) + 1;
-  
-     return weekSeq;
 }
 
 export default Container;

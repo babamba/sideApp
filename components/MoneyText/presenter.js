@@ -9,7 +9,7 @@ const MoneyText = props => (
                <View style={styles.container}>
                     <Text style={styles.TodayMoney}>
                               <AnimateNumber 
-                                   value={props.currentSecondSallery} 
+                                   value={props.secondSallery} 
                                    formatter={(val) => {
                                         return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    }}

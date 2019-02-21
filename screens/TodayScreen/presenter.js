@@ -4,58 +4,23 @@ import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimension
 import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import MainText from "../../components/MainText"
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
-import AnimateNumber from 'react-native-animate-number';
+import MoneyText from "../../components/MoneyText"
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
 const TodayScreen = props => (
           <View style={styles.container}>
-               <View style={styles.TextConatiner}>
-                    <View style={styles.textArea}>
-                         <Text style={styles.MainText1}>
-                              나는 지금 
-                         </Text>
-                         <Text style={styles.TodayMoney}>
-                              <AnimateNumber 
-                                   value={props.todaySallery} 
-                                   formatter={(val) => {
-                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                   }}
-                                   timing={(interval, progress) => {
-                                        // slow start, slow end
-                                        return interval * (1 - Math.sin(Math.PI*progress) )*4
-                                   }}
-                              /> 원
-                              
-                         </Text>
-                         <Text style={styles.MainText2}>
-                              벌었다.
-                         </Text>
-                    </View>
-                    <View style={styles.addButton}>
-                         <AddButton 
-                              AddText={"수입등록"} 
-                              onPress={() => console.log("addButton")}
-                         />
-                    </View>
-               </View>
-               <View style={styles.progress}>
-                    <ProgressBarAnimated
-                              style={styles.progress}
-                              width={barWidth}
-                              value={props.progress}
-                              backgroundColorOnComplete="#6CC644"
-                              barEasing={"ease"}
-                    />
-               </View>
+               <MainText 
+                    progress={props.progress}
+                    secondSallery={props.secondSallery}
+               />
            </View>
      )
 
      TodayScreen.propTypes = {
           isFetching : PropTypes.bool.isRequired,
-          refresh: PropTypes.func.isRequired,
+          //refresh: PropTypes.func.isRequired,
           //feed : PropTypes.array
      }
 
@@ -95,18 +60,10 @@ const styles = StyleSheet.create({
           textAlign:'left',
           fontFamily: 'NanumBarunGothicUltraLight',
      },
-     TodayMoney:{
-          fontSize:45,
-          justifyContent: 'center',
-          textAlign:'left',
-          fontFamily: 'NanumBarunGothicLight',
-          fontWeight: 'bold',
-     },
      TodayMoneyWon:{
           fontSize:45,
           fontFamily: 'NanumBarunGothicUltraLight',
      },
-     
      progress:{
           width:84,
           transform: [{ rotate: '270deg'}],

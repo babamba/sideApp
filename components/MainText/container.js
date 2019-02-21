@@ -6,11 +6,11 @@ import { image } from "react-native";
 class Container extends Component {
 
      state ={
-          sallery : "2,000,000",
           isFetching : false
      }
      
      render() {
+          console.log("asdfasdf",this.props)
           return (
                <MainText 
                     {...this.props} 

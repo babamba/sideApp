@@ -106,13 +106,13 @@ class Container extends Component {
      // }
 
      componentWillReceiveProps = nextProps => {
-          const currentProps = this.props;
+          // const currentProps = this.props;
 
-          console.log("willProps : " , currentProps , " /nextProps :" ,nextProps);
+          // console.log("willProps : " , currentProps , " /nextProps :" ,nextProps);
 
-          this.setState({
-               secondSallery : nextProps.secondSallery
-          })
+          // this.setState({
+          //      secondSallery : nextProps.secondSallery
+          // })
      }
 
      render() {

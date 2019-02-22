@@ -11,26 +11,18 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 const slide = [
      {
        key: 'somethun',
-       title: 'Quick setup, good defaults',
-       text:
-         'React-native-app-intro-slider is easy to setup with a small footprint and no dependencies. And it comes with good default layouts!',
-       icon: 'ios-images',
-       colors: ['#63E2FF', '#B066FE'],
+       title: '한달에 \n한번 \n돌아오는 \n급여를 \n확인하세요',
+       colors: ['#FFFFFF'],
      },
      {
        key: 'somethun1',
-       title: 'Super customizable',
-       text:
-         'The component is also super customizable, so you can adapt it to cover your needs and wants.',
-       icon: 'ios-options',
-       colors: ['#A3A1FF', '#3A3897'],
+       title: '한번 \n등록하면 \n쉽게 \n볼수있다.',
+       colors: ['#FFFFFF'],
      },
      {
        key: 'somethun2',
-       title: 'No need to buy me beer',
-       text: 'Usage is all free',
-       icon: 'ios-beer',
-       colors: ['#29ABE2', '#4F00BC'],
+       title: '오늘의\n월급에\n관심을\n기울여보자',
+       colors: ['#FFFFFF'],
      },
    ];
 
@@ -89,7 +81,9 @@ class AppContainer extends Component {
                    //    bottomButton
                       showPrevButton
                       showSkipButton
-                      onDone={this._onDone} 
+                      onDone={this._onDone}
+                      activeDotStyle={{backgroundColor:'black'}}
+                      buttonTextStyle={{color:'black'}}
                       // hideNextButton
                       // hideDoneButton
                       // onSkip={() => console.log("skipped")}
@@ -114,7 +108,7 @@ class AppContainer extends Component {
      };
 
      _renderItem = props => (
-          <LinearGradient
+          <View
             style={[
               styles.mainContent,
               {
@@ -125,8 +119,8 @@ class AppContainer extends Component {
               },
             ]}
             colors={props.colors}
-            start={{ x: 0, y: 0.1 }}
-            end={{ x: 0.1, y: 1 }}
+          //   start={{ x: 0, y: 0.1 }}
+          //   end={{ x: 0.1, y: 1 }}
           >
             <Ionicons
               style={{ backgroundColor: 'transparent' }}
@@ -138,7 +132,7 @@ class AppContainer extends Component {
               <Text style={styles.title}>{props.title}</Text>
               <Text style={styles.text}>{props.text}</Text>
             </View>
-          </LinearGradient>
+          </View>
         );
 }
 
@@ -147,7 +141,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
      },
-
      mainContent: {
           flex: 1,
           alignItems: 'center',
@@ -164,10 +157,11 @@ const styles = StyleSheet.create({
           paddingHorizontal: 16,
      },
      title: {
-          fontSize: 22,
-          color: 'white',
+          fontSize: 45,
+          fontFamily: 'NanumBarunGothicUltraLight',
+          color: 'black',
           backgroundColor: 'transparent',
-          textAlign: 'center',
+          textAlign: 'left',
           marginBottom: 16,
      },
 })

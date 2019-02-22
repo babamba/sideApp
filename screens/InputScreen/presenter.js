@@ -3,8 +3,6 @@ import { View, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet
 import { Ionicons } from "@expo/vector-icons";
 const { width, height } = Dimensions.get("window");
 
-const type =["","","",""]
-
 const InputScreen = props => 
 
          <View style={{ flex: 2 }}>

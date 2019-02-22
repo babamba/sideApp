@@ -35,6 +35,7 @@ class AddButton extends Component {
           
      
      render(){
+          const { color } = this.props
           const deviceWidth = Dimensions.get("window").width;
           const deviceHeight = Dimensions.get("window").height;
 
@@ -47,7 +48,14 @@ class AddButton extends Component {
                     <TouchableHighlight 
                     activeOpacity={0.4} 
                     onPress={this._toggleModal}
-                    style={styles.button}
+                    style={[
+                         styles.button,
+                         {
+                           backgroundColor: color,
+                         },
+                       ]}
+                       
+                    underlayColor={"transparent"}
                     >
                     <View>
                          <Text style={styles.text}>

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import MainText from "./presenter";
+import SalleryText from "./presenterSallery";
+import DecreaseText from "./presenterDecrease"
 import { image } from "react-native";
 
 class Container extends Component {
@@ -8,15 +9,27 @@ class Container extends Component {
      state ={
           isFetching : false
      }
-     
+    
      render() {
-          return (
-               <MainText 
-                    {...this.props} 
-                    {...this.state} 
-                    // refresh={this._refresh} 
-               />
-          );
+          console.log("type : " , this.props.type);
+          if(this.props.type === 'Today' || this.props.type === 'Month'){
+               return (
+                    <SalleryText 
+                         {...this.props} 
+                         {...this.state} 
+                         // refresh={this._refresh} 
+                    />
+               );
+          }else{
+               return (
+                    <DecreaseText 
+                         {...this.props} 
+                         {...this.state} 
+                         // refresh={this._refresh} 
+                    />
+               )
+          }
+          
      }
 
      _refresh = () => {

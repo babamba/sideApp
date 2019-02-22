@@ -10,7 +10,7 @@ import {
 import Swiper from 'react-native-swiper';
 import TodayScreen from "../TodayScreen"
 import MonthScreen from "../MonthScreen"
-import PurchaseScreen from "../MonthScreen";
+import PurchaseScreen from "../PurchaseScreen";
 import MealScreen from "../MealScreen";
 const { width, height } = Dimensions.get("window");
 
@@ -29,21 +29,23 @@ class SwipeScreen extends Component {
                dot={<View style={styles.dot} />}
                activeDot={<View style={styles.activeDot} />}
                paginationStyle={styles.paginationStyle}
+              //  nextButton={<Text style={styles.nextButton}>›</Text>}
+              //  prevButton={<Text style={styles.prevButton}>‹</Text>}
           >
            <View style={styles.slide1}>
              {/* <Text style={styles.text}>Hello Swiper</Text> */}
              <TodayScreen {...this.props}/>
            </View>
            <View style={styles.slide2}>
-               <MonthScreen/>
+               <MonthScreen {...this.props}/>
              {/* <Text style={styles.text}>Beautiful</Text> */}
            </View>
            <View style={styles.slide3}>
-             <MealScreen />
+             <MealScreen {...this.props}/>
            </View>
            <View style={styles.slide4}>
              {/* <Text style={styles.text}>And simple</Text> */}
-             <PurchaseScreen />
+             <PurchaseScreen {...this.props}/>
            </View>
          </Swiper>
        );
@@ -102,6 +104,12 @@ const styles = StyleSheet.create({
   paginationStyle:{
     flex:1,
     justifyContent:'center',
+  },
+  nextButton:{
+    color:'rgba(0,0,0,.5)',
+  },
+  prevButton:{
+    color:'rgba(0,0,0,.5)',
   }
 })
 

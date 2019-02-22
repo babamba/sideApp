@@ -9,47 +9,94 @@ import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 80;
+const progressCustomStyles = {
+     backgroundColor: 'red', 
+     borderRadius: 0,
+     borderColor: 'rgba(255, 255, 255, 0.8)',
+   };
 
-const MainText = props => (
-               <View style={styles.container}>
-                    <View style={styles.TextConatiner}>
+const DecreaseText = props => (
+     props.type  ===  "Purchase" ? ( 
+          <View style={styles.container}>
+               <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
                          <Text style={styles.MainText1}>
-                              나는 지금 
+                              지름신
                          </Text>
                          <MoneyText 
                               todaySallery={12312}
                               {...props}
                          />
                          <Text style={styles.MainText2}>
-                              벌었다.
+                             원치 탕진해버렸다.
                          </Text>
                     </View>
                     <View style={styles.addButton}>
                          <AddButton 
-                              AddText={"수입등록"} 
+                              AddText={"지출등록"} 
                               onPress={() => console.log("addButton")}
+                              color={"#FF6565"}
                          />
                     </View>
                </View>
                <View style={styles.progress}>
                     <ProgressBarAnimated
+                    {...progressCustomStyles}
                               style={styles.progress}
                               width={barWidth}
+                              value={80}
+                              barEasing={"ease"}
+                              maxValue={100}
+                              barAnimationDuration={20.0}
+                              
+                    />
+               </View>
+          </View>
+     ) : (
+          <View style={styles.container}>
+               <View style={styles.TextConatiner}>
+                    <View style={styles.textArea}>
+                         <MoneyText 
+                              todaySallery={12312}
+                              {...props}
+                         />
+                         <Text style={styles.MainText1}>
+                              원 치
+                         </Text>
+                         <Text style={styles.MainText2}>
+                              밥을 먹었다
+                         </Text>
+                    </View>
+                    <View style={styles.addButton}>
+                         <AddButton 
+                              AddText={"지출등록"} 
+                              onPress={() => console.log("addButton")}
+                              color={"#FF6565"}
+                         />
+                    </View>
+               </View>
+               <View style={styles.progress}>
+                    <ProgressBarAnimated
+                              //style={styles.progress}
+                              progressCustomStyles={{backgroundColor: 'red', borderRadius: 0, borderColor: 'orange',}}
+                              width={barWidth}
                               value={90}
-                              backgroundColorOnComplete="#6CC644"
+                              backgroundColorOnComplete="#3CC644"
                               barEasing={"ease"}
                     />
                </View>
           </View>
+     )
 )
 
      
-     MainText.propTypes = {
-          isFetching : PropTypes.bool.isRequired,
-          //refresh: PropTypes.func.isRequired,
-          //feed : PropTypes.array
-     }
+DecreaseText.propTypes = {
+     isFetching : PropTypes.bool.isRequired,
+     //refresh: PropTypes.func.isRequired,
+     //feed : PropTypes.array
+}
+
+
 
 const styles = StyleSheet.create({
      container:{
@@ -96,6 +143,12 @@ const styles = StyleSheet.create({
           transform: [{ rotate: '270deg'}],
           //backgroundColor:'red',
           top: 120
+     },
+
+     progressCustomStyles:{
+          backgroundColor: 'red', 
+          borderRadius: 0,
+          borderColor: 'orange',
      }
      // container:{
      //      flex:1,
@@ -136,4 +189,4 @@ const styles = StyleSheet.create({
 
 
 
-export default MainText;
+export default DecreaseText;

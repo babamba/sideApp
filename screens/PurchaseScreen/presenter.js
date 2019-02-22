@@ -9,17 +9,18 @@ import MoneyText from "../../components/MoneyText"
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
-const TodayScreen = props => (
+const PurchaseScreen = props => (
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}
                     secondSallery={props.secondSallery}
                     {...this.props}
+                    type={"Purchase"}
                />
            </View>
      )
 
-     TodayScreen.propTypes = {
+     PurchaseScreen.propTypes = {
           isFetching : PropTypes.bool.isRequired,
           //refresh: PropTypes.func.isRequired,
           //feed : PropTypes.array
@@ -76,4 +77,4 @@ const styles = StyleSheet.create({
 
 
 
-export default TodayScreen;
+export default PurchaseScreen;

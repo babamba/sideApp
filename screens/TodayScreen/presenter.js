@@ -15,6 +15,7 @@ const TodayScreen = props => (
                     progress={props.progress}
                     secondSallery={props.secondSallery}
                     {...this.props}
+                    type={"Today"}
                />
            </View>
      )

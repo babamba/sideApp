@@ -8,7 +8,7 @@ import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
-const barWidth = Dimensions.get('screen').height - 60;
+const barWidth = Dimensions.get('screen').height - 80;
 
 const MainText = props => (
                <View style={styles.container}>
@@ -18,7 +18,7 @@ const MainText = props => (
                               나는 지금 
                          </Text>
                          <MoneyText 
-                              todaySallery={props.todaySallery}
+                              todaySallery={12312}
                               {...props}
                          />
                          <Text style={styles.MainText2}>
@@ -36,7 +36,7 @@ const MainText = props => (
                     <ProgressBarAnimated
                               style={styles.progress}
                               width={barWidth}
-                              value={props.timer}
+                              value={90}
                               backgroundColorOnComplete="#6CC644"
                               barEasing={"ease"}
                     />
@@ -54,8 +54,8 @@ const MainText = props => (
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
-          backgroundColor: "white",
+          marginTop:250,
+          ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",
@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
           paddingLeft:60,
      },
      textArea:{
-          flex:1,
           alignContent: 'center',
           //backgroundColor:'blue',
      },
      addButton:{
-          height:20
+          paddingTop:20,
+          height:20,
      },
      MainText1:{
           fontSize:45,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
           width:84,
           transform: [{ rotate: '270deg'}],
           //backgroundColor:'red',
-          top: 290
+          top: 120
      }
      // container:{
      //      flex:1,

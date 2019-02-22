@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView , Dimensions} from "react-native";
 import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal";
+import InputScreen from "../../screens/InputScreen";
 
 class AddButton extends Component {
      constructor(props){
@@ -37,6 +38,9 @@ class AddButton extends Component {
           const deviceWidth = Dimensions.get("window").width;
           const deviceHeight = Dimensions.get("window").height;
 
+          console.log("deviceWidth" ,deviceWidth)
+          console.log("deviceHeight" ,deviceHeight)
+
           //console.log(this.props);
           return (
                <View>
@@ -65,28 +69,11 @@ class AddButton extends Component {
                          swipeDirection="down"
                          onSwipeComplete={() => this.setState({ isModalVisible: false })}
                          swipeThreshold={10}
-                         
-                         // scrollTo={this.handleScrollTo}
-                         // scrollOffset={this.state.scrollOffset}
-                         // scrollOffsetMax={400 - 300} // content height - ScrollView height
                     >
-                    {/* <View style={styles.scrollableModal}>
-                         <ScrollView
-                         ref={ref => (this.scrollViewRef = ref)}
-                         onScroll={this.handleOnScroll}
-                         scrollEventThrottle={16}>
-                              <View style={styles.scrollableModalContent1}>
-                                   <Text>Scroll me up</Text>
-                              </View>
-                              <View style={styles.scrollableModalContent1}>
-                                   <Text>Scroll me up</Text>
-                              </View>
-                         </ScrollView>
-                    </View> */}
 
                     <View style={styles.modalContent}>
                          <TouchableOpacity onPress={this._toggleModal}>
-                              <Text>Hello!</Text>
+                              <InputScreen />
                          </TouchableOpacity>
                     </View>
                     </Modal>
@@ -130,7 +117,8 @@ const styles = StyleSheet.create({
      },
      modalContent: {
           backgroundColor: "white",
-          paddingBottom: 620,
+          //paddingBottom: 420,
+          top:0 + 120,
           padding: 22,
           justifyContent: "center",
           alignItems: "center",

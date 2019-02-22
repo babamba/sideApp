@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Dimensions
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
@@ -11,7 +12,9 @@ import TodayScreen from "../TodayScreen"
 import MonthScreen from "../MonthScreen"
 import PurchaseScreen from "../MonthScreen";
 import MealScreen from "../MealScreen";
+const { width, height } = Dimensions.get("window");
 
+console.log("width, height",width, height)
 class SwipeScreen extends Component {
      render(){
          //console.log(this.props)
@@ -19,6 +22,13 @@ class SwipeScreen extends Component {
           <Swiper
                style={styles.wrapper} 
                showsButtons={true}
+               loadMinimal 
+               loadMinimalSize={1}
+              //  autoplay
+              //  autoplayTimeout={7}
+               dot={<View style={styles.dot} />}
+               activeDot={<View style={styles.activeDot} />}
+               paginationStyle={styles.paginationStyle}
           >
            <View style={styles.slide1}>
              {/* <Text style={styles.text}>Hello Swiper</Text> */}
@@ -42,6 +52,7 @@ class SwipeScreen extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
+
   },
   slide1: {
     flex: 1,
@@ -67,6 +78,30 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  dot:{
+    backgroundColor: 'rgba(0,0,0,.2)', 
+    width: 15, 
+    height: 5, 
+    borderRadius: 2, 
+    marginLeft: 3, 
+    marginRight: 3, 
+    marginTop: 3, 
+    marginBottom: 3
+  },
+  activeDot:{
+    backgroundColor: 'rgba(0,0,0,.5)', 
+    width: 15, 
+    height: 5, 
+    borderRadius: 2, 
+    marginLeft: 3, 
+    marginRight: 3, 
+    marginTop: 3, 
+    marginBottom: 3
+  },
+  paginationStyle:{
+    flex:1,
+    justifyContent:'center',
   }
 })
 

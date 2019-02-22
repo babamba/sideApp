@@ -1,36 +1,17 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
-import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
-import Modal from "react-native-modal";
+import { connect } from "react-redux";
+import Container from "./container";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
-class InputScreen extends Component {
-     state = {
-       isModalVisible: false
-     };
-    
-     _toggleModal = () =>
-       this.setState({ isModalVisible: !this.state.isModalVisible });
-    
-     render() {
-       return (
-         <View style={{ flex: 2 }}>
-          <TouchableOpacity onPress={this._toggleModal}>
-             <Text>Show Modal</Text>
-          </TouchableOpacity>
-               <Modal 
-                    isVisible={this.state.isModalVisible}
-                    
-               >
-               <View style={{ flex: 1 }}>
-               <Text>Hello!</Text>
-               <TouchableOpacity onPress={this._toggleModal}>
-                 <Text>Hide me!</Text>
-               </TouchableOpacity>
-             </View>
-           </Modal>
-         </View>
-       );
-     }
-   }
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//      return {
+//           login: (username, password) => {
+//                return dispatch(userActions.login(username, password))
+//           },
+//           // fbLogin : () => {
+//           //      dispatch(userActions.facebookLogin());
+//           // }
+//      }
+// }
 
-   export default InputScreen
+
+export default connect()(Container);

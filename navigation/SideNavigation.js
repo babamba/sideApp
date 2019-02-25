@@ -6,6 +6,7 @@ import AnalysisScreen from "../screens/AnalysisScreen"
 import ReportScreen from "../screens/ReportScreen"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import SwipeScreen from "../screens/SwipeScreen"
+import FirstStepScreen from "../screens/FirstStepScreen";
 
 const SideNavigation = createDrawerNavigator (
      {
@@ -28,6 +29,12 @@ const SideNavigation = createDrawerNavigator (
                     title:"문의하기",
                }
           },
+          EnterSalaryNavigation : {
+               screen : FirstStepScreen,
+               navigationOptions:{
+                    title:"월급 입력 테스트",
+               }
+          }
      },
      {
           initialRouteName: 'Side',

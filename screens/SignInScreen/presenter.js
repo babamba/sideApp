@@ -17,6 +17,7 @@ import { scale, scaleVertical } from "../../utilities/scale";
 import GradientButton from "react-native-gradient-buttons";
 import Proptypes from "prop-types";
 import { withNavigation } from "react-navigation";
+import { TextField } from 'react-native-material-textfield';
 
 const styles = StyleSheet.create({
   screen: {
@@ -57,7 +58,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 18,
     marginVertical: scaleVertical(6),
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: 'NanumBarunGothicUltraLight',
   },
   OR: {
     marginVertical: scaleVertical(12),
@@ -90,7 +92,6 @@ const renderIcon = () => (
     );
 
 const SignInScreen = props => 
-
       <RkAvoidKeyboard
         style={styles.screen}
         onStartShouldSetResponder={() => true}
@@ -102,7 +103,7 @@ const SignInScreen = props =>
           <RkCard rkType="heroImage shadowed" style={styles.content}>
             <TextInput
               textContentType="username"
-              placeholder="EMAIL OR USERNAME"
+              placeholder="아이디를 입력해주세요"
               placeholderTextColor="#707070"
               style={styles.input}
               autoCapitalize={"none"}
@@ -110,10 +111,27 @@ const SignInScreen = props =>
               value={props.username}
                onChangeText={props.changeUsername}
             />
+            {/* <TextField
+              label="username"
+          //     placeholder="아이디를 입력해주세요"
+          //     placeholderTextColor="#707070"
+              style={styles.input}
+              tintColor={"rgba(201, 146, 230, .7)"}
+              inputContainerStyle={{borderWidth: 0.5,
+               borderColor: "#D3D3D3",
+               borderRadius: 50,
+               padding: 18,
+               marginVertical: scaleVertical(6),}}
+              labelPadding={18}
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              value={props.username}
+               onChangeText={props.changeUsername}
+            />  */}
             <TextInput
               textContentType="password"
               secureTextEntry={true}
-              placeholder="PASSWORD"
+              placeholder="비밀번호를 입력해주세요"
               placeholderTextColor="#707070"
               style={styles.input}
               autoCapitalize={"none"}
@@ -123,14 +141,29 @@ const SignInScreen = props =>
             />
 
           {props.isSubmiting ? ( 
-                    <ActivityIndicator size="small" color="white" /> 
+               <GradientButton
+                    style={{ marginTop: 8 ,shadowColor: 'gray',
+                         shadowOffset: { width: 0, height: 0 },
+                         shadowOpacity: 0.5,
+                         shadowRadius: 7,}}
+                    textStyle={{ fontSize: 20 }}
+                    text="로그인 중..."
+                    height={50}
+                    blueViolet
+                    onPressAction={() => props.submit()}
+               >
+               </GradientButton>  
+                    
                ) : ( 
                     <GradientButton
-                         style={{ marginTop: 8 }}
+                         style={{ marginTop: 8 ,shadowColor: 'gray',
+                         shadowOffset: { width: 0, height: 0 },
+                         shadowOpacity: 0.5,
+                         shadowRadius: 7,}}
                          textStyle={{ fontSize: 20 }}
-                         text="LOGIN"
+                         text="로그인"
                          height={50}
-                         violetPink
+                         blueViolet
                          onPressAction={() => props.submit()}
                     />  
           )}
@@ -165,10 +198,10 @@ const SignInScreen = props =>
           </View> */}
           <View style={styles.textRow}>
             <Text style={{ color: "#484848", fontSize: 18, marginTop: 8 }}>
-              Don&rsquo;t have an account?
+              계정이 없으신가요?
             </Text>
             <Button
-              title="Sign up now."
+              title="가입하기"
               onPress={() => props.navigation.navigate("SignUpScreen")}
             />
           </View>

@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 18,
     marginVertical: scaleVertical(6),
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: 'NanumBarunGothicUltraLight',
   },
   textRow: {
     flexDirection: "row",
@@ -79,9 +80,9 @@ const SignUpScreen = props =>
             style={{ color: "#4A4A4A" }}
           />
           <Text
-            style={{ fontSize: scale(28), fontWeight: "800", color: "#4A4A4A" }}
+            style={{ fontSize: scale(28), marginTop:5, fontWeight: "800", color: "#4A4A4A",fontFamily: 'NanumBarunGothicLight', }}
           >
-            Registration
+            회원가입
           </Text>
         </View>
 
@@ -89,7 +90,7 @@ const SignUpScreen = props =>
           <RkCard rkType="heroImage shadowed" style={styles.content}>
             <TextInput
               textContentType="name"
-              placeholder="NAME"
+              placeholder="닉네임을 입력해주세요"
               placeholderTextColor="#707070"
               style={styles.input}
               onChangeText={props.changeUsername}
@@ -99,7 +100,7 @@ const SignUpScreen = props =>
             />
             <TextInput
               textContentType="emailAddress"
-              placeholder="EMAIL"
+              placeholder="이메일을 입력해주세요"
               placeholderTextColor="#707070"
               style={styles.input} 
               onChangeText={props.changeEmail}
@@ -110,7 +111,7 @@ const SignUpScreen = props =>
             <TextInput
               textContentType="password"
               secureTextEntry={true}
-              placeholder="PASSWORD"
+              placeholder="비밀번호를 입력해주세요"
               placeholderTextColor="#707070"
               style={styles.input}
               autoCapitalize={"none"}
@@ -119,9 +120,9 @@ const SignUpScreen = props =>
               value={props.password}
             />
             <TextInput
-              textContentType="password"
+              textContentType="newPassword"
               secureTextEntry={true}
-              placeholder="CONFIRM PASSWORD"
+              placeholder="비밀번호를 한번더 입력해주세요"
               placeholderTextColor="#707070"
               style={styles.input}
               autoCapitalize={"none"}
@@ -132,9 +133,9 @@ const SignUpScreen = props =>
             <GradientButton
               style={{ marginTop: 8 }}
               textStyle={{ fontSize: 20 }}
-              text="SIGN UP"
+              text="회원가입"
               height={50}
-              violetPink
+              blueViolet
               onPressAction={() => props.submit()}
             />
           </RkCard>
@@ -143,10 +144,10 @@ const SignUpScreen = props =>
         <View>
           <View style={styles.textRow}>
             <Text style={{ color: "#484848", fontSize: 18, marginTop: 8 }}>
-              Already have an account?
+              이미 가입 중이신가요?
             </Text>
             <Button
-              title="Sign in now."
+              title="로그인 하기"
               onPress={() => props.navigation.navigate("LogIn")}
             />
           </View>

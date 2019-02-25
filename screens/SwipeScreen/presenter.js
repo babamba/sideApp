@@ -29,8 +29,8 @@ class SwipeScreen extends Component {
                dot={<View style={styles.dot} />}
                activeDot={<View style={styles.activeDot} />}
                paginationStyle={styles.paginationStyle}
-              //  nextButton={<Text style={styles.nextButton}>›</Text>}
-              //  prevButton={<Text style={styles.prevButton}>‹</Text>}
+               nextButton={<Text style={styles.nextButton}>›</Text>}
+               prevButton={<Text style={styles.prevButton}>‹</Text>}
           >
            <View style={styles.slide1}>
              {/* <Text style={styles.text}>Hello Swiper</Text> */}

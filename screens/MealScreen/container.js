@@ -15,6 +15,9 @@ class Container extends Component {
      state = {
           isFetching : false
      };
+     componentWillUnmount = () =>{
+          console.log("Purchase Unmount")
+     }
 
      componentWillReceiveProps = nextProps => {
           //console.log("nextProps.feed", nextProps.feed);

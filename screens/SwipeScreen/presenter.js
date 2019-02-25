@@ -31,6 +31,7 @@ class SwipeScreen extends Component {
                paginationStyle={styles.paginationStyle}
                nextButton={<Text style={styles.nextButton}>›</Text>}
                prevButton={<Text style={styles.prevButton}>‹</Text>}
+               onScrollBeginDrag={(e, state, context) => console.log('index:', state.index)}
           >
            <View style={styles.slide1}>
              {/* <Text style={styles.text}>Hello Swiper</Text> */}

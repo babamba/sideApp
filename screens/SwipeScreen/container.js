@@ -110,8 +110,9 @@ class Container extends Component {
      }  
 
      componentWillReceiveProps = nextProps => {
-        console.log("next ",nextProps)
-    }
+          console.log("!@# next ",nextProps)
+     }
+
 
     //  componentDidMount = () => {
 

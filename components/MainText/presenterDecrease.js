@@ -12,7 +12,7 @@ import * as Animatable from 'react-native-animatable';
 import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
-const barWidth = Dimensions.get('screen').height - 80;
+const barWidth = Dimensions.get('screen').height - 180;
 const progressCustomStyles = {
      backgroundColor: 'red', 
      borderRadius: 0,
@@ -26,18 +26,18 @@ const DecreaseText = props => (
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
-                                   지름신
+                                   지름신이와서
                               </Text>
                          </View>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={12312}
+                                   todaySallery={230000}
                                    {...props}
                               />
                          </View>
                          <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText2}>
-                              원치 탕진해버렸다.
+                              탕진해버렸다.
                               </Text>
                          </View>
                     </View>
@@ -54,7 +54,7 @@ const DecreaseText = props => (
                     {...progressCustomStyles}
                               style={styles.progress}
                               width={barWidth}
-                              value={80}
+                              value={50}
                               barEasing={"ease"}
                               maxValue={100}
                               barAnimationDuration={20.0}
@@ -68,13 +68,13 @@ const DecreaseText = props => (
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={12312}
+                                   todaySallery={22312}
                                    {...props}
                               />
                          </View>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
-                                   원 치
+                                   어치
                               </Text>
                          </View>
                          <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>

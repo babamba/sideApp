@@ -25,6 +25,10 @@ class Container extends Component {
           }
      }
 
+     componentWillUnmount = () =>{
+          console.log("Purchase Unmount")
+     }
+
      componentDidMount = () => {
           // const { initApp } = this.props;
           // initApp();

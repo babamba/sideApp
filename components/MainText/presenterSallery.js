@@ -13,7 +13,7 @@ import * as Animatable from 'react-native-animatable';
 import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
-const barWidth = Dimensions.get('screen').height - 80;
+const barWidth = Dimensions.get('screen').height - 180;
 const progressCustomStyles = {
      backgroundColor: 'red', 
      borderRadius: 0,
@@ -43,7 +43,7 @@ const SalleryText = props => (
                          </View>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={12312}
+                                   todaySallery={32312}
                                    {...props}
                               />
                          </View>
@@ -68,7 +68,7 @@ const SalleryText = props => (
                               {...progressCustomStyles}
                               style={styles.progress}
                               width={barWidth}
-                              value={90}
+                              value={40}
                               backgroundColorOnComplete="#99F089"
                               barEasing={"ease"}
                     />
@@ -85,7 +85,7 @@ const SalleryText = props => (
                          </View>
                          <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={12312}
+                                   todaySallery={1221312}
                                    {...props}
                               />
                          </View>
@@ -108,7 +108,7 @@ const SalleryText = props => (
                               {...progressCustomStyles}
                               style={styles.progress}
                               width={barWidth}
-                              value={90}
+                              value={70}
                               backgroundColorOnComplete="#6CC644"
                               barEasing={"ease"}
                               color={"#99F089"}

@@ -5,11 +5,11 @@ import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
-
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
 const TodayScreen = props => (
+
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}
@@ -29,8 +29,8 @@ const TodayScreen = props => (
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
-          backgroundColor: "white",
+          ...ifIphoneX({paddingTop: 80}, {paddingTop: 30}),
+          backgroundColor: 'white',
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",

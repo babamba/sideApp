@@ -1,9 +1,14 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
+import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
 import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
+//import FadeInView from 'react-native-fade-in-view';
+
+import { createAnimatableComponent, View, Text } from 'react-native-animatable';
+
+import * as Animatable from 'react-native-animatable';
 
 import MoneyText from "../MoneyText";
 
@@ -17,28 +22,45 @@ const progressCustomStyles = {
      colors:['#63E2FF', '#B066FE'],
 };
 
+const fadeInDown = {
+     from: {
+       opacity: 0,
+     },
+     to: {
+       opacity: 1,
+     },
+   };
+
 const SalleryText = props => (
      props.type  ===  "Today" ? ( 
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
-                    <View style={styles.textArea}>
-                         <Text style={styles.MainText1}>
-                              나는 지금 
-                         </Text>
-                         <MoneyText 
-                              todaySallery={12312}
-                              {...props}
-                         />
-                         <Text style={styles.MainText2}>
-                              벌었다.
-                         </Text>
+                    <View style={styles.textArea} >
+                         <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText1} >
+                                   나는 지금 
+                              </Text>
+                         </View>
+                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                              <MoneyText 
+                                   todaySallery={12312}
+                                   {...props}
+                              />
+                         </View>
+                         <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText2}>
+                                   벌었다.
+                              </Text>
+                         </View>
+                         
                     </View>
                     <View style={styles.addButton}>
+                    
                          <AddButton 
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
                               color={"#99F089"}
-                         />
+                         /> 
                     </View>
                </View>
                <View style={styles.progress}>
@@ -56,16 +78,22 @@ const SalleryText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
-                         <Text style={styles.MainText1}>
-                              텅장이
-                         </Text>
-                         <MoneyText 
-                              todaySallery={12312}
-                              {...props}
-                         />
-                         <Text style={styles.MainText2}>
-                              채워지고 있다.
-                         </Text>
+                         <View animation="fadeInDown" delay={200}  easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText1}>
+                                   텅장이
+                              </Text>
+                         </View>
+                         <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>
+                              <MoneyText 
+                                   todaySallery={12312}
+                                   {...props}
+                              />
+                         </View>
+                         <View animation="fadeInDown" delay={0}  easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText2}>
+                                   채워지고 있다.
+                              </Text>
+                         </View>
                     </View>
                     <View style={styles.addButton}>
                          <AddButton 

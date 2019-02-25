@@ -1,9 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
+import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
 import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
+
+import { createAnimatableComponent, View, Text } from 'react-native-animatable';
+
+import * as Animatable from 'react-native-animatable';
 
 import MoneyText from "../MoneyText";
 
@@ -20,16 +24,22 @@ const DecreaseText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
-                         <Text style={styles.MainText1}>
-                              지름신
-                         </Text>
-                         <MoneyText 
-                              todaySallery={12312}
-                              {...props}
-                         />
-                         <Text style={styles.MainText2}>
-                             원치 탕진해버렸다.
-                         </Text>
+                         <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText1}>
+                                   지름신
+                              </Text>
+                         </View>
+                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                              <MoneyText 
+                                   todaySallery={12312}
+                                   {...props}
+                              />
+                         </View>
+                         <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText2}>
+                              원치 탕진해버렸다.
+                              </Text>
+                         </View>
                     </View>
                     <View style={styles.addButton}>
                          <AddButton 
@@ -56,16 +66,22 @@ const DecreaseText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
-                         <MoneyText 
-                              todaySallery={12312}
-                              {...props}
-                         />
-                         <Text style={styles.MainText1}>
-                              원 치
-                         </Text>
-                         <Text style={styles.MainText2}>
-                              밥을 먹었다
-                         </Text>
+                         <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                              <MoneyText 
+                                   todaySallery={12312}
+                                   {...props}
+                              />
+                         </View>
+                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText1}>
+                                   원 치
+                              </Text>
+                         </View>
+                         <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
+                              <Text style={styles.MainText2}>
+                                   밥을 먹었다
+                              </Text>
+                         </View>
                     </View>
                     <View style={styles.addButton}>
                          <AddButton 

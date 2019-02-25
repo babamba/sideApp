@@ -7,7 +7,7 @@ const {width, height} = Dimensions.get("window");
 
 const MoneyText = props => (
                <View style={styles.container}>
-                    <Text style={styles.TodayMoney}>
+                    <Text style={styles.TodayMoney} onPress={console.log("asdfasdfasdf")}>
                               <AnimateNumber 
                                    value={props.todaySallery} 
                                    formatter={(val) => {

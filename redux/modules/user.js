@@ -82,6 +82,49 @@ function login(username, password){
      }
 }
 
+function signUp(username, password, email){
+     return dispatch => {
+          console.log(`${API_URL}/rest-auth/signUp/`);
+          return fetch(`${API_URL}/rest-auth/signUp/`, {
+               method: "POST",
+               headers : {
+                    "Content-Type" : "application/json"
+               },
+               body: JSON.stringify({
+                    username,
+                    password,
+                    email
+               })
+          })
+          //.then(response => response.json())
+          .then(response => {
+               if(response.status === 401){
+                    return false;
+                    //dispatch(logOut());
+               }else if(response.ok){
+                    return true;
+               }else if(!response.ok){
+                    return false;
+               }
+          })
+          // .then(json => {
+          //      if(json.user && json.token){
+          //           //console.log(json)
+          //           dispatch(setLogIn(json.token))
+          //           dispatch(setUser(json.user))
+          //           return true
+          //      }else{
+          //           console.log("unable login")
+          //           return false;
+          //      }
+          // })
+          // .catch(function(error){
+          //      console.log("error message")
+          //      console.log(error);
+          // })
+     }
+}
+
 // Initial State
 
 // 유저가 앱을 처음받고 첫 로그인화면때는 false
@@ -155,7 +198,7 @@ const actionCreators = {
      setAlreadyLaunch,
      login,
      logOut,
-
+     signUp,
 }
 
 export { actionCreators };

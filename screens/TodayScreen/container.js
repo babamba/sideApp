@@ -146,6 +146,9 @@ class Container extends Component {
      componentWillMount = () => {
  
      };
+     componentWillUnmount = () =>{
+          console.log("Today Unmount")
+     }
 
      render() {
           return (

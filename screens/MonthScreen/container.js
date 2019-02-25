@@ -29,6 +29,9 @@ class Container extends Component {
           // const { initApp } = this.props;
           // initApp();
      };
+     componentWillUnmount = () =>{
+          console.log("Month Unmount")
+     }
 
      render() {
           return (

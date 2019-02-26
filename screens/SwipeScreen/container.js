@@ -70,6 +70,8 @@ class Container extends Component {
                INTERVAL_SECOND,
                WORKING_SECOND,
                PERCENT,
+               selectedIndex:0,
+               renderArray: [true, false, false, false]
           };
      }
 
@@ -113,7 +115,52 @@ class Container extends Component {
           console.log("!@# next ",nextProps)
      }
 
+     onIndexChanged = index => {
+          console.log("swiperIndexChanged", "index", index);
+          
+          //setTimeout(()=>this.setState({selectedIndex:index}),200)
+          //this.setState({ renderArray: tempvar});
+          const tempvar = this.state.renderArray;
+               console.log("index  >>>> 0 " )
+               tempvar.forEach(function(val,idx) { 
+                    console.log(idx, " : " , index)
+                    tempvar[idx] = false
+                    if(index === idx){
+                         tempvar[idx] = true
+                    }
+               }) 
+               this.setState({ renderArray: tempvar, selectedIndex:index}); //<<======== problem with this
+               console.log(tempvar)
+     };
 
+     _onScrollBeginDrag = (e, state) => {
+          console.log("_onScrollBeginDrag is:", state.index);
+          //setTimeout(()=>this.setState({selectedIndex:state.index}),1000)
+          // this.setState({
+          //      selectedIndex:state.index
+          // });
+     }
+
+     _onMomentumScrollEnd =  (e, state) => {
+          console.log("_onMomentumScrollEnd is:", state.index);
+          //setTimeout(()=>this.setState({selectedIndex:state.index}),100)
+          setTimeout(()=>this.setState({refresh:true}),400);
+     }
+
+     _onTouchStartCapture = (e, state) => {
+          console.log("_onTouchStartCapture is:", state.index);
+          //setTimeout(()=>this.setState({selectedIndex:state.index}),100)
+          // this.setState({
+          //      selectedIndex:state.index
+          // });
+     }
+
+     _onScrollEnd = (e, state) => {
+          console.log("_onScrollEnd:", state.index);
+          // this.setState({
+          //      selectedIndex:state.index
+          // });
+     };
     //  componentDidMount = () => {
 
     //  }
@@ -126,8 +173,13 @@ class Container extends Component {
           return (
                <SwipeScreen 
                     {...this.props} 
-                    {...this.state} 
+                    {...this.state}
                     //refresh={this._refresh} 
+                    onIndexChanged={this.onIndexChanged}
+                    onScrollEnd={this._onScrollEnd}
+                    onScrollBeginDrag={this._onScrollBeginDrag}
+                    onMomentumScrollEnd={this._onMomentumScrollEnd}
+                    onTouchStartCapture={this._onTouchStartCapture}
                />
           );
      }

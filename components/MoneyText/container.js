@@ -117,7 +117,7 @@ class Container extends Component {
 
      render() {
           //console.log("money", this.props)
-          console.log("asdfasdfasdfasdfasdf", this.props)
+          //console.log("asdfasdfasdfasdfasdf", this.props)
           return (
                <MoneyText 
                     {...this.props} 

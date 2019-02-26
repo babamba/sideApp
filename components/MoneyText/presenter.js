@@ -7,7 +7,7 @@ const {width, height} = Dimensions.get("window");
 
 const MoneyText = props => (
                <View style={styles.container}>
-                    <Text style={styles.TodayMoney} onPress={console.log("asdfasdfasdf")}>
+                    <Text style={styles.TodayMoney}>
                               <AnimateNumber 
                                    value={props.todaySallery} 
                                    formatter={(val) => {
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
      //      flex:1
      // },
      TodayMoney:{
-          fontSize:45,
+          fontSize:36,
           justifyContent: 'center',
           textAlign:'left',
           fontFamily: 'NanumBarunGothicLight',

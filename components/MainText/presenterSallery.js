@@ -149,20 +149,20 @@ const styles = StyleSheet.create({
           height:20,
      },
      MainText1:{
-          fontSize:45,
+          fontSize:40,
           justifyContent: 'center',
           textAlign:'left',
           alignItems: 'center',
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      MainText2:{
-          fontSize:45,
+          fontSize:40,
           justifyContent: 'center',
           textAlign:'left',
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      TodayMoneyWon:{
-          fontSize:45,
+          fontSize:40,
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      progress:{

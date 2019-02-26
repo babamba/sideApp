@@ -40,7 +40,7 @@ class Container extends Component {
      }
     
      render() {
-          console.log("type : " , this.props.type);
+          //console.log("type : " , this.props.type);
           if(this.props.type === 'Today' || this.props.type === 'Month'){
                return (
                     <SalleryText 

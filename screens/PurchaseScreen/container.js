@@ -16,14 +16,14 @@ class Container extends Component {
           isFetching : false
      };
 
-     componentWillReceiveProps = nextProps => {
-          //console.log("nextProps.feed", nextProps.feed);
-          if(nextProps.feed){
-               this.setState({
-                    isFetching : false
-               })
-          }
-     }
+     // componentWillReceiveProps = nextProps => {
+     //      //console.log("nextProps.feed", nextProps.feed);
+     //      if(nextProps.feed){
+     //           this.setState({
+     //                isFetching : false
+     //           })
+     //      }
+     // }
 
      componentWillUnmount = () =>{
           console.log("Purchase Unmount")
@@ -39,19 +39,19 @@ class Container extends Component {
                <PurchaseScreen 
                     {...this.props} 
                     {...this.state} 
-                    refresh={this._refresh} 
+                    //refresh={this._refresh} 
                />
           );
      }
 
-     _refresh = () => {
-          //const { getSalary } = this.props;
-          this.setState({
-               isFetching : true
-          });
-          //getFeed();
-          console.log("isFetch refresh")
-     }
+     // _refresh = () => {
+     //      //const { getSalary } = this.props;
+     //      this.setState({
+     //           isFetching : true
+     //      });
+     //      //getFeed();
+     //      console.log("isFetch refresh")
+     // }
 
 }
 export default Container;

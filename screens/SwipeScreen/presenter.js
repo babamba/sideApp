@@ -14,41 +14,66 @@ import PurchaseScreen from "../PurchaseScreen";
 import MealScreen from "../MealScreen";
 const { width, height } = Dimensions.get("window");
 
+
 console.log("width, height",width, height)
 class SwipeScreen extends Component {
+
      render(){
          //console.log(this.props)
        return (
+        <View style={styles.container}>
           <Swiper
                style={styles.wrapper} 
+               onMomentumScrollEnd={this.props.onScrollEnd}
+               onIndexChanged={index => {
+                  console.log("onindexchanged");
+                  this.props.onIndexChanged(index);
+               }}
+               onScrollBeginDrag={this.props.onScrollBeginDrag}
+               onMomentumScrollEnd={this.props.onMomentumScrollEnd}
+               onTouchStartCapture={this.props.onTouchStartCapture}
                showsButtons={true}
                loadMinimal 
                loadMinimalSize={1}
+               horizontal = {true}
+               loop={false}
               //  autoplay
               //  autoplayTimeout={7}
                dot={<View style={styles.dot} />}
+               bounces={true}
+               removeClippedSubviews={false}
                activeDot={<View style={styles.activeDot} />}
                paginationStyle={styles.paginationStyle}
                nextButton={<Text style={styles.nextButton}>›</Text>}
                prevButton={<Text style={styles.prevButton}>‹</Text>}
-               onScrollBeginDrag={(e, state, context) => console.log('index:', state.index)}
-          >
+               automaticallyAdjustContentInsets={true}
+            >
            <View style={styles.slide1}>
+              
              {/* <Text style={styles.text}>Hello Swiper</Text> */}
-             <TodayScreen {...this.props}/>
+             {this.props.renderArray[0] ?
+                <TodayScreen  {...this.props}/>
+              : null}
            </View>
            <View style={styles.slide2}>
-               <MonthScreen {...this.props}/>
+           {this.props.renderArray[1] ?
+                <MonthScreen {...this.props}/>
+                : null}
              {/* <Text style={styles.text}>Beautiful</Text> */}
            </View>
            <View style={styles.slide3}>
-             <MealScreen {...this.props}/>
+           {this.props.renderArray[2] ?
+             <MealScreen   {...this.props}/>
+             : null}
            </View>
            <View style={styles.slide4}>
              {/* <Text style={styles.text}>And simple</Text> */}
+             {this.props.renderArray[3] ?
              <PurchaseScreen {...this.props}/>
+             : null}
            </View>
          </Swiper>
+         </View>
        );
      }
    }
@@ -57,25 +82,29 @@ const styles = StyleSheet.create({
   wrapper: {
 
   },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   slide1: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#9DD6EB',
+    backgroundColor: 'white',
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#97CAE5',
+    backgroundColor: 'white',
   },
   slide3: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#92BBD9',
+    backgroundColor: 'white',
   },
   slide4: {
      flex: 1,
      justifyContent: 'center',
-     backgroundColor: '#9DD6EB',
+     backgroundColor: 'white',
    },
   text: {
     color: '#fff',

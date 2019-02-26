@@ -88,7 +88,7 @@ class Container extends Component {
                     })
 
                     const setDataResult = await submitData(salary, salaryDay, salaryWeek, startHour, endHour);
-                    console.log(setDataResult);
+                    //console.log(setDataResult);
 
                     if(!setDataResult){
                          Alert.alert('입력실패');

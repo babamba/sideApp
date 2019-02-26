@@ -134,7 +134,6 @@ class Container extends Component {
      static navigationOptions = {
           gesturesEnabled: false,
      }  
-     
 
      componentWillReceiveProps = nextProps => {
           console.log("next ",nextProps.currentSecondSallery)

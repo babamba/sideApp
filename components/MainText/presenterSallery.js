@@ -5,31 +5,29 @@ import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 //import FadeInView from 'react-native-fade-in-view';
+import { LinearGradient } from 'expo';
 
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
-
-import * as Animatable from 'react-native-animatable';
+import AnimatedCircularProgress from 'react-native-conical-gradient-progress';
+import ProgressBar from 'react-native-progress/Bar';
 
 import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 180;
-const progressCustomStyles = {
-     backgroundColor: 'red', 
-     borderRadius: 0,
-     borderColor: 'rgba(255, 255, 255, 0.8)',
-     underlyingColor:'grey',
-     colors:['#63E2FF', '#B066FE'],
-};
+// const progressCustomStyles = {
+//      backgroundColor: 'transparent', 
+//      backgroundColorContainer: 'grey',
+//      borderRadius: 20,
+//      borderColor: 'red',
+//      underlyingColor:'red',
+// };
 
-const fadeInDown = {
-     from: {
-       opacity: 0,
-     },
-     to: {
-       opacity: 1,
-     },
-   };
+const progressGradient = {
+     colors: ['#d2ff19', '#09cfee'],
+     start: {x: 0, y: 1},
+     end: {x: 1, y: 0}
+ };
 
 const SalleryText = props => (
      props.type  ===  "Today" ? ( 
@@ -54,7 +52,7 @@ const SalleryText = props => (
                          </View>
                          
                     </View>
-                    <View style={styles.addButton}>
+                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                     
                          <AddButton 
                               AddText={"수입등록"} 
@@ -63,15 +61,40 @@ const SalleryText = props => (
                          /> 
                     </View>
                </View>
-               <View style={styles.progress}>
+               <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver> 
+                         {/* <ProgressBar 
+                              progress={0.5} 
+                              width={barWidth} 
+                              useNativeDriver={true}
+                              gradient={this.progressGradient}
+                              borderRadius={5}
+                              animationConfig={{bounciness: 10 }}
+                              animationType={"spring"}
+                              // indeterminate={true}
+                         /> */}
                     <ProgressBarAnimated
-                              {...progressCustomStyles}
-                              style={styles.progress}
                               width={barWidth}
                               value={40}
-                              backgroundColorOnComplete="#99F089"
+                              backgroundColorOnComplete="green"
                               barEasing={"ease"}
                     />
+                    {/* <AnimatedCircularProgress
+                         size={107}
+                         width={4}
+                         fill={90}
+                         prefill={0}
+                         beginColor="#ff0000"
+                         endColor="#0000ff"
+                         segments={16}
+                         backgroundColor="rgba(255, 255, 255, 0.2)"
+                         linecap={"round"} 
+                         duration={1000}
+                         arcSweepAngle={270}
+                         capWidth={20}
+                         capColor={'#fff'} 
+                         rotation={0}
+                    /> */}
+                    
                </View>
           </View>
      ) : (
@@ -95,7 +118,7 @@ const SalleryText = props => (
                               </Text>
                          </View>
                     </View>
-                    <View style={styles.addButton}>
+                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
@@ -103,15 +126,13 @@ const SalleryText = props => (
                          />
                     </View>
                </View>
-               <View style={styles.progress}>
+               <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
                     <ProgressBarAnimated
-                              {...progressCustomStyles}
-                              style={styles.progress}
+                              // {...progressCustomStyles}
                               width={barWidth}
-                              value={70}
-                              backgroundColorOnComplete="#6CC644"
+                              value={60}
+                              backgroundColorOnComplete="#3CC644"
                               barEasing={"ease"}
-                              color={"#99F089"}
                     />
                </View>
           </View>
@@ -149,20 +170,20 @@ const styles = StyleSheet.create({
           height:20,
      },
      MainText1:{
-          fontSize:40,
+          fontSize:38,
           justifyContent: 'center',
           textAlign:'left',
           alignItems: 'center',
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      MainText2:{
-          fontSize:40,
+          fontSize:38,
           justifyContent: 'center',
           textAlign:'left',
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      TodayMoneyWon:{
-          fontSize:40,
+          fontSize:38,
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      progress:{

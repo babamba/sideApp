@@ -129,8 +129,9 @@ class Container extends Component {
                          tempvar[idx] = true
                     }
                }) 
-               this.setState({ renderArray: tempvar, selectedIndex:index}); //<<======== problem with this
-               console.log(tempvar)
+          
+          this.setState({ renderArray: tempvar, selectedIndex:index}); //<<======== problem with this
+          console.log(tempvar)
      };
 
      _onScrollBeginDrag = (e, state) => {

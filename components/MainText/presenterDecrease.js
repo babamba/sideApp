@@ -4,6 +4,7 @@ import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "re
 import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
+import { LinearGradient } from 'expo';
 
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
@@ -13,11 +14,6 @@ import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 180;
-const progressCustomStyles = {
-     backgroundColor: 'red', 
-     borderRadius: 0,
-     borderColor: 'rgba(255, 255, 255, 0.8)',
-   };
 
 const DecreaseText = props => (
      props.type  ===  "Purchase" ? ( 
@@ -41,7 +37,7 @@ const DecreaseText = props => (
                               </Text>
                          </View>
                     </View>
-                    <View style={styles.addButton}>
+                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"지출등록"} 
                               onPress={() => console.log("addButton")}
@@ -49,9 +45,9 @@ const DecreaseText = props => (
                          />
                     </View>
                </View>
-               <View style={styles.progress}>
+               <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
                     <ProgressBarAnimated
-                    {...progressCustomStyles}
+                    // {...progressCustomStyles}
                               style={styles.progress}
                               width={barWidth}
                               value={50}
@@ -83,7 +79,7 @@ const DecreaseText = props => (
                               </Text>
                          </View>
                     </View>
-                    <View style={styles.addButton}>
+                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"지출등록"} 
                               onPress={() => console.log("addButton")}
@@ -91,15 +87,23 @@ const DecreaseText = props => (
                          />
                     </View>
                </View>
-               <View style={styles.progress}>
-                    <ProgressBarAnimated
+               <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
+               <ProgressBarAnimated
                               //style={styles.progress}
-                              progressCustomStyles={{backgroundColor: 'red', borderRadius: 0, borderColor: 'orange',}}
                               width={barWidth}
                               value={90}
                               backgroundColorOnComplete="#3CC644"
                               barEasing={"ease"}
-                    />
+                    >
+                    <LinearGradient 
+                         style={{width:barWidth}}
+                         colors={['#63E2FF', '#B066FE']}
+                         start={{ x: 0, y: 1 }}
+                         end={{ x: 1, y: 1 }}
+                    />   
+                    
+                    </ProgressBarAnimated>
+                   
                </View>
           </View>
      )

@@ -63,7 +63,7 @@ class SwipeScreen extends Component {
            </View>
            <View style={styles.slide3}>
            {this.props.renderArray[2] ?
-             <MealScreen   {...this.props}/>
+              <MealScreen  {...this.props}/>
              : null}
            </View>
            <View style={styles.slide4}>

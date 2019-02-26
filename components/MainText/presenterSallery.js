@@ -8,8 +8,6 @@ import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { LinearGradient } from 'expo';
 
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
-import AnimatedCircularProgress from 'react-native-conical-gradient-progress';
-import ProgressBar from 'react-native-progress/Bar';
 
 import MoneyText from "../MoneyText";
 
@@ -34,12 +32,12 @@ const SalleryText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea} >
-                         <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1} >
                                    나는 지금 
                               </Text>
                          </View>
-                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
                                    todaySallery={32312}
                                    {...props}
@@ -78,6 +76,7 @@ const SalleryText = props => (
                               backgroundColorOnComplete="green"
                               barEasing={"ease"}
                     />
+                   
                     {/* <AnimatedCircularProgress
                          size={107}
                          width={4}
@@ -101,12 +100,12 @@ const SalleryText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
-                         <View animation="fadeInDown" delay={200}  easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
                                    텅장이
                               </Text>
                          </View>
-                         <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={50}  easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
                                    todaySallery={1221312}
                                    {...props}

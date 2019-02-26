@@ -20,12 +20,12 @@ const DecreaseText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
-                         <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
                                    지름신이와서
                               </Text>
                          </View>
-                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
                                    todaySallery={230000}
                                    {...props}
@@ -62,13 +62,13 @@ const DecreaseText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
-                         <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
                                    todaySallery={22312}
                                    {...props}
                               />
                          </View>
-                         <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                         <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
                                    어치
                               </Text>

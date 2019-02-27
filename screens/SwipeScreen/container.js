@@ -34,7 +34,7 @@ class Container extends Component {
      constructor(props){
           super(props);
           //console.log(this.props); // prints out whatever is inside props
-          const { monthSallery, workingWeekDay , workingHour, startHour, endHour ,SetSecondMoney ,addSecond ,isPlaying} = this.props
+          const { monthSallery, workingWeekDay , workingHour, startHour, endHour  ,isPlaying} = this.props
 
            // 근무시작 근무종료 객체들
           const TODAY_START_DATE = new Date(getYear, getMonth, getDate, startHour);
@@ -47,7 +47,7 @@ class Container extends Component {
           this.state = {
                isFetching : false,
                isPlaying,
-               secondSallery:0,
+               SECOND_SALARY:0,
                INTERVAL_SECOND:0,
                WORKING_SECOND:0,
                CURRENT_SALARY:0,
@@ -60,7 +60,8 @@ class Container extends Component {
                monthSallery,
                workingWeekDay,
                workingHour,
-               renderArray: [true, false, false, false]
+               renderArray: [true, false, false, false],
+               timerInterval:null
           };
      }
 
@@ -68,22 +69,20 @@ class Container extends Component {
           SetSecondMoney:PropTypes.func.isRequired,
      }
 
-     componentDidMount() {
-          const currentProps = this.props;
-          //console.log(currentProps)
+     componentWillUnmount() {
+          // if (this.state.timerInterval) {
+          //   clearInterval(this.state.timerInterval)
+          //   this.setState({ timerInterval: null })
+          // }
+          clearInterval(this.interval);
+        }
 
+     componentWillMount() {
           const { TODAY_START_DATE, TODAY_END_DATE, monthSallery, workingWeekDay, workingHour} = this.state;
-          // console.log(secondSallery)
 
           //일할 시간 (고정))
           const WORKING_SECOND = Math.floor((TODAY_END_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
 
-
-          
-          //const timerInterval = setInterval(() => {
-          console.log("실행 중");
-
-          //currentProps.addSecond();
           //시작 시작부터 흐른 시간
           const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
           console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
@@ -117,13 +116,39 @@ class Container extends Component {
           const CURRENT_SALARY = Math.floor(INTERVAL_SECOND * secondSallery);
           
           
+          // this.setState({
+          //            CURRENT_SALARY: CURRENT_SALARY + secondSallery, // 현재시간까지 번돈
+          //            PERCENT            //현재시간까지의 퍼센트
+          // })
+
+          console.log("계산된 샐러리",CURRENT_SALARY)
           this.setState({
-                     CURRENT_SALARY: CURRENT_SALARY + secondSallery, // 현재시간까지 번돈
-                     PERCENT            //현재시간까지의 퍼센트
+               CURRENT_SALARY,
+               PERCENT,
+               SECOND_SALARY: secondSallery
           })
 
-          console.log(this.state.CURRENT_SALARY)
+     }
+
+     componentDidMount() {
+          //const currentProps = this.props;
+          //console.log(currentProps)
+
+          
+          
+
           // }, 1000);
+
+          // this.interval = setInterval(() => {
+          //      const {CURRENT_SALARY, PERCENT, SECOND_SALARY} = this.state;
+          //      console.log("state 샐러리",CURRENT_SALARY, PERCENT, SECOND_SALARY)
+          //      console.log("실행 중");
+          //      this.setState({
+          //           CURRENT_SALARY: CURRENT_SALARY + SECOND_SALARY, // 현재시간까지 번돈
+          //           PERCENT            //현재시간까지의 퍼센트
+          //      })
+          // }, 1000);
+
 
           //if(currentProps.isPlaying && INTERVAL_SECOND < WORKING_SECOND ){
         //     if(currentProps.isPlaying  ){
@@ -136,7 +161,8 @@ class Container extends Component {
 
         //             this.setState({
         //                 currentSecondSallery,
-        //                 PERCENT
+        //                 PERCENT,
+        //                 timerInterval
         //             })
 
         //        }, 1000);

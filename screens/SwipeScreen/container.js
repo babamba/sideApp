@@ -34,43 +34,32 @@ class Container extends Component {
      constructor(props){
           super(props);
           //console.log(this.props); // prints out whatever is inside props
-          const { monthSallery, workingWeekDay, currentSecondSallery, workingHour, startHour, endHour ,SetSecondMoney ,addSecond ,isPlaying} = this.props
+          const { monthSallery, workingWeekDay , workingHour, startHour, endHour ,SetSecondMoney ,addSecond ,isPlaying} = this.props
 
            // 근무시작 근무종료 객체들
           const TODAY_START_DATE = new Date(getYear, getMonth, getDate, startHour);
           const TODAY_END_DATE = new Date(getYear, getMonth, getDate, endHour);
           console.log("start and end : ", TODAY_START_DATE.toLocaleString(), "  / " ,  TODAY_END_DATE.toLocaleString())
 
-          const WORKING_SECOND = Math.floor((TODAY_END_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
+          //console.log(weekSallery , "  " ,hourSallery , "  " ,minuteSallery , "  " ,secondSallery , "  " );
 
-
-          //시작 시작부터 흐른 시간
-          const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
-
-          const weekCount = dayInMonth();
-          console.log(weekCount);
-
-          const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
-          // console.log("percent!!!!" , percent);
-     
-          const weekSallery = (monthSallery / weekCount);
-
-          const hourSallery = Math.floor( weekSallery / workingHour );
-
-          const minuteSallery = Math.floor( hourSallery / 60 );
-
-          const secondSallery = Math.floor( minuteSallery / 60 );
-
-          console.log(weekSallery , "  " ,hourSallery , "  " ,minuteSallery , "  " ,secondSallery , "  " );
-
+          //항상 초기화해야할것들
           this.state = {
                isFetching : false,
                isPlaying,
-               secondSallery,
-               INTERVAL_SECOND,
-               WORKING_SECOND,
-               PERCENT,
+               secondSallery:0,
+               INTERVAL_SECOND:0,
+               WORKING_SECOND:0,
+               CURRENT_SALARY:0,
+               PERCENT:0,
                selectedIndex:0,
+
+               //변경되지않을값들
+               TODAY_START_DATE,
+               TODAY_END_DATE,
+               monthSallery,
+               workingWeekDay,
+               workingHour,
                renderArray: [true, false, false, false]
           };
      }
@@ -81,10 +70,60 @@ class Container extends Component {
 
      componentDidMount() {
           const currentProps = this.props;
-          console.log(currentProps)
+          //console.log(currentProps)
 
-          const { secondSallery, WORKING_SECOND, INTERVAL_SECOND, PERCENT, currentSecondSallery } = this.state;
-          console.log(secondSallery)
+          const { TODAY_START_DATE, TODAY_END_DATE, monthSallery, workingWeekDay, workingHour} = this.state;
+          // console.log(secondSallery)
+
+          //일할 시간 (고정))
+          const WORKING_SECOND = Math.floor((TODAY_END_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
+
+
+          
+          //const timerInterval = setInterval(() => {
+          console.log("실행 중");
+
+          //currentProps.addSecond();
+          //시작 시작부터 흐른 시간
+          const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
+          console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
+
+          const WEEK_COUNT = dayInMonth();
+          //console.log("weekCount",WEEK_COUNT ,"주");
+
+          const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
+          //console.log("percent" , PERCENT, "%");
+     
+          const WEEK_SALARY = (monthSallery / WEEK_COUNT);
+          //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
+          
+          //하루 일당   -> 주간급여 / 주간일하는 날수
+          const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
+          //console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
+          //console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
+
+          const hourSallery = Math.floor( TODAY_SALARY / workingHour );
+          //console.log("hourSallery : 시간" , hourSallery, "원");
+
+          const minuteSallery = Math.floor( hourSallery / 60 );
+          //console.log("minuteSallery : 분당" , minuteSallery, "원");
+
+          const secondSallery = Math.floor( minuteSallery / 60 );
+          //console.log("secondSallery : 초당" , secondSallery, "원");
+
+          //타이머에서 계속 증가되야될것들
+          //console.log("CURRENT_SALARY : 지금까지 번돈 초당" , (INTERVAL_SECOND * secondSallery), "원");
+
+          const CURRENT_SALARY = Math.floor(INTERVAL_SECOND * secondSallery);
+          
+          
+          this.setState({
+                     CURRENT_SALARY: CURRENT_SALARY + secondSallery, // 현재시간까지 번돈
+                     PERCENT            //현재시간까지의 퍼센트
+          })
+
+          console.log(this.state.CURRENT_SALARY)
+          // }, 1000);
 
           //if(currentProps.isPlaying && INTERVAL_SECOND < WORKING_SECOND ){
         //     if(currentProps.isPlaying  ){
@@ -112,6 +151,7 @@ class Container extends Component {
      }  
 
      componentWillReceiveProps = nextProps => {
+          const currentProps = this.props;
           console.log("!@# next ",nextProps)
      }
 

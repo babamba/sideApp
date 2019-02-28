@@ -1,5 +1,5 @@
 // Imports
-import { API_URL } from "../../constants";
+import { API_URL, SALARY_PAY_TYPE } from "../../constants";
 // Actions
 
 const START_TIMER = 'START_TIMER';
@@ -22,6 +22,8 @@ const SET_SALARY_WEEK = 'SET_SALARY_WEEK'
 const SET_DATA_YN ='SET_DATA_YN'
 
 const SET_ELAPSED_TIME = 'SET_ELAPSED_TIME';
+
+
 
 // Action Creators
 
@@ -189,7 +191,9 @@ const initialState = {
      isPlaying:true,
      dayInMonth:0,
      workingTime: 32400,
-     percent: 0
+     percent: 0,
+     salaryStartDay : 21,
+     salaryPayType : SALARY_PAY_TYPE[0]
 };
 
 

@@ -13,7 +13,6 @@ const TodayScreen = props => (
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}
-                    secondSallery={props.CURRENT_SALARY}
                     {...props}
                     type={"Today"}
                />

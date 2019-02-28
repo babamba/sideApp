@@ -39,8 +39,8 @@ class AddButton extends Component {
           const deviceWidth = Dimensions.get("window").width;
           const deviceHeight = Dimensions.get("window").height;
 
-          console.log("deviceWidth" ,deviceWidth)
-          console.log("deviceHeight" ,deviceHeight)
+          // console.log("deviceWidth" ,deviceWidth)
+          // console.log("deviceHeight" ,deviceHeight)
 
           //console.log(this.props);
           return (

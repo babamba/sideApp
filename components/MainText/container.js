@@ -18,6 +18,10 @@ class Container extends Component {
 
      componentWillReceiveProps = nextProps => {
           console.log("MainText next: " , nextProps.CURRENT_SALARY)
+
+          this.setState({
+               CURRENT_SALARY: nextProps.CURRENT_SALARY,
+          })
      }
 
         textRef = null;

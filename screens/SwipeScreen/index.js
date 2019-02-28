@@ -16,7 +16,9 @@ const mapStateToProps = (state, ownProps) => {
           currentDate:timer.currentDate,
           isPlaying:timer.isPlaying,
           //isPlaying:true,
-          workingTime: timer.workingTime
+          workingTime: timer.workingTime,
+          salaryStartDay:timer.salaryStartDay,
+          salaryPayType :timer.salaryPayType
      }
      //const { timer } = state;
      //console.log(state);

@@ -35,8 +35,8 @@ class Container extends Component {
      }
 
      render(){
-          console.log("deviceWidth" ,deviceWidth)
-          console.log("deviceHeight" ,deviceHeight)
+          // console.log("deviceWidth" ,deviceWidth)
+          // console.log("deviceHeight" ,deviceHeight)
           return (
                     <FirstStepScreen 
                          {...this.state } 

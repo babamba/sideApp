@@ -36,10 +36,10 @@ class AppContainer extends Component {
           };
      }
 
-     static propTypes = {
-          isLoggedIn: PropTypes.bool.isRequired
-          //initApp : PropTypes.func.isRequired
-     }
+     // static propTypes = {
+     //      isLoggedIn: PropTypes.bool.isRequired
+     //      //initApp : PropTypes.func.isRequired
+     // }
 
      async componentWillMount() {
           
@@ -134,6 +134,10 @@ class AppContainer extends Component {
             </View>
           </View>
         );
+}
+
+AppContainer.propTypes = {
+     isLoggedIn : PropTypes.bool.isRequired,
 }
 
 const styles = StyleSheet.create({

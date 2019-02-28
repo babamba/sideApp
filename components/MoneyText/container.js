@@ -9,7 +9,10 @@ class Container extends Component {
 
      state = {
           isFetching : false,
-          secondSallery : 0
+     }
+
+     componentWillReceiveProps = nextProps => {
+          console.log("Money comp next: " , nextProps.CURRENT_SALARY)
      }
 
      // constructor(props){

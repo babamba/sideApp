@@ -16,22 +16,23 @@ const { width, height } = Dimensions.get("window");
 
 
 console.log("width, height",width, height)
-class SwipeScreen extends Component {
+const SwipeScreen = props => (
+// class SwipeScreen extends Component {
 
-     render(){
-         //console.log(this.props)
-       return (
+//      render(){
+//          //console.log(this.props)
+//        return (
         <View style={styles.container}>
           <Swiper
                style={styles.wrapper} 
-               onMomentumScrollEnd={this.props.onScrollEnd}
+               onMomentumScrollEnd={props.onScrollEnd}
                onIndexChanged={index => {
                   console.log("onindexchanged");
-                  this.props.onIndexChanged(index);
+                  props.onIndexChanged(index);
                }}
-               onScrollBeginDrag={this.props.onScrollBeginDrag}
-               onMomentumScrollEnd={this.props.onMomentumScrollEnd}
-               onTouchStartCapture={this.props.onTouchStartCapture}
+               onScrollBeginDrag={props.onScrollBeginDrag}
+               onMomentumScrollEnd={props.onMomentumScrollEnd}
+               onTouchStartCapture={props.onTouchStartCapture}
                showsButtons={true}
                loadMinimal 
                loadMinimalSize={1}
@@ -51,32 +52,32 @@ class SwipeScreen extends Component {
            <View style={styles.slide1}>
               
              {/* <Text style={styles.text}>Hello Swiper</Text> */}
-             {this.props.renderArray[0] ?
-                <TodayScreen  {...this.props}/>
+             {props.renderArray[0] ?
+                <TodayScreen  {...props}/>
               : null}
            </View>
            <View style={styles.slide2}>
-           {this.props.renderArray[1] ?
-                <MonthScreen {...this.props}/>
+           {props.renderArray[1] ?
+                <MonthScreen {...props}/>
                 : null}
              {/* <Text style={styles.text}>Beautiful</Text> */}
            </View>
            <View style={styles.slide3}>
-           {this.props.renderArray[2] ?
-              <MealScreen  {...this.props}/>
+           {props.renderArray[2] ?
+              <MealScreen  {...props}/>
              : null}
            </View>
            <View style={styles.slide4}>
              {/* <Text style={styles.text}>And simple</Text> */}
-             {this.props.renderArray[3] ?
-             <PurchaseScreen {...this.props}/>
+             {props.renderArray[3] ?
+             <PurchaseScreen {...props}/>
              : null}
            </View>
          </Swiper>
          </View>
        );
-     }
-   }
+  //    }
+  //  }
 
 const styles = StyleSheet.create({
   wrapper: {

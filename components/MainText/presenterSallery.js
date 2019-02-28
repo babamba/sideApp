@@ -39,7 +39,7 @@ const SalleryText = props => (
                          </View>
                          <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={32312}
+                                   todaySallery={props.CURRENT_SALARY}
                                    {...props}
                               />
                          </View>
@@ -76,23 +76,6 @@ const SalleryText = props => (
                               backgroundColorOnComplete="green"
                               barEasing={"ease"}
                     />
-                   
-                    {/* <AnimatedCircularProgress
-                         size={107}
-                         width={4}
-                         fill={90}
-                         prefill={0}
-                         beginColor="#ff0000"
-                         endColor="#0000ff"
-                         segments={16}
-                         backgroundColor="rgba(255, 255, 255, 0.2)"
-                         linecap={"round"} 
-                         duration={1000}
-                         arcSweepAngle={270}
-                         capWidth={20}
-                         capColor={'#fff'} 
-                         rotation={0}
-                    /> */}
                     
                </View>
           </View>

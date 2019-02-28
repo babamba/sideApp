@@ -11,18 +11,10 @@ class Container extends Component {
 
      state = {
           isFetching : false,
-          BEFORE_SALARY : 0,
-          AFTER_SALARY : 0
      }
 
      componentDidMount() {
-
-     }
-
-     componentWillMount(){
-          this.setState({
-               CURRENT_SALARY: this.props.CURRENT_SALARY
-          })
+          console.log("asdfasdf")
      }
 
      static navigationOptions = {
@@ -31,27 +23,45 @@ class Container extends Component {
 
      componentWillReceiveProps = nextProps => {
           const currentProps = this.props;
-          console.log("today screen current ",this.props.CURRENT_SALARY)
-          console.log("today screen next ",nextProps.CURRENT_SALARY)
+
           if(currentProps.CURRENT_SALARY === nextProps.CURRENT_SALARY){
                console.log("current === next ")
+               console.log("today screen current ",this.props.CURRENT_SALARY)
+               console.log("today screen next ",nextProps.CURRENT_SALARY)
           }else{
-               console.log("current !== next ")
-
-               // TODO
+               console.log("current !== next TodayScreen")
+               console.log("Today nextProp :" , nextProps.CURRENT_SALARY)
                this.setState({
                     CURRENT_SALARY: nextProps.CURRENT_SALARY
                })
+               // TODO
+               //this.setState({
+                    // BEFORE_SALARY : currentProps.CURRENT_SALARY,
+                    // AFTER_SALARY:nextProps.CURRENT_SALARY,
+                    //CURRENT_SALARY : currentProps.CURRENT_SALARY,
+               //})
           }
      }
 
-     componentDidMount = () => {
-
-     }
+     componentDidUpdate(prevProps, prevState){
+          //console.log(" today componentDidUpdate: " , "@props" , JSON.stringify(prevProps.CURRENT_SALARY));
+          //console.log(" today componentDidUpdate: " , "!prevState" , JSON.stringify(prevState.CURRENT_SALARY));
+          // console.log(" today componentDidUpdate: " , "state" , this.state.BEFORE_SALARY);
+          // console.log(" today componentDidUpdate: " , "state" , this.state.AFTER_SALARY);
+          //console.log(" today componentDidUpdate: " , "this. state" , this.state.CURRENT_SALARY);
+          //console.log(" today componentDidUpdate: " , "this. props" ,this.props.CURRENT_SALARY)
+     //     if(prevProps.CURRENT_SALARY !== this.props.CURRENT_SALARY){
+     //           console.log("current action Today component this.setState")
+     //           this.setState({
+     //                CURRENT_SALARY : prevProps.CURRENT_SALARY
+     //           })
+     //      }
+      }
 
      componentWillMount = () => {
  
      };
+
      componentWillUnmount = () =>{
           console.log("Today Unmount")
      }

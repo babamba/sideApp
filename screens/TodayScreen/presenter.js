@@ -13,18 +13,18 @@ const TodayScreen = props => (
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}
-                    secondSallery={props.secondSallery}
-                    {...this.props}
+                    secondSallery={props.CURRENT_SALARY}
+                    {...props}
                     type={"Today"}
                />
            </View>
-     )
+)
 
-     TodayScreen.propTypes = {
-          isFetching : PropTypes.bool.isRequired,
-          //refresh: PropTypes.func.isRequired,
-          //feed : PropTypes.array
-     }
+TodayScreen.propTypes = {
+     isFetching : PropTypes.bool.isRequired,
+     //refresh: PropTypes.func.isRequired,
+     //feed : PropTypes.array
+}
 
 const styles = StyleSheet.create({
      container:{

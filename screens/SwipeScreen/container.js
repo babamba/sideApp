@@ -74,7 +74,11 @@ class Container extends Component {
           //   clearInterval(this.state.timerInterval)
           //   this.setState({ timerInterval: null })
           // }
-          clearInterval(this.interval);
+          if(this.state.timerInterval){
+               clearInterval(this.state.timerInterval);
+               this.setState({timerInterval : null})
+          }
+          
         }
 
      componentWillMount() {
@@ -139,15 +143,16 @@ class Container extends Component {
 
           // }, 1000);
 
-          // this.interval = setInterval(() => {
-          //      const {CURRENT_SALARY, PERCENT, SECOND_SALARY} = this.state;
-          //      console.log("state 샐러리",CURRENT_SALARY, PERCENT, SECOND_SALARY)
-          //      console.log("실행 중");
-          //      this.setState({
-          //           CURRENT_SALARY: CURRENT_SALARY + SECOND_SALARY, // 현재시간까지 번돈
-          //           PERCENT            //현재시간까지의 퍼센트
-          //      })
-          // }, 1000);
+          const timerInterval = setInterval(() => {
+               const {CURRENT_SALARY, PERCENT, SECOND_SALARY} = this.state;
+               console.log("state 샐러리",CURRENT_SALARY, PERCENT, SECOND_SALARY)
+               console.log("실행 중 rerender swipeScreen");
+               this.setState({
+                    CURRENT_SALARY: CURRENT_SALARY + (SECOND_SALARY * 3 ), // 현재시간까지 번돈
+                    PERCENT,            //현재시간까지의 퍼센트
+                    timerInterval
+               })
+          }, 3000);
 
 
           //if(currentProps.isPlaying && INTERVAL_SECOND < WORKING_SECOND ){
@@ -178,7 +183,7 @@ class Container extends Component {
 
      componentWillReceiveProps = nextProps => {
           const currentProps = this.props;
-          console.log("!@# next ",nextProps)
+          //console.log("!@# next ",nextProps)
      }
 
      onIndexChanged = index => {
@@ -228,13 +233,6 @@ class Container extends Component {
           //      selectedIndex:state.index
           // });
      };
-    //  componentDidMount = () => {
-
-    //  }
-
-    //  componentWillMount = () => {
- 
-    //  };
 
      render() {
           return (

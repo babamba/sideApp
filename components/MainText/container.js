@@ -5,29 +5,19 @@ import DecreaseText from "./presenterDecrease"
 import { image } from "react-native";
 
 class Container extends Component {
-     
+
      state ={
-          CURRENT_SALARY : 0
+          isFetching : false,
+          duration: 1000,
+          toggledOn: false,
      }
 
-     componentWillMount(){
-          this.setState({
-               CURRENT_SALARY: this.props.CURRENT_SALARY
-          })
+     componentDidMount(){
+          console.log("mainText screen render")
      }
 
      componentWillReceiveProps = nextProps => {
-          const currentProps = this.props;
-          console.log("mainText screen current ",this.props.CURRENT_SALARY)
-          console.log("mainText screen next ",nextProps.CURRENT_SALARY)
-          if(currentProps.CURRENT_SALARY === nextProps.CURRENT_SALARY){
-               console.log("current === next ")
-          }else{
-               console.log("current !== next ")
-               // this.setState({
-               //      CURRENT_SALARY: nextProps.CURRENT_SALARY
-               // })
-          }
+          console.log("MainText next: " , nextProps.CURRENT_SALARY)
      }
 
         textRef = null;
@@ -56,12 +46,6 @@ class Container extends Component {
             this.textRef[animationType](this.state.duration);
           }
         };
-
-     state ={
-          isFetching : false,
-          duration: 1000,
-          toggledOn: false,
-     }
     
      render() {
           //console.log("type : " , this.props.type);

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 
-const defaultSelectedIndex_group_insterest = [0, 1, 4];
+const defaultSelectedIndex_group_insterest = [1, 2, 3, 4, 5];
 const multipleGroupData = [
      { value: "0", displayValue: "일" },
      { value: "1", displayValue: "월"},
@@ -20,13 +20,14 @@ const multipleGroupData = [
 class Container extends Component {
 
      state = {
-          salary : "",
+          monthSallery : "",
           salaryDay : "",
-          salaryWeek : "",
+          selectWeek : defaultSelectedIndex_group_insterest,
+          workingWeekDay : defaultSelectedIndex_group_insterest.length,
           startHour: "",
           endHour:"",
           isSubmiting : false,
-          isModalVisible: false
+          isModalVisible: false,
      }
 
      static propsType = {
@@ -43,6 +44,8 @@ class Container extends Component {
                          changeSalary = {this._changeSalary}
                          changeSalaryDay = {this._changeSalaryDay}
                          changeSalaryWeek = {this._changeSalaryWeek}
+                         changeWorkStart = {this._changeWorkStart}
+                         changeWorkEnd = {this._changeWorkEnd}
                          submit={this._submit}
                          onSelectedValuesChange={this._groupButtonOnSelectedValuesChange}
                          defaultSelectedIndex_group_insterest={defaultSelectedIndex_group_insterest}
@@ -52,24 +55,28 @@ class Container extends Component {
      }
 
      _changeSalary = text => {
-          this.setState({ salary : text });
+          this.setState({ monthSallery : text });
      }
 
      _changeSalaryDay = text => {
           this.setState({ salaryDay : text });
      }
 
-     _changeSalaryWeek = text => {
-          this.setState({ salaryWeek : text });
+     _changeWorkStart = text => {
+          this.setState({ startHour : text });
+     }
+
+     _changeWorkEnd = text => {
+          this.setState({ endHour : text });
      }
 
      _groupButtonOnSelectedValuesChange = selectedValues=> {
           console.log("selectedValues : ", selectedValues)
-          this.setState({ multipleSelectedData_group: selectedValues });
+          this.setState({ salaryWeek: selectedValues, workingWeekDay:selectedValues.length });
      }
       
      _groupButtonOnSelectedValuesChange_limited = selectedValues=> {
-          this.setState({multipleSelectedData_group_limited: selectedValues });
+          this.setState({multipleSelectedData_group_limited: selectedValues , salaryWeek: selectedValues});
      }
       
      _onRadioGroupButtonSingleTap = valueTap => {
@@ -78,16 +85,19 @@ class Container extends Component {
 
      _submit = async() => {
           console.log("submit")
-          const { salary, salaryDay, salaryWeek, startHour, endHour, isSubmiting } = this.state;
+          const { monthSallery, salaryDay, selectWeek, workingWeekDay, startHour, endHour, isSubmiting } = this.state;
           const { submitData } = this.props;
+
+          console.log(monthSallery, " / " , salaryDay," / " , selectWeek," / " ,workingWeekDay," / ", startHour," / " , endHour)
+
           if(!isSubmiting){
-               if(salary && salaryDay && salaryWeek && startHour && endHour){
+               if(monthSallery && salaryDay && selectWeek && startHour && endHour){
                     //submit
                     this.setState({
                          isSubmiting : true
                     })
 
-                    const setDataResult = await submitData(salary, salaryDay, salaryWeek, startHour, endHour);
+                    const setDataResult = await submitData(monthSallery, salaryDay, selectWeek, workingWeekDay, startHour, endHour);
                     //console.log(setDataResult);
 
                     if(!setDataResult){
@@ -109,6 +119,7 @@ class Container extends Component {
                     //      });
                     // }
                }else{
+                    console.log(this.state.salaryWeek.length)
                     Alert.alert('All fileds are require')
                }
           }

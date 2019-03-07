@@ -6,9 +6,10 @@ import AnimateNumber from 'react-native-animate-number';
 const {width, height} = Dimensions.get("window");
 
 const MoneyText = props => (
-               <View style={styles.container}>
+     props.type  ===  "Today" ? ( 
+          <View style={styles.container}>
                     <Text style={styles.TodayMoney}>
-                              <AnimateNumber 
+                         <AnimateNumber 
                                    value={props.CURRENT_SALARY} 
                                    formatter={(val) => {
                                         return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -20,6 +21,23 @@ const MoneyText = props => (
                               /> 원
                          </Text>
                </View>
+     ) : (
+          <View style={styles.container}>
+                    <Text style={styles.TodayMoney}>
+                         <AnimateNumber 
+                                   value={props.MONTH_CURRENT_SALARY} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*4
+                                   }}
+                              /> 원
+                         </Text>
+               </View>
+     )
+               
 )
 
      

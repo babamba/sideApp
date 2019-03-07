@@ -11,8 +11,6 @@ import { actionCreators as timerActions } from "../../redux/modules/timer";
 //           workingHour: timer.workingHour,
 //           startHour : timer.startHour,
 //           endHour : timer.endHour,
-//           currentSecondSallery: timer.currentSecondSallery,
-//           elapsedTime: timer.elapsedTime,
 //           currentDate:timer.currentDate,
 //           isPlaying:timer.isPlaying,
 //           isPlaying:true,

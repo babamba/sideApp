@@ -89,7 +89,6 @@ const SalleryText = props => (
                          </View>
                          <View animation="fadeInDown" delay={50}  easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={1221312}
                                    {...props}
                               />
                          </View>
@@ -111,7 +110,7 @@ const SalleryText = props => (
                     <ProgressBarAnimated
                               // {...progressCustomStyles}
                               width={barWidth}
-                              value={60}
+                              value={props.PERCENT}
                               backgroundColorOnComplete="#3CC644"
                               barEasing={"ease"}
                     />

@@ -13,8 +13,7 @@ const MonthScreen = props => (
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}
-                    secondSallery={props.secondSallery}
-                    {...this.props}
+                    {...props}
                     type={"Month"}
                />
            </View>

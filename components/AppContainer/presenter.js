@@ -5,6 +5,7 @@ import { View, Text, Image, StatusBar, StyleSheet } from "react-native";
 import { LinearGradient } from 'expo';
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation"
 import RootNavigation from "../../navigation/RootNavigation"
+import EnterSalaryNavigation from "../../navigation/EnterSalaryNavigation"
 import { AsyncStorage } from "react-native";
 import AppIntroSlider from 'react-native-app-intro-slider';
 
@@ -60,19 +61,46 @@ class AppContainer extends Component {
      }
 
      render(){
-          const { isLoggedIn, profile } = this.props;
+          const { isLoggedIn, profile, isSetData } = this.props;
           //console.log("isLogged / " , isLoggedIn);
+          //첫 시동 구분
           if (this.state.showRealApp) {
-               return (
-                    <View style={styles.container} >
-                         <StatusBar hidden={false}/>
-                         {isLoggedIn && profile ? ( 
-                         <RootNavigation screenProps = {{username: profile.username}} />
-                              ) : ( 
-                         <LoggedOutNavigation/> )
-                         }
-                    </View>
-                  );
+               if(isLoggedIn && isSetData){
+                    return (
+                         <View style={styles.container} >
+                              <StatusBar hidden={false}/>
+                              <RootNavigation screenProps = {{username: profile.username}} />
+                         </View>
+                       );
+               // 로그인은 헀지만 입력정보를 입력안한 경우
+               }else if(isLoggedIn && !isSetData){
+                    return (
+                         <View style={styles.container} >
+                              <StatusBar hidden={false}/>
+                                   <EnterSalaryNavigation  />
+                         </View>
+                    )
+               //로그인은 안했지만 입력정보는 입력한 상태
+               }else if(!isLoggedIn && isSetData){
+                    return (
+                         <View style={styles.container} >
+                              <StatusBar hidden={false}/>
+                              <RootNavigation screenProps = {{username: profile.username}} />
+                         </View>
+                       );
+               // 로그인 입력 둘다 안한상태 
+               }else if(!isLoggedIn && !isSetData){
+                    return (
+                         <View style={styles.container} >
+                              <StatusBar hidden={false}/>
+                              <LoggedOutNavigation/> )
+                         </View>
+                    );
+               }
+
+               //입력정보 입력헀는지 구분
+               
+               
           }else{
                return (
                     <AppIntroSlider

@@ -3,12 +3,13 @@ import AppContainer from "./presenter";
 import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapStateToProps = (state, ownProps) => {
-     const { user } = state;
+     const { user, timer } = state;
      //console.log(user.isLoggedIn);
      //console.log(user.already)
      return {
           isLoggedIn: user.isLoggedIn,
-          profile: user.profile
+          profile: user.profile,
+          isSetData : timer.isSetData
      };
 };
 

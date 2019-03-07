@@ -12,13 +12,18 @@ class Container extends Component {
      }
 
      componentWillReceiveProps = nextProps => {
-          console.log("Money comp next: " , nextProps.CURRENT_SALARY)
+          if(nextProps.type === "Today"){
+               console.log("!@!@! TODAY Money comp next: " , nextProps.CURRENT_SALARY)
+          }else if(nextProps.type === "Month"){
+               console.log("!@!@! MONTH Money comp next: " , nextProps.MONTH_CURRENT_SALARY)
+          }
+          
      }
 
      // constructor(props){
      //      super(props);
      //      //console.log(this.props); // prints out whatever is inside props
-     //      const { monthSallery, workingWeekDay, currentSecondSallery, workingHour, startHour, endHour ,SetSecondMoney ,addSecond ,isPlaying} = this.props
+     //      const { monthSallery, workingWeekDay, workingHour, startHour, endHour ,SetSecondMoney ,addSecond ,isPlaying} = this.props
 
      //       // 근무시작 근무종료 객체들
      //      const TODAY_START_DATE = new Date(getYear, getMonth, getDate, startHour);

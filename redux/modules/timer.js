@@ -1,5 +1,6 @@
 // Imports
 import { API_URL, SALARY_PAY_TYPE } from "../../constants";
+import moment from "moment";
 // Actions
 
 const START_TIMER = 'START_TIMER';
@@ -8,68 +9,35 @@ const START_TIMER = 'START_TIMER';
 const SET_SECONDS_MONEY = 'SET_SECONDS_MONEY';
 const SET_WORKING_WEEKDAY = 'SET_WORKING_WEEKDAY';
 
-// 계산 후 변경될 값들 -> 컴포넌트 render
-const ADD_SECOND = 'ADD_SECOND';
-const ADD_PERCENT = 'ADD_PERCENT';
-
 // 기본적으로 계산에 필요한 시작떄 입력하는 월급 , 근무시작시간, 근무종료시간, 근무요일수 
 
 const SET_MONTH_SALLERY = 'SET_MONTH_SALLERY'
 const SET_END_HOUR = 'SET_END_HOUR';
 const SET_START_HOUR = 'SET_START_HOUR';
 const SET_SALARY_DAY = 'SET_SALARY_DAY'
-const SET_SALARY_WEEK = 'SET_SALARY_WEEK'
+const SET_SELECT_WEEK = 'SET_SELECT_WEEK'
+const SET_WORKING_HOURS = 'SET_WORKING_HOURS'
+const SET_STANDARD_MONTH = 'SET_STANDARD_MONTH'
 const SET_DATA_YN ='SET_DATA_YN'
 
 const SET_ELAPSED_TIME = 'SET_ELAPSED_TIME';
 
+// 계산에 사용될 Date객체 
+const TODAY_DATE = new Date();
 
+// 계산에 필요한 연원일
+const getDay = TODAY_DATE.getDay();
+const getDate = TODAY_DATE.getDate();
+const getMonth = TODAY_DATE.getMonth();
+const getYear = TODAY_DATE.getFullYear();
 
 // Action Creators
-
-// 초당 버는돈 * 현재 시간
-function SetSecondMoney(sallery){
-    return {
-        type: SET_SECONDS_MONEY,
-        sallery
-    }
-}
-
-// 몇주 일하는지  -> 한달에 몇주인지 적용
-function setWorkingWeekDay(){
-    return {
-        type: SET_WORKING_WEEKDAY
-    }
-}
-
-// 근무시작으로부터 흐른 근무시간
-function addSecond(){
-    return {
-        type: ADD_SECOND,
-    }
-}
-
-// 근무시간 퍼센트 state
-function addPercent(percent){
-     return {
-          type:ADD_PERCENT,
-          percent
-     }
-}
 
 function startTimer(){
      return {
           type: START_TIMER
      }
 }
-
-function setElapsedTime(elapsedTime){
-     return {
-          type: SET_ELAPSED_TIME,
-          elapsedTime
-     }
-}
-
 
 //기본입력정보
 function setStartHour(startHour){
@@ -86,17 +54,24 @@ function setEndHour(endHour){
      }
 }
 
-function setSalary(salary){
+function setSalary(monthSallery){
      return{
           type: SET_MONTH_SALLERY,
-          salary
+          monthSallery
      }
 }
 
-function setSalaryWeek(salaryWeek){
+function setSelectWeek(selectWeek){
      return{
-          type:SET_SALARY_WEEK,
-          salaryWeek
+          type:SET_SELECT_WEEK,
+          selectWeek
+     }
+}
+
+function setWorkingWeekDay(workingWeekDay){
+     return{
+          type:SET_WORKING_WEEKDAY,
+          workingWeekDay
      }
 }
 
@@ -107,21 +82,79 @@ function setSalaryDay(salaryDay){
      }
 }
 
+function setWorkingHours(workingHour){
+     return {
+          type:SET_WORKING_HOURS,
+          workingHour
+     }
+}
+
+function setStandardMonth(standardMonth){
+     return {
+          type:SET_STANDARD_MONTH,
+          standardMonth
+     }
+}
+
 function setSubmitData(){
      return {
           type:SET_DATA_YN
      }
 }
 
-function submitData(salary, salaryDay, salaryWeek, startHour, endHour){
+function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startHour, endHour){
      //const user = { propfile : { "name" : "test"}}
+     const workingHour = endHour - startHour;
+     
+     //현재날짜
+     //const STANDARD_MONTH_DATE = new Date();
+     const STANDARD_MONTH_DATE = moment(new Date());
+     //console.log(STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'));
+
+     const getToYear = STANDARD_MONTH_DATE.year();
+     const getToMonth = (STANDARD_MONTH_DATE.month()+1);
+     const getToDate = STANDARD_MONTH_DATE.date();
+
+     // const getToYear  = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {year: "numeric"}));
+     // const getToMonth = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {month: "2-digit"}));
+     // const getToDay = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {day: "numeric"}));
+     
+     console.log("getToYear getToMonth : " , getToYear ,"년 " , getToMonth , "월 ", getToDate , "일")
+     const standardMonth = getToMonth;
+     
+     // //월급날짜 
+     const tempSalaryDate = moment(STANDARD_MONTH_DATE);
+     tempSalaryDate.date(salaryDay)
+
+
+     console.log("salaryDay : " , salaryDay)
+     console.log("tempSalaryDate : ", tempSalaryDate.format('YYYY-MM-DD HH:mm'));
+
+     console.log("STANDARD_MONTH_DATE : " , STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'))
+     console.log("standardMonth : " , standardMonth)
+
+     // 현재 날짜 > 월급날짜 
+     if( STANDARD_MONTH_DATE < tempSalaryDate){
+          console.log("standardMonth 1 : " , standardMonth + 1 )
+     
+     // 현재 날짜 < 월급날짜 
+     }else if(STANDARD_MONTH_DATE > tempSalaryDate){
+          console.log("standardMonth  : " , standardMonth )
+     }
+
      return dispatch => {
-               dispatch(setSalary(salary));
-               dispatch(setSalaryDay(salaryDay))
-               dispatch(setSalaryWeek(salaryWeek))
-               dispatch(setStartHour(startHour))
-               dispatch(setEndHour(endHour))
+               dispatch(setSalary(monthSallery));
+               dispatch(setSalaryDay(salaryDay));
+               dispatch(setSelectWeek(selectWeek));
+               dispatch(setWorkingWeekDay(workingWeekDay));
+
+               dispatch(setStartHour(startHour));
+               dispatch(setEndHour(endHour));
+               dispatch(setWorkingHours(workingHour));
+               dispatch(setStandardMonth(standardMonth));
+
                dispatch(setSubmitData());
+               
                return true;
      }
 
@@ -180,20 +213,26 @@ function login(username, password){
 // 로그인 후에는 state를 폰에 저장 
 const initialState = {
      isSetData : false,
-     monthSallery : 2200000,
-     workingWeekDay : 5,
-     workingHour: 8,
-     startHour:9,
-     endHour:18,
-     currentSecondSallery:0,
-     elapsedTime: 0,
-     currentDate:null,
-     isPlaying:true,
-     dayInMonth:0,
-     workingTime: 32400,
-     percent: 0,
-     salaryStartDay : 21,
-     salaryPayType : SALARY_PAY_TYPE[0]
+     monthSallery : 0,
+     selectWeek: [],  //일하는 요일 배열 
+     workingWeekDay : 0, // 카운팅
+     workingHour: 0,
+     startHour:0,
+     endHour:0,
+     isPlaying:false,
+     salaryDay : 0,
+     salaryPayType : SALARY_PAY_TYPE[0],
+
+     // 월급계산때 사용할 달 
+
+     // 오늘이 3월 18 일이고 월급날이 21일 경우
+     // 현재 달로 
+
+     // 오늘이 3월 22일이고 월급날이 21일 경우
+     // 다음달로 + 
+     standardMonth: 0 
+
+
 };
 
 
@@ -211,12 +250,8 @@ function reducer(state = initialState, action){
                return applyTimerStart(state, action);
           case SET_SECONDS_MONEY :
                return applySetSecondMoney(state, action);
-          case ADD_SECOND : 
-               return applyAddSecond(state, action);
           case SET_ELAPSED_TIME :
                return applySetElapsedTime(state, action);
-          case ADD_PERCENT :
-               return applyAddPercent(state, action);
 
           //월급 등록관련
           case SET_MONTH_SALLERY :
@@ -227,8 +262,14 @@ function reducer(state = initialState, action){
                return applySetStartHour(state, action);
           case SET_SALARY_DAY:
                return applySalaryDay(state, action);
-          case SET_SALARY_WEEK:
-               return applySalaryWeek(state, action);
+          case SET_SELECT_WEEK:
+               return applySelectyWeek(state, action);
+          case SET_WORKING_WEEKDAY:
+               return applyWorkingWeekDay(state, action);
+          case SET_WORKING_HOURS:
+               return applyWorkingHours(state, action);
+          case SET_STANDARD_MONTH:
+               return applySetStandardMonth(state, action)
           case SET_DATA_YN:
                return applySetData(state, action);
 
@@ -238,42 +279,16 @@ function reducer(state = initialState, action){
 }
 
 // Reducer Functions
-
-function applySetElapsedTime(state, action){
-     const elapsedTime = action;
-     return {
-          ...state,
-          elapsedTime: elapsedTime
-     }
-}
-
-function applySetSecondMoney(state, action) {
-     // 현재 번 초당 돈 변경
-     const { sallery } = action;
-     console.log("setSconMoney : ", state.currentSecondSallery + sallery , "/ sallery : " , sallery )
-     return {
-          ...state,
-          currentSecondSallery : state.currentSecondSallery + sallery
-     }
-}
-
-function applyTimerStart(state, action){
-     return {
-          ...state,
-          isPlaying:true
-     }
-}
-
-//한달월급
+// 한달 월급
 function applyMonthSalary(state, action){
-     const { salary } = action;
+     const { monthSallery } = action;
      return{
           ...state,
-          salary
+          monthSallery
      }
 }
 
-//월급날
+// 월급 날
 function applySalaryDay(state, action){
      const { salaryDay } = action;
      return{
@@ -282,15 +297,36 @@ function applySalaryDay(state, action){
      }
 }
 
-//일하는 날
-function applySalaryWeek(state, action){
-     const { salaryWeek } = action;
+
+//일하는 날 배열정보
+function applySelectyWeek(state, action){
+     const { selectWeek } = action;
      return{
           ...state,
-          salaryDay
+          selectWeek
      }
 }
-//근무시작 시간
+
+//일하는 날 배열길이 카운팅
+function applyWorkingWeekDay(state, action){
+     const { workingWeekDay } = action;
+     console.log("workingWeekDay insert : ", workingWeekDay)
+     return{
+          ...state,
+          workingWeekDay
+     }
+}
+
+// 하루 일하는 시간
+function applyWorkingHours(state, action){
+     const { workingHour } = action;
+     return {
+          ...state,
+          workingHour
+     }
+}
+
+// 근무시작 시간
 function applySetStartHour(state, action){
      const { startHour } = action;
      return{
@@ -299,7 +335,7 @@ function applySetStartHour(state, action){
      }
 }
 
-//근무종료시간
+// 근무종료 시간
 function applySetEndHour(state, action){
      const { endHour } = action;
      return{
@@ -311,54 +347,22 @@ function applySetEndHour(state, action){
 function applySetData(state, action){
      return {
           ...state,
-          isSetData : true
+          isSetData : true,
+          isPlaying : true
      }
 }
 
-// function applySetData(state, action){
-//      const { salary , salaryDay, salaryWeek} = action;
-//      return{
-//           ...state,
-//           salary,
-//           salaryDay,
-//           salaryWeek,
-//           isSetData : false,
-//      }
-// }
-
-function applyAddPercent(state, action){
-     const { percent } = action;
-     if(action !== percent){
-          return{
-               ...state,
-               percent
-          }
+function applySetStandardMonth(state, action){
+     const { standardMonth } = action;
+     console.log("standardMonth insert : ", standardMonth)
+     return {
+          ...state,
+          standardMonth
      }
 }
-
-function applyAddSecond(state, action){
-     const { secondSallery } = action;
-     if(state.elapsedTime < state.workingTime){
-          return {
-              ...state,
-              elapsedTime : state.elapsedTime + 1,
-          }
-      } else {
-          return {
-              ...state,
-              //isPlaying: false,
-              isPlaying: true,
-          }
-      }
-}
-
 
 // Exports
 const actionCreators = {
-     //login,
-     addSecond,
-     addPercent,
-     SetSecondMoney,
      submitData
 }
 

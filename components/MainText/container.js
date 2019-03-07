@@ -17,11 +17,20 @@ class Container extends Component {
      }
 
      componentWillReceiveProps = nextProps => {
-          console.log("MainText next: " , nextProps.CURRENT_SALARY)
+          if(this.props.type === 'Today'){
+               console.log("MainText next: " , nextProps.CURRENT_SALARY)
+               this.setState({
+                    CURRENT_SALARY: nextProps.CURRENT_SALARY,
+               })
+          }else if(this.props.type === 'Month'){
+               console.log("MainText next: " , nextProps.MONTH_CURRENT_SALARY)
+               this.setState({
+                    MONTH_CURRENT_SALARY: nextProps.MONTH_CURRENT_SALARY,
+               })
+          }
+          
 
-          this.setState({
-               CURRENT_SALARY: nextProps.CURRENT_SALARY,
-          })
+          
      }
 
         textRef = null;

@@ -47,18 +47,16 @@ const FirstStepScreen = props =>
               style={styles.input}
               autoCapitalize={"none"}
               autoCorrect={false}
-              value={props.salary}
+              value={props.monthSallery}
                onChangeText={props.changeSalary}
             />
           
             <TextInput
               textContentType="name"
-              secureTextEntry={true}
               placeholder="월급받는 날짜를 입력하세요"
               placeholderTextColor="#707070"
               style={styles.input}
               autoCapitalize={"none"}
-               secureTextEntry={true}
               value={props.salaryDay}
               onChangeText={props.changeSalaryDay}
             />
@@ -94,7 +92,7 @@ const FirstStepScreen = props =>
               autoCapitalize={"none"}
               autoCorrect={false}
               value={props.startHour}
-               onChangeText={props.changeSalaryWeek}
+              onChangeText={props.changeWorkStart}
             />
 
           <TextInput
@@ -105,10 +103,10 @@ const FirstStepScreen = props =>
               autoCapitalize={"none"}
               autoCorrect={false}
               value={props.endHour}
-               onChangeText={props.changeSalaryWeek}
+              onChangeText={props.changeWorkEnd}
             />
 
-          {props.isSubmiting ? ( 
+          {/* {props.isSubmiting ? ( 
                <GradientButton
                     style={{ marginTop: 8 ,shadowColor: 'gray',
                          shadowOffset: { width: 0, height: 0 },
@@ -118,11 +116,10 @@ const FirstStepScreen = props =>
                     text="등록 중..."
                     height={50}
                     blueViolet
-                    onPressAction={() => props.submit()}
                >
                </GradientButton>  
                     
-               ) : ( 
+               ) : (  */}
                     <GradientButton
                          style={{ marginTop: 8 ,shadowColor: 'gray',
                          shadowOffset: { width: 0, height: 0 },
@@ -134,7 +131,7 @@ const FirstStepScreen = props =>
                          blueViolet
                          onPressAction={() => props.submit()}
                     />  
-          )}
+          {/* )} */}
           </RkCard>
         </View>
       </RkAvoidKeyboard>
@@ -146,8 +143,7 @@ FirstStepScreen.Proptypes = {
      changeUsername : Proptypes.func.isRequired,
      changePassword : Proptypes.func.isRequired,
      submit : Proptypes.func.isRequired,
-     salary : Proptypes.number.isRequired,
-     salaryWeek : Proptypes.string.isRequired,
+     monthSallery : Proptypes.number.isRequired,
      salaryDay : Proptypes.string.isRequired,
      startHour : Proptypes.number.isRequired,
      endHour : Proptypes.number.isRequired,

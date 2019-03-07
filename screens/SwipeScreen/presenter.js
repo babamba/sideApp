@@ -50,25 +50,21 @@ const SwipeScreen = props => (
                automaticallyAdjustContentInsets={true}
             >
            <View style={styles.slide1}>
-              
-             {/* <Text style={styles.text}>Hello Swiper</Text> */}
-             {props.renderArray[0] ?
-                <TodayScreen  {...props}/>
-              : null}
+           {props.renderArray[0] ?
+              <TodayScreen  {...props}/>
+                : null}
            </View>
            <View style={styles.slide2}>
-           {props.renderArray[1] ?
+              {props.renderArray[1] ?
                 <MonthScreen {...props}/>
-                : null}
-             {/* <Text style={styles.text}>Beautiful</Text> */}
-           </View>
+               : null}
+            </View>
            <View style={styles.slide3}>
            {props.renderArray[2] ?
               <MealScreen  {...props}/>
              : null}
            </View>
            <View style={styles.slide4}>
-             {/* <Text style={styles.text}>And simple</Text> */}
              {props.renderArray[3] ?
              <PurchaseScreen {...props}/>
              : null}

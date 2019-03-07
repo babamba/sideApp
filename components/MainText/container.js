@@ -20,6 +20,7 @@ class Container extends Component {
           if(this.props.type === 'Today'){
                //console.log("MainText next: " , nextProps.CURRENT_SALARY)
                //console.log("timer : " ,  nextProps.remainHours, "남음")
+               console.log("timer : " ,  nextProps.PERCENT, "남음")
                this.setState({
                     CURRENT_SALARY: nextProps.CURRENT_SALARY,
                     REMAIN_HOUR : nextProps.REMAIN_HOUR,

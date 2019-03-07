@@ -45,7 +45,7 @@ const DecreaseText = props => (
                          />
                     </View>
                </View>
-               <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
+               {/* <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
                     <ProgressBarAnimated
                     // {...progressCustomStyles}
                               style={styles.progress}
@@ -56,7 +56,7 @@ const DecreaseText = props => (
                               barAnimationDuration={20.0}
                               
                     />
-               </View>
+               </View> */}
           </View>
      ) : (
           <View style={styles.container}>
@@ -88,7 +88,7 @@ const DecreaseText = props => (
                     </View>
                </View>
                <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
-               <ProgressBarAnimated
+               {/* <ProgressBarAnimated
                               //style={styles.progress}
                               width={barWidth}
                               value={90}
@@ -101,8 +101,7 @@ const DecreaseText = props => (
                          start={{ x: 0, y: 1 }}
                          end={{ x: 1, y: 1 }}
                     />   
-                    
-                    </ProgressBarAnimated>
+               </ProgressBarAnimated> */}
                    
                </View>
           </View>

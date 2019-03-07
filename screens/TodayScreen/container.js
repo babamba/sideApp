@@ -15,15 +15,18 @@ const getDate = TODAY_DATE.date();
 const getMonth = TODAY_DATE.month();
 const getYear = TODAY_DATE.year();
 
+
+// 시작날짜부터 종료날짜까지 로 수정해야함
+// 지금은 이번달로만 되어있음.
 dayInMonth = () =>  {
      const date = new Date();
      const year  = Number(date.toLocaleDateString("de-DE", {year: "numeric"}));
      const month = Number(date.toLocaleDateString("de-DE", {month: "2-digit"}));
+
      const nowDate = new Date(year, month-1, 1);
      const lastDate = new Date(year, month, 0).getDate();
      const monthSWeek = nowDate.getDay();
      const weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1)/7) + 1;
-
      return weekSeq;
 }
 
@@ -93,6 +96,12 @@ class Container extends Component {
           const TODAY_NEW_DATE = moment();
                     
           console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
+
+          const CHECK_START_DATE = moment(new Date());
+          CHECK_START_DATE.set({year : getYear , date: getDate, month:getMonth, hour:startHour, minute:0, second:0})
+
+          const CHECK_END_DATE = moment(new Date());
+          CHECK_END_DATE.set({year : getYear , date: getDate, month:getMonth, hour:endHour, minute:0, second:0})        
           
           //월별
           //if(salaryPayType === SALARY_PAY_TYPE[0]){
@@ -140,9 +149,10 @@ class Container extends Component {
            //      SECOND_SALARY
            // })
           //}
+          const CLOSE_CURRENT_SALARY = Math.floor(WORKING_SECOND * SECOND_SALARY);
 
-
-          console.log("timer CURRENT_SALARY :  ",CURRENT_SALARY)
+          console.log("WORKING_SECOND :  ",WORKING_SECOND)
+          console.log("SECOND_SALARY :  ",SECOND_SALARY)
 
           const CurrentTime = moment(new Date());
 
@@ -152,55 +162,76 @@ class Container extends Component {
                hour : moment.duration(TODAY_END_DATE.diff(CurrentTime)).hours(),
                minutes : moment.duration(TODAY_END_DATE.diff(CurrentTime)).minutes()
           }
+          if(CHECK_START_DATE < TODAY_DATE && CHECK_END_DATE > TODAY_DATE){
 
-          this.setState({
-               isFetching : false,
-               //isPlaying,
-               //SECOND_SALARY:0,         // 1초당 금액
-               //INTERVAL_SECOND:0,       // 지난 시간
-               //WORKING_SECOND:0,        // 일한 시간
-               CURRENT_SALARY,        //현 시간까지 번돈
-               PERCENT,               // 근무시간 진행퍼센트
-               //변경되지않을값들
-               TODAY_START_DATE,        // 근무시작 일자
-               TODAY_END_DATE,          // 근무종료 일자
-               SALARY_START_MONTHDAY,   // 월급시작 일자
-               SALARY_END_MONTHDAY,     // 월급종료 일자
+               this.setState({
+                    isFetching : false,
+                    //isPlaying,
+                    //SECOND_SALARY:0,         // 1초당 금액
+                    //INTERVAL_SECOND:0,       // 지난 시간
+                    //WORKING_SECOND:0,        // 일한 시간
+                    CURRENT_SALARY,        //현 시간까지 번돈
+                    PERCENT,               // 근무시간 진행퍼센트
+                    //변경되지않을값들
+                    TODAY_START_DATE,        // 근무시작 일자
+                    TODAY_END_DATE,          // 근무종료 일자
+                    SALARY_START_MONTHDAY,   // 월급시작 일자
+                    SALARY_END_MONTHDAY,     // 월급종료 일자
 
-               monthSallery,
-               workingWeekDay,
-               workingHour,
-               renderArray: [true, false, false, false],
-               timerInterval:null,
-               salaryDay,
-               salaryPayType,
-               REMAIN_HOUR : remainHours.hour,
-               REMAIN_MINUTES : remainHours.minutes
-          });
+                    monthSallery,
+                    workingWeekDay,
+                    workingHour,
+                    renderArray: [true, false, false, false],
+                    timerInterval:null,
+                    salaryDay,
+                    salaryPayType,
+                    REMAIN_HOUR : remainHours.hour,
+                    REMAIN_MINUTES : remainHours.minutes,
+                    timerInterval: null,
+               });
+          }else{
+               this.setState({
+                    timerInterval:null,
+                    CURRENT_SALARY : CLOSE_CURRENT_SALARY,
+                    PERCENT:100
+               });
+          }
           
      }
 
      componentDidMount() {
           console.log('TODAY componentDidMount')
-          const { startHour } = this.props
+          const { startHour, endHour } = this.props
           
           const CHECK_START_DATE = moment(new Date());
-          CHECK_START_DATE.year(getYear)
-          CHECK_START_DATE.date(getDate);
-          CHECK_START_DATE.month(getMonth);
-          CHECK_START_DATE.hour(startHour);
-          CHECK_START_DATE.minute(0);
+          CHECK_START_DATE.set({year : getYear , date: getDate, month:getMonth, hour:startHour, minute:0, second:0})
+
+          const CHECK_END_DATE = moment(new Date());
+          CHECK_END_DATE.set({year : getYear , date: getDate, month:getMonth, hour:endHour, minute:0, second:0})
           
           //console.log("TODAY_DATE.hours()", TODAY_DATE.format('YYYY-MM-DD HH:mm'));
           //console.log("CHECK_START_DATE", CHECK_START_DATE.format('YYYY-MM-DD HH:mm'));
 
           // 시작시간보다 이른경우 타이머 있으면 클리어
+         
           if(CHECK_START_DATE > TODAY_DATE){
-               if(this.timerInterval){
-                    clearInterval(this.timerInterval);
+               if(this.state.timerInterval){
+                    clearInterval(this.state.timerInterval);
+                    this.setState({
+                         timerInterval:null
+                    })
+               }
+          }else if(CHECK_END_DATE < TODAY_DATE){
+               if(this.state.timerInterval){
+                    clearInterval(this.state.timerInterval);
+                    this.setState({
+                         timerInterval:null
+                    })
                }
           }else{
-               this.timerInterval = setInterval(() => {
+
+               let timerInterval = setInterval(() => {
+
                     //const {CURRENT_SALARY, PERCENT, SECOND_SALARY, TODAY_END_DATE} = this.state;
                     const { TODAY_START_DATE, TODAY_END_DATE, monthSallery, workingWeekDay, workingHour, salaryPayType, PAST_TIME, PAST_DAY} = this.state;
                     // 계산에 사용될 Date객체 
@@ -272,18 +303,28 @@ class Container extends Component {
                     //console.log("몇시간 남았나?", remainHours.hour , '시간' , remainHours.minutes, '분');
 
                     //console.log("실행 중 rerender Today");
+                    console.log(CHECK_START_DATE.format('HH시 :mm분 :: ss초'), " ::: " , TODAY_DATE.format('HH시 :mm분 :: ss초'))
+                    console.log(CHECK_END_DATE.format('HH시 :mm분 :: ss초'), " ::: " , TODAY_DATE.format('HH시 :mm분 :: ss초'))
+
                     this.setState({
                          CURRENT_SALARY, // 현재시간까지 번돈
                          PERCENT,            //현재시간까지의 퍼센트
-                         remainHours
+                         remainHours,
+                         timerInterval
                     })
+                    
                }, 2000);
           }
      }
 
      componentWillUnmount() {
           console.log("Today Unmount")
-          clearInterval(this.timerInterval);
+          if(this.state.timerInterval){
+               clearInterval(this.state.timerInterval);
+               this.setState({
+                    timerInterval:null
+               })
+          }
           //this.setState({timerInterval : null})
       }
 

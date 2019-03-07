@@ -32,9 +32,18 @@ const SalleryText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
-                         <Text style={styles.remainText} >
-                              {props.REMAIN_HOUR} 시간 {props.REMAIN_MINUTES}분 남았다. 버티자
-                         </Text>
+                   
+                         { props.timerInterval !== null ? (
+                              <Text style={styles.remainText} >
+                                   {props.REMAIN_HOUR} 시간 {props.REMAIN_MINUTES}분 남았다. 버티자
+                              </Text>
+                              ) : (
+                              <Text style={styles.remainText} >
+                                   고생했어요 토닥토닥
+                              </Text>
+                              )
+                         }
+                        
                     </View>
                     <View style={styles.textArea} >
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
@@ -74,12 +83,22 @@ const SalleryText = props => (
                               animationType={"spring"}
                               // indeterminate={true}
                          /> */}
-                    <ProgressBarAnimated
+                    {props.PERCENT === 100 ? (
+                         <ProgressBarAnimated
+                              width={barWidth}
+                              value={props.PERCENT}
+                              backgroundColor="#3CC644"
+                              barEasing={"ease"}
+                         />
+                    ) : (
+                         <ProgressBarAnimated
                               width={barWidth}
                               value={props.PERCENT}
                               backgroundColorOnComplete="green"
                               barEasing={"ease"}
-                    />
+                         />
+                    )}
+                    
                     
                </View>
           </View>
@@ -116,7 +135,7 @@ const SalleryText = props => (
                </View>
                <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
                     <ProgressBarAnimated
-                              // {...progressCustomStyles}
+                              //{...progressCustomStyles}
                               width={barWidth}
                               value={props.PERCENT}
                               backgroundColorOnComplete="#3CC644"

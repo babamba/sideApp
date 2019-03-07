@@ -31,6 +31,7 @@ const SalleryText = props => (
      props.type  ===  "Today" ? ( 
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
+                    <Text>{props.REMAIN_HOUR} 시간 </Text><Text>{props.REMAIN_MINUTES}분 남았다.</Text>
                     <View style={styles.textArea} >
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1} >
@@ -82,6 +83,7 @@ const SalleryText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
+                         <Text>{props.REMAIN_DATE} 일 남았다. </Text>
                          <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
                                    텅장이

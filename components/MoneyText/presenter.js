@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
-import AnimateNumber from 'react-native-animate-number';
+import AnimateNumber from '@bankify/react-native-animate-number'
 
 const {width, height} = Dimensions.get("window");
 
@@ -14,9 +14,10 @@ const MoneyText = props => (
                                    formatter={(val) => {
                                         return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    }}
+                                   //interval={10}
                                    timing={(interval, progress) => {
                                         // slow start, slow end
-                                        return interval * (1 - Math.sin(Math.PI*progress) )*4
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
                                    }}
                               /> 원
                          </Text>
@@ -29,9 +30,11 @@ const MoneyText = props => (
                                    formatter={(val) => {
                                         return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    }}
+                                   //interval={10}
+                                   //timing="easeOut"
                                    timing={(interval, progress) => {
                                         // slow start, slow end
-                                        return interval * (1 - Math.sin(Math.PI*progress) )*4
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
                                    }}
                               /> 원
                          </Text>

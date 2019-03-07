@@ -3,6 +3,7 @@ import { Alert } from "react-native"
 import SignInScreen from "./presenter";
 import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
+import { withNavigation} from "react-navigation";
 
 class Container extends Component {
 
@@ -54,13 +55,25 @@ class Container extends Component {
                          this.setState({
                               isSubmiting : false
                          });
+                    }else{
+                         if(this.props.navigation.state.params.jumpLogin){
+                              console.log('jump Login')
+                              //console.log('navi props' , this.props)
+                              this.props.navigation.navigate('Side', {
+                                   jumpLogin: false,
+                              });
+
+                              this.setState({
+                                   isSubmiting : false,
+                                   username : "",
+                                   password : "",
+                              })
+                         }
                     }
                }else{
                     Alert.alert('All fileds are require')
                }
-          }else{
-               Alert.alert('Login Success')
           }
      }
 }
-export default Container;
+export default withNavigation(Container);

@@ -58,6 +58,8 @@ class Container extends Component {
                }else{
                     Alert.alert('All fileds are require')
                }
+          }else{
+               Alert.alert('Login Success')
           }
      }
 }

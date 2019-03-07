@@ -57,7 +57,7 @@ calcPastWeekDay = (todayDate, salaryStartDate, past) => {
                break;
           }else{
                const day = temp_date.day();
-               console.log(day);
+               //console.log(day);
                if(day === 0 || day === 6){
                     //console.log("주말")
                }else{
@@ -85,7 +85,8 @@ class Container extends Component {
           //console.log(this.props)
      }
 
-     //스크린이 그려지기전 setState해도 리렌더링 되지않음
+     //스크린이 붙기전 setState해도 리렌더링 되지않음
+     // 붙기전에 미리 데이터를 만들어놓는다
      componentWillMount(){
           console.log('componentWillMount');
 
@@ -132,52 +133,52 @@ class Container extends Component {
 
           const TODAY_NEW_DATE = moment();
                     
-          console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
-          console.log("TODAY_START_DATE", TODAY_START_DATE.format('HH시 :mm분 :: ss초'))
+          //console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
+          //console.log("TODAY_START_DATE", TODAY_START_DATE.format('HH시 :mm분 :: ss초'))
 
           //const WORKING_SECOND = Math.floor(moment.duration(TODAY_END_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000);
           //console.log('일할 시간: ',WORKING_SECOND);
      
           //시작 시작부터 흐른 시간
           const INTERVAL_SECOND = moment.duration(TODAY_NEW_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000;
-          console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
+          //console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
 
 
-          console.log(SALARY_END_MONTHDAY)
+          //console.log(SALARY_END_MONTHDAY)
           const tempSalaryStartMonth = new Date(SALARY_END_MONTHDAY.year(), SALARY_END_MONTHDAY.month() - 1, SALARY_END_MONTHDAY.date(), SALARY_END_MONTHDAY.minute());
           
           //const WORKING_SECOND_MONTH = Math.floor((SALARY_END_MONTHDAY.getTime() - tempSalaryStartMonth.getTime()) / 1000);
           const WORKING_SECOND_MONTH =  Math.floor(moment.duration(SALARY_END_MONTHDAY.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
 
-          console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
-          console.log("SALARY_END_MONTHDAY : ", SALARY_END_MONTHDAY);
+          //console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
+          //console.log("SALARY_END_MONTHDAY : ", SALARY_END_MONTHDAY);
           
-          console.log("WORKING_SECOND_MONTH 고정 일할 시간 한달",WORKING_SECOND_MONTH,"초")
+          //console.log("WORKING_SECOND_MONTH 고정 일할 시간 한달",WORKING_SECOND_MONTH,"초")
 
           //const INTERVAL_SECOND_MONTH = Math.floor((TODAY_DATE.getTime() - tempSalaryStartMonth.getTime()) / 1000);
           const INTERVAL_SECOND_MONTH = Math.floor(moment.duration(TODAY_DATE.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
 
           //console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
-          console.log("TODAY_DATE : ", TODAY_DATE);
+          //console.log("TODAY_DATE : ", TODAY_DATE);
 
-          console.log("INTERVAL_SECOND_MONTH 시작날부터 오늘까지 일한시간",INTERVAL_SECOND_MONTH,"초")
+          //console.log("INTERVAL_SECOND_MONTH 시작날부터 오늘까지 일한시간",INTERVAL_SECOND_MONTH,"초")
 
           const WEEK_COUNT = dayInMonth();
-          console.log("weekCount",WEEK_COUNT ,"주");
+          //console.log("weekCount",WEEK_COUNT ,"주");
 
           // const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
           // console.log("PERCENT_TODAY" , PERCENT, "%");
 
           const PERCENT_MONTH = Math.floor(( INTERVAL_SECOND_MONTH / WORKING_SECOND_MONTH  ) * 100);
-          console.log("PERCENT_MONTH" , PERCENT_MONTH, "%");
+          //console.log("PERCENT_MONTH" , PERCENT_MONTH, "%");
      
           const WEEK_SALARY = (monthSallery / WEEK_COUNT);
-          console.log("weekSallery : 주간" , WEEK_SALARY, "원");
+          //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
           
           //하루 일당   -> 주간급여 / 주간일하는 날수
           const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
-          console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
-          console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
+          //console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
+          //console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
 
           const hourSallery = Math.floor( TODAY_SALARY / workingHour );
           //console.log("hourSallery : 시간" , hourSallery, "원");
@@ -196,8 +197,8 @@ class Container extends Component {
           const CURRENT_SALARY = Math.floor(INTERVAL_SECOND * SECOND_SALARY);
 
           const MONTH_CURRENT_SALARY = Math.floor((TODAY_SALARY * PAST_DAY) + CURRENT_SALARY);
-          console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
-          console.log("시작일로부터 계산된 오늘 일자 월급" , MONTH_CURRENT_SALARY)
+          //console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
+          //console.log("시작일로부터 계산된 오늘 일자 월급" , MONTH_CURRENT_SALARY)
 
           //항상 초기화해야할것들
           this.setState({
@@ -228,6 +229,8 @@ class Container extends Component {
           });
      }
 
+     //스크린이 붙은 후
+     // 타이머를 돌리면서 정보를 계속 수정
      componentDidMount() {
           console.log('componentDidMount');
           this.timerInterval = setInterval(() => {
@@ -240,52 +243,52 @@ class Container extends Component {
                
                const TODAY_NEW_DATE = moment();
                     
-               console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
-               console.log("TODAY_START_DATE", TODAY_START_DATE.format('HH시 :mm분 :: ss초'))
+               //console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
+               //console.log("TODAY_START_DATE", TODAY_START_DATE.format('HH시 :mm분 :: ss초'))
 
                //const WORKING_SECOND = Math.floor(moment.duration(TODAY_END_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000);
                //console.log('일할 시간: ',WORKING_SECOND);
           
                //시작 시작부터 흐른 시간
                const INTERVAL_SECOND = moment.duration(TODAY_NEW_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000;
-               console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
+               //console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
 
 
-               console.log(SALARY_END_MONTHDAY)
+               //console.log(SALARY_END_MONTHDAY)
                const tempSalaryStartMonth = new Date(SALARY_END_MONTHDAY.year(), SALARY_END_MONTHDAY.month() - 1, SALARY_END_MONTHDAY.date(), SALARY_END_MONTHDAY.minute());
                
                //const WORKING_SECOND_MONTH = Math.floor((SALARY_END_MONTHDAY.getTime() - tempSalaryStartMonth.getTime()) / 1000);
                const WORKING_SECOND_MONTH =  Math.floor(moment.duration(SALARY_END_MONTHDAY.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
 
-               console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
-               console.log("SALARY_END_MONTHDAY : ", SALARY_END_MONTHDAY);
+               //console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
+               //console.log("SALARY_END_MONTHDAY : ", SALARY_END_MONTHDAY);
                
-               console.log("WORKING_SECOND_MONTH 고정 일할 시간 한달",WORKING_SECOND_MONTH,"초")
+               //console.log("WORKING_SECOND_MONTH 고정 일할 시간 한달",WORKING_SECOND_MONTH,"초")
 
                //const INTERVAL_SECOND_MONTH = Math.floor((TODAY_DATE.getTime() - tempSalaryStartMonth.getTime()) / 1000);
                const INTERVAL_SECOND_MONTH = Math.floor(moment.duration(TODAY_DATE.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
 
                //console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
-               console.log("TODAY_DATE : ", TODAY_DATE);
+               //console.log("TODAY_DATE : ", TODAY_DATE);
 
-               console.log("INTERVAL_SECOND_MONTH 시작날부터 오늘까지 일한시간",INTERVAL_SECOND_MONTH,"초")
+               //console.log("INTERVAL_SECOND_MONTH 시작날부터 오늘까지 일한시간",INTERVAL_SECOND_MONTH,"초")
 
                const WEEK_COUNT = dayInMonth();
-               console.log("weekCount",WEEK_COUNT ,"주");
+               //console.log("weekCount",WEEK_COUNT ,"주");
 
                // const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
                // console.log("PERCENT_TODAY" , PERCENT, "%");
 
                const PERCENT_MONTH = Math.floor(( INTERVAL_SECOND_MONTH / WORKING_SECOND_MONTH  ) * 100);
-               console.log("PERCENT_MONTH" , PERCENT_MONTH, "%");
+               //console.log("PERCENT_MONTH" , PERCENT_MONTH, "%");
           
                const WEEK_SALARY = (monthSallery / WEEK_COUNT);
-               console.log("weekSallery : 주간" , WEEK_SALARY, "원");
+               //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
                
                //하루 일당   -> 주간급여 / 주간일하는 날수
                const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
-               console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
-               console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
+               //console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
+               //console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
 
                const hourSallery = Math.floor( TODAY_SALARY / workingHour );
                //console.log("hourSallery : 시간" , hourSallery, "원");
@@ -304,8 +307,8 @@ class Container extends Component {
                const CURRENT_SALARY = Math.floor(INTERVAL_SECOND * SECOND_SALARY);
 
                const MONTH_CURRENT_SALARY = Math.floor((TODAY_SALARY * PAST_DAY) + CURRENT_SALARY);
-               console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
-               console.log("시작일로부터 계산된 오늘 일자 월급" , MONTH_CURRENT_SALARY)
+               //console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
+               //console.log("시작일로부터 계산된 오늘 일자 월급" , MONTH_CURRENT_SALARY)
 
                // this.setState({
                //      PERCENT: PERCENT_MONTH,
@@ -315,7 +318,7 @@ class Container extends Component {
           //}
 
                //console.log("state 샐러리",CURRENT_SALARY, PERCENT, SECOND_SALARY)
-               console.log("실행 중 rerender Month");
+               //console.log("실행 중 rerender Month");
 
                this.setState({
                     MONTH_CURRENT_SALARY:MONTH_CURRENT_SALARY, // 현재시간까지 번돈

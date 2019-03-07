@@ -61,63 +61,88 @@ class AppContainer extends Component {
      }
 
      render(){
-          const { isLoggedIn, profile, isSetData } = this.props;
-          //console.log("isLogged / " , isLoggedIn);
-          //첫 시동 구분
+          const { isLoggedIn, profile, isSetData , logOut} = this.props;
+          console.log("1231@#!@#!@#!@ isLogged / " , isLoggedIn);
+
           if (this.state.showRealApp) {
-               if(isLoggedIn && isSetData){
+               if(isSetData){
                     return (
                          <View style={styles.container} >
                               <StatusBar hidden={false}/>
-                              <RootNavigation screenProps = {{username: profile.username}} />
+                              {isLoggedIn && profile ? ( 
+                                   <RootNavigation screenProps = {{username: profile.username ,isLoggedIn: isLoggedIn, logOut}} />
+                                        ) : ( 
+                                   <RootNavigation screenProps = {{isLoggedIn: false}}/>     
+                              )}     
                          </View>
                        );
-               // 로그인은 헀지만 입력정보를 입력안한 경우
-               }else if(isLoggedIn && !isSetData){
+               }else{
                     return (
                          <View style={styles.container} >
-                              <StatusBar hidden={false}/>
-                                   <EnterSalaryNavigation  />
+                                   <StatusBar hidden={false}/>
+                                        <EnterSalaryNavigation  />
                          </View>
                     )
-               //로그인은 안했지만 입력정보는 입력한 상태
-               }else if(!isLoggedIn && isSetData){
-                    return (
-                         <View style={styles.container} >
-                              <StatusBar hidden={false}/>
-                              <RootNavigation screenProps = {{username: profile.username}} />
-                         </View>
-                       );
-               // 로그인 입력 둘다 안한상태 
-               }else if(!isLoggedIn && !isSetData){
-                    return (
-                         <View style={styles.container} >
-                              <StatusBar hidden={false}/>
-                              <LoggedOutNavigation/> )
-                         </View>
-                    );
                }
 
-               //입력정보 입력헀는지 구분
-               
-               
           }else{
                return (
                     <AppIntroSlider
-                      slides={slide}
-                      renderItem={this._renderItem}
-                   //    bottomButton
-                      showPrevButton
-                      showSkipButton
-                      onDone={this._onDone}
-                      activeDotStyle={{backgroundColor:'black'}}
-                      buttonTextStyle={{color:'black'}}
-                      // hideNextButton
-                      // hideDoneButton
-                      // onSkip={() => console.log("skipped")}
+                    slides={slide}
+                    renderItem={this._renderItem}
+               //    bottomButton
+                    showPrevButton
+                    showSkipButton
+                    onDone={this._onDone}
+                    activeDotStyle={{backgroundColor:'black'}}
+                    buttonTextStyle={{color:'black'}}
+                    // hideNextButton
+                    // hideDoneButton
+                    // onSkip={() => console.log("skipped")}
                     />
                );
           }
+
+          
+          // if (this.state.showRealApp) {
+          //      if(isSetData){
+          //           return (
+          //                <View style={styles.container} >
+          //                     <StatusBar hidden={false}/>
+          //                     {isLoggedIn && profile ? ( 
+          //                          <RootNavigation screenProps = {{username: profile.username}} />
+          //                               ) : ( 
+          //                          <LoggedOutNavigation/> )
+          //                     }
+          //                </View>
+          //              );
+          //      }else{
+          //           return (
+          //                <View style={styles.container} >
+          //                     <StatusBar hidden={false}/>
+          //                          <EnterSalaryNavigation  />
+          //                </View>
+          //           )
+          //                //
+          //      }
+               
+          // }else{
+          //      return (
+          //           <AppIntroSlider
+          //             slides={slide}
+          //             renderItem={this._renderItem}
+          //          //    bottomButton
+          //             showPrevButton
+          //             showSkipButton
+          //             onDone={this._onDone}
+          //             activeDotStyle={{backgroundColor:'black'}}
+          //             buttonTextStyle={{color:'black'}}
+          //             // hideNextButton
+          //             // hideDoneButton
+          //             // onSkip={() => console.log("skipped")}
+          //           />
+          //      );
+          // }
      }
 
      _onDone = () => {

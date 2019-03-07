@@ -31,7 +31,11 @@ const SalleryText = props => (
      props.type  ===  "Today" ? ( 
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
-                    <Text>{props.REMAIN_HOUR} 시간 </Text><Text>{props.REMAIN_MINUTES}분 남았다.</Text>
+                    <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+                         <Text style={styles.remainText} >
+                              {props.REMAIN_HOUR} 시간 {props.REMAIN_MINUTES}분 남았다. 버티자
+                         </Text>
+                    </View>
                     <View style={styles.textArea} >
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1} >
@@ -82,8 +86,10 @@ const SalleryText = props => (
      ) : (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
+                    <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+                         <Text style={styles.remainText}>{props.REMAIN_DATE} 일 남았다. 힘내라 </Text>
+                    </View>
                     <View style={styles.textArea}>
-                         <Text>{props.REMAIN_DATE} 일 남았다. </Text>
                          <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>
                               <Text style={styles.MainText1}>
                                    텅장이
@@ -146,6 +152,11 @@ const styles = StyleSheet.create({
      textArea:{
           alignContent: 'center',
           //backgroundColor:'blue',
+     },
+     remainText:{
+          fontSize:18,
+          fontFamily: 'NanumBarunGothicUltraLight',
+          paddingBottom:10
      },
      addButton:{
           paddingTop:20,

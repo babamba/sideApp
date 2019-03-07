@@ -183,7 +183,7 @@ function applySetUser(state, action){
      }
 }
 
-async function applyLogOut(state, action){
+function applyLogOut(state, action){
      const { user } = action;
      return {
           ...state,

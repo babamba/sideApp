@@ -1,11 +1,8 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import SideNavigation from "./SideNavigation";
-import InputScreen from "../screens/InputScreen";
 import MenuButton from "../components/MenuButton"
 import React from "react";
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Swiper from "../screens/SwipeScreen";
-import { Animated, Easing } from "react-native";
 
 // const noTransitionConfig = () => ({
 //      transitionSpec: {

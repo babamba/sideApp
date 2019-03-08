@@ -21,6 +21,7 @@ const SET_STANDARD_MONTH = 'SET_STANDARD_MONTH'
 const SET_DATA_YN ='SET_DATA_YN'
 
 const SET_ELAPSED_TIME = 'SET_ELAPSED_TIME';
+const SET_TODATE = 'SET_TODATE';
 
 // 계산에 사용될 Date객체 
 const TODAY_DATE = new Date();
@@ -99,6 +100,13 @@ function setStandardMonth(standardMonth){
 function setSubmitData(){
      return {
           type:SET_DATA_YN
+     }
+}
+
+function setTodate(todayDate){
+     return {
+          type : SET_TODATE,
+          todayDate
      }
 }
 
@@ -222,6 +230,7 @@ const initialState = {
      isPlaying:false,
      salaryDay : 0,
      salaryPayType : SALARY_PAY_TYPE[0],
+     todayDate:null,
 
      // 월급계산때 사용할 달 
 
@@ -272,7 +281,8 @@ function reducer(state = initialState, action){
                return applySetStandardMonth(state, action)
           case SET_DATA_YN:
                return applySetData(state, action);
-
+          case SET_TODATE:
+               return applySetTodate(state, action)
           default : 
                return state;
           }
@@ -361,9 +371,19 @@ function applySetStandardMonth(state, action){
      }
 }
 
+function applySetTodate(state, action){
+     const { todayDate } = action;
+     console.log('today : ' , todayDate.format('YYYY년 - MM월 - DD일 HH시:mm분 초'));
+     return {
+          ...state,
+          todayDate
+     }
+}
+
 // Exports
 const actionCreators = {
-     submitData
+     submitData,
+     setTodate
 }
 
 export { actionCreators };

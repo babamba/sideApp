@@ -6,15 +6,6 @@ import { SALARY_PAY_TYPE } from "../../constants";
 import moment from "moment";
 import {calcFilterHolidayWorkingDay , calcPastWeekDay } from "../../timerFn";
 
-// 계산에 사용될 Date객체 
-const TODAY_DATE = moment(new Date());
-
-// 계산에 필요한 연원일
-const getDay = TODAY_DATE.day();
-const getDate = TODAY_DATE.date();
-const getMonth = TODAY_DATE.month();
-const getYear = TODAY_DATE.year();
-
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
      // static navigationOptions  = ({ navigation }) => ({
@@ -60,6 +51,23 @@ class Container extends Component {
                     selectWeek
           } = this.props
           
+          // 계산에 사용될 Date객체 
+          // const TODAY_DATE = moment(new Date());
+
+          // // 계산에 필요한 연원일
+          // const getDay = TODAY_DATE.day();
+          // const getDate = TODAY_DATE.date();
+          // const getMonth = TODAY_DATE.month();
+          // const getYear = TODAY_DATE.year();
+
+          const CURRENT_DATE = moment(new Date());
+
+          const getDay = CURRENT_DATE.day();
+          const getDate = CURRENT_DATE.date();
+          const getMonth = CURRENT_DATE.month();
+          const getYear = CURRENT_DATE.year();
+          
+          console.log('CURRENT_DATE', CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'));
 
            const CHECK_START_DATE = moment(new Date());
                CHECK_START_DATE.set({year : getYear , date: getDate, month:getMonth, hour:startHour, minute:0, second:0})
@@ -138,7 +146,7 @@ class Container extends Component {
                //console.log("WORKING_SECOND_MONTH 고정 일할 시간 한달",WORKING_SECOND_MONTH,"초")
 
                //const INTERVAL_SECOND_MONTH = Math.floor((TODAY_DATE.getTime() - tempSalaryStartMonth.getTime()) / 1000);
-               const INTERVAL_SECOND_MONTH = Math.floor(moment.duration(TODAY_DATE.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
+               const INTERVAL_SECOND_MONTH = Math.floor(moment.duration(CURRENT_DATE.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
 
                //console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
                //console.log("TODAY_DATE : ", TODAY_DATE);
@@ -187,7 +195,7 @@ class Container extends Component {
                
                //console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
                //console.log("시작일로부터 계산된 오늘 일자 월급" , MONTH_CURRENT_SALARY)
-               if(CHECK_START_DATE < TODAY_DATE && CHECK_END_DATE > TODAY_DATE){
+               if(CHECK_START_DATE < CURRENT_DATE && CHECK_END_DATE > CURRENT_DATE){
                     //항상 초기화해야할것들
                     this.setState({
                          isFetching : false,
@@ -218,13 +226,34 @@ class Container extends Component {
                          REMAIN_DATE,
                     });
 
-               }else{
+               }else if(CHECK_START_DATE > CURRENT_DATE && CHECK_END_DATE < CURRENT_DATE){
                     this.setState({
                          timerInterval:null,
                          MONTH_CURRENT_SALARY : MONTH_CLOSE_CURRENT_SALARY,
                          PERCENT:PERCENT_MONTH,
                          REMAIN_DATE
                          //MONTH_CURRENT_SALARY:PREV_MONTH_CURRENT_SALARY
+                    });
+               //다음날로 넘어갈때?
+               }else if(moment(todayDate).date() < CURRENT_DATE.date()){
+                    
+                    //store state에 저장된 날짜와 현재 만들어진 날짜객체의 날이 다를때만 store 저장
+                    if(moment(todayDate).date() !== CURRENT_DATE.date()){
+                         const { setTodate } = this.props;
+               
+                         const newToday = moment(new Date());
+                         today.set({hour:0, minute:0, second:0})
+                         console.log("newToday")
+          
+                         setTodate(newToday);
+                    }
+
+                    this.setState({
+                         timerInterval:null,
+                         REMAIN_HOUR: null,
+                         REMAIN_MINUTES:null,
+                         CURRENT_SALARY : 0,
+                         PERCENT:0
                     });
                }
      }
@@ -242,11 +271,27 @@ class Container extends Component {
           const CHECK_END_DATE = moment(new Date());
           CHECK_END_DATE.set({year : getYear , date: getDate, month:getMonth, hour:endHour, minute:0, second:0})        
 
+          // 계산에 사용될 Date객체 
+          // const TODAY_DATE = moment(new Date());
+
+          // // 계산에 필요한 연원일
+          // const getDay = TODAY_DATE.day();
+          // const getDate = TODAY_DATE.date();
+          // const getMonth = TODAY_DATE.month();
+          // const getYear = TODAY_DATE.year();
+
           const CURRENT_DATE = moment(new Date());
-          CURRENT_DATE.set({second:0})
+          //CURRENT_DATE.set({second:0})
+          const getDay = CURRENT_DATE.day();
+          const getDate = CURRENT_DATE.date();
+          const getMonth = CURRENT_DATE.month();
+          const getYear = CURRENT_DATE.year();
+
+
+
           console.log('CURRENT_DATE', CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'));
           
-          if(CHECK_START_DATE > TODAY_DATE){
+          if(CHECK_START_DATE > CURRENT_DATE){
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval);
                     this.setState({
@@ -254,15 +299,14 @@ class Container extends Component {
                     })
                }
           
-          }else if(CHECK_END_DATE < TODAY_DATE){
+          }else if(CHECK_END_DATE < CURRENT_DATE){
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval);
                     this.setState({
                          timerInterval:null
                     })
                }
-          }else if(CHECK_START_DATE == CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE){
-               console.log("시작")
+          }else if(CHECK_START_DATE === CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE){
                let timerInterval = setInterval(() => {
 
                     //const {PERCENT, SECOND_SALARY, MONTH_CURRENT_SALARY, SALARY_END_MONTHDAY} = this.state;
@@ -311,7 +355,7 @@ class Container extends Component {
                     //console.log("WORKING_SECOND_MONTH 고정 일할 시간 한달",WORKING_SECOND_MONTH,"초")
 
                     //const INTERVAL_SECOND_MONTH = Math.floor((TODAY_DATE.getTime() - tempSalaryStartMonth.getTime()) / 1000);
-                    const INTERVAL_SECOND_MONTH = Math.floor(moment.duration(TODAY_DATE.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
+                    const INTERVAL_SECOND_MONTH = Math.floor(moment.duration(CURRENT_DATE.diff(tempSalaryStartMonth)).asMilliseconds() / 1000);
 
                     //console.log("SALARY_START_MONTHDAY : ", SALARY_START_MONTHDAY);
                     //console.log("TODAY_DATE : ", TODAY_DATE);
@@ -373,7 +417,7 @@ class Container extends Component {
 
                     //console.log("state 샐러리",CURRENT_SALARY, PERCENT, SECOND_SALARY)
                     //console.log("실행 중 rerender Month");
-                    if(CHECK_START_DATE > TODAY_DATE){
+                    if(CHECK_START_DATE > CURRENT_DATE){
                          if(this.state.timerInterval){
                               clearInterval(this.state.timerInterval);
                               this.setState({

@@ -35,7 +35,7 @@ const SalleryText = props => (
                    
                          { props.REMAIN_HOUR !== null ? (
                               <Text style={styles.remainText} >
-                                   {props.REMAIN_HOUR} 시간 
+                                   {props.REMAIN_HOUR} 시간  
                               </Text>
                               ) : (
                               <Text style={styles.remainText} >
@@ -46,7 +46,7 @@ const SalleryText = props => (
 
                          { props.REMAIN_MINUTES !== null ? (
                               <Text style={styles.remainText} >
-                                   {props.REMAIN_MINUTES}분 남았다. 버티자
+                                   {props.REMAIN_MINUTES} 분 남았다. 버티자
                               </Text>
                               ) : (
                               <Text style={styles.remainText} >
@@ -167,8 +167,7 @@ SalleryText.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          marginTop:250,
-          ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
+          ...ifIphoneX({marginTop:250}, {marginTop:200,}),
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",
@@ -184,11 +183,13 @@ const styles = StyleSheet.create({
           //backgroundColor:'blue',
      },
      remainArea:{
-          paddingBottom:10
+          paddingBottom:10,
+          flexDirection:'row'
      },
      remainText:{
           fontSize:18,
           paddingBottom:6,
+          paddingLeft:5,
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      addButton:{

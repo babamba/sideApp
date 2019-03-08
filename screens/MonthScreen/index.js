@@ -1,30 +1,22 @@
 import { connect } from "react-redux";
 import Container from "./container";
-// import { actionCreators as userActions} from "../../redux/modules/user"
+import { actionCreators as timerActions } from "../../redux/modules/timer";
 
-// const mapStateToProps = (state, ownProps ) => {
-//      const { photos : { feed } } = state
-//      //console.log(state);
-//      //console.log(feed)
-//      return {
-          
-//           feed
-//      }
-// }
+const mapStateToProps = (state, ownProps) => {
+     const { timer } = state;
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//      return {
-//           getFeed : () => {
-//                dispatch(photoActions.getFeed());
-//           },
-//           initApp: () => {
-//                dispatch(photoActions.getFeed());
-//                dispatch(photoActions.getSearch());
-//                dispatch(userActions.getNotifications());
-//                dispatch(userActions.getOwnProfile());
-//                dispatch(userActions.registerForPush());
-//              }
-//      }
-// }
+     return {
+          todayDate : timer.todayDate
+     };
+};
 
-export default connect()(Container);
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+     return {
+          setTodate : (todayDate) => {
+               dispatch(timerActions.setTodate(todayDate))
+          }
+     }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

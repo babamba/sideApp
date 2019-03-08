@@ -3,13 +3,20 @@ import { Alert } from "react-native"
 import InputScreen from "./presenter";
 import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
+const defaultSelectedIndex_group_insterest = [1];
+const multipleGroupData = [
+     { value: "0", displayValue: "좋아요!" },
+     { value: "1", displayValue: "그저그래요."},
+     { value: "2", displayValue: "후회되요" },
+];
 
 class Container extends Component {
 
      state = {
-          username : "",
-          password : "",
-          isSubmiting : false
+          income : "",
+          expend : "",
+          isSubmiting : false,
+          selectFillng : defaultSelectedIndex_group_insterest,
      }
 
      //static propsType = {
@@ -17,31 +24,52 @@ class Container extends Component {
           //fbLogin:PropTypes.func.isRequired
      //}
 
+     _groupButtonOnSelectedValuesChange = selectedValues=> {
+          console.log("selectedValues : ", selectedValues)
+          this.setState({ selectFillng: selectedValues });
+     }
+      
+     _groupButtonOnSelectedValuesChange_limited = selectedValues=> {
+          this.setState({multipleSelectedData_group_limited: selectedValues , salaryWeek: selectedValues});
+     }
+      
+     _onRadioGroupButtonSingleTap = valueTap => {
+          this.setState({radioSelectedData_group: valueTap});
+     }
+
      render(){
           return (
                     <InputScreen 
                          {...this.state } 
-                         changeUsername = {this._changeUsername}
-                         changePassword = {this._changePassword}
+                         changeIncome = {this._changeIncome}
+                         changeExpend = {this._changeExpend}
+                         submit = {this._submit}
+                         onSelectedValuesChange={this._groupButtonOnSelectedValuesChange}
+                         defaultSelectedIndex_group_insterest={defaultSelectedIndex_group_insterest}
+                         multipleGroupData={multipleGroupData}
                          //submit={this._submit}
                          //fbLogin={this.props.fbLogin}
                     />
                );
      }
 
-     _changeUsername = text => {
-          this.setState({ username : text });
+     _changeIncome = text => {
+          this.setState({ income : text });
      }
 
-     _changePassword = text => {
-          this.setState({ password : text });
+     _changeExpend = text => {
+          this.setState({ expend : text });
      }
 
      _submit = async() => {
-          const { username, password, isSubmiting } = this.state;
+          const { income, expend, selectFillng, isSubmiting } = this.state;
+
+          console.log('income : ', income);
+          console.log('expend : ', expend);
+          console.log('selectFillng : ', selectFillng);
           const { login } = this.props;
           if(!isSubmiting){
-               if(username && password){
+               if(income && expend){
                     //submit
                     this.setState({
                          isSubmiting : true

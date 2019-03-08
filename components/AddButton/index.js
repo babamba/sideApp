@@ -126,8 +126,9 @@ const styles = StyleSheet.create({
      modalContent: {
           backgroundColor: "white",
           //paddingBottom: 420,
-          top:0 + 120,
+          top:0 + 200,
           padding: 22,
+          paddingTop:0,
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 22,

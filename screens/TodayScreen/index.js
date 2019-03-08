@@ -3,26 +3,21 @@ import Container from "./container";
 import { ThemeProvider } from "react-native-paper";
 import { actionCreators as timerActions } from "../../redux/modules/timer";
 
-// const mapStateToProps = (state, ownProps) => {
-//      const { timer } = state;
+const mapStateToProps = (state, ownProps) => {
+     const { timer } = state;
 
-//      return {
-//      };
-// };
+     return {
+          todayDate : timer.todayDate
+     };
+};
 
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//      return {
-//           addSecond : () => {
-//                dispatch(timerActions.addSecond())
-//           },
-//           SetSecondMoney : (sallery) => {
-//                dispatch(timerActions.SetSecondMoney(sallery))
-//           },
-//           addPercent : (percent) => {
-//                dispatch(timerActions.addPercent(percent))
-//           },
-//      }
-// }
+const mapDispatchToProps = (dispatch, ownProps) => {
+     return {
+          setTodate : (todayDate) => {
+               dispatch(timerActions.setTodate(todayDate))
+          }
+     }
+}
 
-export default connect()(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

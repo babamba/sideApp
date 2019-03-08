@@ -14,6 +14,7 @@ import AuthNavigation from "../navigation/AuthNavigation";
 
 import { actionCreators as userActions} from "../redux/modules/user"
 import LogoutButton from "../components/LogoutButton";
+import Example from "../screens/TestScreen"
 
 
 const SideNavigation = createDrawerNavigator (
@@ -53,6 +54,12 @@ const SideNavigation = createDrawerNavigator (
                navigationOptions:{
                     title:"로그인",
                     drawerLabel: () => null
+               }
+          },
+          Example : {
+               screen: Example,
+               navigationOptions:{
+                    title:"각종 ui TEST",
                }
           },
           // SIGNUP : {

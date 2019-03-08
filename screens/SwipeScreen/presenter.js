@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   menuButtonArea:{
-    ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
+    ...ifIphoneX({paddingTop: 40}, {paddingTop: 20}),
   },
   slide1: {
     flex: 1,

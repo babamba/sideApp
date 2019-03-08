@@ -50,7 +50,9 @@ class App extends React.Component {
         ...Ionicons.font,
         ...MaterialIcons.font,
         'NanumBarunGothicUltraLight': require('./assets/font/NanumBarunGothicUltraLight.ttf'),
-        'NanumBarunGothicLight': require('./assets/font/NanumBarunGothicLight.ttf')
+        'NanumBarunGothicLight': require('./assets/font/NanumBarunGothicLight.ttf'),
+        'NanumBarunGothicBold': require('./assets/font/NanumBarunGothicBold.ttf'),
+        'NanumBarunGothic': require('./assets/font/NanumBarunGothic.ttf')
       })
     ]);
   };

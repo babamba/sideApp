@@ -20,7 +20,7 @@ MenuButton.propTypes = {
 const styles = StyleSheet.create({
      container : {
           paddingHorizontal: 15,
-          paddingVertical: 15,
+          paddingVertical: 20,
      }
 });
 

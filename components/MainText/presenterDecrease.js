@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
      container:{
           flex:1,
           marginTop:250,
-          ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
+          ...ifIphoneX({marginTop:250}, {marginTop:200}),
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",

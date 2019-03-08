@@ -4,6 +4,7 @@ import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView
 import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal";
 import InputScreen from "../../screens/InputScreen";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 class AddButton extends Component {
      constructor(props){
@@ -125,8 +126,9 @@ const styles = StyleSheet.create({
      },
      modalContent: {
           backgroundColor: "white",
+          ...ifIphoneX({top:200}, {top: 90}),
           //paddingBottom: 420,
-          top:0 + 200,
+          
           padding: 22,
           paddingTop:0,
           justifyContent: "center",

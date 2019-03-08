@@ -167,7 +167,7 @@ SalleryText.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({marginTop:250}, {marginTop:200,}),
+          ...ifIphoneX({marginTop:250}, {marginTop:200}),
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",

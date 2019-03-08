@@ -82,48 +82,29 @@ function login(username, password){
      }
 }
 
-function signUp(username, password, email){
-     return dispatch => {
-          console.log(`${API_URL}/rest-auth/signUp/`);
-          return fetch(`${API_URL}/rest-auth/signUp/`, {
-               method: "POST",
-               headers : {
-                    "Content-Type" : "application/json"
-               },
-               body: JSON.stringify({
-                    username,
-                    password,
-                    email
-               })
-          })
-          //.then(response => response.json())
-          .then(response => {
-               if(response.status === 401){
-                    return false;
-                    //dispatch(logOut());
-               }else if(response.ok){
-                    return true;
-               }else if(!response.ok){
-                    return false;
-               }
-          })
-          // .then(json => {
-          //      if(json.user && json.token){
-          //           //console.log(json)
-          //           dispatch(setLogIn(json.token))
-          //           dispatch(setUser(json.user))
-          //           return true
-          //      }else{
-          //           console.log("unable login")
-          //           return false;
-          //      }
-          // })
-          // .catch(function(error){
-          //      console.log("error message")
-          //      console.log(error);
-          // })
-     }
-}
+function signUp(username, password, email) {
+     return function(dispatch) {
+       fetch("/rest-auth/registration/", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json"
+         },
+         body: JSON.stringify({
+           username,
+           password1: password,
+           password2: password,
+           email
+         })
+       })
+         .then(response => response.json())
+         .then(json => {
+           if (json.token) {
+             dispatch(saveToken(json.token));
+           }
+         })
+         .catch(err => console.log(err));
+     };
+   }
 
 // Initial State
 
@@ -164,6 +145,16 @@ async function applyAlreadyLaunch(state, action){
           already : already
      }
 }
+
+// function applySetToken(state, action) {
+//      const { token } = action;
+//      await AsyncStorage.setItem("jwt", token);
+//      return {
+//        ...state,
+//        isLoggedIn: true,
+//        token: token
+//      };
+// }
 
 function applyLogIn(state, action){
      const { token } = action;

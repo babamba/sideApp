@@ -6,12 +6,14 @@ import {
   View,
   Dimensions
 } from 'react-native';
-
+import {withNavigation} from "react-navigation";
 import Swiper from 'react-native-swiper';
 import TodayScreen from "../TodayScreen"
 import MonthScreen from "../MonthScreen"
 import PurchaseScreen from "../PurchaseScreen";
 import MealScreen from "../MealScreen";
+import MenuButton from "../../components/MenuButton"
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 const { width, height } = Dimensions.get("window");
 
 
@@ -22,7 +24,14 @@ const SwipeScreen = props => (
 //      render(){
 //          //console.log(this.props)
 //        return (
+
+ 
         <View style={styles.container}>
+           <View style={styles.menuButtonArea} >
+            <MenuButton iconName={"md-menu"}  
+                onPress={() => console.log(props.navigation.toggleDrawer('Side'))}
+            />
+           </View>
           <Swiper
                style={styles.wrapper} 
                onMomentumScrollEnd={props.onScrollEnd}
@@ -84,6 +93,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  menuButtonArea:{
+    ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
+  },
   slide1: {
     flex: 1,
     justifyContent: 'center',
@@ -141,4 +153,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SwipeScreen;
+export default withNavigation(SwipeScreen);

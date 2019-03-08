@@ -4,6 +4,7 @@ import TodayScreen from "./presenter";
 import { image } from "react-native";
 import { SALARY_PAY_TYPE } from "../../constants";
 import moment from "moment";
+import {calcFilterHolidayWorkingDay , calcPastWeekDay } from "../../timerFn";
 
 
 // 계산에 사용될 Date객체 
@@ -15,32 +16,27 @@ const getDate = TODAY_DATE.date();
 const getMonth = TODAY_DATE.month();
 const getYear = TODAY_DATE.year();
 
-
-// 시작날짜부터 종료날짜까지 로 수정해야함
-// 지금은 이번달로만 되어있음.
-dayInMonth = () =>  {
-     const date = new Date();
-     const year  = Number(date.toLocaleDateString("de-DE", {year: "numeric"}));
-     const month = Number(date.toLocaleDateString("de-DE", {month: "2-digit"}));
-
-     const nowDate = new Date(year, month-1, 1);
-     const lastDate = new Date(year, month, 0).getDate();
-     const monthSWeek = nowDate.getDay();
-     const weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1)/7) + 1;
-     return weekSeq;
-}
-
-
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
      // static navigationOptions  = ({ navigation }) => ({
      // })
-     // constructor(props){
-     //      super(props);
+     constructor(props){
+          super(props);
+          const { salaryDay, standardMonth, selectWeek } = this.props
 
-     //      //console.log(this.props)
+          let temp_salary_start_month =  moment(new Date());
+          temp_salary_start_month.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
+
+          let temp_salary_end_month = moment(new Date());
+          temp_salary_end_month.set({date: salaryDay, month:standardMonth-1, hour:0, minute:0, second:0})
+
+          const WEEK_COUNT = calcFilterHolidayWorkingDay(temp_salary_start_month, temp_salary_end_month, selectWeek);
+          console.log("constructor WEEK_COUNT", WEEK_COUNT);
           
-     // }
+          this.state = {
+               WEEK_COUNT
+          }
+     }
 
      static navigationOptions = {
           gesturesEnabled: false,
@@ -50,7 +46,20 @@ class Container extends Component {
      componentWillMount(){
           console.log('TODAY componentWillMount')
 
-          const { monthSallery, workingWeekDay , workingHour, startHour, endHour  ,isPlaying, salaryDay, salaryPayType , standardMonth} = this.props
+          const { WEEK_COUNT } = this.state;
+
+          const { monthSallery, 
+               workingWeekDay , 
+               workingHour, 
+               startHour, 
+               endHour  ,
+               isPlaying, 
+               salaryDay, 
+               salaryPayType , 
+               standardMonth, 
+               selectWeek,
+          } = this.props;
+
           //console.log("props", props)
           //console.log("standardMonth" ,standardMonth)
           //console.log("salaryDay" ,salaryDay)
@@ -115,18 +124,29 @@ class Container extends Component {
            //const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
            const INTERVAL_SECOND = moment.duration(TODAY_NEW_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000;
            console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
-     
-           const WEEK_COUNT = dayInMonth();
+          
+          //  let temp_salary_start_month =  moment(new Date());
+          //  temp_salary_start_month.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
+
+          //  let temp_salary_end_month = moment(new Date());
+          //  temp_salary_end_month.set({date: salaryDay, month:standardMonth-1, hour:0, minute:0, second:0})
+
+           //const WEEK_COUNT = calcFilterHolidayWorkingDay(temp_salary_start_month, temp_salary_end_month, selectWeek);
            //console.log("weekCount",WEEK_COUNT ,"주");
      
            const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
            //console.log("percent" , PERCENT, "%");
           
-           const WEEK_SALARY = (monthSallery / WEEK_COUNT);
+           //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
+           const TODAY_SALARY = (monthSallery / WEEK_COUNT); 
+           console.log("WEEK_COUNT 일수" , WEEK_COUNT, "일");
+           
+           console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
+           
            //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
            
            //하루 일당   -> 주간급여 / 주간일하는 날수
-           const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
+           //const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
            //console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
            //console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
      
@@ -151,8 +171,9 @@ class Container extends Component {
           //}
           const CLOSE_CURRENT_SALARY = Math.floor(WORKING_SECOND * SECOND_SALARY);
 
-          console.log("WORKING_SECOND :  ",WORKING_SECOND)
-          console.log("SECOND_SALARY :  ",SECOND_SALARY)
+          // console.log("WORKING_SECOND :  ",WORKING_SECOND)
+          // console.log("SECOND_SALARY :  ",SECOND_SALARY)
+          console.log("CLOSE_CURRENT_SALARY :  ",CLOSE_CURRENT_SALARY)
 
           const CurrentTime = moment(new Date());
 
@@ -163,7 +184,7 @@ class Container extends Component {
                minutes : moment.duration(TODAY_END_DATE.diff(CurrentTime)).minutes()
           }
           if(CHECK_START_DATE < TODAY_DATE && CHECK_END_DATE > TODAY_DATE){
-
+               console.log('1!@#!@#!@#!@# REMAIN_HOUR :', remainHours)
                this.setState({
                     isFetching : false,
                     //isPlaying,
@@ -182,8 +203,9 @@ class Container extends Component {
                     workingWeekDay,
                     workingHour,
                     renderArray: [true, false, false, false],
-                    timerInterval:null,
                     salaryDay,
+                    standardMonth,
+                    selectWeek,
                     salaryPayType,
                     REMAIN_HOUR : remainHours.hour,
                     REMAIN_MINUTES : remainHours.minutes,
@@ -192,6 +214,8 @@ class Container extends Component {
           }else{
                this.setState({
                     timerInterval:null,
+                    REMAIN_HOUR: null,
+                    REMAIN_MINUTES:null,
                     CURRENT_SALARY : CLOSE_CURRENT_SALARY,
                     PERCENT:100
                });
@@ -203,6 +227,10 @@ class Container extends Component {
           console.log('TODAY componentDidMount')
           const { startHour, endHour } = this.props
           
+          const CURRENT_DATE = moment(new Date());
+          CURRENT_DATE.set({second:0})
+          console.log('CURRENT_DATE', CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'));
+
           const CHECK_START_DATE = moment(new Date());
           CHECK_START_DATE.set({year : getYear , date: getDate, month:getMonth, hour:startHour, minute:0, second:0})
 
@@ -210,7 +238,7 @@ class Container extends Component {
           CHECK_END_DATE.set({year : getYear , date: getDate, month:getMonth, hour:endHour, minute:0, second:0})
           
           //console.log("TODAY_DATE.hours()", TODAY_DATE.format('YYYY-MM-DD HH:mm'));
-          //console.log("CHECK_START_DATE", CHECK_START_DATE.format('YYYY-MM-DD HH:mm'));
+          console.log("CHECK_START_DATE", CHECK_START_DATE.format('YYYY-MM-DD HH:mm ss'));
 
           // 시작시간보다 이른경우 타이머 있으면 클리어
          
@@ -228,12 +256,12 @@ class Container extends Component {
                          timerInterval:null
                     })
                }
-          }else{
-
+          }else if(CHECK_START_DATE == CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE){
+               console.log("시작")
                let timerInterval = setInterval(() => {
 
                     //const {CURRENT_SALARY, PERCENT, SECOND_SALARY, TODAY_END_DATE} = this.state;
-                    const { TODAY_START_DATE, TODAY_END_DATE, monthSallery, workingWeekDay, workingHour, salaryPayType, PAST_TIME, PAST_DAY} = this.state;
+                    const { TODAY_START_DATE, WEEK_COUNT, TODAY_END_DATE, standardMonth , salaryDay, selectWeek, monthSallery, workingWeekDay, workingHour, salaryPayType, PAST_TIME, PAST_DAY} = this.state;
                     // 계산에 사용될 Date객체 
                     const TODAY_NEW_DATE = moment();
                     
@@ -247,23 +275,30 @@ class Container extends Component {
                      //const WORKING_SECOND = Math.floor((TODAY_END_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
                      const WORKING_SECOND = Math.floor(moment.duration(TODAY_END_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000);
                      //console.log('일할 시간: ',WORKING_SECOND);
-          
+                    
                      //시작 시작부터 흐른 시간
                      //const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
                      const INTERVAL_SECOND = moment.duration(TODAY_NEW_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000;
                      console.log("INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
-          
-                     const WEEK_COUNT = dayInMonth();
+                    
+                    //  let temp_salary_start_month =  moment(new Date());
+                    //  temp_salary_start_month.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
+ 
+                    //  let temp_salary_end_month = moment(new Date());
+                    //  temp_salary_end_month.set({date: salaryDay, month:standardMonth-1, hour:0, minute:0, second:0})
+
+                    //  const WEEK_COUNT = calcFilterHolidayWorkingDay(temp_salary_start_month, temp_salary_end_month, selectWeek);
                      //console.log("weekCount",WEEK_COUNT ,"주");
           
                      const PERCENT = Math.floor(( INTERVAL_SECOND / WORKING_SECOND  ) * 100);
                      //console.log("percent" , PERCENT, "%");
                
-                     const WEEK_SALARY = (monthSallery / WEEK_COUNT);
+                     //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
+                     const TODAY_SALARY = (monthSallery / WEEK_COUNT);
                      //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
                      
                      //하루 일당   -> 주간급여 / 주간일하는 날수
-                     const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
+                     //const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
                      //console.log("workingWeekDay 1주 일하는 일수:" , workingWeekDay, "일");
                      //console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
           
@@ -313,16 +348,16 @@ class Container extends Component {
                          timerInterval
                     })
                     
-               }, 2000);
+               }, 2500);
           }
      }
 
-     componentWillUnmount() {
+     async componentWillUnmount() {
           console.log("Today Unmount")
           if(this.state.timerInterval){
                clearInterval(this.state.timerInterval);
-               this.setState({
-                    timerInterval:null
+               await this.setState({
+                    timerInterval: null,
                })
           }
           //this.setState({timerInterval : null})

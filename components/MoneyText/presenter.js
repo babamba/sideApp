@@ -43,13 +43,6 @@ const MoneyText = props => (
                
 )
 
-     
-MoneyText.propTypes = {
-     isFetching : PropTypes.bool.isRequired,
-     //refresh: PropTypes.func.isRequired,
-     //feed : PropTypes.array
-}
-
 const styles = StyleSheet.create({
      // container:{
      //      flex:1

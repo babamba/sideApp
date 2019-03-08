@@ -28,7 +28,6 @@ TodayScreen.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 80}, {paddingTop: 30}),
           backgroundColor: 'white',
           alignItems:"center",
           alignContent: 'center',

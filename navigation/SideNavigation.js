@@ -8,7 +8,9 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import SwipeScreen from "../screens/SwipeScreen"
 import FirstStepScreen from "../screens/FirstStepScreen";
 import SignInScreen from "../screens/SignInScreen"
+import SignUpScreen from "../screens/SignUpScreen"
 import MenuButton from "../components/MenuButton"
+import AuthNavigation from "../navigation/AuthNavigation";
 
 import { actionCreators as userActions} from "../redux/modules/user"
 import LogoutButton from "../components/LogoutButton";
@@ -25,7 +27,12 @@ const SideNavigation = createDrawerNavigator (
                            source={{uri: `https://dummyimage.com/60x60/000/fff.jpg&text=1`}}
                            style={{width: 30, height: 30, borderRadius: 15}}
                          />
-                       )
+                       ),
+                    // headerLeft:(
+                    //      <MenuButton iconName={"md-menu"} 
+                    //                 onPress={() => console.log(navigation.toggleDrawer('Side'))}
+                    //      />
+                    // ),
                })
           },
           Tabs1 : {
@@ -42,12 +49,19 @@ const SideNavigation = createDrawerNavigator (
                }
           },
           LOGIN : {
-               screen : SignInScreen,
+               screen : AuthNavigation,
                navigationOptions:{
                     title:"로그인",
                     drawerLabel: () => null
                }
           },
+          // SIGNUP : {
+          //      screen : SignUpScreen,
+          //      navigationOptions:{
+          //           title:"회원가입",
+          //           drawerLabel: () => null
+          //      }
+          // },
           EnterSalaryNavigation : {
                screen : FirstStepScreen,
                navigationOptions:{

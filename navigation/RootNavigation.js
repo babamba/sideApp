@@ -25,6 +25,7 @@ const RootNavigator = createStackNavigator(
                     //             style={{height:35}} resizeMode={"contain"}
                     //      />
                     // ),
+                    
                     headerLeft:(
                          <MenuButton iconName={"md-menu"} 
                                     onPress={() => console.log(navigation.toggleDrawer('Side'))}

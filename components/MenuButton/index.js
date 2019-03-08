@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 const MenuButton = props => (
      <TouchableWithoutFeedback onPressOut={props.onPress}>
           <View style={styles.container}>
-               <Ionicons name={props.iconName} color={"black"} size={30} />
+               <Ionicons name={props.iconName} color={"black"} size={30} onPressOut={props.onPress}/>
           </View>
      </TouchableWithoutFeedback>
 )
@@ -19,8 +19,8 @@ MenuButton.propTypes = {
 
 const styles = StyleSheet.create({
      container : {
-          paddingHorizontal: 10,
-          
+          paddingHorizontal: 15,
+          paddingVertical: 15,
      }
 });
 

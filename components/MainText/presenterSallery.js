@@ -31,11 +31,11 @@ const SalleryText = props => (
      props.type  ===  "Today" ? ( 
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
-                    <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+                    <View style={styles.remainArea} animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
                    
-                         { props.timerInterval !== null ? (
+                         { props.REMAIN_HOUR !== null ? (
                               <Text style={styles.remainText} >
-                                   {props.REMAIN_HOUR} 시간 {props.REMAIN_MINUTES}분 남았다. 버티자
+                                   {props.REMAIN_HOUR} 시간 
                               </Text>
                               ) : (
                               <Text style={styles.remainText} >
@@ -43,7 +43,18 @@ const SalleryText = props => (
                               </Text>
                               )
                          }
-                        
+
+                         { props.REMAIN_MINUTES !== null ? (
+                              <Text style={styles.remainText} >
+                                   {props.REMAIN_MINUTES}분 남았다. 버티자
+                              </Text>
+                              ) : (
+                              <Text style={styles.remainText} >
+                                   ..:D
+                              </Text>
+                              )
+                         }
+
                     </View>
                     <View style={styles.textArea} >
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
@@ -172,10 +183,13 @@ const styles = StyleSheet.create({
           alignContent: 'center',
           //backgroundColor:'blue',
      },
+     remainArea:{
+          paddingBottom:10
+     },
      remainText:{
           fontSize:18,
+          paddingBottom:6,
           fontFamily: 'NanumBarunGothicUltraLight',
-          paddingBottom:10
      },
      addButton:{
           paddingTop:20,

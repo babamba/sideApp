@@ -160,7 +160,7 @@ const SignUpScreen = props =>
           <FontAwesome
             name="chevron-left"
             size={27}
-            style={{ color: "#4A4A4A" }}
+            style={{ color: "#4A4A4A" , marginTop:20}}
           />
         </TouchableOpacity>
       </RkAvoidKeyboard>

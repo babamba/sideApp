@@ -206,3 +206,18 @@
      // }
 
      //)
+
+
+     // 시작날짜부터 종료날짜까지 로 수정해야함
+// 지금은 이번달로만 되어있음.
+// dayInMonth = () =>  {
+//      const date = new Date();
+//      const year  = Number(date.toLocaleDateString("de-DE", {year: "numeric"}));
+//      const month = Number(date.toLocaleDateString("de-DE", {month: "2-digit"}));
+
+//      const nowDate = new Date(year, month-1, 1);
+//      const lastDate = new Date(year, month, 0).getDate();
+//      const monthSWeek = nowDate.getDay();
+//      const weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1)/7) + 1;
+//      return weekSeq;
+// }

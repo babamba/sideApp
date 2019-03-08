@@ -29,7 +29,6 @@ const MealScreen = props => (
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
           backgroundColor: "white",
           alignItems:"center",
           alignContent: 'center',

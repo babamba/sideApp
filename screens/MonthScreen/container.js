@@ -48,7 +48,8 @@ class Container extends Component {
                     salaryDay, 
                     salaryPayType, 
                     standardMonth,
-                    selectWeek
+                    selectWeek,
+                    todayDate
           } = this.props
           
           // 계산에 사용될 Date객체 
@@ -190,7 +191,7 @@ class Container extends Component {
                
 
                const MONTH_CURRENT_SALARY = Math.floor((TODAY_SALARY * PAST_DAY) + CURRENT_SALARY);
-               
+               console.log('MONTH_CURRENT_SALARY' , MONTH_CURRENT_SALARY)
                const MONTH_CLOSE_CURRENT_SALARY = Math.floor(WORKING_SECOND * SECOND_SALARY) + Math.floor(TODAY_SALARY * PAST_DAY);
                
                //console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
@@ -226,7 +227,7 @@ class Container extends Component {
                          REMAIN_DATE,
                     });
 
-               }else if(CHECK_START_DATE > CURRENT_DATE && CHECK_END_DATE < CURRENT_DATE){
+               }else if(CHECK_END_DATE < CURRENT_DATE){
                     this.setState({
                          timerInterval:null,
                          MONTH_CURRENT_SALARY : MONTH_CLOSE_CURRENT_SALARY,
@@ -250,12 +251,19 @@ class Container extends Component {
 
                     this.setState({
                          timerInterval:null,
-                         REMAIN_HOUR: null,
-                         REMAIN_MINUTES:null,
-                         CURRENT_SALARY : 0,
-                         PERCENT:0
+                         REMAIN_DATE,
+                         MONTH_CURRENT_SALARY : MONTH_CURRENT_SALARY,
+                         PERCENT:PERCENT_MONTH
                     });
                }
+               // else{
+               //      this.setState({
+               //           timerInterval:null,
+               //           REMAIN_DATE,
+               //           MONTH_CURRENT_SALARY : MONTH_CLOSE_CURRENT_SALARY,
+               //           PERCENT:PERCENT_MONTH
+               //      });
+               // }
      }
 
      //스크린이 붙은 후

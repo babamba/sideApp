@@ -226,7 +226,7 @@ class Container extends Component {
                     REMAIN_MINUTES : remainHours.minutes,
                     timerInterval: null,
                });
-          }else if(CHECK_START_DATE > CURRENT_DATE && CHECK_END_DATE < CURRENT_DATE){
+          }else if(CHECK_END_DATE < CURRENT_DATE){
                this.setState({
                     timerInterval:null,
                     REMAIN_HOUR: null,
@@ -256,6 +256,19 @@ class Container extends Component {
                     PERCENT:0
                });
           }
+          // else {
+          //      console.log('CHECK_START_DATE' , CHECK_START_DATE.format('YYYY-MM-DD HH:mm'));
+          //      console.log('CHECK_END_DATE' , CHECK_END_DATE.format('YYYY-MM-DD HH:mm'));
+          //      console.log('CURRENT_DATE ', CURRENT_DATE.format('YYYY-MM-DD HH:mm'));
+
+          //      this.setState({
+          //           timerInterval:null,
+          //           REMAIN_HOUR: null,
+          //           REMAIN_MINUTES:null,
+          //           CURRENT_SALARY:CLOSE_CURRENT_SALARY,
+          //           PERCENT
+          //      });
+          // }
           
      }
 

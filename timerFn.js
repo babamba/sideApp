@@ -1,5 +1,5 @@
 import moment from "moment";
-     //근무시작일자 근무종료일자 선택한 요일로 해당 달에 일하는 일수 계산
+//근무시작일자 근무종료일자 선택한 요일로 해당 달에 일하는 일수 계산
 
 export function calcFilterHolidayWorkingDay(startDate, endDate, selectWeek){
           let temp_start = startDate
@@ -17,7 +17,7 @@ export function calcFilterHolidayWorkingDay(startDate, endDate, selectWeek){
                }else{
                     let day = temp_start.day();
                     //console.log('day : ' , day)
-                    //console.log('temp date : ' , temp_start.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
+                    console.log('temp date : ' , temp_start.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
                     if(selectWeek.indexOf(day) != -1 ){
                     //if(day === 0 || day === 6){
                          count++;
@@ -36,7 +36,7 @@ export function calcFilterHolidayWorkingDay(startDate, endDate, selectWeek){
 
 
 
-          // 근무시작일자부터 오늘까지 선택한 요일로 계산하여 지난 날수 계산
+// 근무시작일자부터 오늘까지 선택한 요일로 계산하여 지난 날수 계산
 export function  calcPastWeekDay(todayDate, salaryStartDate, selectWeek){
           const temp_today = moment();
 
@@ -99,5 +99,18 @@ export function  calcPastWeekDay(todayDate, salaryStartDate, selectWeek){
           //console.log(count);
      }
 
+export function TodayIsWorkingDay(today, selectWeek){
 
+          //console.log("today", today)
+          //console.log("today", selectWeek)
 
+          if(selectWeek.indexOf(today) != -1){
+               console.log("오늘은 일하는 날")
+               return true;
+          }else{
+               console.log("오늘은 일안하는 날")
+               return false;
+          }
+          
+          
+     }

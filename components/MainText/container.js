@@ -13,30 +13,30 @@ class Container extends Component {
      }
 
      componentDidMount(){
+          //console.log(this.props.isWorkingDay)
           console.log("mainText screen render")
      }
 
      componentWillReceiveProps = nextProps => {
-          if(this.props.type === 'Today'){
-               //console.log("MainText next: " , nextProps.CURRENT_SALARY)
-               //console.log("timer : " ,  nextProps.remainHours, "남음")
-               console.log("timer : " ,  nextProps.PERCENT, "남음")
-               this.setState({
-                    CURRENT_SALARY: nextProps.CURRENT_SALARY,
-                    REMAIN_HOUR : nextProps.REMAIN_HOUR,
-                    REMAIN_MINUTES : nextProps.REMAIN_MINUTES,
-               })
-          }else if(this.props.type === 'Month'){
-               //console.log("MainText next: " , nextProps.MONTH_CURRENT_SALARY)
-               console.log("timer : " ,  nextProps.REMAIN_DATE, "남음")
-               this.setState({
-                    MONTH_CURRENT_SALARY: nextProps.MONTH_CURRENT_SALARY,
-                    REMAIN_DATE : nextProps.REMAIN_DATE
-               })
+          if(this.props.isWorkingDay){
+               if(this.props.type === 'Today'){
+                    //console.log("MainText next: " , nextProps.CURRENT_SALARY)
+                    //console.log("timer : " ,  nextProps.remainHours, "남음")
+                    console.log("timer : " ,  nextProps.PERCENT, "남음")
+                    this.setState({
+                         CURRENT_SALARY: nextProps.CURRENT_SALARY,
+                         REMAIN_HOUR : nextProps.REMAIN_HOUR,
+                         REMAIN_MINUTES : nextProps.REMAIN_MINUTES,
+                    })
+               }else if(this.props.type === 'Month'){
+                    //console.log("MainText next: " , nextProps.MONTH_CURRENT_SALARY)
+                    console.log("timer : " ,  nextProps.REMAIN_DATE, "남음")
+                    this.setState({
+                         MONTH_CURRENT_SALARY: nextProps.MONTH_CURRENT_SALARY,
+                         REMAIN_DATE : nextProps.REMAIN_DATE
+                    })
+               }
           }
-          
-
-          
      }
 
         textRef = null;

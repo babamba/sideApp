@@ -29,7 +29,9 @@ const progressGradient = {
 
 const SalleryText = props => (
      props.type  ===  "Today" ? ( 
-          <View style={styles.container}>
+
+          props.isWorkingDay ? (
+               <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View style={styles.remainArea} animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
                    
@@ -113,7 +115,42 @@ const SalleryText = props => (
                     
                </View>
           </View>
-     ) : (
+
+          ) : (
+               <View style={styles.container}>
+                    <View style={styles.TextConatiner}>
+                         <View style={styles.textArea} animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+                              <View animation="fadeInDown" delay={400} easing={"ease-in-out"} useNativeDriver>
+                                   <Text style={styles.MainText1} >
+                                        열심히 
+                                   </Text>
+                              </View>
+                              <View animation="fadeInDown" delay={300} easing={"ease-in-out"} useNativeDriver>
+                                   <Text style={styles.MainText2} >
+                                        일한 당신
+                                   </Text>
+                              </View>
+                               <View animation="fadeInDown" delay={200} easing={"ease-in-out"} useNativeDriver>
+                                   <Text style={styles.MainText1} >
+                                        오늘은 
+                                   </Text>
+                              </View>
+                              <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
+                                   <Text style={styles.MainText1} >
+                                        쉬는 날 이니 
+                                   </Text>
+                              </View>
+                              <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
+                                   <Text style={styles.MainText2} >
+                                        푹 쉬어요 :D
+                                   </Text>
+                              </View>
+                         </View>
+                    </View>
+               </View>
+          )
+          
+          ) : (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>

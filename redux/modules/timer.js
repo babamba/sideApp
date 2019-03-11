@@ -311,6 +311,7 @@ function applySalaryDay(state, action){
 //일하는 날 배열정보
 function applySelectyWeek(state, action){
      const { selectWeek } = action;
+     console.log("applySelectWeek : " , selectWeek)
      return{
           ...state,
           selectWeek

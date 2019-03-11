@@ -8,13 +8,13 @@ const deviceHeight = Dimensions.get("window").height;
 
 const defaultSelectedIndex_group_insterest = [1, 2, 3, 4, 5];
 const multipleGroupData = [
-     { value: "0", displayValue: "일" },
-     { value: "1", displayValue: "월"},
-     { value: "2", displayValue: "화" },
-     { value: "3" ,displayValue: "수"},
-     { value: "4", displayValue: "목" },
-     { value: "5", displayValue: "금" },
-     { value: "6", displayValue: "토" },
+     { value: 0, displayValue: "일" },
+     { value: 1, displayValue: "월"},
+     { value: 2, displayValue: "화" },
+     { value: 3 ,displayValue: "수"},
+     { value: 4, displayValue: "목" },
+     { value: 5, displayValue: "금" },
+     { value: 6, displayValue: "토" },
 ];
 
 class Container extends Component {
@@ -71,8 +71,8 @@ class Container extends Component {
      }
 
      _groupButtonOnSelectedValuesChange = selectedValues=> {
-          console.log("selectedValues : ", selectedValues)
-          this.setState({ salaryWeek: selectedValues, workingWeekDay:selectedValues.length });
+          //console.log("selectedValues : ", selectedValues)
+          this.setState({ selectWeek: selectedValues, workingWeekDay:selectedValues.length });
      }
       
      _groupButtonOnSelectedValuesChange_limited = selectedValues=> {
@@ -119,7 +119,7 @@ class Container extends Component {
                     //      });
                     // }
                }else{
-                    console.log(this.state.salaryWeek.length)
+                    //console.log(this.state.salaryWeek.length)
                     Alert.alert('All fileds are require')
                }
           }

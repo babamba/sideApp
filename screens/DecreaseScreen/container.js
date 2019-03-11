@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Alert } from "react-native"
-import InputScreen from "./presenter";
+import DecreaseScreen from "./presenter";
 import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
 const defaultSelectedIndex_group_insterest = [1];
@@ -39,7 +39,7 @@ class Container extends Component {
 
      render(){
           return (
-                    <InputScreen 
+                    <DecreaseScreen 
                          {...this.state } 
                          changeIncome = {this._changeIncome}
                          changeExpend = {this._changeExpend}

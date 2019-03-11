@@ -11,7 +11,7 @@ import {
 const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
-const InputScreen = props => 
+const DecreaseScreen = props => 
 
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
      
 })
 
-   export default InputScreen
+   export default DecreaseScreen

@@ -6,7 +6,7 @@ import Modal from "react-native-modal";
 import IncreaseScreen from "../../screens/IncreaseScreen";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
-class AddButton extends Component {
+class SubtractButton extends Component {
      constructor(props){
           super(props);
           //console.log(props)
@@ -92,7 +92,7 @@ class AddButton extends Component {
      }
 }
 
-AddButton.propTypes = {
+SubtractButton.propTypes = {
      onPress : PropTypes.func.isRequired,
      AddText : PropTypes.string.isRequired
      //iconName : PropTypes.string.isRequired
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
      },
 });
 
-export default withNavigation(AddButton);
+export default withNavigation(SubtractButton);

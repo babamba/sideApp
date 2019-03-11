@@ -17,7 +17,7 @@ export function calcFilterHolidayWorkingDay(startDate, endDate, selectWeek){
                }else{
                     let day = temp_start.day();
                     //console.log('day : ' , day)
-                    console.log('temp date : ' , temp_start.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
+                    //console.log('temp date : ' , temp_start.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
                     if(selectWeek.indexOf(day) != -1 ){
                     //if(day === 0 || day === 6){
                          count++;

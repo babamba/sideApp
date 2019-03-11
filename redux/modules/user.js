@@ -32,6 +32,7 @@ function setAlreadyLaunch(already){
      }
 }
 
+
 // API Actions
 // function login(username, password){
 //      const user = { propfile : { "name" : "test"}}
@@ -69,6 +70,7 @@ function login(username, password){
                     //console.log(json)
                     dispatch(setLogIn(json.token))
                     dispatch(setUser(json.user))
+                    console.log(json.token)
                     return true
                }else{
                     console.log("unable login")
@@ -82,29 +84,65 @@ function login(username, password){
      }
 }
 
-function signUp(username, password, email) {
-     return function(dispatch) {
-       fetch("/rest-auth/registration/", {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json"
-         },
-         body: JSON.stringify({
-           username,
-           password1: password,
-           password2: password,
-           email
+function submitConsum(income_name, price, feeling, consumType){
+     console.log("!@# submitConsum / ", income_name, price, feeling, consumType);
+
+     return (dispatch , getState) => {
+          const { user : { token } } = getState();
+
+          return fetch(`${API_URL}/salary/consum/`, {
+               method:"POST",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                    "Content-Type" : "application/json"
+               },
+               body: JSON.stringify({
+                    income_name,
+                    price,
+                    feeling,
+                    consumType
+               })
+               
+          })
+          .then(response => {
+               console.log(response)
+               // if(response.status === 401){
+               //      dispatch(userActions.logOut());
+               // }else 
+               if(response.ok){
+                    return true;
+               }else{
+                    return false;
+               }
+          });
+     }
+}
+
+function signUp(username, password, email){
+     return function(dispatch){
+         fetch(`${API_URL}/rest-auth/registration/`, {
+             method : "POST",
+             headers:{
+                 "Content-Type" : "application/json"
+             },
+             body : JSON.stringify({
+                 //access_token: access_token
+                 username,
+                 password1 : password,
+                 password2 : password,
+                 email
+             })
          })
-       })
          .then(response => response.json())
          .then(json => {
-           if (json.token) {
-             dispatch(saveToken(json.token));
-           }
+             if(json.token){
+                    dispatch(setLogIn(json.token))
+                    dispatch(setUser(json.user))
+             }
          })
-         .catch(err => console.log(err));
-     };
-   }
+     }
+ }
+
 
 // Initial State
 
@@ -190,6 +228,7 @@ const actionCreators = {
      login,
      logOut,
      signUp,
+     submitConsum
 }
 
 export { actionCreators };

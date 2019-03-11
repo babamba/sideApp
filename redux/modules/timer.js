@@ -110,6 +110,7 @@ function setTodate(todayDate){
      }
 }
 
+
 function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startHour, endHour){
      //const user = { propfile : { "name" : "test"}}
      const workingHour = endHour - startHour;

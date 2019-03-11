@@ -120,7 +120,7 @@ const SignUpScreen = props =>
               value={props.password}
             />
             <TextInput
-              textContentType="newPassword"
+              textContentType="password"
               secureTextEntry={true}
               placeholder="비밀번호를 한번더 입력해주세요"
               placeholderTextColor="#707070"

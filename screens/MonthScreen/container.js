@@ -207,9 +207,9 @@ class Container extends Component {
 
                const MONTH_CURRENT_SALARY = Math.floor((TODAY_SALARY * ( PAST_DAY - 1)) + CURRENT_SALARY);
                console.log('MONTH_CURRENT_SALARY' , MONTH_CURRENT_SALARY)
-               console.log('TODAY_SALARY' , TODAY_SALARY)
-               console.log('PAST_DAY' , PAST_DAY)
-               console.log('CURRENT_SALARY' , CURRENT_SALARY)
+               //console.log('TODAY_SALARY' , TODAY_SALARY)
+               //console.log('PAST_DAY' , PAST_DAY)
+               //console.log('CURRENT_SALARY' , CURRENT_SALARY)
                //const MONTH_CLOSE_CURRENT_SALARY = Math.floor(WORKING_SECOND * SECOND_SALARY) + Math.floor(TODAY_SALARY * PAST_DAY);
                //오늘 종료시간 이후까지 번동
                const MONTH_CLOSE_CURRENT_SALARY = Math.floor(filterPastday * TODAY_SALARY);
@@ -432,7 +432,7 @@ class Container extends Component {
                     const minuteSallery = Math.floor( hourSallery / 60 );
                     //console.log("minuteSallery : 분당" , minuteSallery, "원");
 
-                    const SECOND_SALARY = Math.floor( minuteSallery / 60 );
+                    const SECOND_SALARY = ( minuteSallery / 60 ).toFixed(1);
                     //console.log("secondSallery : 초당" , SECOND_SALARY, "원");
 
                     //타이머에서 계속 증가되야될것들
@@ -442,7 +442,7 @@ class Container extends Component {
 
                     const CURRENT_SALARY = Math.floor(INTERVAL_SECOND * SECOND_SALARY);
 
-                    const MONTH_CURRENT_SALARY = Math.floor((TODAY_SALARY * PAST_DAY) + CURRENT_SALARY);
+                    const MONTH_CURRENT_SALARY = Math.floor((TODAY_SALARY * ( PAST_DAY - 1)) + CURRENT_SALARY);
                     //console.log("어제까지 번돈 : " ,(TODAY_SALARY * PAST_DAY))
                     //console.log("시작일로부터 계산된 오늘 일자 월급" , MONTH_CURRENT_SALARY)
 

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
-import AddButton from "../../components/AddButton";
+import SubtractButton from "../../components/SubtractButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { LinearGradient } from 'expo';
@@ -38,9 +38,9 @@ const DecreaseText = props => (
                          </View>
                     </View>
                     <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
-                         <AddButton 
+                         <SubtractButton 
                               AddText={"지출등록"} 
-                              onPress={() => console.log("addButton")}
+                              onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
                          />
                     </View>
@@ -80,9 +80,9 @@ const DecreaseText = props => (
                          </View>
                     </View>
                     <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
-                         <AddButton 
+                         <SubtractButton 
                               AddText={"지출등록"} 
-                              onPress={() => console.log("addButton")}
+                              onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
                          />
                     </View>

@@ -6,7 +6,6 @@ import { SafeAreaView, DrawerItems, withNavigation} from "react-navigation";
 close = (props) => {
      console.log("closesesese" , props);
      props.navigation.pop();
-     props.navigation.navigate('LOGIN');
 
      props.navigation.navigate('LOGIN', {
           jumpLogin: true,

@@ -9,9 +9,9 @@ class Container extends Component {
 
      componentWillReceiveProps = nextProps => {
           if(nextProps.type === "Today"){
-               console.log("!@!@! TODAY Money comp next: " , nextProps.CURRENT_SALARY)
+               //console.log("!@!@! TODAY Money comp next: " , nextProps.CURRENT_SALARY)
           }else if(nextProps.type === "Month"){
-               console.log("!@!@! MONTH Money comp next: " , nextProps.MONTH_CURRENT_SALARY)
+               //consoleㅊ.log("!@!@! MONTH Money comp next: " , nextProps.MONTH_CURRENT_SALARY)
           }
           
      }

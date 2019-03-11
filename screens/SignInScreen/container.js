@@ -37,8 +37,13 @@ class Container extends Component {
           this.setState({ password : text });
      }
 
+     _getNavigationParams() {
+          return this.props.navigation.state.params || {}
+     }
+
      _submit = async() => {
           console.log("submit")
+          console.log("jumpLogin", this._getNavigationParams());
           const { username, password, isSubmiting } = this.state;
           const { login } = this.props;
           if(!isSubmiting){

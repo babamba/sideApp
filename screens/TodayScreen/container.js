@@ -154,7 +154,7 @@ class Container extends Component {
            //console.log("percent" , PERCENT, "%");
           
            //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
-           const TODAY_SALARY = (monthSallery / WEEK_COUNT); 
+           const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);
            console.log("WEEK_COUNT 일수" , WEEK_COUNT, "일");
            
            console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
@@ -172,7 +172,7 @@ class Container extends Component {
            const minuteSallery = Math.floor( hourSallery / 60 );
            //console.log("minuteSallery : 분당" , minuteSallery, "원");
      
-           const SECOND_SALARY = Math.floor( minuteSallery / 60 );
+           const SECOND_SALARY = ( minuteSallery / 60 ).toFixed(1);
            //console.log("secondSallery : 초당" , SECOND_SALARY, "원");
      
            //타이머에서 계속 증가되야될것들
@@ -288,12 +288,12 @@ class Container extends Component {
           const { startHour, endHour } = this.props
           const { isWorkingDay } = this.state
           
-          const CURRENT_DATE = moment(new Date());
+          let CURRENT_DATE = moment(new Date());
           //CURRENT_DATE.set({second:0})
-          const getDay = CURRENT_DATE.day();
-          const getDate = CURRENT_DATE.date();
-          const getMonth = CURRENT_DATE.month();
-          const getYear = CURRENT_DATE.year();
+          let getDay = CURRENT_DATE.day();
+          let getDate = CURRENT_DATE.date();
+          let getMonth = CURRENT_DATE.month();
+          let getYear = CURRENT_DATE.year();
 
           console.log('CURRENT_DATE', CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'));
 
@@ -372,7 +372,7 @@ class Container extends Component {
                      //console.log("percent" , PERCENT, "%");
                
                      //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
-                     const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);;
+                     const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);
                      //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
                      
                      //하루 일당   -> 주간급여 / 주간일하는 날수
@@ -401,7 +401,7 @@ class Container extends Component {
                     //}
 
 
-                    console.log("timer CURRENT_SALARY :  ",CURRENT_SALARY)
+                    //console.log("timer CURRENT_SALARY :  ",CURRENT_SALARY)
                     
                     const CurrentTime = moment(new Date());
 
@@ -414,10 +414,10 @@ class Container extends Component {
                          minutes : moment.duration(TODAY_END_DATE.diff(CurrentTime)).minutes()
                     }
                     //console.log("몇시간 남았나?", remainHours.hour , '시간' , remainHours.minutes, '분');
-
+                    CURRENT_DATE = moment();
                     //console.log("실행 중 rerender Today");
-                    console.log(CHECK_START_DATE.format('HH시 :mm분 :: ss초'), " ::: " , CURRENT_DATE.format('HH시 :mm분 :: ss초'))
-                    console.log(CHECK_END_DATE.format('HH시 :mm분 :: ss초'), " ::: " , CURRENT_DATE.format('HH시 :mm분 :: ss초'))
+                    //console.log(CHECK_START_DATE.format('HH시 :mm분 :: ss초'), " ::: " , CURRENT_DATE.format('HH시 :mm분 :: ss초'))
+                    //console.log(CHECK_END_DATE.format('HH시 :mm분 :: ss초'), " ::: " , CURRENT_DATE.format('HH시 :mm분 :: ss초'))
 
                     this.setState({
                          CURRENT_SALARY, // 현재시간까지 번돈

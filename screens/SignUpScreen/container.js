@@ -60,7 +60,7 @@ class Container extends Component {
                     Alert.alert('Passwords are not the same')
                }else if(username && password && confirmPassword && email){
                     console.log("username" , username)
-                    console.log("password" , password)
+                    console.log("password1" , password)
                     console.log("email" , email)
                     //submit
                     this.setState({

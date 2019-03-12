@@ -15,9 +15,11 @@ class Container extends Component {
      componentDidMount(){
           //console.log(this.props.isWorkingDay)
           console.log("mainText screen render")
+          
      }
 
      componentWillReceiveProps = nextProps => {
+          console.log("type" , nextProps.type)
           if(this.props.isWorkingDay){
                if(this.props.type === 'Today'){
                     //console.log("MainText next: " , nextProps.CURRENT_SALARY)

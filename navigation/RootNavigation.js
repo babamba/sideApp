@@ -23,11 +23,11 @@ const RootNavigator = createStackNavigator(
                     //      />
                     // ),
                     
-                    // headerLeft:(
-                    //      <MenuButton iconName={"md-menu"} 
-                    //                 onPress={() => console.log(navigation.toggleDrawer('Side'))}
-                    //      />
-                    // ),
+                    headerLeft:(
+                         <MenuButton iconName={"md-menu"} 
+                                    onPress={() => console.log(navigation.toggleDrawer('Side'))}
+                         />
+                    ),
                     headerTransparent:'true',
                })
           },

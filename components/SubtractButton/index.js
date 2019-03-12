@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView , Dimensions} from "react-native";
 import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal";
-import IncreaseScreen from "../../screens/IncreaseScreen";
+import DecreaseMealScreen from "../../screens/DecreaseMealScreen";
+import DecreasePurchaseScreen from "../../screens/DecreasePurchaseScreen";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 class SubtractButton extends Component {
      constructor(props){
           super(props);
+          console.log("type" , this.props.type)
           //console.log(props)
      }
 
@@ -81,10 +83,15 @@ class SubtractButton extends Component {
                     >
 
                     <View style={styles.modalContent}>
-                         <TouchableOpacity onPress={this._toggleModal}>
-                              <IncreaseScreen />
-                         </TouchableOpacity>
-                    </View>
+                         <TouchableHighlight >
+                         { this.props.type  ===  "Meal" ? ( 
+                                   <DecreaseMealScreen toggleModal={this._toggleModal}/>
+                              ) : (
+                                   <DecreasePurchaseScreen toggleModal={this._toggleModal}/>
+                              )
+                         }
+                         </TouchableHighlight>
+                         </View>
                     </Modal>
                </View>
                

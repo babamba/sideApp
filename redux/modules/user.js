@@ -84,40 +84,6 @@ function login(username, password){
      }
 }
 
-function submitConsum(income_name, price, feeling, consumType){
-     console.log("!@# submitConsum / ", income_name, price, feeling, consumType);
-
-     return (dispatch , getState) => {
-          const { user : { token } } = getState();
-
-          return fetch(`${API_URL}/salary/consum/`, {
-               method:"POST",
-               headers: {
-                    Authorization : `JWT ${token}`,
-                    "Content-Type" : "application/json"
-               },
-               body: JSON.stringify({
-                    income_name,
-                    price,
-                    feeling,
-                    consumType
-               })
-               
-          })
-          .then(response => {
-               console.log(response)
-               // if(response.status === 401){
-               //      dispatch(userActions.logOut());
-               // }else 
-               if(response.ok){
-                    return true;
-               }else{
-                    return false;
-               }
-          });
-     }
-}
-
 function signUp(username, password, email){
      return function(dispatch){
          fetch(`${API_URL}/rest-auth/registration/`, {
@@ -228,7 +194,6 @@ const actionCreators = {
      login,
      logOut,
      signUp,
-     submitConsum
 }
 
 export { actionCreators };

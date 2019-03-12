@@ -42,6 +42,7 @@ const DecreaseText = props => (
                               AddText={"지출등록"} 
                               onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
+                              type={props.type}
                          />
                     </View>
                </View>
@@ -84,6 +85,7 @@ const DecreaseText = props => (
                               AddText={"지출등록"} 
                               onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
+                              type={props.type}
                          />
                     </View>
                </View>

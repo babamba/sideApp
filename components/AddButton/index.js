@@ -81,9 +81,9 @@ class AddButton extends Component {
                     >
 
                     <View style={styles.modalContent}>
-                         <TouchableOpacity onPress={this._toggleModal}>
-                              <IncreaseScreen />
-                         </TouchableOpacity>
+                         <TouchableHighlight >
+                                   <IncreaseScreen toggleModal={this._toggleModal} />
+                         </TouchableHighlight>
                     </View>
                     </Modal>
                </View>

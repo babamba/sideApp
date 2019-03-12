@@ -1,58 +1,62 @@
 import React, {Component} from "react";
-import { View, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet,TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
+import { View, 
+          Text, 
+          FlatList,
+          ScrollView,
+          Dimensions, 
+          RefreshControl, 
+          StyleSheet,
+          TouchableOpacity, 
+          TextInput, 
+          StatusBar, 
+          ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
-import {
-     SelectMultipleButton,
-     SelectMultipleGroupButton
-   } from "react-native-selectmultiple-button";
+import { SelectMultipleGroupButton } from "react-native-selectmultiple-button";
 
 const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
-const DecreaseScreen = props => 
-
+const DecreasePurchaseScreen = props => 
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
               <Ionicons name="ios-arrow-down" size={20} style={styles.downArrow}/>
               <View style={styles.content}>
-                    <Text style={styles.mainText}>수입이 들어왔나요? </Text>
+                    <Text style={styles.mainText}>소비했군요 ! </Text>
                     <View style={styles.main}>
                          <TextInput 
-                              placeholder="내용입력" 
+                              placeholder="내용입력 예)점심" 
                               style={styles.textInput}
                               autoCapitalize={"none"}
                               autoCorrect={false}
                               value={props.income}
                               onChangeText={props.changeIncome}
                          />
-                         <Text style={styles.defulatText1}>가</Text>
                     </View>
-                    <View style={styles.main}>
+                    <Text style={styles.mealText}>소비하는데</Text>
+                    <View style={styles.main2}>
                          <TextInput 
                               placeholder="금액입력" 
                               style={styles.moneyInput} 
                               autoCapitalize={"none"}
                               //   secureTextEntry={true}
-                              value={props.expend}
-                              onChangeText={props.changeExpend}
+                              value={props.price}
+                              onChangeText={props.changePrice}
                               returnKeyType={"send"}
                          />
                          <Text style={styles.defulatText1}>원</Text>
                     </View>
-                    <Text style={styles.defulatText2}>들어왔다.</Text>
+                    <Text style={styles.defulatText2}>사용했다.</Text>
 
                     <Text style={styles.mainText}>기분이 어땠어요? </Text>
                     <SelectMultipleGroupButton
                          multiple={false}
                          buttonViewStyle={styles.selectBtn}
                          containerViewStyle={{
-                              borderWidth: 0.3,
-                              borderColor: "#D3D3D3",
                               borderRadius: 6,
-                              paddingTop: 18,
-                              paddingBottom: 18,
+                              paddingTop: 5,
+                              paddingBottom: 5,
                               fontFamily: 'NanumBarunGothicUltraLight',
                               justifyContent: "center",
                          }}
@@ -96,6 +100,10 @@ const styles = StyleSheet.create({
           justifyContent: "flex-start",
      },
      main:{
+          alignSelf:'flex-start',
+          marginLeft:52,
+     },
+     main2:{
           flexDirection:'row'
      },
      mainText:{
@@ -105,6 +113,15 @@ const styles = StyleSheet.create({
           fontFamily: 'NanumBarunGothic',
           paddingLeft:30,
           marginBottom:30
+     },
+     mealText:{
+          // 원
+          fontSize:30,
+          width:180,
+          fontFamily: 'NanumBarunGothicUltraLight',
+          marginBottom:15,
+          alignSelf: 'flex-start',
+          marginLeft:53,
      },
      defulatText1:{
           // 원
@@ -119,7 +136,7 @@ const styles = StyleSheet.create({
           width:width,
           paddingLeft:53,
           fontFamily: 'NanumBarunGothicUltraLight',
-          marginBottom:45,
+          marginBottom:40,
      },
      textInput:{
           height:48,
@@ -137,7 +154,7 @@ const styles = StyleSheet.create({
      },
      touchable : {
           borderRadius: 15,
-          backgroundColor:"#99F089",
+          backgroundColor:"#FF6565",
           width: width - 45,
           marginTop: 25,
           shadowColor: '#99F089',
@@ -147,7 +164,7 @@ const styles = StyleSheet.create({
      },
      button : {
           paddingHorizontal:7,
-          height:80,
+          height:70,
           justifyContent:"center"     
      },
      btnText : {
@@ -179,4 +196,4 @@ const styles = StyleSheet.create({
      
 })
 
-   export default DecreaseScreen
+export default DecreasePurchaseScreen

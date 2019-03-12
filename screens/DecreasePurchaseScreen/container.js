@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Alert } from "react-native"
-import IncreaseScreen from "./presenter";
+import DecreasePurchaseScreen from "./presenter";
 
 import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
@@ -40,7 +40,7 @@ class Container extends Component {
 
      render(){
           return (
-                    <IncreaseScreen 
+                    <DecreasePurchaseScreen 
                          {...this.state } 
                          changeIncome = {this._changeIncome}
                          changePrice = {this._changePrice}
@@ -70,7 +70,7 @@ class Container extends Component {
           console.log('income : ', income);
           console.log('price : ', price);
           console.log('selectFillng : ', selectFeeling);
-          const CONSUM_TYPE = 0;
+          const CONSUM_TYPE = 2;
           console.log("CONSUM_TYPE : ", CONSUM_TYPE )
           const { submitConsum, toggleModal } = this.props;
 
@@ -92,7 +92,8 @@ class Container extends Component {
                          });
                     }else{
                          Alert.alert(
-                              '등록되었습니다', '',
+                              '등록되었습니다',
+                              '',
                               [
                                    {text: 'OK', onPress: () => toggleModal()},
                               ],

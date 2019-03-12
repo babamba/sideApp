@@ -22,7 +22,7 @@ class SubtractButton extends Component {
           console.log("_toggleModal")
           const { refresh } = this.props;
           console.log("refresh : ", refresh)
-          //refresh();
+          refresh();
           this.setState({ isModalVisible: !this.state.isModalVisible });
      }
 

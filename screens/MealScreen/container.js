@@ -73,9 +73,14 @@ class Container extends Component {
 
      _refresh = () => {
           //const { getNotifications } = this.props;
-          this.setState({
+         
+          const { getDataMealToday } = this.props;
+          getDataMealToday(moment().format("YYYYMMDD"));
+
+           this.setState({
                isFetching : true
           });
+
           console.log("isFetch refresh")
      }
 

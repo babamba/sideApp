@@ -1,30 +1,29 @@
 import { connect } from "react-redux";
 import Container from "./container";
-// import { actionCreators as userActions} from "../../redux/modules/user"
+import { actionCreators as dataActions} from "../../redux/modules/data"
 
-// const mapStateToProps = (state, ownProps ) => {
-//      const { photos : { feed } } = state
-//      //console.log(state);
-//      //console.log(feed)
-//      return {
-          
-//           feed
-//      }
-// }
+const mapStateToProps = (state, ownProps ) => {
+     const { data } = state;
+     //console.log("stateToprops : ", data.TodayMealProduct)
+     return {
+          TodayMealProduct : data.TodayMealProduct
+     }
+}
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//      return {
-//           getFeed : () => {
-//                dispatch(photoActions.getFeed());
-//           },
-//           initApp: () => {
-//                dispatch(photoActions.getFeed());
-//                dispatch(photoActions.getSearch());
-//                dispatch(userActions.getNotifications());
-//                dispatch(userActions.getOwnProfile());
-//                dispatch(userActions.registerForPush());
-//              }
-//      }
-// }
+const mapDispatchToProps = (dispatch, ownProps) => {
+     return {
+          getDataMealToday : (date) => {
+               return dispatch(dataActions.getDataMealToday(date));
+          },
 
-export default connect()(Container);
+          // initApp: () => {
+          //      dispatch(photoActions.getFeed());
+          //      dispatch(photoActions.getSearch());
+          //      dispatch(userActions.getNotifications());
+          //      dispatch(userActions.getOwnProfile());
+          //      dispatch(userActions.registerForPush());
+          //    }
+     }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

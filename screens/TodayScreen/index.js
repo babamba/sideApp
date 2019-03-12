@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import Container from "./container";
-import { ThemeProvider } from "react-native-paper";
 import { actionCreators as timerActions } from "../../redux/modules/timer";
 
 const mapStateToProps = (state, ownProps) => {

@@ -18,6 +18,8 @@ class AddButton extends Component {
        
      _toggleModal = () => {
           console.log("_toggleModal")
+          const { refresh } = this.props;
+          refresh();
           this.setState({ isModalVisible: !this.state.isModalVisible });
      }
 
@@ -82,7 +84,7 @@ class AddButton extends Component {
 
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
-                                   <IncreaseScreen toggleModal={this._toggleModal} />
+                                   <IncreaseScreen toggleModal={this._toggleModal}  />
                          </TouchableHighlight>
                     </View>
                     </Modal>

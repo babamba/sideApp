@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import MealScreen from "./presenter";
-import { image } from "react-native";
+import moment from "moment";
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -15,42 +15,69 @@ class Container extends Component {
      state = {
           isFetching : false
      };
-     componentWillUnmount = () =>{
-          console.log("Purchase Unmount")
+
+     componentWillReceiveProps = nextProps => {
+          //console.log("nextProps.TodayMealProduct : ", nextProps.TodayMealProduct)
+          if(nextProps.TodayMealProduct){
+               //console.log("nextProps.TodayMealProduct : ", nextProps.TodayMealProduct)
+               this.setState({
+                    TodayMealProduct : nextProps.TodayMealProduct
+               })
+          }
      }
 
-     // componentWillReceiveProps = nextProps => {
-     //      //console.log("nextProps.feed", nextProps.feed);
-     //      if(nextProps.feed){
-     //           this.setState({
-     //                isFetching : false
-     //           })
-     //      }
-     // }
+     componentWillMount = async () => {
+          const { getDataMealToday, TodayMealProduct } = this.props;
+          const Today = moment(new Date());
+          
+          const TodayMeal = await getDataMealToday(Today.format("YYYYMMDD"));
+
+          //console.log("TodayMeal : ", TodayMeal);
+          //console.log("TodayMealProduct : ",  TodayMealProduct);
+
+          if(TodayMeal){
+               let currentPrice = 0;
+               for (let i of TodayMealProduct) {
+                    //console.log("index : " , i);
+                    let price = Number(i.data.price);
+
+                    currentPrice += price;
+               }
+               //console.log("currentPrice", currentPrice);
+
+               this.setState({
+                    currentPrice
+               })
+          }
+          //console.log("await : ", await getDataMealToday(Today.format("YYYYMMDD")))
+     }
 
      componentDidMount = () => {
           // const { initApp } = this.props;
           // initApp();
      };
 
+     componentWillUnmount = () =>{
+          console.log("Meal Unmount")
+     }
+
      render() {
           return (
                <MealScreen 
                     {...this.props} 
                     {...this.state} 
-                    //refresh={this._refresh} 
+                    refresh={this._refresh} 
                />
           );
      }
 
-     // _refresh = () => {
-     //      //const { getSalary } = this.props;
-     //      this.setState({
-     //           isFetching : true
-     //      });
-     //      //getFeed();
-     //      console.log("isFetch refresh")
-     // }
+     _refresh = () => {
+          //const { getNotifications } = this.props;
+          this.setState({
+               isFetching : true
+          });
+          console.log("isFetch refresh")
+     }
 
 }
 export default Container;

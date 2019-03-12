@@ -15,6 +15,7 @@ class Container extends Component {
      componentDidMount(){
           //console.log(this.props.isWorkingDay)
           console.log("mainText screen render")
+          console.log("this.props.refresh " , this.props.refresh)
           
      }
 
@@ -98,14 +99,14 @@ class Container extends Component {
           
      }
 
-     _refresh = () => {
-          //const { getSalary } = this.props;
-          this.setState({
-               isFetching : true
-          });
-          //getFeed();
-          console.log("isFetch refresh")
-     }
+     // _refresh = () => {
+     //      //const { getSalary } = this.props;
+     //      this.setState({
+     //           isFetching : true
+     //      });
+     //      //getFeed();
+     //      console.log("isFetch refresh")
+     // }
 
 }
 export default Container;

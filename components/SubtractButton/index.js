@@ -20,6 +20,9 @@ class SubtractButton extends Component {
        
      _toggleModal = () => {
           console.log("_toggleModal")
+          const { refresh } = this.props;
+          console.log("refresh : ", refresh)
+          //refresh();
           this.setState({ isModalVisible: !this.state.isModalVisible });
      }
 
@@ -85,9 +88,9 @@ class SubtractButton extends Component {
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
                          { this.props.type  ===  "Meal" ? ( 
-                                   <DecreaseMealScreen toggleModal={this._toggleModal}/>
+                                   <DecreaseMealScreen toggleModal={this._toggleModal} refresh={this.props.refresh}/>
                               ) : (
-                                   <DecreasePurchaseScreen toggleModal={this._toggleModal}/>
+                                   <DecreasePurchaseScreen toggleModal={this._toggleModal} refresh={this.props.refresh}/>
                               )
                          }
                          </TouchableHighlight>

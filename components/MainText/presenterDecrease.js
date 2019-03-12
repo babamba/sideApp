@@ -27,8 +27,8 @@ const DecreaseText = props => (
                          </View>
                          <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={230000}
                                    {...props}
+                                   Moneytype={"DECREASE"}
                               />
                          </View>
                          <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
@@ -43,6 +43,7 @@ const DecreaseText = props => (
                               onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
                               type={props.type}
+                              refresh={props.refresh}
                          />
                     </View>
                </View>
@@ -65,8 +66,8 @@ const DecreaseText = props => (
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
-                                   todaySallery={22312}
                                    {...props}
+                                   Moneytype={"DECREASE"}
                               />
                          </View>
                          <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
@@ -86,6 +87,7 @@ const DecreaseText = props => (
                               onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
                               type={props.type}
+                              refresh={props.refresh}
                          />
                     </View>
                </View>

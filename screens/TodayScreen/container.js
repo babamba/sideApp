@@ -436,9 +436,13 @@ class Container extends Component {
                     })
                }
           }
+
+          this.setState({
+               isFetching: false
+          });
      }
 
-     async componentWillUnmount() {
+     componentWillUnmount = async() => {
           console.log("Today Unmount")
           if(this.state.timerInterval){
                clearInterval(this.state.timerInterval);
@@ -464,13 +468,20 @@ class Container extends Component {
      //           })
      //      }
      // }
+     _refresh = () => {
+          //const { getNotifications } = this.props;
+          this.setState({
+               isFetching : true
+          });
+          console.log("isFetch refresh")
+     }
 
      render() {
           return (
                <TodayScreen 
                     {...this.props} 
                     {...this.state} 
-                    //refresh={this._refresh} 
+                    refresh={this._refresh} 
                />
           );
      }

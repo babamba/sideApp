@@ -474,7 +474,7 @@ class Container extends Component {
           }
      }
 
-     async componentWillUnmount() {
+     componentWillUnmount = async() => {
           console.log("Month Unmount")
           if(this.state.timerInterval){
                clearInterval(this.state.timerInterval);

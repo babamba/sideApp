@@ -67,6 +67,7 @@ const SalleryText = props => (
                          <View animation="fadeInDown" delay={50} easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
                                    {...props}
+                                   Moneytype={"INCREASE"}
                               />
                          </View>
                          <View animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver>
@@ -82,6 +83,7 @@ const SalleryText = props => (
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
                               color={"#99F089"}
+                              refresh={props.refresh}
                          /> 
                     </View>
                </View>
@@ -165,6 +167,7 @@ const SalleryText = props => (
                          <View animation="fadeInDown" delay={50}  easing={"ease-in-out"} useNativeDriver>
                               <MoneyText 
                                    {...props}
+                                   Moneytype={"INCREASE"}
                               />
                          </View>
                          <View animation="fadeInDown" delay={0}  easing={"ease-in-out"} useNativeDriver>
@@ -178,6 +181,7 @@ const SalleryText = props => (
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
                               color={"#99F089"}
+                              refresh={props.refresh}
                          />
                     </View>
                </View>

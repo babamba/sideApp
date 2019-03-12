@@ -9,7 +9,10 @@ const AlREADY_LAUNCH = "AlREADY_LAUNCH";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT"
 const SET_USER = "SET_USER";
-const SET_DATA = 'SET_DATA'
+
+const SET_DATA = 'SET_DATA';
+const SET_DATA_MEAL = 'SET_DATA_MEAL';
+const SET_DATA_PURCHASE = 'SET_DATA_PURCHASE'
 
 // Action Creators
 function setData(json){
@@ -22,6 +25,85 @@ function setData(json){
                consumType : json.consumType , 
                created_at : json.created_at
           }
+     }
+}
+
+function setDataMealToday(TodayMealProduct){
+     return {
+          type: SET_DATA_MEAL,
+          TodayMealProduct //format("YYYYMMDD-hhmmss")
+     }
+}
+
+function setDataPurchaseToday(TodayPurchaseProduct){
+     return {
+          type: SET_DATA_PURCHASE,
+          TodayPurchaseProduct //format("YYYYMMDD-hhmmss")
+     }
+}
+
+
+function getDataPurchaseToday(date){
+     return async (dispatch) => {
+          const product = await AsyncStorage.getItem('products');
+          
+          //console.log(JSON.parse(product))
+          //console.log("date", date);
+
+          const TodayPurchaseProduct= [];
+
+          for (let i of JSON.parse(product)) {
+               let array = TodayPurchaseProduct;
+               //console.log("index : " , i);
+               let id = i.id;
+               let type = Number(i.data.consumType);
+
+               let strArray = id.split("-")
+               //console.log("date of dataSet" , strArray[0])
+               //console.log(type)
+               //console.log(typeof type)
+
+
+               if(strArray[0] === date && type === 2){
+                    array.push(i)
+               }
+          }
+
+          dispatch(setDataPurchaseToday(TodayPurchaseProduct));
+          return TodayPurchaseProduct;
+     }
+}
+
+function getDataMealToday(date){
+     return async (dispatch) => {
+          const product = await AsyncStorage.getItem('products');
+          
+          //console.log(JSON.parse(product))
+          //console.log("date", date);
+
+          const TodayMealProduct= [];
+          if(product){
+               for (let i of JSON.parse(product)) {
+                    let array = TodayMealProduct;
+                    //console.log("index : " , i);
+                    let id = i.id;
+                    let type = Number(i.data.consumType);
+     
+                    let strArray = id.split("-")
+                    //console.log("date of dataSet" , strArray[0])
+                    //console.log(type)
+                    //console.log(typeof type)
+     
+     
+                    if(strArray[0] === date && type === 1){
+                         array.push(i)
+                    }
+               }
+     
+               dispatch(setDataMealToday(TodayMealProduct));
+          }
+          
+          return TodayMealProduct;
      }
 }
 
@@ -83,7 +165,8 @@ function submitConsum(income_name, price, feeling, consumType){
 // 유저가 앱을 처음받고 첫 로그인화면때는 false
 // 로그인 후에는 state를 폰에 저장 
 const initialState = {
-
+     TodayMealProduct : [],
+     TodayPurchaseProduct : []
 };
 
 // Reducer
@@ -94,12 +177,33 @@ function reducer(state = initialState, action){
      switch(action.type){
           case SET_DATA : 
                return applySetData(state, action);
+          case SET_DATA_MEAL :
+               return applysetDataMeal(state, action);
+          case SET_DATA_PURCHASE :
+               return applysetDataPurchase(state, action);
           default : 
                return state;
           }
 }
 
 // Reducer Functions
+
+function applysetDataMeal(state, action){
+     const { TodayMealProduct } = action;
+
+     return {
+          ...state,
+          TodayMealProduct
+     }
+}
+
+function applysetDataPurchase(state, action){
+     const { TodayPurchaseProduct } = action;
+     return {
+          ...state,
+          TodayPurchaseProduct
+     }
+}
 
 async function applySetData(state, action){
      const { data } = action;
@@ -145,7 +249,9 @@ async function applySetData(state, action){
 // Exports
 const actionCreators = {
      //login,
-     submitConsum
+     submitConsum,
+     getDataMealToday,
+     getDataPurchaseToday
 }
 
 export { actionCreators };

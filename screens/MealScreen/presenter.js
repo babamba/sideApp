@@ -13,9 +13,9 @@ const MealScreen = props => (
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}
-                    secondSallery={props.secondSallery}
-                    {...this.props}
+                    {...props}
                     type={"Meal"}
+                    refresh={props.refresh}
                />
            </View>
      )

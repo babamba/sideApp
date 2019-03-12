@@ -128,7 +128,7 @@ async function applySetData(state, action){
           }
      }
 
-     newProduct.push( productToBeSaved )
+     await newProduct.push( productToBeSaved )
 
      await AsyncStorage.setItem( 'products', JSON.stringify(newProduct))
      

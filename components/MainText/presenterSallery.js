@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo';
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
 import MoneyText from "../MoneyText";
+import SubMoneyText from "../SubMoneyText";
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 180;
@@ -94,6 +95,12 @@ const SalleryText = props => (
                               </Text>
                          </View>
                          
+                    </View>
+                    <View style={styles.subMoneyArea} animation="fadeIn" delay={600} easing={"ease-in-out"} useNativeDriver  >
+                         <SubMoneyText 
+                              {...props}
+                               Moneytype={"INCREASE_TODAY"}
+                         />
                     </View>
                     <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                     
@@ -194,6 +201,12 @@ const SalleryText = props => (
                               </Text>
                          </View>
                     </View>
+                    <View style={styles.subMoneyArea} animation="fadeIn" delay={600} easing={"ease-in-out"} useNativeDriver  >
+                         <SubMoneyText 
+                              {...props}
+                               Moneytype={"INCREASE_MONTH"}
+                         />
+                    </View>
                     <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"수입등록"} 
@@ -226,10 +239,11 @@ SalleryText.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({marginTop:250}, {marginTop:200}),
+          ...ifIphoneX({marginTop:180}, {marginTop:130}),
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",
+          //backgroundColor:"red"
      },
      TextConatiner:{
           flex:1,
@@ -243,6 +257,11 @@ const styles = StyleSheet.create({
      },
      remainArea:{
           paddingBottom:10,
+          flexDirection:'row'
+     },
+     subMoneyArea:{
+          paddingBottom:10,
+          paddingTop:10,
           flexDirection:'row'
      },
      remainText:{

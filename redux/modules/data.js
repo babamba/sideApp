@@ -2,6 +2,8 @@
 import { API_URL } from "../../constants";
 import { AsyncStorage } from "react-native";
 import { Permissions, Notifications, Facebook } from "expo";
+//import { user } from "./user";
+
 import moment from "moment";
 // Actions
 
@@ -13,6 +15,7 @@ const SET_USER = "SET_USER";
 const SET_DATA = 'SET_DATA';
 const SET_DATA_MEAL = 'SET_DATA_MEAL';
 const SET_DATA_PURCHASE = 'SET_DATA_PURCHASE'
+const SET_DATA_INCREASE = 'SET_DATA_INCREASE'
 
 // Action Creators
 function setData(json){
@@ -44,6 +47,103 @@ function setDataPurchaseToday(TodayPurchaseProduct, currentPrice){
      }
 }
 
+function setDataIncrease(MonthIncreaseProduct, MonthCurrentPrice, TodayIncreasePrice){
+     return {
+          type: SET_DATA_INCREASE,
+          MonthIncreaseProduct, //format("YYYYMMDD-hhmmss")
+          MonthIncreasePrice : MonthCurrentPrice,
+          TodayIncreasePrice : TodayIncreasePrice
+     }
+}
+
+function getDataIncreaseMonth(date){
+     return async(dispatch, getState) => {
+          const { timer : { standardMonth, salaryDay } } = getState();
+          const product = await AsyncStorage.getItem('products');
+          
+          console.log("standardMonth : ", standardMonth)
+          //console.log(JSON.parse(product))
+          //console.log("date", date);
+
+          const MonthIncreaseProduct = [];
+          const TodayIncreaseProduct = [];
+          let MonthIncreasePrice = 0;
+          let TodayIncreasePrice = 0;
+
+          const StartDate = moment(new Date());
+          StartDate.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
+          
+          const EndDate = moment(new Date());
+          EndDate.set({date: salaryDay, month:standardMonth-1, hour:0, minute:0, second:0})
+
+          //console.log('StartDate',StartDate.format('YYYYMMDD'))
+          //console.log('EndDate',EndDate.format('YYYYMMDD'))
+
+          if(product){
+               for (let i of JSON.parse(product)) {
+                    let array = MonthIncreaseProduct;
+                    let TodayArray = TodayIncreaseProduct
+                    //console.log(product)
+                    //console.log("index : " , i);
+                    let id = i.id;
+                    let type = Number(i.data.consumType);
+                    //console.log("_@_@_@ type",type)
+     
+                    let strArray = id.split("-")
+                    //console.log("#_#_#_#_#_#_#_# date of dataSet" , strArray[0])
+                    //console.log("#_#_#_#_#_#_#_# date of dataSet" , )
+                    //console.log(type)
+                    //console.log(typeof type)
+                    
+                    let confirmDate = strArray[0]
+                    //console.log("confirmDate", confirmDate)
+                    //console.log("object length ",Object.keys(confirmDate).length)
+
+
+                    moment(confirmDate);
+                    // console.log("moment confirmDate", confirmDate)
+                    
+
+                    // if(confirmDate >= StartDate.format('YYYYMMDD')){
+                    //      console.log("confirmDate >= StartDate.format('YYYYMMDD') true")
+                    // }else{
+                    //      console.log("confirmDate >= StartDate.format('YYYYMMDD') false")
+                    // }
+     
+                    if(confirmDate >= StartDate.format('YYYYMMDD') && type === 0 && confirmDate <= EndDate.format('YYYYMMDD') ){
+                         //console.log("_@_@_@ id", i.id)
+                         //console.log("_@_@_@ type",type)
+                         array.push(i)
+                    }
+
+                    if(type=== 0 && confirmDate === date){
+                         TodayArray.push(i)
+                    }
+               }
+
+               if(MonthIncreaseProduct.length > 0){
+                    for (let i of MonthIncreaseProduct) {
+                         let price = Number(i.data.price);
+                         MonthIncreasePrice += price;
+                    }
+               }
+
+               if(TodayIncreaseProduct.length >0 ){
+                    for (let i of TodayIncreaseProduct) {
+                         let price = Number(i.data.price);
+                         TodayIncreasePrice += price;
+                    }
+               }
+
+               //console.log("MonthIncreasePrice", MonthIncreasePrice)
+               //console.log("TodayIncreasePrice", TodayIncreasePrice)
+     
+               await dispatch(setDataIncrease(MonthIncreaseProduct, MonthIncreasePrice, TodayIncreasePrice));
+          }
+
+          return MonthIncreaseProduct;
+     }
+}
 
 function getDataPurchaseToday(date){
      return async (dispatch) => {
@@ -197,7 +297,11 @@ const initialState = {
      TodayPurchaseProduct : [],
      TodayMealPrice : 0,
      TodayPurchasePrice : 0,
-     product : []
+     product : [],
+
+     MonthIncreaseProduct : [],
+     MonthIncreasePrice : 0,
+     TodayIncreasePrice : 0
 
 };
 
@@ -213,12 +317,28 @@ function reducer(state = initialState, action){
                return applysetDataMeal(state, action);
           case SET_DATA_PURCHASE :
                return applysetDataPurchase(state, action);
+          case SET_DATA_INCREASE :
+               return applysetDataIncrease(state, action);
           default : 
                return state;
           }
 }
 
 // Reducer Functions
+
+function applysetDataIncrease(state, action){
+     const { MonthIncreaseProduct, MonthIncreasePrice, TodayIncreasePrice } = action;
+
+     console.log("applysetDataIncrease" , MonthIncreasePrice)
+     console.log("applysetDataIncrease" , TodayIncreasePrice)
+
+     return {
+          ...state,
+          MonthIncreaseProduct,
+          MonthIncreasePrice,
+          TodayIncreasePrice
+     }
+}
 
 function applysetDataMeal(state, action){
      const { TodayMealProduct, TodayMealPrice } = action;
@@ -301,7 +421,8 @@ const actionCreators = {
      //login,
      submitConsum,
      getDataMealToday,
-     getDataPurchaseToday
+     getDataPurchaseToday,
+     getDataIncreaseMonth
 }
 
 export { actionCreators };

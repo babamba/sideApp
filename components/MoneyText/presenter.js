@@ -11,18 +11,18 @@ const MoneyText = props => (
                <View style={styles.container}>
                          <Text style={styles.TodayMoney}>
                               <AnimateNumber 
-                                        value={props.CURRENT_SALARY} 
-                                        formatter={(val) => {
-                                             return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                        }}
-                                        //interval={10}
-                                        timing={(interval, progress) => {
-                                             // slow start, slow end
-                                             return interval * (1 - Math.sin(Math.PI*progress) )*3
-                                        }}
-                                   /> 원
-                              </Text>
-                    </View>
+                                   value={props.CURRENT_SALARY} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
+                              /> 원
+                         </Text>
+               </View>
           ) : (
                <View style={styles.container}>
                          <Text style={styles.TodayMoney}>

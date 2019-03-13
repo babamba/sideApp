@@ -124,7 +124,7 @@ class Container extends Component {
 
           const TODAY_NEW_DATE = moment();
                     
-          console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
+          //console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'))
 
           const CHECK_START_DATE = moment(new Date());
           CHECK_START_DATE.set({year : getYear , date: getDate, month:getMonth, hour:startHour, minute:0, second:0})
@@ -159,9 +159,9 @@ class Container extends Component {
           
            //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
            const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);
-           console.log("WEEK_COUNT 일수" , WEEK_COUNT, "일");
+           //console.log("WEEK_COUNT 일수" , WEEK_COUNT, "일");
            
-           console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
+           //console.log("todaySallery 하루일당" , TODAY_SALARY, "원");
            
            //console.log("weekSallery : 주간" , WEEK_SALARY, "원");
            
@@ -217,10 +217,10 @@ class Container extends Component {
 
           if(isWorkingDay){
                //일하는 날일 경우!
-               console.log('일하는 날 ')
+               //console.log('일하는 날 ')
                if(CHECK_START_DATE < CURRENT_DATE && CHECK_END_DATE > CURRENT_DATE){
-                    console.log("_@_@_@_@_@__@_@_@_@CHECK_START_DATE ", CHECK_START_DATE.format('YYYY-MM-DD HH:mm ss'), "CHECK_END_DATE",  CHECK_END_DATE.format('YYYY-MM-DD HH:mm ss') ," < CURRENT_DATE.date()" ,CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
-                    console.log('1!@#!@#!@#!@# REMAIN_HOUR :', remainHours)
+                    //console.log("_@_@_@_@_@__@_@_@_@CHECK_START_DATE ", CHECK_START_DATE.format('YYYY-MM-DD HH:mm ss'), "CHECK_END_DATE",  CHECK_END_DATE.format('YYYY-MM-DD HH:mm ss') ," < CURRENT_DATE.date()" ,CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
+                    //console.log('1!@#!@#!@#!@# REMAIN_HOUR :', remainHours)
                     this.setState({
                          isFetching : false,
                          //isPlaying,
@@ -367,8 +367,8 @@ class Container extends Component {
                     // 계산에 사용될 Date객체 
                     const TODAY_NEW_DATE = moment();
                     
-                    console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'));
-                    console.log("TODAY_START_DATE", TODAY_START_DATE.format('HH시 :mm분 :: ss초'));
+                    //console.log("TODAY_NEW_DATE", TODAY_NEW_DATE.format('HH시 :mm분 :ss초'));
+                    //console.log("TODAY_START_DATE", TODAY_START_DATE.format('HH시 :mm분 :: ss초'));
                     
                     //월별
                     //if(salaryPayType === SALARY_PAY_TYPE[0]){
@@ -381,7 +381,7 @@ class Container extends Component {
                      //시작 시작부터 흐른 시간
                      //const INTERVAL_SECOND = Math.floor((TODAY_DATE.getTime() - TODAY_START_DATE.getTime()) / 1000);
                      const INTERVAL_SECOND = moment.duration(TODAY_NEW_DATE.diff(TODAY_START_DATE)).asMilliseconds() / 1000;
-                     console.log("TODAY SCREEN  INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
+                     //console.log("TODAY SCREEN  INTERVAL_SECOND 시작시간부터 일한시간",INTERVAL_SECOND,"초")
                     
                     //  let temp_salary_start_month =  moment(new Date());
                     //  temp_salary_start_month.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
@@ -506,6 +506,19 @@ class Container extends Component {
                     refresh={this._refresh} 
                />
           );
+     }
+
+     _refresh = () => {
+          //const { getNotifications } = this.props;
+         
+          const { getDataIncreaseMonth } = this.props;
+          getDataIncreaseMonth(moment().format("YYYYMMDD"));
+
+           this.setState({
+               isFetching : true
+          });
+
+          console.log("isFetch refresh")
      }
 }
 

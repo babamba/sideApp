@@ -518,9 +518,22 @@ class Container extends Component {
                <MonthScreen 
                     {...this.props} 
                     {...this.state} 
-                    //refresh={this._refresh} 
+                    refresh={this._refresh} 
                />
           );
+     }
+
+     _refresh = () => {
+          //const { getNotifications } = this.props;
+         
+          const { getDataIncreaseMonth } = this.props;
+          getDataIncreaseMonth(moment().format("YYYYMMDD"));
+
+           this.setState({
+               isFetching : true
+          });
+
+          console.log("isFetch refresh")
      }
 
      // _refresh = () => {

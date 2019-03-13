@@ -28,17 +28,19 @@ function setData(json){
      }
 }
 
-function setDataMealToday(TodayMealProduct){
+function setDataMealToday(TodayMealProduct, currentPrice){
      return {
           type: SET_DATA_MEAL,
-          TodayMealProduct //format("YYYYMMDD-hhmmss")
+          TodayMealProduct, //format("YYYYMMDD-hhmmss")
+          TodayMealPrice : currentPrice
      }
 }
 
-function setDataPurchaseToday(TodayPurchaseProduct){
+function setDataPurchaseToday(TodayPurchaseProduct, currentPrice){
      return {
           type: SET_DATA_PURCHASE,
-          TodayPurchaseProduct //format("YYYYMMDD-hhmmss")
+          TodayPurchaseProduct, //format("YYYYMMDD-hhmmss")
+          TodayPurchasePrice : currentPrice
      }
 }
 
@@ -51,37 +53,53 @@ function getDataPurchaseToday(date){
           //console.log("date", date);
 
           const TodayPurchaseProduct= [];
+          let TodayPurchasePrice = 0;
 
-          for (let i of JSON.parse(product)) {
-               let array = TodayPurchaseProduct;
-               //console.log("index : " , i);
-               let id = i.id;
-               let type = Number(i.data.consumType);
-
-               let strArray = id.split("-")
-               //console.log("date of dataSet" , strArray[0])
-               //console.log(type)
-               //console.log(typeof type)
-
-
-               if(strArray[0] === date && type === 2){
-                    array.push(i)
+          if(product){
+               for (let i of JSON.parse(product)) {
+                    let array = TodayPurchaseProduct;
+                    //console.log("index : " , i);
+                    let id = i.id;
+                    let type = Number(i.data.consumType);
+     
+                    let strArray = id.split("-")
+                    //console.log("date of dataSet" , strArray[0])
+                    //console.log(type)
+                    //console.log(typeof type)
+     
+     
+                    if(strArray[0] === date && type === 2){
+                         array.push(i)
+                    }
                }
+
+               if(TodayPurchaseProduct.length > 0){
+                    for (let i of TodayPurchaseProduct) {
+                         //console.log("index : " , i);
+                         let price = Number(i.data.price);
+                         TodayPurchasePrice += price;
+                    }
+               }
+
+               await dispatch(setDataPurchaseToday(TodayPurchaseProduct, TodayPurchasePrice));
           }
 
-          dispatch(setDataPurchaseToday(TodayPurchaseProduct));
           return TodayPurchaseProduct;
      }
 }
 
 function getDataMealToday(date){
-     return async (dispatch) => {
+     return async(dispatch) => {
+          
           const product = await AsyncStorage.getItem('products');
+          
           
           //console.log(JSON.parse(product))
           //console.log("date", date);
 
           const TodayMealProduct= [];
+          let TodayMealPrice = 0;
+
           if(product){
                for (let i of JSON.parse(product)) {
                     let array = TodayMealProduct;
@@ -99,10 +117,20 @@ function getDataMealToday(date){
                          array.push(i)
                     }
                }
+
+               const Today = moment(new Date());
+               
+
+               if(TodayMealProduct.length > 0){
+                    for (let i of TodayMealProduct) {
+                         let price = Number(i.data.price);
+                         TodayMealPrice += price;
+                    }
+               }
      
-               dispatch(setDataMealToday(TodayMealProduct));
+               await dispatch(setDataMealToday(TodayMealProduct, TodayMealPrice));
           }
-          
+
           return TodayMealProduct;
      }
 }
@@ -166,7 +194,11 @@ function submitConsum(income_name, price, feeling, consumType){
 // 로그인 후에는 state를 폰에 저장 
 const initialState = {
      TodayMealProduct : [],
-     TodayPurchaseProduct : []
+     TodayPurchaseProduct : [],
+     TodayMealPrice : 0,
+     TodayPurchasePrice : 0,
+     product : []
+
 };
 
 // Reducer
@@ -189,23 +221,31 @@ function reducer(state = initialState, action){
 // Reducer Functions
 
 function applysetDataMeal(state, action){
-     const { TodayMealProduct } = action;
+     const { TodayMealProduct, TodayMealPrice } = action;
+     
+     //console.log("applysetDataMeal" , TodayMealProduct)
+     console.log("applysetDataMeal" , TodayMealPrice)
 
      return {
           ...state,
-          TodayMealProduct
+          TodayMealProduct,
+          TodayMealPrice
      }
 }
 
 function applysetDataPurchase(state, action){
-     const { TodayPurchaseProduct } = action;
+     const { TodayPurchaseProduct, TodayPurchasePrice } = action;
+
+     console.log("applysetDataPurchase" , TodayPurchasePrice)
      return {
           ...state,
-          TodayPurchaseProduct
+          TodayPurchaseProduct,
+          TodayPurchasePrice
      }
 }
 
 async function applySetData(state, action){
+
      const { data } = action;
      const id = data.created_at
      moment(id);
@@ -214,7 +254,7 @@ async function applySetData(state, action){
      const existingProducts = await AsyncStorage.getItem('products');
 
      let newProduct = JSON.parse(existingProducts);
-     console.log(existingProducts)
+     //console.log(existingProducts)
      
      if( !newProduct ){
           console.log("로컬 스토리지 비어있으니까 초기화")
@@ -235,14 +275,24 @@ async function applySetData(state, action){
      await newProduct.push( productToBeSaved )
 
      await AsyncStorage.setItem( 'products', JSON.stringify(newProduct))
+     //console.log("newProduct", newProduct)
+
+     //const product = await AsyncStorage.getItem('products');
+          
+          
+          //console.log(JSON.parse(product))
+          //console.log("date", date);
+
      
-     if(!newProduct){
-          await console.log("products",AsyncStorage.getItem("products"));
-     }
+     
+     // if(!newProduct){
+     //      await console.log("products",AsyncStorage.getItem("products"));
+     // }
      
      //console.log("reducer action object id : ", moment(id).format("YYYYMMDD-hhmmss") , "data : " , productToBeSaved)
      return {  
-          ...state
+          ...state,
+          product : newProduct
      }
 }
 

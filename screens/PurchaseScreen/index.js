@@ -6,7 +6,8 @@ const mapStateToProps = (state, ownProps ) => {
      const { data } = state;
      //console.log("stateToprops : ", data.TodayPurchaseProduct)
      return {
-          TodayPurcahseProduct : data.TodayPurchaseProduct
+          TodayPurcahseProduct : data.TodayPurchaseProduct,
+          currentPrice : data.TodayPurchasePrice
      }
 }
 

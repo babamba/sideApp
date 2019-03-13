@@ -19,6 +19,7 @@ class Container extends Component {
      componentWillReceiveProps = nextProps => {
           //console.log("nextProps.TodayPurchaseProduct : ", nextProps.TodayPurchaseProduct)
           if(nextProps.TodayPurcahseProduct){
+               console.log("nextProps.currentPrice : " , nextProps.currentPrice)
                //console.log("nextProps.TodayPurchaseProduct : ", nextProps.TodayPurchaseProduct)
                this.setState({
                     TodayPurcahseProduct : nextProps.TodayPurcahseProduct
@@ -27,29 +28,6 @@ class Container extends Component {
      }
 
      componentWillMount = async () => {
-          const { getDataPurchaseToday } = this.props;
-          const Today = moment(new Date());
-          
-          const TodayPurchase = await getDataPurchaseToday(Today.format("YYYYMMDD"));
-
-          //console.log("TodayPurchase : ", TodayPurchase);
-          //console.log("TodayPurchase : ",  TodayPurcahseProduct);
-
-          let currentPrice = 0;
-          for (let i of TodayPurchase) {
-               //console.log("index : " , i);
-               let price = Number(i.data.price);
-
-               currentPrice += price;
-          }
-          //console.log("currentPrice", currentPrice);
-
-          this.setState({
-               currentPrice
-          })
-
-          const { onChangeScrollControl } = this.props;
-          onChangeScrollControl(true);
           //console.log("await : ", await getDataMealToday(Today.format("YYYYMMDD")))
      }
 
@@ -58,8 +36,11 @@ class Container extends Component {
      }
 
      componentDidMount = () => {
+          this._refresh();
           // const { initApp } = this.props;
           // initApp();
+          const { onChangeScrollControl } = this.props;
+          onChangeScrollControl(true);
      };
 
      render() {
@@ -67,19 +48,23 @@ class Container extends Component {
                <PurchaseScreen 
                     {...this.props} 
                     {...this.state} 
-                    //refresh={this._refresh} 
+                    refresh={this._refresh} 
                />
           );
      }
 
-     // _refresh = () => {
-     //      //const { getSalary } = this.props;
-     //      this.setState({
-     //           isFetching : true
-     //      });
-     //      //getFeed();
-     //      console.log("isFetch refresh")
-     // }
+     _refresh = () => {
+          //const { getNotifications } = this.props;
+         
+          const { getDataPurchaseToday } = this.props;
+          getDataPurchaseToday(moment().format("YYYYMMDD"));
+
+           this.setState({
+               isFetching : true
+          });
+
+          console.log("isFetch refresh")
+     }
 
 }
 export default Container;

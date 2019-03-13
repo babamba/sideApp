@@ -19,7 +19,7 @@ class Container extends Component {
      componentWillReceiveProps = nextProps => {
           //console.log("nextProps.TodayMealProduct : ", nextProps.TodayMealProduct)
           if(nextProps.TodayMealProduct){
-               //console.log("nextProps.TodayMealProduct : ", nextProps.TodayMealProduct)
+               console.log("nextProps.currentPrice : " , nextProps.currentPrice)
                this.setState({
                     TodayMealProduct : nextProps.TodayMealProduct
                })
@@ -27,28 +27,28 @@ class Container extends Component {
      }
 
      componentWillMount = async () => {
-          const { getDataMealToday, TodayMealProduct } = this.props;
-          const Today = moment(new Date());
+          //const { getDataMealToday, TodayMealProduct } = this.props;
+          //const Today = moment(new Date());
           
-          const TodayMeal = await getDataMealToday(Today.format("YYYYMMDD"));
+          //const TodayMeal = await getDataMealToday(Today.format("YYYYMMDD"));
 
           //console.log("TodayMeal : ", TodayMeal);
           //console.log("TodayMealProduct : ",  TodayMealProduct);
 
-          if(TodayMeal){
-               let currentPrice = 0;
-               for (let i of TodayMealProduct) {
-                    //console.log("index : " , i);
-                    let price = Number(i.data.price);
+          // if(TodayMeal){
+          //      let currentPrice = 0;
+          //      for (let i of TodayMealProduct) {
+          //           //console.log("index : " , i);
+          //           let price = Number(i.data.price);
 
-                    currentPrice += price;
-               }
-               //console.log("currentPrice", currentPrice);
+          //           currentPrice += price;
+          //      }
+          //      //console.log("currentPrice", currentPrice);
 
-               this.setState({
-                    currentPrice
-               })
-          }
+          //      this.setState({
+          //           currentPrice
+          //      })
+          // }
           //console.log("await : ", await getDataMealToday(Today.format("YYYYMMDD")))
      }
 
@@ -57,6 +57,7 @@ class Container extends Component {
           // initApp();
           const { onChangeScrollControl } = this.props;
           onChangeScrollControl(true);
+          this._refresh();
      };
 
      componentWillUnmount = () =>{

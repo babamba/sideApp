@@ -8,6 +8,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                console.log("submitConsum", income_name, price, feeling, consumType);
                return dispatch(dataActions.submitConsum(income_name, price, feeling, consumType));
           },
+          // getDataMealToday : (date) => {
+          //      dispatch(dataActions.getDataMealToday(date));
+          // },
           // fbLogin : () => {
           //      dispatch(userActions.facebookLogin());
           // }

@@ -55,12 +55,12 @@ class Container extends Component {
      }
 
      _changeIncome = text => {
-          console.log(text)
+          //console.log(text)
           this.setState({ income : text });
      }
 
      _changePrice = text => {
-          console.log(text)
+          //console.log(text)
           this.setState({ price : text });
      }
 
@@ -100,6 +100,7 @@ class Container extends Component {
                                  { cancelable: false }
                          )
                          this.setState({ isSubmiting : false });
+                         getDataMealToday(moment().format("YYYYMMDD"));
                     }
                }else{
                     Alert.alert('입력사항을 입력해주세요.')

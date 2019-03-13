@@ -4,9 +4,10 @@ import { actionCreators as dataActions} from "../../redux/modules/data"
 
 const mapStateToProps = (state, ownProps ) => {
      const { data } = state;
-     //console.log("stateToprops : ", data.TodayMealProduct)
+     //console.log("data.TodayMealProduct : ", data.TodayMealProduct)
      return {
-          TodayMealProduct : data.TodayMealProduct
+          TodayMealProduct : data.TodayMealProduct,
+          currentPrice : data.TodayMealPrice
      }
 }
 

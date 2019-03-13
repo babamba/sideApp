@@ -55,12 +55,12 @@ class Container extends Component {
      }
 
      _changeIncome = text => {
-          console.log(text)
+          //console.log(text)
           this.setState({ income : text });
      }
 
      _changePrice = text => {
-          console.log(text)
+          //console.log(text)
           this.setState({ price : text });
      }
 

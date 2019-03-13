@@ -18,7 +18,12 @@ class Container extends Component {
           console.log("mainText screen render")
           console.log("this.props.refresh " , this.props.refresh)
           console.log("mainText scrollControl didmount" , this.props.scrollControl)
-          
+     }
+
+     componentWillMount(){
+          this.setState({
+               isFetching : false
+          });
      }
 
      componentWillReceiveProps = nextProps => {
@@ -103,14 +108,14 @@ class Container extends Component {
           
      }
 
-     // _refresh = () => {
-     //      //const { getSalary } = this.props;
-     //      this.setState({
-     //           isFetching : true
-     //      });
-     //      //getFeed();
-     //      console.log("isFetch refresh")
-     // }
+     _refresh = () => {
+          //const { getSalary } = this.props;
+          this.setState({
+               isFetching : true
+          });
+
+          console.log("isFetch main_text refresh")
+     }
 
 }
 export default Container;

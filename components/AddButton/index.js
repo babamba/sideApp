@@ -18,8 +18,8 @@ class AddButton extends Component {
        
      _toggleModal = () => {
           console.log("_toggleModal")
-          const { refresh } = this.props;
-          refresh();
+          //const { refresh } = this.props;
+          //refresh();
           this.setState({ isModalVisible: !this.state.isModalVisible });
      }
 

@@ -39,10 +39,17 @@ const SalleryText = props => (
                     easing={"ease-in-out"} 
                     useNativeDriver>
                    
-                         { props.REMAIN_HOUR !== null ? (
-                              <Text style={styles.remainText} >
+                         { props.REMAIN_HOUR !== null && props.REMAIN_HOUR !== 'undefined' ? (
+                              props.REMAIN_HOUR === "READY" ? (
+                                   <Text style={styles.remainText} >
+                                   잘잤어요? 
+                                   </Text>
+                              ) : (
+                                   <Text style={styles.remainText} >
                                    {props.REMAIN_HOUR} 시간  
                               </Text>
+                              )
+                              
                               ) : (
                               <Text style={styles.remainText} >
                                    고생했어요 토닥토닥
@@ -50,10 +57,17 @@ const SalleryText = props => (
                               )
                          }
 
-                         { props.REMAIN_MINUTES !== null ? (
-                              <Text style={styles.remainText} >
-                                   {props.REMAIN_MINUTES} 분 남았다. 버티자
-                              </Text>
+                         { props.REMAIN_MINUTES !== null && props.REMAIN_HOUR !== 'undefined' ? (
+                              props.REMAIN_HOUR === "READY" ? (
+                                   <Text style={styles.remainText} >
+                                       오늘도 화이팅 :D 
+                                   </Text>
+                              ) : (
+                                   <Text style={styles.remainText} >
+                                        {props.REMAIN_MINUTES} 분 남았다. 버티자
+                                   </Text>
+                              )
+                              
                               ) : (
                               <Text style={styles.remainText} >
                                    ..:D

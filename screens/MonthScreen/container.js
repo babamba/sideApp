@@ -265,7 +265,8 @@ class Container extends Component {
                               selectWeek,
                               salaryPayType,
                               REMAIN_DATE,
-                              isWorkingDay
+                              isWorkingDay,
+                              MONTH_CLOSE_CURRENT_SALARY
                          });
 
                     }else if(CHECK_END_DATE < CURRENT_DATE){
@@ -340,7 +341,17 @@ class Container extends Component {
                          timerInterval:null
                     })
                }
-          
+               
+               if(CURRENT_DATE.hour() >= 6){
+                    // 아침시작
+                    this.setState({
+                         REMAIN_HOUR: "READY",
+                         REMAIN_MINUTES: "READY",
+                         CURRENT_SALARY : 0,
+                         PERCENT:0
+                    });
+               }
+
           }else if(CHECK_END_DATE < CURRENT_DATE){
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval);
@@ -348,6 +359,13 @@ class Container extends Component {
                          timerInterval:null
                     })
                }
+
+               this.setState({
+                    REMAIN_HOUR: null,
+                    REMAIN_MINUTES: null,
+                    CLOSE_CURRENT_SALARY : this.state.CLOSE_CURRENT_SALARY 
+               });
+
           }else if(CHECK_START_DATE === CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE && isWorkingDay){
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval)

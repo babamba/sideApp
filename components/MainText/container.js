@@ -22,8 +22,9 @@ class Container extends Component {
      }
 
      componentWillReceiveProps = nextProps => {
-          console.log("type" , nextProps.type)
+          console.log("type" , nextProps.REMAIN_HOUR)
           console.log("mainText scrollControl nextProps" , nextProps.scrollControl)
+
           if(this.props.isWorkingDay){
                if(this.props.type === 'Today'){
                     //console.log("MainText next: " , nextProps.CURRENT_SALARY)

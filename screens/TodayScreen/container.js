@@ -56,7 +56,7 @@ class Container extends Component {
           // const getYear = TODAY_DATE.year();
 
           const CURRENT_DATE = moment(new Date());
-
+          //CURRENT_DATE.set({hours:24})
           const getDay = CURRENT_DATE.day();
           const getDate = CURRENT_DATE.date();
           const getMonth = CURRENT_DATE.month();
@@ -190,6 +190,9 @@ class Container extends Component {
            // })
           //}
           const CLOSE_CURRENT_SALARY = Math.floor(WORKING_SECOND * SECOND_SALARY);
+          this.setState({
+               CLOSE_CURRENT_SALARY
+          })
 
           // console.log("WORKING_SECOND :  ",WORKING_SECOND)
           // console.log("SECOND_SALARY :  ",SECOND_SALARY)
@@ -216,6 +219,7 @@ class Container extends Component {
                //일하는 날일 경우!
                console.log('일하는 날 ')
                if(CHECK_START_DATE < CURRENT_DATE && CHECK_END_DATE > CURRENT_DATE){
+                    console.log("_@_@_@_@_@__@_@_@_@CHECK_START_DATE ", CHECK_START_DATE.format('YYYY-MM-DD HH:mm ss'), "CHECK_END_DATE",  CHECK_END_DATE.format('YYYY-MM-DD HH:mm ss') ," < CURRENT_DATE.date()" ,CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
                     console.log('1!@#!@#!@#!@# REMAIN_HOUR :', remainHours)
                     this.setState({
                          isFetching : false,
@@ -243,14 +247,17 @@ class Container extends Component {
                          REMAIN_MINUTES : remainHours.minutes,
                     });
                }else if(CHECK_END_DATE < CURRENT_DATE){
+                    console.log("_@_@_@_@_@__@_@_@_@ CHECK_END_DATE,", CHECK_END_DATE.format('YYYY-MM-DD HH:mm ss') ," < CURRENT_DATE.date() " , CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
                     this.setState({
                          REMAIN_HOUR: null,
                          REMAIN_MINUTES:null,
                          CURRENT_SALARY : CLOSE_CURRENT_SALARY,
-                         PERCENT:100
+                         PERCENT:100,
+                         CLOSE_CURRENT_SALARY
                     });
                //다음날로 넘어갈때?
                }else if(moment(todayDate).date() < CURRENT_DATE.date()){
+                    console.log("_@_@_@_@_@__@_@_@_@ moment(todayDate).date(),", moment(todayDate).date() ," < CURRENT_DATE.date() " , CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
                     
                     //store state에 저장된 날짜와 현재 만들어진 날짜객체의 날이 다를때만 store 저장
                     if(moment(todayDate).date() !== CURRENT_DATE.date()){
@@ -262,13 +269,7 @@ class Container extends Component {
           
                          setTodate(newToday);
                     }
-     
-                    this.setState({
-                         REMAIN_HOUR: null,
-                         REMAIN_MINUTES:null,
-                         CURRENT_SALARY : 0,
-                         PERCENT:0
-                    });
+                    
                }
           }else{
                console.log('일안하는 날')
@@ -294,7 +295,7 @@ class Container extends Component {
           }
           
           let CURRENT_DATE = moment(new Date());
-          //CURRENT_DATE.set({second:0})
+          //CURRENT_DATE.set({date: CURRENT_DATE.date,hours:20})
           let getDay = CURRENT_DATE.day();
           let getDate = CURRENT_DATE.date();
           let getMonth = CURRENT_DATE.month();
@@ -319,25 +320,41 @@ class Container extends Component {
           // const getDate = TODAY_DATE.date();
           // const getMonth = TODAY_DATE.month();
           // const getYear = TODAY_DATE.year();
+          
 
 
           // 시작시간보다 이른경우 타이머 있으면 클리어
           if(CHECK_START_DATE > CURRENT_DATE){
+               console.log("_@_@_@_@_@__@_@_@_@ CHECK_START_DATE,", CHECK_START_DATE.format('YYYY-MM-DD HH:mm ss') ," > CURRENT_DATE" , CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
                if(this.timerInterval){
                     clearInterval(this.timerInterval);
                     // this.setState({
                     //      timerInterval:null
                     // })
+               }
+
+               if(CURRENT_DATE.hour() >= 6){
+                    // 아침시작
+                    this.setState({
+                         REMAIN_HOUR: "READY",
+                         REMAIN_MINUTES: "READY",
+                         CURRENT_SALARY : 0,
+                         PERCENT:0
+                    });
                }
           
           // 현재시간이 종료시간 보다 커질때 
           }else if(CHECK_END_DATE < CURRENT_DATE){
+               console.log("_@_@_@_@_@__@_@_@_@ CHECK_END_DATE,", CHECK_END_DATE.format('YYYY-MM-DD HH:mm ss') ," <  CURRENT_DATE" , CURRENT_DATE.format('YYYY-MM-DD HH:mm ss'))
                if(this.timerInterval){
                     clearInterval(this.timerInterval);
-                    // this.setState({
-                    //      timerInterval:null
-                    // })
                }
+               
+               this.setState({
+                    REMAIN_HOUR: null,
+                    REMAIN_MINUTES: null,
+                    CLOSE_CURRENT_SALARY : this.state.CLOSE_CURRENT_SALARY 
+               });
 
           // 현재시간이 시작시간보다 늦고 종료시간보다 이르고 오늘이 일하는 날이면 타이머를 돌린다.
           }else if(CHECK_START_DATE == CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE && isWorkingDay){

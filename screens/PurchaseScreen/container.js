@@ -48,6 +48,8 @@ class Container extends Component {
                currentPrice
           })
 
+          const { onChangeScrollControl } = this.props;
+          onChangeScrollControl(true);
           //console.log("await : ", await getDataMealToday(Today.format("YYYYMMDD")))
      }
 

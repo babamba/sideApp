@@ -29,11 +29,34 @@ class Container extends Component {
                //isPlaying,
                selectedIndex:0,
                renderArray: [true, false, false, false],
+               scrollControl : false,
           };
      }
 
-     componentWillMount() {
+     _onChangeScrollControl = (scrollControl) => {
+          console.log("selectedIndex : " , this.state.selectedIndex)
+          console.log("renderArray : ", this.state.renderArray[0])
+          const { selectedIndex , renderArray } = this.state;
+
+          if(selectedIndex === 0 && renderArray[0] === true){
+               console.log("1111")
+               this.setState({scrollControl:true});
+          }else if(selectedIndex === 3 && renderArray[3] === true)  {
+               console.log("2222")
+               this.setState({scrollControl:true});
+          }else{
+               console.log("_@_@_@_@_@_@_@ _onChangeScrollControl param :" , scrollControl)
+               setTimeout(()=>this.setState({scrollControl: scrollControl}),1000)
+          }
+
           
+          // this.setState({
+          //      scrollControl: scrollControl
+          // })
+     }
+
+     componentWillMount() {
+          //setTimeout(()=>this.setState({scrollControl: true}),1000)
      }
 
      static navigationOptions = {
@@ -60,7 +83,28 @@ class Container extends Component {
                     }
                }) 
           
-          this.setState({ renderArray: tempvar, selectedIndex:index}); //<<======== problem with this
+          this.setState({ renderArray: tempvar, selectedIndex: index}); //<<======== problem with this
+
+          if(this.state.renderArray[0] === true && index === 0){
+               this.setState({
+                    isFetching:false,
+                    scrollControl: true,
+                    renderArray: tempvar, selectedIndex: index
+               })
+          }else if(this.state.renderArray[3] === true && index === 3){
+               this.setState({
+                    isFetching:false,
+                    scrollControl: true,
+                    renderArray: tempvar, selectedIndex: index
+               })
+          }else{
+               this.setState({
+                    isFetching:false,
+                    scrollControl: false,
+                    renderArray: tempvar, selectedIndex: index
+               })
+          }
+
           console.log(tempvar)
      };
 
@@ -71,11 +115,13 @@ class Container extends Component {
           //      selectedIndex:state.index
           // });
      }
+     _onMomentumScrollBegin = (e, state) => {
+          console.log("@_@_@_@__@@_@_@ _onMomentumScroll Begin is:", state.index);
+     }
 
      _onMomentumScrollEnd =  (e, state) => {
-          console.log("_onMomentumScrollEnd is:", state.index);
-          //setTimeout(()=>this.setState({selectedIndex:state.index}),100)
-          setTimeout(()=>this.setState({refresh:true}),400);
+          console.log("@_@_@_@__@@_@_@ _onMomentumScroll End is::", state.index);
+
      }
 
      _onTouchStartCapture = (e, state) => {
@@ -85,13 +131,9 @@ class Container extends Component {
           //      selectedIndex:state.index
           // });
      }
-
-     _onScrollEnd = (e, state) => {
-          console.log("_onScrollEnd:", state.index);
-          // this.setState({
-          //      selectedIndex:state.index
-          // });
-     };
+     _onResponderRelease = (e, state, context) => {
+          console.log("_onResponderRelease is:", state.index);
+     }
 
      render() {
           return (
@@ -100,10 +142,12 @@ class Container extends Component {
                     {...this.state}
                     //refresh={this._refresh} 
                     onIndexChanged={this.onIndexChanged}
-                    onScrollEnd={this._onScrollEnd}
                     onScrollBeginDrag={this._onScrollBeginDrag}
                     onMomentumScrollEnd={this._onMomentumScrollEnd}
+                    onMomentumScrollBegin={this._onMomentumScrollBegin}
                     onTouchStartCapture={this._onTouchStartCapture}
+                    onChangeScrollControl={this._onChangeScrollControl}
+                    onResponderRelease={this._onResponderRelease}
                />
           );
      }

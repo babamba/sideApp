@@ -34,33 +34,39 @@ const SwipeScreen = props => (
            </View>
           <Swiper
                style={styles.wrapper} 
-               onMomentumScrollEnd={props.onScrollEnd}
+               onMomentumScrollEnd={props.onMomentumScrollEnd}
                onIndexChanged={index => {
                   console.log("onindexchanged");
                   props.onIndexChanged(index);
                }}
                onScrollBeginDrag={props.onScrollBeginDrag}
+
+               onMomentumScrollBegin={props.onMomentumScrollBegin}
                onMomentumScrollEnd={props.onMomentumScrollEnd}
+               onResponderRelease= {props.onResponderRelease}
                onTouchStartCapture={props.onTouchStartCapture}
                showsButtons={true}
+               scrollEnabled={props.scrollControl}
+               //scrollEnabled={false}
+               
                loadMinimal 
-               loadMinimalSize={1}
+               loadMinimalSize={3}
                horizontal = {true}
                loop={false}
               //  autoplay
               //  autoplayTimeout={7}
                dot={<View style={styles.dot} />}
                bounces={true}
-               removeClippedSubviews={false}
+               removeClippedSubviews={true}
                activeDot={<View style={styles.activeDot} />}
                paginationStyle={styles.paginationStyle}
                nextButton={<Text style={styles.nextButton}>›</Text>}
                prevButton={<Text style={styles.prevButton}>‹</Text>}
-               automaticallyAdjustContentInsets={true}
+               automaticallyAdjustContentInsets={false}
             >
            <View style={styles.slide1}>
            {props.renderArray[0] ?
-                <TodayScreen  {...props}/>
+                <TodayScreen  {...props} />
                 : null}
            </View>
            <View style={styles.slide2}>

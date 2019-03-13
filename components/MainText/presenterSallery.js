@@ -33,7 +33,11 @@ const SalleryText = props => (
           props.isWorkingDay ? (
                <View style={styles.container}>
                <View style={styles.TextConatiner}>
-                    <View style={styles.remainArea} animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+                    <View style={styles.remainArea} 
+                    animation="fadeInDown"
+                    delay={180} 
+                    easing={"ease-in-out"} 
+                    useNativeDriver>
                    
                          { props.REMAIN_HOUR !== null ? (
                               <Text style={styles.remainText} >

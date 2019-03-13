@@ -25,15 +25,15 @@ class Container extends Component {
 
           const WEEK_COUNT = calcFilterHolidayWorkingDay(temp_salary_start_month, temp_salary_end_month, selectWeek);
 
-          console.log("constructor WEEK_COUNT", WEEK_COUNT);
+          //console.log("constructor WEEK_COUNT", WEEK_COUNT);
 
           const date = moment(new Date());
           const isWorkingDay = TodayIsWorkingDay(date.day(), selectWeek);
-          console.log("constructor isWorkingDay :" , isWorkingDay)
+          //console.log("constructor isWorkingDay :" , isWorkingDay)
           
           this.state = {
                WEEK_COUNT,  // 월급시작일자부터 월급 종료일자까지 선택한 요일 기준 몇일 인지
-               isWorkingDay //오늘이 일하는 날인지
+               isWorkingDay, //오늘이 일하는 날인지
           }
           //console.log(this.props)
      }
@@ -41,7 +41,11 @@ class Container extends Component {
      //스크린이 붙기전 setState해도 리렌더링 되지않음
      // 붙기전에 미리 데이터를 만들어놓는다
      componentWillMount(){
-          console.log('componentWillMount');
+          console.log('MONTH componentWillMount');
+          if(this.state.timerInterval){
+               console.log('componentWillMount clearInterval timer');
+               clearInterval(this.state.timerInterval)
+          }
 
           const { WEEK_COUNT, isWorkingDay } = this.state;
 
@@ -119,7 +123,7 @@ class Container extends Component {
                let temp_salary_start_month2 =  moment(new Date());
                temp_salary_start_month2.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
                const filterPastday = calcFilterHolidayWorkingDay(temp_salary_start_month2, TODAY_START_DATE, selectWeek);
-               console.log("filterPastday : " , filterPastday) // 전날까지 기준이니 -1
+               //console.log("filterPastday : " , filterPastday) // 전날까지 기준이니 -1
 
 
                //console.log("start and end : ", TODAY_START_DATE.format('YYYY-MM-DD HH:mm'), "  / " ,  TODAY_END_DATE.format('YYYY-MM-DD HH:mm'))
@@ -179,8 +183,8 @@ class Container extends Component {
 
                //한달월급을 일하는 요일에 나눠서 일당 얼마인지 계산  -> 일당
                const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);
-               console.log("monthSallery / WEEK_COUNT", monthSallery , " / ", WEEK_COUNT)
-               console.log("weekSallery : 하루" , TODAY_SALARY, "원");
+               //console.log("monthSallery / WEEK_COUNT", monthSallery , " / ", WEEK_COUNT)
+               //console.log("weekSallery : 하루" , TODAY_SALARY, "원");
                
                //하루 일당   -> 주간급여 / 주간일하는 날수
                //const TODAY_SALARY = Math.floor( WEEK_SALARY / workingWeekDay );
@@ -299,8 +303,8 @@ class Container extends Component {
      // 타이머를 돌리면서 정보를 계속 수정
      componentDidMount() {
           console.log('componentDidMount');
-          const { isWorkingDay } = this.state
           const { startHour, endHour } = this.props
+          const { isWorkingDay } = this.state
 
           const CHECK_START_DATE = moment(new Date());
           CHECK_START_DATE.set({year : getYear , date: getDate, month:getMonth, hour:startHour, minute:0, second:0})
@@ -345,8 +349,10 @@ class Container extends Component {
                     })
                }
           }else if(CHECK_START_DATE === CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE && isWorkingDay){
+               if(this.state.timerInterval){
+                    clearInterval(this.state.timerInterval)
+               }
                let timerInterval = setInterval(() => {
-
                     //const {PERCENT, SECOND_SALARY, MONTH_CURRENT_SALARY, SALARY_END_MONTHDAY} = this.state;
 
                     const {SALARY_START_MONTHDAY, 
@@ -472,16 +478,20 @@ class Container extends Component {
                     
                }, 2500);
           }
+          const { onChangeScrollControl } = this.props;
+          onChangeScrollControl(true);
      }
 
-     componentWillUnmount = async() => {
+     async componentWillUnmount(){
           console.log("Month Unmount")
-          if(this.state.timerInterval){
-               clearInterval(this.state.timerInterval);
-               await this.setState({
-                    timerInterval:null
-               })
-          }
+          console.log("this.state.timerInterval : " , this.state.timerInterval)
+          await clearInterval(this.state.timerInterval);
+          this.setState({
+               timerInterval:null
+          })
+
+          console.log("_@_@_@_@_@_@_@_@_ Month clear timer")
+          
       }
 
 

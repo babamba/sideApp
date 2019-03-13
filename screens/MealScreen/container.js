@@ -55,6 +55,8 @@ class Container extends Component {
      componentDidMount = () => {
           // const { initApp } = this.props;
           // initApp();
+          const { onChangeScrollControl } = this.props;
+          onChangeScrollControl(true);
      };
 
      componentWillUnmount = () =>{

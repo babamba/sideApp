@@ -10,17 +10,20 @@ class Container extends Component {
           isFetching : false,
           duration: 1000,
           toggledOn: false,
+          fadeinOut : false
      }
 
      componentDidMount(){
           //console.log(this.props.isWorkingDay)
           console.log("mainText screen render")
           console.log("this.props.refresh " , this.props.refresh)
+          console.log("mainText scrollControl didmount" , this.props.scrollControl)
           
      }
 
      componentWillReceiveProps = nextProps => {
           console.log("type" , nextProps.type)
+          console.log("mainText scrollControl nextProps" , nextProps.scrollControl)
           if(this.props.isWorkingDay){
                if(this.props.type === 'Today'){
                     //console.log("MainText next: " , nextProps.CURRENT_SALARY)

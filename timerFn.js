@@ -3,9 +3,9 @@ import moment from "moment";
 
 export function calcFilterHolidayWorkingDay(startDate, endDate, selectWeek){
           let temp_start = startDate
-          console.log('temp_start' , startDate.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
-          console.log('temp_end' , endDate.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
-          console.log('selectWeek' , selectWeek);
+          //console.log('temp_start' , startDate.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
+          //console.log('temp_end' , endDate.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
+          //console.log('selectWeek' , selectWeek);
           
           let count = 0;
           
@@ -46,9 +46,9 @@ export function  calcPastWeekDay(todayDate, salaryStartDate, selectWeek){
           //temp_today.hour(startHour);
           temp_today.minute(0);
 
-          console.log('temp_today' , temp_today.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
-          console.log('salaryStartDate' , salaryStartDate.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
-          console.log('selectWeek' , selectWeek);
+          //console.log('temp_today' , temp_today.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
+          //console.log('salaryStartDate' , salaryStartDate.format('YYYY년 - MM월 -DD일 HH시 : mm분 dddd요일'));
+          //console.log('selectWeek' , selectWeek);
           //console.log('selectWeek' , selectWeek);
 
           const DecreaseTodayDate = temp_today;

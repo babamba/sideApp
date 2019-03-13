@@ -100,7 +100,7 @@ class Container extends Component {
                                  { cancelable: false }
                          )
                          this.setState({ isSubmiting : false });
-                         getDataMealToday(moment().format("YYYYMMDD"));
+                         //getDataMealToday(moment().format("YYYYMMDD"));
                     }
                }else{
                     Alert.alert('입력사항을 입력해주세요.')

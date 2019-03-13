@@ -109,30 +109,30 @@ class Container extends Component {
      };
 
      _onScrollBeginDrag = (e, state) => {
-          console.log("_onScrollBeginDrag is:", state.index);
+          //console.log("_onScrollBeginDrag is:", state.index);
           //setTimeout(()=>this.setState({selectedIndex:state.index}),1000)
           // this.setState({
           //      selectedIndex:state.index
           // });
      }
      _onMomentumScrollBegin = (e, state) => {
-          console.log("@_@_@_@__@@_@_@ _onMomentumScroll Begin is:", state.index);
+          //console.log("@_@_@_@__@@_@_@ _onMomentumScroll Begin is:", state.index);
      }
 
      _onMomentumScrollEnd =  (e, state) => {
-          console.log("@_@_@_@__@@_@_@ _onMomentumScroll End is::", state.index);
+          //console.log("@_@_@_@__@@_@_@ _onMomentumScroll End is::", state.index);
 
      }
 
      _onTouchStartCapture = (e, state) => {
-          console.log("_onTouchStartCapture is:", state.index);
+          //console.log("_onTouchStartCapture is:", state.index);
           //setTimeout(()=>this.setState({selectedIndex:state.index}),100)
           // this.setState({
           //      selectedIndex:state.index
           // });
      }
      _onResponderRelease = (e, state, context) => {
-          console.log("_onResponderRelease is:", state.index);
+          //console.log("_onResponderRelease is:", state.index);
      }
 
      render() {

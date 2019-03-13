@@ -46,6 +46,7 @@ const MoneyText = props => (
                <Text style={styles.TodayMoney}>
                     <AnimateNumber 
                          value={props.currentPrice} 
+
                          formatter={(val) => {
                               return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                          }}

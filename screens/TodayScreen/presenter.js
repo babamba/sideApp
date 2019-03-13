@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
      },
      progress:{
           width:84,
-          transform: [{ rotate: '270deg'}],
+          //transform: [{ rotate: '270deg'}],
           //backgroundColor:'red',
           top: 290
      }

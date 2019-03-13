@@ -57,20 +57,7 @@ const RootNavigator = createStackNavigator(
           headerTransitionPreset:"fade-in-place",
           //transitionConfig: noTransitionConfig,
 
-          // navigationOptions: ({navigation}) => ({
-          //      headerStyle: {backgroundColor: 'green'},
-          //      title: 'Logged In to your app!',
-          //      gesturesEnabled: false,
-          //      headerLeft: <Text onPress={() => {
-          //        // Coming soon: navigation.navigate('DrawerToggle')
-          //        // https://github.com/react-community/react-navigation/pull/2492
-          //        if (navigation.state.index === 0) {
-          //          navigation.navigate('DrawerOpen')
-          //        } else {
-          //          navigation.navigate('DrawerClose')
-          //        }
-          //      }}>Menu</Text>
-          //    })
+         
      },
      
 );

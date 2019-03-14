@@ -60,8 +60,6 @@ const MoneyText = props => (
                </Text>
           </View>
      )
-     
-               
 )
 
 const styles = StyleSheet.create({

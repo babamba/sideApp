@@ -72,6 +72,7 @@ class Container extends Component {
           // const getYear = TODAY_DATE.year();
 
           const CURRENT_DATE = moment(new Date());
+          //CURRENT_DATE.set({hour:24})
 
           const getDay = CURRENT_DATE.day();
           const getDate = CURRENT_DATE.date();
@@ -228,6 +229,7 @@ class Container extends Component {
                     console.log('일하는 날 ')
 
                     if(!isWorkingDay){
+                         console.log('쉬는 날 ')
                          this.setState({
                               timerInterval:null,
                               MONTH_CURRENT_SALARY : NOT_WORK_CURRENT_SALARY,
@@ -237,6 +239,7 @@ class Container extends Component {
                     }
 
                     if(CHECK_START_DATE < CURRENT_DATE && CHECK_END_DATE > CURRENT_DATE && isWorkingDay){
+                         console.log('일하는 시간 ')
                          //항상 초기화해야할것들
                          this.setState({
                               isFetching : false,
@@ -270,6 +273,7 @@ class Container extends Component {
                          });
 
                     }else if(CHECK_END_DATE < CURRENT_DATE){
+                         console.log('근무종료시간 이후 ')
                          this.setState({
                               timerInterval:null,
                               MONTH_CURRENT_SALARY : MONTH_CLOSE_CURRENT_SALARY,
@@ -279,6 +283,7 @@ class Container extends Component {
                          });
                     //다음날로 넘어갈때?
                     }else if(moment(todayDate).date() < CURRENT_DATE.date()){
+                         console.log('날이 지난 이후 ')
                          
                          //store state에 저장된 날짜와 현재 만들어진 날짜객체의 날이 다를때만 store 저장
                          if(moment(todayDate).date() !== CURRENT_DATE.date()){
@@ -294,7 +299,15 @@ class Container extends Component {
                          this.setState({
                               timerInterval:null,
                               REMAIN_DATE,
-                              MONTH_CURRENT_SALARY : MONTH_CURRENT_SALARY,
+                              MONTH_CURRENT_SALARY : MONTH_CLOSE_CURRENT_SALARY,
+                              PERCENT:PERCENT_MONTH
+                         });
+                    }else{
+                         console.log('그외에? ')
+                         this.setState({
+                              timerInterval:null,
+                              REMAIN_DATE,
+                              MONTH_CLOSE_CURRENT_SALARY,
                               PERCENT:PERCENT_MONTH
                          });
                     }
@@ -323,7 +336,7 @@ class Container extends Component {
           // const getYear = TODAY_DATE.year();
 
           const CURRENT_DATE = moment(new Date());
-          //CURRENT_DATE.set({second:0})
+          //CURRENT_DATE.set({hour:24})
           const getDay = CURRENT_DATE.day();
           const getDate = CURRENT_DATE.date();
           const getMonth = CURRENT_DATE.month();
@@ -335,6 +348,7 @@ class Container extends Component {
           console.log("isWorkingDay ? ", isWorkingDay)
           
           if(CHECK_START_DATE > CURRENT_DATE){
+               console.log('근무시작 전 ')
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval);
                     this.setState({
@@ -343,28 +357,31 @@ class Container extends Component {
                }
                
                if(CURRENT_DATE.hour() >= 6){
+                    console.log('근무시작 아침 6시 ')
                     // 아침시작
                     this.setState({
-                         REMAIN_HOUR: "READY",
-                         REMAIN_MINUTES: "READY",
-                         CURRENT_SALARY : 0,
-                         PERCENT:0
+                         REMAIN_DATE: this.state.REMAIN_DATE,
+                         MONTH_CURRENT_SALARY : this.state.MONTH_CLOSE_CURRENT_SALARY ,
+                         PERCENT:this.state.PERCENT_MONTH
                     });
                }
 
           }else if(CHECK_END_DATE < CURRENT_DATE){
+               console.log('근무종료 후 ')
+               console.log('this.state.REMAIN_DATE', this.state.REMAIN_DATE)
+               console.log('this.state.MONTH_CURRENT_SALARY', this.state.MONTH_CURRENT_SALARY)
+
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval);
                     this.setState({
-                         timerInterval:null
+                         timerInterval:null,
                     })
                }
-
                this.setState({
-                    REMAIN_HOUR: null,
-                    REMAIN_MINUTES: null,
-                    CLOSE_CURRENT_SALARY : this.state.CLOSE_CURRENT_SALARY 
-               });
+                    REMAIN_DATE: this.state.REMAIN_DATE,
+                    MONTH_CURRENT_SALARY : this.state.MONTH_CLOSE_CURRENT_SALARY,
+                    PERCENT:this.state.PERCENT_MONTH
+               })
 
           }else if(CHECK_START_DATE === CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE && isWorkingDay){
                if(this.state.timerInterval){
@@ -480,6 +497,7 @@ class Container extends Component {
                     //console.log("state 샐러리",CURRENT_SALARY, PERCENT, SECOND_SALARY)
                     //console.log("실행 중 rerender Month");
                     if(CHECK_START_DATE > CURRENT_DATE){
+                         console.log("근무 시작전")
                          if(this.state.timerInterval){
                               clearInterval(this.state.timerInterval);
                               this.setState({

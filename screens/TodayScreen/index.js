@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           setTodate : (todayDate) => {
                dispatch(timerActions.setTodate(todayDate))
           },
-          getDataIncreaseMonth : (date) => {
-               return dispatch(dataActions.getDataIncreaseMonth(date));
+          getDataIncreaseToday : (date) => {
+               return dispatch(dataActions.getDataIncreaseToday(date));
           }
      }
 }

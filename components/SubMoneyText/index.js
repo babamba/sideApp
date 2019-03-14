@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           getDataIncreaseMonth : (date) => {
                return dispatch(dataActions.getDataIncreaseMonth(date));
           },
+          getDataIncreaseToday : (date) => {
+               return dispatch(dataActions.getDataIncreaseToday(date));
+          },
 
           // initApp: () => {
           //      dispatch(photoActions.getFeed());

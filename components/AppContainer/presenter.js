@@ -33,7 +33,8 @@ class AppContainer extends Component {
           super(props);
           //console.log(props)
           this.state = {
-               showRealApp : false
+               showRealApp : false,
+               AppRefreash: false
           };
      }
 
@@ -70,14 +71,14 @@ class AppContainer extends Component {
           if (this.state.showRealApp) {
                
                //월급 정보를 저장했으면 
-               if(isSetData){
+               if(isLoggedIn && profile){
                     return (
                          <View style={styles.container} >
                               <StatusBar hidden={false}/>
-                              {isLoggedIn && profile ? (
+                              { isSetData ? (
                                    <RootNavigation screenProps = {{username: profile.username ,isLoggedIn, logOut}} /> 
                               ) : (
-                                   <LoggedOutNavigation />
+                                   <EnterSalaryNavigation />
                               )}
                          </View>
                     );
@@ -86,7 +87,7 @@ class AppContainer extends Component {
                     return (
                          <View style={styles.container} >
                                    <StatusBar hidden={false}/>
-                                        <EnterSalaryNavigation  />
+                                   <LoggedOutNavigation />
                          </View>
                     )
                }
@@ -151,6 +152,19 @@ class AppContainer extends Component {
           //           />
           //      );
           // }
+     }
+     
+     _refresh = () => {
+          //const { getNotifications } = this.props;
+         
+          const { getDataIncreaseMonth } = this.props;
+          getDataIncreaseMonth(moment().format("YYYYMMDD"));
+
+           this.setState({
+               isFetching : true
+          });
+
+          console.log("isFetch refresh")
      }
 
      _onDone = () => {

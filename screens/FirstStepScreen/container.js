@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Alert ,Dimensions } from "react-native"
 import FirstStepScreen from "./presenter";
 import PropTypes from "prop-types";
+import { withNavigation } from "react-navigation";
 //import { FB_APP_ID } from "../../constant";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
@@ -33,6 +34,10 @@ class Container extends Component {
      static propsType = {
           login:PropTypes.func.isRequired,
           //fbLogin:PropTypes.func.isRequired
+     }
+
+     componentDidMount(){
+          //const { refresh } = this.props;
      }
 
      render(){
@@ -105,8 +110,23 @@ class Container extends Component {
                          this.setState({
                               isSubmiting : false
                          });
+                         //console.log("_#_#_#_#_ navigate",this.props.navigation.navigate)
                     }else{
-                         Alert.alert('All fileds Submit')
+
+          //                <Button
+          //     title="가입하기"
+          //     onPress={() => props.navigation.navigate("SignUpScreen")}
+          //   />
+                         //console.log("_#_#_#_#_ ",this.props.navigation.navigate)
+                         
+                         Alert.alert(
+                              '등록되었습니다',
+                              '',
+                              [
+                                   {text: 'OK', onPress: () => this.props.navigation.navigate("Side") },
+                              ],
+                                 { cancelable: false }
+                         )
                     }
                    
                     //redux action  결과값을 얻는방식으로 할수 있는게 더생김
@@ -120,9 +140,10 @@ class Container extends Component {
                     // }
                }else{
                     //console.log(this.state.salaryWeek.length)
+                    //console.log("_#_#_#_#_ navigate",this.props.navigation.navigate)
                     Alert.alert('All fileds are require')
                }
           }
      }
 }
-export default Container;
+export default withNavigation(Container);

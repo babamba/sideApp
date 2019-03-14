@@ -56,8 +56,9 @@ class Container extends Component {
      _refresh = () => {
           //const { getNotifications } = this.props;
          
-          const { getDataPurchaseToday } = this.props;
+          const { getDataPurchaseToday , getDataPurchaseMonth} = this.props;
           getDataPurchaseToday(moment().format("YYYYMMDD"));
+          getDataPurchaseMonth(moment().format("YYYYMMDD"));
 
            this.setState({
                isFetching : true

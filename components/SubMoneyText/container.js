@@ -37,9 +37,14 @@ class Container extends Component {
      _refresh = () => {
           //const { getNotifications } = this.props;
          
-          const { getDataIncreaseMonth } = this.props;
-          getDataIncreaseMonth(moment().format("YYYYMMDD"));
-
+          const { getDataIncreaseMonth, getDataIncreaseToday, Moneytype } = this.props;
+          
+          if(Moneytype === "INCREASE_TODAY" ){
+               getDataIncreaseToday(moment().format("YYYYMMDD"));
+          }else{
+               getDataIncreaseMonth(moment().format("YYYYMMDD"));
+          }
+          
            this.setState({
                isFetching : true
           });

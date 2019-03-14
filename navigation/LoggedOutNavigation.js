@@ -8,6 +8,7 @@ const LoggedOutnavigation = createStackNavigator(
      {
           LogIn : {
                screen : SignInScreen,
+               params: { jumpLogin: false }
           },
           SignUpScreen : {
                screen : SignUpScreen,

@@ -377,6 +377,7 @@ class Container extends Component {
                          timerInterval:null,
                     })
                }
+
                this.setState({
                     REMAIN_DATE: this.state.REMAIN_DATE,
                     MONTH_CURRENT_SALARY : this.state.MONTH_CLOSE_CURRENT_SALARY,
@@ -518,16 +519,15 @@ class Container extends Component {
           onChangeScrollControl(true);
      }
 
-     async componentWillUnmount(){
-          console.log("Month Unmount")
-          console.log("this.state.timerInterval : " , this.state.timerInterval)
-          await clearInterval(this.state.timerInterval);
-          this.setState({
-               timerInterval:null
-          })
-
-          console.log("_@_@_@_@_@_@_@_@_ Month clear timer")
-          
+     componentWillUnmount = async() => {
+          console.log("_@_@_@_@_@_@_@_ Month Unmount")
+          console.log("after this.timerInterval", this.timerInterval)
+          await clearInterval(this.timerInterval);
+          console.log("before this.timerInterval", this.timerInterval)
+          // this.setState({
+          //      timerInterval: null,
+          // })
+          //this.setState({timerInterval : null})
       }
 
 

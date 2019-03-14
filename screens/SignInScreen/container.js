@@ -60,21 +60,23 @@ class Container extends Component {
                          this.setState({
                               isSubmiting : false
                          });
-                    }else{
-                         if(this.props.navigation.state.params.jumpLogin){
-                              console.log('jump Login')
-                              //console.log('navi props' , this.props)
-                              this.props.navigation.navigate('Side', {
-                                   jumpLogin: false,
-                              });
-
-                              this.setState({
-                                   isSubmiting : false,
-                                   username : "",
-                                   password : "",
-                              })
-                         }
                     }
+                    // else{
+                    //      console.log("this.props.navigation.state.params : ", this.props.navigation.state.params)
+                    //      if(this.props.navigation.state.params.jumpLogin !== 'undefined' || this.props.navigation.state.params.jumpLogin !== null){
+                    //           console.log('jump Login')
+                    //           //console.log('navi props' , this.props)
+                    //           this.props.navigation.navigate('Side', {
+                    //                jumpLogin: false,
+                    //           });
+
+                    //           this.setState({
+                    //                isSubmiting : false,
+                    //                username : "",
+                    //                password : "",
+                    //           })
+                    //      }
+                    // }
                }else{
                     Alert.alert('All fileds are require')
                }

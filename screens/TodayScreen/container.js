@@ -465,13 +465,14 @@ class Container extends Component {
           onChangeScrollControl(true);
      }
 
-     async componentWillUnmount(){
+     componentWillUnmount = async() => {
           console.log("_@_@_@_@_@_@_@_ Today Unmount")
+          console.log("after this.timerInterval", this.timerInterval)
           await clearInterval(this.timerInterval);
-          console.log("this.timerInterval", this.timerInterval)
-          this.setState({
-               timerInterval: null,
-          })
+          console.log("before this.timerInterval", this.timerInterval)
+          // this.setState({
+          //      timerInterval: null,
+          // })
           //this.setState({timerInterval : null})
       }
 

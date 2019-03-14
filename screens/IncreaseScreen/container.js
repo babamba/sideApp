@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
 const defaultSelectedIndex_group_insterest = [1];
 const multipleGroupData = [
-     { value: 0, displayValue: "좋아요!" },
-     { value: 1, displayValue: "그저그래요."},
-     { value: 2, displayValue: "후회되요" },
+     { value: 0, displayValue: "좋아!" },
+     { value: 1, displayValue: "쏘쏘?"},
+     { value: 2, displayValue: "후회중.." },
 ];
 
 class Container extends Component {

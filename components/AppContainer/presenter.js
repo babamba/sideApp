@@ -63,19 +63,25 @@ class AppContainer extends Component {
      render(){
           const { isLoggedIn, profile, isSetData , logOut} = this.props;
           console.log("1231@#!@#!@#!@ isLogged / " , isLoggedIn);
+          console.log("1231@#!@#!@#!@ profile / " , profile);
+          console.log("1231@#!@#!@#!@ isSetData / " , isSetData);
 
+          //앱 최초시작 후 
           if (this.state.showRealApp) {
+               
+               //월급 정보를 저장했으면 
                if(isSetData){
                     return (
                          <View style={styles.container} >
                               <StatusBar hidden={false}/>
-                              {isLoggedIn && profile ? ( 
-                                   <RootNavigation screenProps = {{username: profile.username ,isLoggedIn: isLoggedIn, logOut}} />
-                                        ) : ( 
-                                   <RootNavigation screenProps = {{isLoggedIn: false}}/>     
-                              )}     
+                              {isLoggedIn && profile ? (
+                                   <RootNavigation screenProps = {{username: profile.username ,isLoggedIn, logOut}} /> 
+                              ) : (
+                                   <LoggedOutNavigation />
+                              )}
                          </View>
-                       );
+                    );
+               //월급 정보를 저장안헀으면
                }else{
                     return (
                          <View style={styles.container} >
@@ -84,7 +90,9 @@ class AppContainer extends Component {
                          </View>
                     )
                }
+               
 
+          // 앱 최초시작 전
           }else{
                return (
                     <AppIntroSlider

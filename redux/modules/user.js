@@ -183,6 +183,7 @@ function applyLogOut(state, action){
      return {
           ...state,
           isLoggedIn:false,
+          profile:"",
           token:""
      }
 }

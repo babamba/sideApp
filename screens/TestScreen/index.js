@@ -1,189 +1,206 @@
-/**
- * Example usage of react-native-modal
- * @format
- */
+import React, { Component } from 'react';
+import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView } from 'react-native';
+import { LinearGradient } from 'expo';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { sliderWidth, itemWidth } from './styles/SliderEntry.style';
+import SliderEntry from './components/SliderEntry';
+import styles, { colors } from './styles/index.style';
+import { ENTRIES1, ENTRIES2 } from './static/entries';
+import { scrollInterpolators, animatedStyles } from './utils/animations';
 
-import React, { Component } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import Modal from "react-native-modal";
+const IS_ANDROID = Platform.OS === 'android';
+const SLIDER_1_FIRST_ITEM = 1;
 
-export default class Example extends Component {
-  state = {
-    visibleModal: null,
-  };
+export default class example extends Component {
 
-  renderButton = (text, onPress) => (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.button}>
-        <Text>{text}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
-  renderModalContent = () => (
-    <View style={styles.modalContent}>
-      <Text>Hello!</Text>
-      {this.renderButton("Close", () => this.setState({ visibleModal: null }))}
-    </View>
-  );
-
-  handleOnScroll = event => {
-    this.setState({
-      scrollOffset: event.nativeEvent.contentOffset.y,
-    });
-  };
-
-  handleScrollTo = p => {
-    if (this.scrollViewRef) {
-      this.scrollViewRef.scrollTo(p);
+    constructor (props) {
+        super(props);
+        this.state = {
+            slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+        };
     }
-  };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.renderButton("Default modal", () =>
-          this.setState({ visibleModal: 1 }),
-        )}
-        {this.renderButton("Sliding from the sides", () =>
-          this.setState({ visibleModal: 2 }),
-        )}
-        {this.renderButton("A slower modal", () =>
-          this.setState({ visibleModal: 3 }),
-        )}
-        {this.renderButton("Fancy modal!", () =>
-          this.setState({ visibleModal: 4 }),
-        )}
-        {this.renderButton("Bottom half modal", () =>
-          this.setState({ visibleModal: 5 }),
-        )}
-        {this.renderButton("Modal that can be closed on backdrop press", () =>
-          this.setState({ visibleModal: 6 }),
-        )}
-        {this.renderButton("Swipeable modal", () =>
-          this.setState({ visibleModal: 7 }),
-        )}
-        {this.renderButton("Scrollable modal", () =>
-          this.setState({ visibleModal: 8 }),
-        )}
-        <Modal isVisible={this.state.visibleModal === 1}>
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 2}
-          animationIn="slideInLeft"
-          animationOut="slideOutRight">
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 3}
-          animationInTiming={2000}
-          animationOutTiming={2000}
-          backdropTransitionInTiming={2000}
-          backdropTransitionOutTiming={2000}>
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 4}
-          backdropColor={"red"}
-          backdropOpacity={1}
-          animationIn="zoomInDown"
-          animationOut="zoomOutUp"
-          animationInTiming={1000}
-          animationOutTiming={1000}
-          backdropTransitionInTiming={1000}
-          backdropTransitionOutTiming={1000}>
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 5}
-          style={styles.bottomModal}>
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 6}
-          onBackdropPress={() => this.setState({ visibleModal: null })}>
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 7}
-          onSwipeComplete={() => this.setState({ visibleModal: null })}
-          swipeDirection="left">
-          {this.renderModalContent()}
-        </Modal>
-        <Modal
-          isVisible={this.state.visibleModal === 8}
-          onSwipeComplete={() => this.setState({ visibleModal: null })}
-          swipeDirection="down"
-          scrollTo={this.handleScrollTo}
-          scrollOffset={this.state.scrollOffset}
-          scrollOffsetMax={400 - 300} // content height - ScrollView height
-          style={styles.bottomModal}>
-          <View style={styles.scrollableModal}>
-            <ScrollView
-              ref={ref => (this.scrollViewRef = ref)}
-              onScroll={this.handleOnScroll}
-              scrollEventThrottle={16}>
-              <View style={styles.scrollableModalContent1}>
-                <Text>Scroll me up</Text>
-              </View>
-              <View style={styles.scrollableModalContent1}>
-                <Text>Scroll me up</Text>
-              </View>
-            </ScrollView>
-          </View>
-        </Modal>
-      </View>
-    );
-  }
+    _renderItem ({item, index}) {
+        return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
+    }
+
+    _renderItemWithParallax ({item, index}, parallaxProps) {
+        return (
+            <SliderEntry
+              data={item}
+              even={(index + 1) % 2 === 0}
+              parallax={true}
+              parallaxProps={parallaxProps}
+            />
+        );
+    }
+
+    _renderLightItem ({item, index}) {
+        return <SliderEntry data={item} even={false} />;
+    }
+
+    _renderDarkItem ({item, index}) {
+        return <SliderEntry data={item} even={true} />;
+    }
+
+    mainExample (number, title) {
+        const { slider1ActiveSlide } = this.state;
+
+        return (
+            <View style={styles.exampleContainer}>
+                <Text style={styles.title}>{`Example ${number}`}</Text>
+                <Text style={styles.subtitle}>{title}</Text>
+                <Carousel
+                  ref={c => this._slider1Ref = c}
+                  data={ENTRIES1}
+                  renderItem={this._renderItemWithParallax}
+                  sliderWidth={sliderWidth}
+                  itemWidth={itemWidth}
+                  hasParallaxImages={true}
+                  firstItem={SLIDER_1_FIRST_ITEM}
+                  inactiveSlideScale={0.94}
+                  inactiveSlideOpacity={0.7}
+                  // inactiveSlideShift={20}
+                  containerCustomStyle={styles.slider}
+                  contentContainerCustomStyle={styles.sliderContentContainer}
+                  loop={true}
+                  loopClonesPerSide={2}
+                  autoplay={true}
+                  autoplayDelay={500}
+                  autoplayInterval={3000}
+                  onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
+                />
+                <Pagination
+                  dotsLength={ENTRIES1.length}
+                  activeDotIndex={slider1ActiveSlide}
+                  containerStyle={styles.paginationContainer}
+                  dotColor={'rgba(255, 255, 255, 0.92)'}
+                  dotStyle={styles.paginationDot}
+                  inactiveDotColor={colors.black}
+                  inactiveDotOpacity={0.4}
+                  inactiveDotScale={0.6}
+                  carouselRef={this._slider1Ref}
+                  tappableDots={!!this._slider1Ref}
+                />
+            </View>
+        );
+    }
+
+    momentumExample (number, title) {
+        return (
+            <View style={styles.exampleContainer}>
+                <Text style={styles.title}>{`Example ${number}`}</Text>
+                <Text style={styles.subtitle}>{title}</Text>
+                <Carousel
+                  data={ENTRIES2}
+                  renderItem={this._renderItem}
+                  sliderWidth={sliderWidth}
+                  itemWidth={itemWidth}
+                  inactiveSlideScale={0.95}
+                  inactiveSlideOpacity={1}
+                  enableMomentum={true}
+                  activeSlideAlignment={'start'}
+                  containerCustomStyle={styles.slider}
+                  contentContainerCustomStyle={styles.sliderContentContainer}
+                  activeAnimationType={'spring'}
+                  activeAnimationOptions={{
+                      friction: 4,
+                      tension: 40
+                  }}
+                />
+            </View>
+        );
+    }
+
+    layoutExample (number, title, type) {
+        const isTinder = type === 'tinder';
+        return (
+            <View style={[styles.exampleContainer, isTinder ? styles.exampleContainerDark : styles.exampleContainerLight]}>
+                <Text style={[styles.title, isTinder ? {} : styles.titleDark]}>{`Example ${number}`}</Text>
+                <Text style={[styles.subtitle, isTinder ? {} : styles.titleDark]}>{title}</Text>
+                <Carousel
+                  data={isTinder ? ENTRIES2 : ENTRIES1}
+                  renderItem={isTinder ? this._renderLightItem : this._renderItem}
+                  sliderWidth={sliderWidth}
+                  itemWidth={itemWidth}
+                  containerCustomStyle={styles.slider}
+                  contentContainerCustomStyle={styles.sliderContentContainer}
+                  layout={type}
+                  loop={true}
+                />
+            </View>
+        );
+    }
+
+    customExample (number, title, refNumber, renderItemFunc) {
+        const isEven = refNumber % 2 === 0;
+
+        // Do not render examples on Android; because of the zIndex bug, they won't work as is
+        return !IS_ANDROID ? (
+            <View style={[styles.exampleContainer, isEven ? styles.exampleContainerDark : styles.exampleContainerLight]}>
+                <Text style={[styles.title, isEven ? {} : styles.titleDark]}>{`Example ${number}`}</Text>
+                <Text style={[styles.subtitle, isEven ? {} : styles.titleDark]}>{title}</Text>
+                <Carousel
+                  data={isEven ? ENTRIES2 : ENTRIES1}
+                  renderItem={renderItemFunc}
+                  sliderWidth={sliderWidth}
+                  itemWidth={itemWidth}
+                  containerCustomStyle={styles.slider}
+                  contentContainerCustomStyle={styles.sliderContentContainer}
+                  scrollInterpolator={scrollInterpolators[`scrollInterpolator${refNumber}`]}
+                  slideInterpolatedStyle={animatedStyles[`animatedStyles${refNumber}`]}
+                  useScrollView={true}
+                />
+            </View>
+        ) : false;
+    }
+
+    get gradient () {
+        return (
+            <LinearGradient
+              colors={[colors.background1, colors.background2]}
+              startPoint={{ x: 1, y: 0 }}
+              endPoint={{ x: 0, y: 1 }}
+              style={styles.gradient}
+            />
+        );
+    }
+
+    render () {
+        const example1 = this.mainExample(1, 'Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');
+        const example2 = this.momentumExample(2, 'Momentum | Left-aligned | Active animation');
+        const example3 = this.layoutExample(3, '"Stack of cards" layout | Loop', 'stack');
+        const example4 = this.layoutExample(4, '"Tinder-like" layout | Loop', 'tinder');
+        const example5 = this.customExample(5, 'Custom animation 1', 1, this._renderItem);
+        const example6 = this.customExample(6, 'Custom animation 2', 2, this._renderLightItem);
+        const example7 = this.customExample(7, 'Custom animation 3', 3, this._renderDarkItem);
+        const example8 = this.customExample(8, 'Custom animation 4', 4, this._renderLightItem);
+
+        return (
+            <SafeAreaView style={styles.safeArea}>
+                <View style={styles.container}>
+                    <StatusBar
+                      translucent={true}
+                      backgroundColor={'rgba(0, 0, 0, 0.3)'}
+                      barStyle={'light-content'}
+                    />
+                    { this.gradient }
+                    <ScrollView
+                      style={styles.scrollview}
+                      scrollEventThrottle={200}
+                      directionalLockEnabled={true}
+                    >
+                        { example1 }
+                        { example2 }
+                        { example3 }
+                        { example4 }
+                        { example5 }
+                        { example6 }
+                        { example7 }
+                        { example8 }
+                    </ScrollView>
+                </View>
+            </SafeAreaView>
+        );
+    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 12,
-    margin: 16,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderColor: "rgba(0, 0, 0, 0.1)",
-  },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 22,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderColor: "rgba(0, 0, 0, 0.1)",
-  },
-  bottomModal: {
-    justifyContent: "flex-end",
-    margin: 0,
-  },
-  scrollableModal: {
-    height: 300,
-  },
-  scrollableModalContent1: {
-    height: 200,
-    backgroundColor: "orange",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  scrollableModalContent2: {
-    height: 200,
-    backgroundColor: "lightgreen",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

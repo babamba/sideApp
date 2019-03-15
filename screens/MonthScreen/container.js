@@ -380,7 +380,7 @@ class Container extends Component {
 
                this.setState({
                     REMAIN_DATE: this.state.REMAIN_DATE,
-                    MONTH_CURRENT_SALARY : this.state.MONTH_CLOSE_CURRENT_SALARY,
+                    MONTH_CLOSE_CURRENT_SALARY : this.state.MONTH_CLOSE_CURRENT_SALARY,
                     PERCENT:this.state.PERCENT_MONTH
                })
 

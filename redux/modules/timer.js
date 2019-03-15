@@ -185,7 +185,7 @@ function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startH
      // const getToDay = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {day: "numeric"}));
      
      console.log("getToYear getToMonth : " , getToYear ,"년 " , getToMonth , "월 ", getToDate , "일")
-     const standardMonth = getToMonth;
+     let standardMonth = getToMonth;
      
      // //월급날짜 
      const tempSalaryDate = moment(STANDARD_MONTH_DATE);
@@ -198,13 +198,15 @@ function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startH
      console.log("STANDARD_MONTH_DATE : " , STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'))
      console.log("standardMonth : " , standardMonth)
 
-     // 현재 날짜 > 월급날짜 
+     // 현재 날짜 > 월급날짜  =  기준달은 현재 달 기준
      if( STANDARD_MONTH_DATE < tempSalaryDate){
-          console.log("standardMonth 1 : " , standardMonth + 1 )
-     
-     // 현재 날짜 < 월급날짜 
-     }else if(STANDARD_MONTH_DATE > tempSalaryDate){
+          standardMonth;
           console.log("standardMonth  : " , standardMonth )
+     
+     // 현재 날짜 < 월급날짜  = 기준달은 다음 달 기준
+     }else if(STANDARD_MONTH_DATE > tempSalaryDate){
+          standardMonth++;
+          console.log("standardMonth + 1 : " , standardMonth )
      }
 
      return (dispatch, getState) => {

@@ -71,8 +71,8 @@ function login(username, password){
                     dispatch(setLogIn(json.token))
                     dispatch(setUser(json.user))
                     console.log(json.token)
-                    return true
-               }else{
+                    return true;
+               } else {
                     console.log("unable login")
                     return false;
                }
@@ -85,8 +85,8 @@ function login(username, password){
 }
 
 function signUp(username, password, email){
-     return function(dispatch){
-         fetch(`${API_URL}/rest-auth/registration/`, {
+     return async dispatch => {
+          return fetch(`${API_URL}/rest-auth/registration/`, {
              method : "POST",
              headers:{
                  "Content-Type" : "application/json"
@@ -109,7 +109,7 @@ function signUp(username, password, email){
      }
  }
 
-
+ 
 // Initial State
 
 // 유저가 앱을 처음받고 첫 로그인화면때는 false
@@ -180,6 +180,7 @@ function applySetUser(state, action){
 
 function applyLogOut(state, action){
      const { user } = action;
+     console.log("!@#!@#state",state)
      return {
           ...state,
           isLoggedIn:false,

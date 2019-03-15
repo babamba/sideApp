@@ -22,6 +22,7 @@ const SET_DATA_YN ='SET_DATA_YN'
 
 const SET_ELAPSED_TIME = 'SET_ELAPSED_TIME';
 const SET_TODATE = 'SET_TODATE';
+const RESET_DATA = 'RESET_DATA';
 
 // 계산에 사용될 Date객체 
 const TODAY_DATE = new Date();
@@ -107,6 +108,61 @@ function setTodate(todayDate){
      return {
           type : SET_TODATE,
           todayDate
+     }
+}
+
+function resetData(){
+     return {
+          type : RESET_DATA,
+     }
+}
+
+function getData(){
+
+     const STANDARD_MONTH_DATE = moment(new Date());
+
+     const getToYear = STANDARD_MONTH_DATE.year();
+     const getToMonth = (STANDARD_MONTH_DATE.month()+1);
+     const getToDate = STANDARD_MONTH_DATE.date();
+
+     console.log("getToYear getToMonth : " , getToYear ,"년 " , getToMonth , "월 ", getToDate , "일")
+     const standardMonth = getToMonth;
+
+     return (dispatch, getState) => {
+          console.log("salary/salary_data");
+          const { user : { token } } = getState();
+
+          return fetch(`${API_URL}/salary/salary_data/`, {
+               method: "GET",
+               headers : {
+                    Authorization : `JWT ${token}`
+               }
+          })
+
+          .then(response => {
+               if(response.ok){
+                    console.log(response)
+                    return response.json()
+               }else{
+                    return false;
+               }
+               
+          })
+          .then( json => {
+               // response 기준으로 loacl storage 저장
+               console.log("response created_at : ", json.created_at)
+               //console.log("response enrollId : ", json.enrollId)
+                    dispatch(setSalary(json.monthSallery));
+                    dispatch(setSalaryDay(json.salaryDay));
+                    dispatch(setSelectWeek(json.selectWeek));
+                    dispatch(setWorkingWeekDay(json.workingWeekDay));
+     
+                    dispatch(setStartHour(json.startHour));
+                    dispatch(setEndHour(json.endHour));
+                    dispatch(setWorkingHours(json.workingHour));
+                    dispatch(setStandardMonth(json.standardMonth));
+               return true;
+          })
      }
 }
 
@@ -275,13 +331,33 @@ function reducer(state = initialState, action){
           case SET_DATA_YN:
                return applySetData(state, action);
           case SET_TODATE:
-               return applySetTodate(state, action)
+               return applySetTodate(state, action);
+          case RESET_DATA :
+               return applyResetData(state, action);
           default : 
                return state;
           }
 }
 
 // Reducer Functions
+
+function applyResetData(state, action){
+     return{
+          isSetData : false,
+          monthSallery : 0,
+          selectWeek: [],  //일하는 요일 배열 
+          workingWeekDay : 0, // 카운팅
+          workingHour: 0,
+          startHour:0,
+          endHour:0,
+          isPlaying:false,
+          salaryDay : 0,
+          salaryPayType : 0,
+          todayDate:null,
+          standardMonth: 0 
+     }
+}
+
 // 한달 월급
 function applyMonthSalary(state, action){
      const { monthSallery } = action;
@@ -305,9 +381,14 @@ function applySalaryDay(state, action){
 function applySelectyWeek(state, action){
      const { selectWeek } = action;
      console.log("applySelectWeek : " , selectWeek)
+
+     // let strArray = selectWeek.split(',');
+     // console.log("strArray :" , strArray)
+
      return{
           ...state,
           selectWeek
+          //selectWeek : strArray
      }
 }
 
@@ -377,7 +458,8 @@ function applySetTodate(state, action){
 // Exports
 const actionCreators = {
      submitData,
-     setTodate
+     setTodate,
+     getData
 }
 
 export { actionCreators };

@@ -17,7 +17,14 @@ const LogoutButton = props => (
           <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
           <DrawerItems {...props} />
           {props.screenProps.isLoggedIn ? ( 
-                    <Button title="로그아웃" onPress={async() => await props.logOut()}/>
+                    <Button title="로그아웃" 
+                              onPress={async() => {
+                                   await props.logOut()
+                                   //await props.resetData()
+                                   //console.log("reset && logout ")
+                              }
+                         }
+                    />
                               ) : ( 
                     <Button title="로그인" onPress={() => this.close(props)} />   
                )}     

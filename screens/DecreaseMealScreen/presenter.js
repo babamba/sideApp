@@ -38,6 +38,7 @@ const DecreaseMealScreen = props =>
                               value={props.price}
                               onChangeText={props.changePrice}
                               returnKeyType={"send"}
+                              keyboardType={"number-pad"}
                          />
                          <Text style={styles.defulatText1}>원</Text>
                     </View>

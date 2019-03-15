@@ -25,10 +25,12 @@ class Container extends Component {
           salaryDay : "",
           selectWeek : defaultSelectedIndex_group_insterest,
           workingWeekDay : defaultSelectedIndex_group_insterest.length,
-          startHour: "",
-          endHour:"",
+          startHour: "9",
+          endHour: "18",
           isSubmiting : false,
           isModalVisible: false,
+          isStartModalVisible: false,
+          isEndModalVisible: false,
      }
 
      static propsType = {
@@ -55,9 +57,48 @@ class Container extends Component {
                          onSelectedValuesChange={this._groupButtonOnSelectedValuesChange}
                          defaultSelectedIndex_group_insterest={defaultSelectedIndex_group_insterest}
                          multipleGroupData={multipleGroupData}
+
+                         toggleModal={this._toggleModal}
+                         toggleModalstart={this._toggleModalstart}
+                         toggleModalend={this._toggleModalend}
+
+                         handleOnScroll={this._handleOnScroll}
+                         handleScrollTo={this._handleScrollTo}
                     />
                );
      }
+
+     _toggleModal = () => {
+          console.log("_toggleModal");
+          this.setState({ isModalVisible: !this.state.isModalVisible });
+     }
+
+     _toggleModalstart = () => {
+          console.log("_toggleModal");
+          this.setState({ 
+               isStartModalVisible: !this.state.isStartModalVisible 
+          });
+     }
+     _toggleModalend = () => {
+          console.log("_toggleModal");
+          this.setState({ 
+               isEndModalVisible: !this.state.isEndModalVisible
+          });
+     }
+
+     
+
+  _handleOnScroll = event => {
+     this.setState({
+       scrollOffset: event.nativeEvent.contentOffset.y,
+     });
+   };
+ 
+   _handleScrollTo = p => {
+     if (this.scrollViewRef) {
+       this.scrollViewRef.scrollTo(p);
+     }
+   };
 
      _changeSalary = text => {
           this.setState({ monthSallery : text });
@@ -68,13 +109,36 @@ class Container extends Component {
      }
 
      _changeWorkStart = text => {
-          this.setState({ startHour : text });
+          if(parseInt(this.state.endHour) < parseInt(text) ){
+               Alert.alert(
+                    '시작시간이 종료시간보다 작을 수 없습니다.',
+                    '',
+                    [
+                         {text: 'OK'},
+                    ],
+                       { cancelable: false }
+               )
+          }else{
+               this.setState({ startHour : text });
+          }
+          
      }
 
      _changeWorkEnd = text => {
-          this.setState({ endHour : text });
+          if(parseInt(this.state.startHour) > parseInt(text) ){
+               Alert.alert(
+                    '종료시간이 시작시간보다 클 수 없습니다.',
+                    '',
+                    [
+                         {text: 'OK'},
+                    ],
+                       { cancelable: false }
+               )
+          }else{
+               this.setState({ endHour : text });
+          }
      }
-
+ 
      _groupButtonOnSelectedValuesChange = selectedValues=> {
           //console.log("selectedValues : ", selectedValues)
           this.setState({ selectWeek: selectedValues, workingWeekDay:selectedValues.length });
@@ -141,7 +205,7 @@ class Container extends Component {
                }else{
                     //console.log(this.state.salaryWeek.length)
                     //console.log("_#_#_#_#_ navigate",this.props.navigation.navigate)
-                    Alert.alert('All fileds are require')
+                    Alert.alert('모든 항목을 입력해주세요.')
                }
           }
      }

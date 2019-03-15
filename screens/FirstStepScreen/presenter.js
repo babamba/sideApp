@@ -9,20 +9,30 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   View,
-  Dimensions
+  Dimensions,
+  Platform
 } from "react-native";
 import { Constants } from "expo";
 import { RkAvoidKeyboard, RkCard } from "react-native-ui-kitten";
-import { FontAwesome } from "react-native-vector-icons";
 import { scale, scaleVertical } from "../../utilities/scale";
 import GradientButton from "react-native-gradient-buttons";
 import Proptypes from "prop-types";
 import { withNavigation } from "react-navigation";
-import {
-     SelectMultipleButton,
-     SelectMultipleGroupButton
-   } from "react-native-selectmultiple-button";
-   const ios_blue = "#007AFF";
+import Modal from "react-native-modal";
+import { SelectMultipleGroupButton } from "react-native-selectmultiple-button";
+import { Picker, DatePicker } from 'react-native-wheel-pick';
+
+const ios_blue = "#007AFF";
+const isIos = Platform.OS === 'ios'
+const { width, height } = Dimensions.get("window");
+const pickerData=['1','2','3','4','5','6','7','8','9','10',
+                  '11','12','13','14','15','16','17','18','19','20',
+                  '21','22','23','24','25','26','27','28','29','30','31']
+
+const hoursData= ['0','1','2','3','4','5','6','7','8','9','10',
+                  '11','12','13','14','15','16','17','18','19','20',
+                  '21','22','23','24']
+
 const renderIcon = () => (
       <Image
         style={styles.image}
@@ -40,17 +50,22 @@ const FirstStepScreen = props =>
 
         <View style={styles.all}>
           <RkCard rkType="heroImage shadowed" style={styles.content}>
-            <TextInput
-              textContentType="name"
-              placeholder="연봉을 입력해주세요"
-              placeholderTextColor="#707070"
-              style={styles.input}
-              autoCapitalize={"none"}
-              autoCorrect={false}
-              value={props.monthSallery}
-               onChangeText={props.changeSalary}
-            />
-          
+        {/* <View style={styles.container}>
+          <DataModal
+            isVisible={props.isModalVisible}
+            style={styles.bottomModal}>
+             <View style={styles.modalContent}>
+              <Text>Hello!</Text>
+              <TouchableOpacity onPress={props.toggleModal}>
+              <View style={styles.button}>
+                <Text>asdfasdf</Text>
+              </View>
+            </TouchableOpacity>
+            </View>
+          </DataModal>
+        </View> */}
+
+          <TouchableOpacity onPress={props.toggleModal}>
             <TextInput
               textContentType="name"
               placeholder="월급받는 날짜를 입력하세요"
@@ -59,7 +74,31 @@ const FirstStepScreen = props =>
               autoCapitalize={"none"}
               value={props.salaryDay}
               onChangeText={props.changeSalaryDay}
+              pointerEvents="none"
             />
+            </TouchableOpacity>
+
+            <Modal
+              isVisible={props.isModalVisible}
+              onBackdropPress={props.toggleModal}
+              style={styles.bottomModal}>
+              
+              <View style={styles.modalContent}>
+                <Text>월급 날짜를 선택해주세요!</Text>
+                <Picker
+                  style={{ backgroundColor: 'white', width: width, height: 200 }}
+                  selectedValue='15'
+                  pickerData={pickerData}
+                  onValueChange={props.changeSalaryDay}
+                  itemSpace={30} // this only support in android
+                />
+                {/* <TouchableOpacity onPress={props.toggleModal}>
+                  <View style={styles.button}>
+                    <Text>날짜선택</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+            </Modal>
 
             <SelectMultipleGroupButton
                containerViewStyle={{
@@ -84,6 +123,7 @@ const FirstStepScreen = props =>
                group={props.multipleGroupData}
           />
 
+        <TouchableOpacity onPress={props.toggleModalstart}>
           <TextInput
               textContentType="name"
               placeholder="근무 시작시간을 입력해주세요"
@@ -93,8 +133,44 @@ const FirstStepScreen = props =>
               autoCorrect={false}
               value={props.startHour}
               onChangeText={props.changeWorkStart}
+              pointerEvents="none"
             />
 
+          </TouchableOpacity>
+
+          <Modal
+              isVisible={props.isStartModalVisible}
+              style={styles.bottomModal}
+              onBackdropPress={props.toggleModalstart}
+          >
+              <View style={styles.modalContent}>
+                <Text>근무 시작 시간를 선택해주세요!</Text>
+                <View style={{flexDirection:'row'}}>
+                {/* <Picker
+                  style={{ backgroundColor: 'white', width: width / 2, height: 200 }}
+                  selectedValue='AM'
+                  pickerData={['AM','PM']}
+                  onValueChange={props.changeWorkStartAMPM}
+                  itemSpace={30} // this only support in android
+                /> */}
+                <Picker
+                  style={{ backgroundColor: 'white', width: width, height: 200 }}
+                  selectedValue='6'
+                  pickerData={hoursData}
+                  onValueChange={props.changeWorkStart}
+                  itemSpace={30} // this only support in android
+                />
+                </View>
+                {/* <TouchableOpacity onPress={props.toggleModalstart}>
+                  <View style={styles.button}>
+                    <Text>시작일자 선택</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+          </Modal>
+        
+
+        <TouchableOpacity onPress={props.toggleModalend}>
           <TextInput
               textContentType="name"
               placeholder="근무 종료시간을 입력해주세요"
@@ -104,6 +180,51 @@ const FirstStepScreen = props =>
               autoCorrect={false}
               value={props.endHour}
               onChangeText={props.changeWorkEnd}
+              pointerEvents="none"
+            />
+        </TouchableOpacity>
+
+        <Modal
+              isVisible={props.isEndModalVisible}
+              style={styles.bottomModal}
+              onBackdropPress={props.toggleModalend}
+            >
+              <View style={styles.modalContent}>
+                <Text>근무 종료시간을 선택해주세요!</Text>
+                <View style={{flexDirection:'row'}}>
+                {/* <Picker
+                  style={{ backgroundColor: 'white', width: width / 2, height: 200 }}
+                  selectedValue='AM'
+                  pickerData={['AM','PM']}
+                  onValueChange={props.changeWorkStartAMPM}
+                  itemSpace={30} // this only support in android
+                /> */}
+                <Picker
+                  style={{ backgroundColor: 'white', width: width , height: 200 }}
+                  selectedValue='18'
+                  pickerData={hoursData}
+                  onValueChange={props.changeWorkEnd}
+                  itemSpace={30} // this only support in android
+                />
+                </View>
+                {/* <TouchableOpacity onPress={props.toggleModalend}>
+                  <View style={styles.button}>
+                    <Text>종료시간 선택</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+            </Modal>
+
+            <TextInput
+              textContentType="name"
+              placeholder="월급을 입력해주세요"
+              placeholderTextColor="#707070"
+              style={styles.input}
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              value={props.monthSallery}
+              onChangeText={props.changeSalary}
+              keyboardType={"number-pad"}
             />
 
           {/* {props.isSubmiting ? ( 
@@ -191,6 +312,47 @@ const styles = StyleSheet.create({
        fontWeight: "bold",
        fontFamily: 'NanumBarunGothicUltraLight',
      },
+     container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    button: {
+      backgroundColor: "lightblue",
+      padding: 12,
+      margin: 16,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 4,
+      borderColor: "rgba(0, 0, 0, 0.1)",
+    },
+    modalContent: {
+      backgroundColor: "white",
+      padding: 22,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 20,
+      borderColor: "rgba(0, 0, 0, 0.1)",
+    },
+    bottomModal: {
+      justifyContent: "flex-end",
+      margin: 0,
+    },
+    scrollableModal: {
+      height: 300,
+    },
+    scrollableModalContent1: {
+      height: 200,
+      backgroundColor: "orange",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    scrollableModalContent2: {
+      height: 200,
+      backgroundColor: "lightgreen",
+      alignItems: "center",
+      justifyContent: "center",
+    },
    });
 
 export default withNavigation(FirstStepScreen);

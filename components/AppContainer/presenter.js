@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from "prop-types";
-import { View, Text, Image, StatusBar, StyleSheet } from "react-native";
+import { View, Text, Image, StatusBar, StyleSheet, Platform } from "react-native";
 import { LinearGradient } from 'expo';
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation"
 import RootNavigation from "../../navigation/RootNavigation"
 import EnterSalaryNavigation from "../../navigation/EnterSalaryNavigation"
 import { AsyncStorage } from "react-native";
 import AppIntroSlider from 'react-native-app-intro-slider';
+import Expo , {Constants } from "expo"
 
 const slide = [
      {
@@ -34,7 +35,10 @@ class AppContainer extends Component {
           //console.log(props)
           this.state = {
                showRealApp : false,
-               AppRefreash: false
+               AppRefreash: false,
+               compatible: false,
+               fingerprints: false,
+               result: ''
           };
      }
 
@@ -56,10 +60,53 @@ class AppContainer extends Component {
 
      async componentDidMount() {
           const { isLoggedIn } = this.props;
+          if(this.state.showRealApp && isLoggedIn && isSetData){
+               this.checkDeviceForHardware();
+               this.checkForFingerprints();
+          }
           // if(isLoggedIn){
           //      await initApp()
           // }
      }
+
+     handleLoginPress = () => {
+          if (Platform.OS === 'android') {
+            this.showAndroidAlert();
+          } else {
+            this.scanBiometrics();
+          }
+     };
+
+     checkForFingerprints = async () => {
+          let fingerprints = await Expo.Fingerprint.isEnrolledAsync();
+          this.setState({fingerprints})
+
+          if (!biometricRecords) {
+               this.dropdown.alertWithType(
+                    'warn',
+                    'No Biometrics Found',
+                    'Please ensure you have set up biometrics in your OS settings.'
+               );
+          } else {
+               this.handleLoginPress();
+          }
+     };
+
+     checkDeviceForHardware = async () => {
+          let compatible = await Expo.Fingerprint.hasHardwareAsync();
+          this.setState({ compatible });
+          if (!compatible) {
+               this.showIncompatibleAlert();
+          }
+     };
+
+     showIncompatibleAlert = () => {
+          this.dropdown.alertWithType(
+            'error',
+            'Incompatible Device',
+            'Current device does not have the necessary hardware to use this API.'
+          );
+     };
 
      render(){
           const { isLoggedIn, profile, isSetData , logOut} = this.props;

@@ -151,59 +151,51 @@ function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startH
           console.log("standardMonth  : " , standardMonth )
      }
 
-     return dispatch => {
-               dispatch(setSalary(monthSallery));
-               dispatch(setSalaryDay(salaryDay));
-               dispatch(setSelectWeek(selectWeek));
-               dispatch(setWorkingWeekDay(workingWeekDay));
+     return (dispatch, getState) => {
 
-               dispatch(setStartHour(startHour));
-               dispatch(setEndHour(endHour));
-               dispatch(setWorkingHours(workingHour));
-               dispatch(setStandardMonth(standardMonth));
+          const { user : { token } } = getState();
 
-               dispatch(setSubmitData());
+          return fetch(`${API_URL}/salary/salary_data/`, {
+               method:"POST",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                     "Content-Type" : "application/json"
+               },
+               body: JSON.stringify({
+                    monthSallery,
+                    isSetData:true,
+                    selectWeek: selectWeek.toString(),
+                    monthSallery,
+                    workingWeekDay,
+                    workingHour,
+                    startHour,
+                    endHour,
+                    salaryDay,
+                    salaryPayType:SALARY_PAY_TYPE[0],
+                    //standardMonth
+               })
                
-               return true;
+          })
+          .then(response => {
+               if(response.ok){
+                    dispatch(setSalary(monthSallery));
+                    dispatch(setSalaryDay(salaryDay));
+                    dispatch(setSelectWeek(selectWeek));
+                    dispatch(setWorkingWeekDay(workingWeekDay));
+     
+                    dispatch(setStartHour(startHour));
+                    dispatch(setEndHour(endHour));
+                    dispatch(setWorkingHours(workingHour));
+                    dispatch(setStandardMonth(standardMonth));
+     
+                    dispatch(setSubmitData());
+                    return true;
+               }else{
+                    return false;
+               }
+               
+          })
      }
-
-
-      
-     // return dispatch => {
-     //      console.log(`${API_URL}/rest-auth/login/`);
-     //      return fetch(`${API_URL}/rest-auth/login/`, {
-     //           method: "POST",
-     //           headers : {
-     //                "Content-Type" : "application/json"
-     //           },
-     //           body: JSON.stringify({
-     //                username,
-     //                password
-     //           })
-     //      })
-     //      .then(response => response.json())
-     //      .then(json => {
-     //           if(json.user && json.token){
-     //                //console.log(json)
-     //                dispatch(setLogIn(json.token))
-     //                dispatch(setUser(json.user))
-     //                return true
-     //           }else{
-     //                console.log("unable login")
-     //                return false;
-     //           }
-     //      })
-     //      // .catch(function(error){
-     //      //      console.log("error message")
-     //      //      console.log(error);
-     //      // })
-     // }
-     // return {
-     //      type: SET_SALARY_DATA,
-     //      salary,
-     //      salaryDay,
-     //      salaryWeek
-     // }
 }
 
 //API Actions
@@ -230,7 +222,7 @@ const initialState = {
      endHour:0,
      isPlaying:false,
      salaryDay : 0,
-     salaryPayType : SALARY_PAY_TYPE[0],
+     salaryPayType : 0,
      todayDate:null,
 
      // 월급계산때 사용할 달 

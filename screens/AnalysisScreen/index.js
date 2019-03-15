@@ -23,7 +23,7 @@ import Container from "./container";
 //                dispatch(userActions.getNotifications());
 //                dispatch(userActions.getOwnProfile());
 //                dispatch(userActions.registerForPush());
-//              }
+//           }
 //      }
 // }
 

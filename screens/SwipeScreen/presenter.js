@@ -12,6 +12,7 @@ import TodayScreen from "../TodayScreen"
 import MonthScreen from "../MonthScreen"
 import PurchaseScreen from "../PurchaseScreen";
 import MealScreen from "../MealScreen";
+import GoalScreen from "../GoalScreen";
 import MenuButton from "../../components/MenuButton"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 const { width, height } = Dimensions.get("window");
@@ -66,18 +67,20 @@ const SwipeScreen = props => (
             >
            <View style={styles.slide1}>
            {props.renderArray[0] ?
-            <MonthScreen {...props}/>
+              <TodayScreen  {...props} />
+            
             
                 : null}
            </View>
            <View style={styles.slide2}>
               {props.renderArray[1] ?
-                <TodayScreen  {...props} />
+                <MonthScreen {...props}/>
                 
                : null}
             </View>
            <View style={styles.slide3}>
            {props.renderArray[2] ?
+              
               <MealScreen  {...props}/>
              : null}
            </View>
@@ -86,6 +89,11 @@ const SwipeScreen = props => (
              <PurchaseScreen {...props}/>
              : null}
            </View>
+           {/* <View style={styles.slide4}>
+             {props.renderArray[4] ?
+             <GoalScreen {...props}/>
+             : null}
+           </View> */}
          </Swiper>
          </View>
        );

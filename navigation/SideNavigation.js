@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text,Image, Button } from "react-native";
 import { createAppContainer , createDrawerNavigator, SafeAreaView, DrawerItems, withNavigation} from "react-navigation";
 import { Ionicons } from "@expo/vector-icons";
-import AnalysisScreen from "../screens/AnalysisScreen"
+import CalendarScreen from "../screens/CalendarScreen"
 import ReportScreen from "../screens/ReportScreen"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import SwipeScreen from "../screens/SwipeScreen"
@@ -37,9 +37,9 @@ const SideNavigation = createDrawerNavigator (
                })
           },
           Tabs1 : {
-               screen : AnalysisScreen,
+               screen : CalendarScreen,
                navigationOptions:{
-                    title:"통계",
+                    title:"달력으로 보기",
                }
                
           },
@@ -59,7 +59,7 @@ const SideNavigation = createDrawerNavigator (
           Example : {
                screen: Example,
                navigationOptions:{
-                    title:"각종 ui TEST",
+                    title:"캐러셀 뷰 ",
                }
           },
           // SIGNUP : {

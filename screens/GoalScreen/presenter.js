@@ -5,15 +5,12 @@ import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
-import SubList from "../../components/SubList";
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
-const MealScreen = props => (
+const GoalScreen = props => (
           <View style={styles.container}>
-               <SubList  {...props} />
-                    
                <MainText 
                     progress={props.progress}
                     {...props}
@@ -23,7 +20,7 @@ const MealScreen = props => (
            </View>
      )
 
-     MealScreen.propTypes = {
+     GoalScreen.propTypes = {
           isFetching : PropTypes.bool.isRequired,
           //refresh: PropTypes.func.isRequired,
           //feed : PropTypes.array
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
           backgroundColor: "white",
           alignItems:"center",
           alignContent: 'center',
-          flexDirection: "column",
+          flexDirection: "row",
      },
      TextConatiner:{
           flex:1,
@@ -79,4 +76,4 @@ const styles = StyleSheet.create({
 
 
 
-export default MealScreen;
+export default GoalScreen;

@@ -4,19 +4,9 @@ import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "re
 import MenuButton from "../../components/MenuButton"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
+import Calendar from "../../components/Calendar"
 
-const AnalysisScreen = props => (
-     
-     <ScrollView
-          refreshControl = {
-               <RefreshControl 
-                    refreshing ={props.isFetching} 
-                    onRefresh={props.refresh}
-                    tintColor={"black"}
-               />
-          }
-          // contentContainerStyle = {styles.container}
-    >
+const CalendarScreen = props => (
     <View style={styles.container}>
           <View style={styles.menuButtonArea} >
                <MenuButton iconName={"md-menu"}  
@@ -24,11 +14,8 @@ const AnalysisScreen = props => (
                />
           </View>
           <Text>AnalysisScreen</Text>
-          {/* {props.feed && 
-               props.feed.map(photo => <Photo {...photo} key={photo.id} />)} */}
+          <Calendar {...props} />
     </View>
-    
-    </ScrollView>
 );
 
 const styles = StyleSheet.create({
@@ -41,10 +28,10 @@ const styles = StyleSheet.create({
         },
 });
 
-AnalysisScreen.propTypes = {
+CalendarScreen.propTypes = {
      isFetching : PropTypes.bool.isRequired,
      refresh: PropTypes.func.isRequired,
      //feed : PropTypes.array
 }
 
-export default AnalysisScreen;
+export default CalendarScreen;

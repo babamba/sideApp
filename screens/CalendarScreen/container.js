@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import AnalysisScreen from "./presenter";
+import CalendarScreen from "./presenter";
 import { image } from "react-native";
 
 class Container extends Component {
@@ -32,7 +32,7 @@ class Container extends Component {
 
      render() {
           return (
-               <AnalysisScreen 
+               <CalendarScreen 
                     {...this.props} 
                     {...this.state} 
                     refresh={this._refresh} 

@@ -61,7 +61,7 @@ const DecreaseText = props => (
                </View> */}
           </View>
      ) : (
-          <View style={styles.container}>
+          <View style={styles.mealContainer}>
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
@@ -127,6 +127,13 @@ const styles = StyleSheet.create({
           marginTop:250,
           ...ifIphoneX({marginTop:250}, {marginTop:200}),
           alignItems:"center",
+          alignContent: 'center',
+          flexDirection: "row",
+     },
+     mealContainer:{
+          flex:1,
+          //...ifIphoneX({marginTop:60}, {marginTop:30}),
+          marginTop:60,
           alignContent: 'center',
           flexDirection: "row",
      },

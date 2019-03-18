@@ -187,13 +187,21 @@ class Container extends Component {
                               '등록되었습니다',
                               '',
                               [
-                                   {text: 'OK', onPress: () => this.props.navigation.navigate("Side") },
+                                   {text: 'OK', onPress: () => { 
+                                        this.props.navigation.navigate("Side") 
+                                        this.setState({
+                                             isSubmiting : false,
+                                             monthSallery : "",
+                                             salaryDay : "",
+                                             selectWeek : defaultSelectedIndex_group_insterest,
+                                             startHour: "9",
+                                             endHour: "18",
+                                        });
+                                   }},
                               ],
                                  { cancelable: false }
                          )
-                         this.setState({
-                              isSubmiting : false
-                         });
+                         
                     }
                    
                     //redux action  결과값을 얻는방식으로 할수 있는게 더생김

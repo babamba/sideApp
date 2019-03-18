@@ -1,6 +1,7 @@
 // Imports
 import { API_URL } from "../../constants";
 import { AsyncStorage } from "react-native";
+import { actionCreators as timerActions } from "../modules/timer";
 import { Permissions, Notifications, Facebook } from "expo";
 // Actions
 
@@ -52,7 +53,8 @@ function logOut() {
 
 // API Actions
 function login(username, password){
-     return dispatch => {
+     return ( dispatch, getState ) => {
+          const { timer } = getState()
           console.log(`${API_URL}/rest-auth/login/`);
           return fetch(`${API_URL}/rest-auth/login/`, {
                method: "POST",
@@ -65,11 +67,21 @@ function login(username, password){
                })
           })
           .then(response => response.json())
-          .then(json => {
+          .then(async json => {
                if(json.user && json.token){
                     //console.log(json)
-                    dispatch(setLogIn(json.token))
-                    dispatch(setUser(json.user))
+                   
+                    console.log(getData);
+                    console.log(timer);
+
+                    await dispatch(setLogIn(json.token));
+                    const getData = await dispatch(timerActions.getData())
+
+                    if(getData){
+                         await dispatch(setUser(json.user))
+                         console.log("able login")
+                    }
+                    
                     console.log(json.token)
                     return true;
                } else {

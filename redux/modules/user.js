@@ -18,6 +18,13 @@ function setLogIn(token){
      }
 }
 
+// Action Creators
+function setLogOut(){
+     return {
+          type: LOG_OUT,
+     }
+}
+
 function setUser(user){
      return {
           type: SET_USER,
@@ -44,10 +51,13 @@ function setAlreadyLaunch(already){
 //     }
 // }
 
+
+
 function logOut() {
-     return { 
-          type: LOG_OUT 
-     };
+     return ( dispatch, getState ) => {
+          dispatch(timerActions.resetData())
+          dispatch(setLogOut());
+     }
 }
 
 
@@ -191,10 +201,8 @@ function applySetUser(state, action){
 }
 
 function applyLogOut(state, action){
-     const { user } = action;
      console.log("!@#!@#state",state)
      return {
-          ...state,
           isLoggedIn:false,
           profile:"",
           token:""

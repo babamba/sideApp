@@ -52,14 +52,9 @@ class Container extends Component {
                     this.setState({
                          isSubmiting : true
                     })
-                    
-                   
-                    
                     //redux action  결과값을 얻는방식으로 할수 있는게 더생김
                     const loginResult = await login(username, password)
                     console.log("loginResult" , loginResult)
-
-                    
 
                     if(!loginResult){
                          Alert.alert('Something went wrong, try again');

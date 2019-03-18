@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Container from "./container";
 import { actionCreators as timerAction } from "../../redux/modules/timer";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
      return {
@@ -10,6 +11,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           // fbLogin : () => {
           //      dispatch(userActions.facebookLogin());
           // }
+
+          logOut : () => {
+               dispatch(userActions.logOut());
+          }
      }
 }
 

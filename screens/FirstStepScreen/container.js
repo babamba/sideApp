@@ -191,6 +191,9 @@ class Container extends Component {
                               ],
                                  { cancelable: false }
                          )
+                         this.setState({
+                              isSubmiting : false
+                         });
                     }
                    
                     //redux action  결과값을 얻는방식으로 할수 있는게 더생김

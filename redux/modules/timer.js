@@ -149,80 +149,98 @@ function getData(){
                
           })
           .then( json => {
+               
                // response 기준으로 loacl storage 저장
                const data = json
-               console.log("response selectWeek : ", data[0])
-               let selectWeek = data[0].selectWeek.split(',');
-
-               let temparr = [];
-               for(let i in selectWeek){
-                    temparr.push(Number(i))
+               let isSetData = false;
+               if(data.length > 0){
+                    isSetData = data[0].isSetData
                }
-               selectWeek = temparr
-
-               console.log("temparr", temparr)
-
-               const monthSallery = data[0].monthSallery;
-               const salaryDay = data[0].salaryDay;
-               const workingWeekDay = data[0].workingWeekDay;
-
-               const startHour = data[0].startHour;
-               const endHour = data[0].endHour;
-               const workingHour = data[0].workingHour;
                
-               //const standardMonth = data[0].standardMonth;
-                //현재날짜
-               //const STANDARD_MONTH_DATE = new Date();
-               const STANDARD_MONTH_DATE = moment(new Date());
-               //console.log(STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'));
+               console.log("isSetData : " , isSetData);
 
-               const getToYear = STANDARD_MONTH_DATE.year();
-               const getToMonth = (STANDARD_MONTH_DATE.month()+1);
-               const getToDate = STANDARD_MONTH_DATE.date();
-
-               // const getToYear  = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {year: "numeric"}));
-               // const getToMonth = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {month: "2-digit"}));
-               // const getToDay = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {day: "numeric"}));
-               
-               console.log("getToYear getToMonth : " , getToYear ,"년 " , getToMonth , "월 ", getToDate , "일")
-               let standardMonth = getToMonth;
-               
-               // //월급날짜 
-               const tempSalaryDate = moment(STANDARD_MONTH_DATE);
-               tempSalaryDate.date(salaryDay)
-
-
-               console.log("salaryDay : " , salaryDay)
-               console.log("tempSalaryDate : ", tempSalaryDate.format('YYYY-MM-DD HH:mm'));
-
-               console.log("STANDARD_MONTH_DATE : " , STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'))
-               console.log("standardMonth : " , standardMonth)
-
-               // 현재 날짜 > 월급날짜  =  기준달은 현재 달 기준
-               if( STANDARD_MONTH_DATE < tempSalaryDate){
-                    standardMonth;
-                    console.log("standardMonth  : " , standardMonth )
-               
-               // 현재 날짜 < 월급날짜  = 기준달은 다음 달 기준
-               }else if(STANDARD_MONTH_DATE > tempSalaryDate){
-                    standardMonth++;
-                    console.log("standardMonth + 1 : " , standardMonth )
-               }
-
-
-               console.log("selectWeek! ",selectWeek);
-               //console.log("response enrollId : ", json.enrollId)
-                    dispatch(setSalary(monthSallery));
-                    dispatch(setSalaryDay(salaryDay));
-                    dispatch(setSelectWeek(selectWeek));
-                    dispatch(setWorkingWeekDay(workingWeekDay));
+               if(isSetData){
+                    console.log("response selectWeek : ", data[0])
+                    let selectWeek = data[0].selectWeek.split(',');
      
-                    dispatch(setStartHour(startHour));
-                    dispatch(setEndHour(endHour));
-                    dispatch(setWorkingHours(workingHour));
-                    dispatch(setStandardMonth(standardMonth));
-               
-               return true;
+                    let temparr = [];
+                    for(let i in selectWeek){
+                         temparr.push(Number(i))
+                    }
+                    selectWeek = temparr
+     
+                    console.log("temparr", temparr)
+     
+                    const monthSallery = data[0].monthSallery;
+                    const salaryDay = data[0].salaryDay;
+                    const workingWeekDay = data[0].workingWeekDay;
+     
+                    const startHour = data[0].startHour;
+                    const endHour = data[0].endHour;
+                    const workingHour = data[0].workingHour;
+                    
+                    
+                    //const standardMonth = data[0].standardMonth;
+                     //현재날짜
+                    //const STANDARD_MONTH_DATE = new Date();
+                    const STANDARD_MONTH_DATE = moment(new Date());
+                    //console.log(STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'));
+     
+                    const getToYear = STANDARD_MONTH_DATE.year();
+                    const getToMonth = (STANDARD_MONTH_DATE.month()+1);
+                    const getToDate = STANDARD_MONTH_DATE.date();
+     
+                    // const getToYear  = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {year: "numeric"}));
+                    // const getToMonth = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {month: "2-digit"}));
+                    // const getToDay = Number(STANDARD_MONTH_DATE.toLocaleDateString("de-DE", {day: "numeric"}));
+                    
+                    console.log("getToYear getToMonth : " , getToYear ,"년 " , getToMonth , "월 ", getToDate , "일")
+                    let standardMonth = getToMonth;
+                    
+                    // //월급날짜 
+                    const tempSalaryDate = moment(STANDARD_MONTH_DATE);
+                    tempSalaryDate.date(salaryDay)
+     
+     
+                    console.log("salaryDay : " , salaryDay)
+                    console.log("tempSalaryDate : ", tempSalaryDate.format('YYYY-MM-DD HH:mm'));
+     
+                    console.log("STANDARD_MONTH_DATE : " , STANDARD_MONTH_DATE.format('YYYY-MM-DD HH:mm'))
+                    console.log("standardMonth : " , standardMonth)
+     
+                    // 현재 날짜 > 월급날짜  =  기준달은 현재 달 기준
+                    if( STANDARD_MONTH_DATE < tempSalaryDate){
+                         standardMonth;
+                         console.log("standardMonth  : " , standardMonth )
+                    
+                    // 현재 날짜 < 월급날짜  = 기준달은 다음 달 기준
+                    }else if(STANDARD_MONTH_DATE > tempSalaryDate){
+                         standardMonth++;
+                         console.log("standardMonth + 1 : " , standardMonth )
+                    }
+     
+     
+                    console.log("selectWeek! ",selectWeek);
+                    //console.log("response enrollId : ", json.enrollId)
+                         dispatch(setSalary(monthSallery));
+                         dispatch(setSalaryDay(salaryDay));
+                         dispatch(setSelectWeek(selectWeek));
+                         dispatch(setWorkingWeekDay(workingWeekDay));
+          
+                         dispatch(setStartHour(startHour));
+                         dispatch(setEndHour(endHour));
+                         dispatch(setWorkingHours(workingHour));
+                         dispatch(setStandardMonth(standardMonth));
+                         dispatch(setSubmitData());
+
+                         return true;
+               }else{
+                    dispatch(resetData())
+                    return true;
+               }
+
+                    
+                    
           })
      }
 }
@@ -519,7 +537,8 @@ function applySetTodate(state, action){
 const actionCreators = {
      submitData,
      setTodate,
-     getData
+     getData,
+     resetData
 }
 
 export { actionCreators };

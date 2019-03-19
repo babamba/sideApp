@@ -22,6 +22,9 @@ const SET_DATA_PURCHASE_MONTH = 'SET_DATA_PURCHASE_MONTH'
 const SET_DATA_MONTH_INCREASE = 'SET_DATA_MONTH_INCREASE'
 const SET_DATA_TODAY_INCREASE = 'SET_DATA_TODAY_INCREASE'
 
+const GET_DATA_ALL = 'GET_DATA_ALL';
+const SET_DATA_ALL = 'SET_DATA_ALL'
+
 
 // Action Creators
 function setData(json){
@@ -85,6 +88,62 @@ function setDataMonthIncrease(MonthIncreaseProduct, MonthIncreasePrice){
           MonthIncreasePrice
      }
 }
+
+function getDataPriceAll(){
+     return {
+          type: GET_DATA_ALL
+     }
+}
+
+function setDataAll(json , type){
+     console.log("setDataAll type : ", type, " / json : ", json)
+     return {
+          type: SET_DATA_ALL,
+          data : {
+               json,
+               type
+          }
+          
+     }
+
+}
+
+
+function getAllData(date, type){
+     // salary/20190319/2/all_data/
+     return async(dispatch, getState) => {
+           const { user : { token } } = getState();
+           const { timer : { standardMonth, salaryDay } } = getState();
+ 
+           return fetch(`${API_URL}/salary/${date}/${type}/all_data/`, {
+                method:"GET",
+                headers: {
+                     Authorization : `JWT ${token}`,
+                     "Content-Type" : "application/json"
+                }
+           })
+           .then(response => response.json())
+           .then( async(json) => {
+                if(json){
+                    console.log("All", json)
+                    await dispatch(setDataAll(json, type));
+ 
+                     // if(json.length > 0 ){
+                     //      for (let i of json) {
+                     //           //console.log(i.price)
+                     //           let price = Number(i.price);
+                     //           MonthMealPrice += price;
+                     //      }
+                     // }
+                     
+                     //console.log("MonthIncreasePrice", MonthIncreasePrice)
+                     //console.log("MonthIncreasePrice", MonthIncreasePrice)
+                     //dispatch(setDataAll(json));
+                     return json;
+                }
+           })
+      }
+ }
 
 function getDataIncreaseMonth(date){
      return async(dispatch, getState) => {
@@ -550,7 +609,12 @@ const initialState = {
      MonthIncreaseProduct : [],
      MonthIncreasePrice : 0,
      TodayIncreaseProduct : [],
-     TodayIncreasePrice : 0
+     TodayIncreasePrice : 0,
+
+     AllIncreaseData : [],
+     AllMealData : [],
+     AllPurchaseData : []
+
 
 };
 
@@ -577,12 +641,51 @@ function reducer(state = initialState, action){
                return applysetDataTodayIncrease(state, action);
           case SET_DATA_MONTH_INCREASE :
                return applysetDataMonthIncrease(state, action);
+          case GET_DATA_ALL :
+               return applyGetDataAll(state, action);
+          case SET_DATA_ALL :
+               return applySetDataAll(state, action);
           default : 
                return state;
           }
 }
 
+
 // Reducer Functions
+
+function applyGetDataAll(state, action){
+     //const { AllIncreaseData , AllMealData, AllPurchaseData} = action
+     return {
+          ...state,
+          AllIncreaseData,
+          AllMealData,
+          AllPurchaseData
+     }
+}
+
+function applySetDataAll(state, action){
+     console.log(action);
+     const { data } = action
+     console.log("applySetDataAll type : ", data.type , "json : " , data.json)
+     if(data.type === 0){
+          return {
+               ...state,
+               AllIncreaseData :  data.json,
+          }
+     }else if(data.type === 1){
+          return {
+               ...state,
+               AllMealData :  data.json,
+          }
+     }else{
+          return {
+               ...state,
+               AllPurchaseData :  data.json
+          }
+     }
+     
+}
+
 function applysetDataMonthIncrease(state, action){
      const { MonthIncreaseProduct, MonthIncreasePrice } = action;
 
@@ -720,7 +823,10 @@ const actionCreators = {
      getDataPurchaseMonth,
 
      getDataIncreaseToday,
-     getDataIncreaseMonth
+     getDataIncreaseMonth,
+
+     getDataPriceAll,
+     getAllData
 }
 
 export { actionCreators };

@@ -17,6 +17,8 @@ import MenuButton from "../../components/MenuButton"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 const { width, height } = Dimensions.get("window");
 
+import CalendarScreen from "../CalendarScreen"
+
 
 console.log("width, height",width, height)
 const SwipeScreen = props => (
@@ -67,8 +69,9 @@ const SwipeScreen = props => (
             >
            <View style={styles.slide1}>
            {props.renderArray[0] ?
+              
               <TodayScreen  {...props} />
-            
+              //   <CalendarScreen {...props} />
             
                 : null}
            </View>

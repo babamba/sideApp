@@ -13,7 +13,7 @@ const CalendarScreen = props => (
                     onPress={() => console.log(props.navigation.toggleDrawer('Side'))}
                />
           </View>
-          <Text>AnalysisScreen</Text>
+          <Text>CalendarScreen</Text>
           <Calendar {...props} />
     </View>
 );
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
 CalendarScreen.propTypes = {
      isFetching : PropTypes.bool.isRequired,
-     refresh: PropTypes.func.isRequired,
+     //refresh: PropTypes.func.isRequired,
      //feed : PropTypes.array
 }
 

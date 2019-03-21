@@ -31,9 +31,7 @@ const SwipeScreen = props => (
  
         <View style={styles.container}>
            <View style={styles.menuButtonArea} >
-            <MenuButton iconName={"md-menu"}  
-                onPress={() => console.log(props.navigation.toggleDrawer('Side'))}
-            />
+
            </View>
           <Swiper
                style={styles.wrapper} 
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   menuButtonArea:{
-    ...ifIphoneX({paddingTop: 40}, {paddingTop: 20}),
+    ...ifIphoneX({paddingTop: 100}, {paddingTop: 80}),
   },
   slide1: {
     flex: 1,

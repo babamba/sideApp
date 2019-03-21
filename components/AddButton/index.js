@@ -5,6 +5,7 @@ import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal";
 import IncreaseScreen from "../../screens/IncreaseScreen";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import TouchableScale from 'react-native-touchable-scale';
 
 class AddButton extends Component {
      constructor(props){
@@ -48,6 +49,9 @@ class AddButton extends Component {
           //console.log(this.props);
           return (
                <View>
+                    <TouchableScale
+                         activeScale={0.7}
+                    >
                     <TouchableHighlight 
                     activeOpacity={0.4} 
                     onPress={this._toggleModal}
@@ -88,6 +92,7 @@ class AddButton extends Component {
                          </TouchableHighlight>
                     </View>
                     </Modal>
+                    </TouchableScale>
                </View>
                
           )

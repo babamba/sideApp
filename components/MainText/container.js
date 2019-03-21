@@ -10,7 +10,8 @@ class Container extends Component {
           isFetching : false,
           duration: 1000,
           toggledOn: false,
-          fadeinOut : false
+          fadeinOut : false,
+          fill: 60
      }
 
      componentDidMount(){

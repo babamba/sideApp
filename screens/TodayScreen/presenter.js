@@ -5,6 +5,7 @@ import AddButton from "../../components/AddButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
+
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
           backgroundColor: 'white',
           alignItems:"center",
           alignContent: 'center',
-          flexDirection: "row",
+          flexDirection: "column",
      },
      TextConatiner:{
           flex:1,

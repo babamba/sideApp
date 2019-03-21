@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
           fontSize:45,
           fontFamily: 'NanumBarunGothicUltraLight',
      },
-     progress:{
-          width:84,
-          transform: [{ rotate: '270deg'}],
-          //backgroundColor:'red',
-          top: 290
-     }
+     // progress:{
+     //      width:84,
+     //      transform: [{ rotate: '270deg'}],
+     //      //backgroundColor:'red',
+     //      top: 290
+     // }
 
 });
 

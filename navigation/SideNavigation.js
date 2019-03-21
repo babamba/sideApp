@@ -36,13 +36,6 @@ const SideNavigation = createDrawerNavigator (
                     // ),
                })
           },
-          Tabs1 : {
-               screen : CalendarScreen,
-               navigationOptions:{
-                    title:"달력으로 보기",
-               }
-               
-          },
           Tabs2 : {
                screen : ReportScreen,
                navigationOptions:{

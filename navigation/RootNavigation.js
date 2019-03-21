@@ -3,34 +3,11 @@ import SideNavigation from "./SideNavigation";
 import MenuButton from "../components/MenuButton"
 import React from "react";
 import Swiper from "../screens/SwipeScreen";
-
-// const noTransitionConfig = () => ({
-//      transitionSpec: {
-//        duration: 1000,
-//        timing: Animated.timing,
-//        easing: Easing.step0
-//      }
-//    })
+import CircleMenu from "../components/CircleMenu"
+import FirstStepScreen from "../screens/FirstStepScreen";
 
 const RootNavigator = createStackNavigator(
      {
-          Side:{
-               screen: SideNavigation,
-               navigationOptions: ({ navigation }) => ({
-                    // headerTitle : (
-                    //      <Image source={require("../assets/images/icon.png")}
-                    //             style={{height:35}} resizeMode={"contain"}
-                    //      />
-                    // ),
-                    
-                    headerLeft:(
-                         <MenuButton iconName={"md-menu"} 
-                                    onPress={() => console.log(navigation.toggleDrawer('Side'))}
-                         />
-                    ),
-                    headerTransparent:'true',
-               })
-          },
           Today : {
                screen : Swiper,
                navigationOptions: ({ navigation }) => ({
@@ -41,17 +18,17 @@ const RootNavigator = createStackNavigator(
                     //        color={"black"}
                     //      />
                     // ),
-                    // header:(
-                    //      <MenuButton iconName={"md-menu"} 
-                    //                 onPress={() => console.log(navigation.toggleDrawer('Side'))}
-                    //      />
-                    // ),
+                    headerRight:(
+                         <CircleMenu/>
+                    ),
+                    headerTransparent:'true',
+                    
                })
           },
      },
      {
           mode : "card",
-          headerMode: 'float',
+          headerMode: 'screen',
           headerLayoutPreset:"left",
           // headerMode:"screen",
           headerTransitionPreset:"fade-in-place",

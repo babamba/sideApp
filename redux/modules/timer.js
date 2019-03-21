@@ -335,6 +335,30 @@ function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startH
      }
 }
 
+function onInitCheckStandard(){
+     return async (dispatch, getState) => {
+          const { timer : { standardMonth, salaryDay } } = getState();
+
+          //시작시 오늘날짜와 기준 날짜 비교하여 넘었으면 기준날짜 ++ 처리
+          const today = moment(new Date());
+          // console.log("onInitStandard :", today.format(('YYYY-MM-DD HH:mm')));
+          //21일이 salaryDay라면 + 1 하여 당일날까지 계산
+
+          const salaryDate = moment().set({
+               date: salaryDay + 1, month:standardMonth-1, hour:0, minute:0, second:0
+          })
+
+          // console.log("onInitStandard :",  salaryDate.format(('YYYY-MM-DD HH:mm')));
+          
+          // console.log("onInitStandard nextMonth :", nextMonth )
+          // console.log("onInitStandard standardMonth :", standardMonth )
+          if(today > salaryDate){
+               let nextMonth = standardMonth + 1;
+               dispatch(setStandardMonth(nextMonth));
+          }
+     }
+}
+
 //API Actions
 function login(username, password){
      const user = { propfile : { "name" : "test"}}
@@ -538,7 +562,8 @@ const actionCreators = {
      submitData,
      setTodate,
      getData,
-     resetData
+     resetData,
+     onInitCheckStandard
 }
 
 export { actionCreators };

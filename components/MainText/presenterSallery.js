@@ -181,7 +181,12 @@ const SalleryText = props => (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
                     <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+
+                    {props.REMAIN_DATE !== 0 ? (
                          <Text style={styles.remainText}>{props.REMAIN_DATE} 일 남았다. 힘내라 </Text>
+                    ) : (
+                         <Text style={styles.remainText}> 오늘은 월급날입니다! 와하하!</Text>
+                    )}
                     </View>
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={100}  easing={"ease-in-out"} useNativeDriver>

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import AppContainer from "./presenter";
 import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as timerActions } from "../../redux/modules/timer";
 
 const mapStateToProps = (state, ownProps) => {
      const { user, timer } = state;
@@ -21,6 +22,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           },
           logOut : () => {
                dispatch(userActions.logOut());
+          },
+          initApp: () => {
+               //앱시작시 기준날짜 관리
+               dispatch(timerActions.onInitCheckStandard());
           }
      }
 }

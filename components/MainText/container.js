@@ -42,7 +42,7 @@ class Container extends Component {
                     })
                }else if(this.props.type === 'Month'){
                     //console.log("MainText next: " , nextProps.MONTH_CURRENT_SALARY)
-                    //console.log("timer : " ,  nextProps.REMAIN_DATE, "남음")
+                    console.log("timer : " ,  nextProps.REMAIN_DATE, "남음")
                     this.setState({
                          MONTH_CURRENT_SALARY: nextProps.MONTH_CURRENT_SALARY,
                          REMAIN_DATE : nextProps.REMAIN_DATE

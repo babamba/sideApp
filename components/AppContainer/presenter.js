@@ -48,6 +48,11 @@ class AppContainer extends Component {
      // }
 
      async componentWillMount() {
+
+          const { isLoggedIn , initApp, isSetData } = this.props;
+          if(isLoggedIn, isSetData){
+               await initApp();
+          }
           
           const value = await AsyncStorage.getItem("already");
           console.log("value" , value)

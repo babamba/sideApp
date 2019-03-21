@@ -240,6 +240,14 @@ class Container extends Component {
 
                     if(CHECK_START_DATE < CURRENT_DATE && CHECK_END_DATE > CURRENT_DATE && isWorkingDay){
                          console.log('일하는 시간 ')
+
+                         
+
+                         if(CHECK_START_DATE.date() === CURRENT_DATE.date()){
+                              console.log("()()()()  CHECK_START_DATE", CHECK_START_DATE)
+                              console.log("()()()()  CURRENT_DATE", CURRENT_DATE)
+                         }
+
                          //항상 초기화해야할것들
                          this.setState({
                               isFetching : false,
@@ -388,6 +396,13 @@ class Container extends Component {
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval)
                }
+
+               if(CHECK_START_DATE.date() === CURRENT_DATE.date()){
+                    console.log("()()()()  CHECK_START_DATE", CHECK_START_DATE)
+                    console.log("()()()()  CURRENT_DATE", CURRENT_DATE)
+               }
+
+
                let timerInterval = setInterval(() => {
                     //const {PERCENT, SECOND_SALARY, MONTH_CURRENT_SALARY, SALARY_END_MONTHDAY} = this.state;
 

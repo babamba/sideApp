@@ -77,7 +77,7 @@ const SettingScreen = props => (
                     }
                />
                <ListItem
-                    title="월급 정보"
+                    title="기본정보 설정"
                     rightTitle=""
                     // onPress={() => this.onPressOptions()}
                     onPress={props.toggleModalVisibleSalaryForm}
@@ -97,11 +97,9 @@ const SettingScreen = props => (
                     }
                />
 
-               
-               
                <ListItem
-                    title="Language"
-                    rightTitle="English"
+                    title="통계?"
+                    rightTitle=""
                     // onPress={() => this.onPressOptions()}
                     containerStyle={styles.listItemContainer}
                     leftIcon={
@@ -114,11 +112,25 @@ const SettingScreen = props => (
                     />
                     }
                />
-
-
                <View style={styles.InfoContainer}>
                <Text style={styles.infoText}>more</Text>
                </View>
+
+               <ListItem
+                    title="문의하기"
+                    rightTitle=""
+                    // onPress={() => this.onPressOptions()}
+                    containerStyle={styles.listItemContainer}
+                    leftIcon={
+                    <Icon
+                         containerStyle={{ backgroundColor: '#FEA8A1' }}
+                         icon={{
+                         type: 'material',
+                         name: 'language',
+                         }}
+                    />
+                    }
+               />
 
                <ListItem
                     title= "로그아웃"

@@ -67,50 +67,52 @@ class CircleMenu extends Component {
         <ActionButton 
           buttonColor="rgba(255, 255, 255,1)"
           position={"right"}
-          size={48}
+          size={58}
           verticalOrientation={"down"}
-          backdrop={true}
           offsetX={0}
           spacing={26}
           btnOutRange={'transparent'}
           outRangeScale={1.5}
           backgroundTappable={true}
-          buttonTextStyle={{fontSize:20}}
+          buttonTextStyle={{fontSize:48}}
           hideShadow={true}
-          renderIcon={ () => <Ionicons name="md-settings" size={38} color={'grey'}/>}
+          renderIcon={ () => <Ionicons name="md-settings" size={48} color={'grey'}/>}
         >
                <ActionButton.Item 
                     buttonColor='#9b59b6' 
                     title="달력보기" 
-                    spaceBetween={-26}
-                    textContainerStyle={{marginTop:34}}
+                    textStyle={{fontSize:16}}
+                    spaceBetween={-50}
+                    textContainerStyle={{marginTop:48, borderColor:'transparent'}}
                     onPress={() => {
                          this.setModalVisibleCalendar();
                     }
                }>
-               <Ionicons name="md-calendar" style={styles.actionButtonIcon} />
+               <Ionicons name="md-calendar" style={styles.actionButtonIcon} size={34}/>
                </ActionButton.Item>
 
                <ActionButton.Item 
                     buttonColor='#3498db' 
                     title="설정" 
-                    spaceBetween={-26}
-                    textContainerStyle={{marginTop:34}}
+                    spaceBetween={-50}
+                    textStyle={{fontSize:16}}
+                    textContainerStyle={{marginTop:48, borderColor:'transparent'}}
                     onPress={() => {
                          this.setModalVisibleSetting();
                     }
                }>
-               <Ionicons name="md-settings" style={styles.actionButtonIcon} />
+               <Ionicons name="md-settings" style={styles.actionButtonIcon} size={34}/>
                </ActionButton.Item>
 
                <ActionButton.Item 
                     buttonColor='#1abc9c' 
                     title="닫기" 
-                    spaceBetween={-26}
-                    textContainerStyle={{marginTop:34}}
+                    spaceBetween={-50}
+                    textStyle={{fontSize:16}}
+                    textContainerStyle={{marginTop:48, borderColor:'transparent'}}
                     onPress={() => {}
                }>
-               <Ionicons name="md-close" style={styles.actionButtonIcon} />
+               <Ionicons name="md-close" style={styles.actionButtonIcon} size={34} />
                </ActionButton.Item>
         </ActionButton>
 
@@ -163,7 +165,9 @@ const styles = StyleSheet.create({
           marginRight:70,
      },
      actionButtonIcon: {
-          fontSize: 20,
+          //fontSize: 20,
+          paddingTop:3,
+          paddingLeft:1,
           color: 'white',
      },
 });

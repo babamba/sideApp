@@ -165,7 +165,7 @@ function getData(){
      
                     let temparr = [];
                     for(let i in selectWeek){
-                         temparr.push(Number(i))
+                         temparr.push(Number(i)+1)
                     }
                     selectWeek = temparr
      

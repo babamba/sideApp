@@ -18,9 +18,15 @@ const RootNavigator = createStackNavigator(
                     //        color={"black"}
                     //      />
                     // ),
+                    // tabBarIcon: ({ focused }) => (
+
                     headerRight:(
                          <CircleMenu/>
                     ),
+                    headerStyle:{
+                         borderBottomWidth: 0,
+                         marginTop: -20,
+                    },
                     headerTransparent:'true',
                     
                })

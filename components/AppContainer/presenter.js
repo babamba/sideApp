@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from "prop-types";
-import { View, Text, Image, StatusBar, StyleSheet, Platform } from "react-native";
+import { View, Text, Image, StatusBar, StyleSheet, Platform, Alert } from "react-native";
 import { LinearGradient } from 'expo';
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation"
 import RootNavigation from "../../navigation/RootNavigation"
@@ -103,17 +103,18 @@ class AppContainer extends Component {
                // Device supports Touchid/Faceid
                Expo.Fingerprint.authenticateAsync("Prompted message").then(success => {
                   if (success.success === true) {
+                    Alert.alert('Touch id & faceId enable!');
                     // authenticate successfully
                   } else {
-                    console.log("false ?");
+                    Alert.alert('Touch id & faceId failed!');
                     // failed to authenticate
                   }
                }).catch(error => {
                   // if user was unable to anthenticate too many times, he may end up here
-                  console.log(error);
+                  Alert.alert('Touch id & faceId error!');
                });
              }).catch(error => {
-               console.log(error);
+               Alert.alert('Touch id & faceId error!');
              });
 
           // const fingerprintSupport = await this.checkDeviceForHardware();

@@ -113,13 +113,14 @@ const styles = StyleSheet.create({
           width:100,
           height:100,
           paddingHorizontal: 10,
+          backgroundColor:'red'
      },
      button:{
           width:92,
           height:34,
           backgroundColor:"#99F089",
-          padding:8,
-          margin:10,
+          //padding:8,
+         // margin:10,
           borderRadius: 25,
           shadowColor: 'gray',
           shadowOffset: { width: 0, height: 0 },
@@ -131,7 +132,8 @@ const styles = StyleSheet.create({
           fontSize:17,
           color:"white",
           fontWeight:'900',
-          textAlign:'center'
+          textAlign:'center',
+          paddingTop:8
      },
      modalContent: {
           backgroundColor: "white",

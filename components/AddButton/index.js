@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
           fontSize:17,
           color:"white",
           fontWeight:'900',
-          textAlign:'center'
+          textAlign:'center',
+          paddingTop:1
      },
      modalContent: {
           backgroundColor: "white",

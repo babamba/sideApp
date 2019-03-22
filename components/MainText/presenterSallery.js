@@ -268,6 +268,7 @@ const styles = StyleSheet.create({
      },
      textArea:{
           alignContent: 'center',
+          paddingBottom:20,
           //backgroundColor:'blue',
      },
      remainArea:{
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
           flexDirection:'row'
      },
      subMoneyArea:{
-          paddingBottom:10,
+          paddingBottom:20,
           paddingTop:10,
           flexDirection:'row'
      },
@@ -286,7 +287,6 @@ const styles = StyleSheet.create({
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      addButton:{
-          paddingTop:20,
           height:20,
      },
      MainText1:{

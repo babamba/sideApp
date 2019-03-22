@@ -65,25 +65,26 @@ class CircleMenu extends Component {
       <View style={styles.container}>
         {/*Rest of App come ABOVE the action button component!*/}
         <ActionButton 
-          buttonColor="rgba(255, 255, 255,1)"
+          buttonColor="rgba(255, 255, 255,0)"
           position={"right"}
-          size={58}
+          size={52}
           verticalOrientation={"down"}
           offsetX={0}
+          offsetY={15}
           spacing={26}
           btnOutRange={'transparent'}
-          outRangeScale={1.5}
+          outRangeScale={1.1}
           backgroundTappable={true}
           buttonTextStyle={{fontSize:48}}
           hideShadow={true}
-          renderIcon={ () => <Ionicons name="md-settings" size={48} color={'grey'}/>}
+          renderIcon={ () => <Ionicons name="md-settings" size={48} color={'#616161'}/>}
         >
                <ActionButton.Item 
                     buttonColor='#9b59b6' 
                     title="달력보기" 
                     textStyle={{fontSize:16}}
-                    spaceBetween={-50}
-                    textContainerStyle={{marginTop:48, borderColor:'transparent'}}
+                    spaceBetween={-42}
+                    textContainerStyle={{marginTop:48, borderColor:'transparent', backgroundColor:'transparent'}}
                     onPress={() => {
                          this.setModalVisibleCalendar();
                     }
@@ -94,9 +95,9 @@ class CircleMenu extends Component {
                <ActionButton.Item 
                     buttonColor='#3498db' 
                     title="설정" 
-                    spaceBetween={-50}
+                    spaceBetween={-42}
                     textStyle={{fontSize:16}}
-                    textContainerStyle={{marginTop:48, borderColor:'transparent'}}
+                    textContainerStyle={{marginTop:48, borderColor:'transparent', backgroundColor:'transparent'}}
                     onPress={() => {
                          this.setModalVisibleSetting();
                     }
@@ -107,9 +108,9 @@ class CircleMenu extends Component {
                <ActionButton.Item 
                     buttonColor='#1abc9c' 
                     title="닫기" 
-                    spaceBetween={-50}
+                    spaceBetween={-42}
                     textStyle={{fontSize:16}}
-                    textContainerStyle={{marginTop:48, borderColor:'transparent'}}
+                    textContainerStyle={{marginTop:48, borderColor:'transparent', backgroundColor:'transparent'}}
                     onPress={() => {}
                }>
                <Ionicons name="md-close" style={styles.actionButtonIcon} size={34} />

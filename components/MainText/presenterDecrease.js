@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
           marginTop:60,
           alignContent: 'center',
           flexDirection: "row",
+          //backgroundColor:"blue"
      },
      TextConatiner:{
           flex:1,
@@ -144,10 +145,11 @@ const styles = StyleSheet.create({
      },
      textArea:{
           alignContent: 'center',
+          paddingBottom:20,
           //backgroundColor:'blue',
      },
      addButton:{
-          paddingTop:20,
+          width:50,
           height:20,
      },
      MainText1:{

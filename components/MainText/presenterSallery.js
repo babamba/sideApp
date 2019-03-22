@@ -189,7 +189,7 @@ const SalleryText = props => (
           ) : (
           <View style={styles.container}>
                <View style={styles.TextConatiner}>
-                    <View animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
+                    <View style={styles.remainArea} animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
 
                     {props.REMAIN_DATE !== 0 ? (
                          <Text style={styles.remainText}>{props.REMAIN_DATE} 일 남았다. 힘내라 </Text>
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
           flex:1,
           flexDirection: "column",
           alignContent: 'flex-start',
-          paddingTop:300,
+          paddingTop:260,
           paddingLeft:50
      },
      textArea:{

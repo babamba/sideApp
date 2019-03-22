@@ -21,8 +21,9 @@ const SubList = props => (
                autoplayTimeout={2.5}
                showsButtons={false}
                showsPagination={false}
-               autoplayDirection={false}
                pagingEnabled={false}
+               scrollEnabled={false}
+               automaticallyAdjustContentInsets={true}
             >
            
                {props.TodayMealProduct && 

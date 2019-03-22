@@ -27,7 +27,17 @@ const slide = [
        colors: ['#FFFFFF'],
      },
    ];
-
+   const optionalConfigObject = {
+     title: 'Authentication Required', // Android
+     imageColor: '#e00606', // Android
+     imageErrorColor: '#ff0000', // Android
+     sensorDescription: 'Touch sensor', // Android
+     sensorErrorDescription: 'Failed', // Android
+     cancelText: 'Cancel', // Android
+     fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+     unifiedErrors: false, // use unified error messages (default false)
+     passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+   };
 class AppContainer extends Component {
 
      constructor(props){
@@ -47,71 +57,134 @@ class AppContainer extends Component {
      //      //initApp : PropTypes.func.isRequired
      // }
 
-     async componentWillMount() {
+     componentWillMount = async() => {
 
           const { isLoggedIn , initApp, isSetData } = this.props;
+          const showRealApp = await AsyncStorage.getItem("already");
+
           if(isLoggedIn, isSetData){
                await initApp();
           }
           
           const value = await AsyncStorage.getItem("already");
           console.log("value" , value)
+
           if(value == null){
-               this.setState({showRealApp: false});
+               await this.setState({showRealApp: false});
           }else{
-                this.setState({showRealApp: true});
+               await this.setState({showRealApp: true});
           }
+
+          //if(showRealApp && isLoggedIn && isSetData){
+               //console.log("()()()()()() chkeck hardware async : ")
+               // await this.checkDeviceForHardware();
+               // await this.checkForFingerprints();
+          //}
      }
 
-     async componentDidMount() {
-          const { isLoggedIn } = this.props;
-          if(this.state.showRealApp && isLoggedIn && isSetData){
-               this.checkDeviceForHardware();
-               this.checkForFingerprints();
-          }
-          // if(isLoggedIn){
-          //      await initApp()
+     componentDidMount = async() => {
+          const { isLoggedIn, isSetData } = this.props;
+          console.log("()()()()()() chkeck hardware async : ")
+          
+          console.log(isLoggedIn)
+          console.log(isSetData)
+
+          // TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+          // .then(success => {
+          // // Success code
+          //      console.log("success")
+          // })
+          // .catch(error => {
+          // // Failure code
+          //      console.log("error : ", error)
+          // });
+
+          Expo.Fingerprint.hasHardwareAsync().then(success => {
+               // Device supports Touchid/Faceid
+               Expo.Fingerprint.authenticateAsync("Prompted message").then(success => {
+                  if (success.success === true) {
+                    // authenticate successfully
+                  } else {
+                    console.log("false ?");
+                    // failed to authenticate
+                  }
+               }).catch(error => {
+                  // if user was unable to anthenticate too many times, he may end up here
+                  console.log(error);
+               });
+             }).catch(error => {
+               console.log(error);
+             });
+
+          // const fingerprintSupport = await this.checkDeviceForHardware();
+          // this.setState({
+          //      fingerprintSupport
+          // })
+          //console.log("fingerprintSupport : ", fingerprintSupport)
+
+          // if (this.state.fingerprintSupport){
+               
+          //      await this.scanFinger();
           // }
      }
 
-     handleLoginPress = () => {
-          if (Platform.OS === 'android') {
-            this.showAndroidAlert();
-          } else {
-            this.scanBiometrics();
-          }
-     };
+     // async scanFinger() {
+     //      //this.setState({ waitingFingerprint: true });
+    
+     //            let result = await Expo.Fingerprint.authenticateAsync('Waiting for TouchID');
+                
+     //            console.log("result : ", result)
+     //            if (result.success) {
+     //                ToastAndroid.show('Success !', ToastAndroid.SHORT);
+     //                this.setState({ waitingFingerprint: false });
+     //                this.props.navigation.navigate('App');
+     //            }else {
+     //                ToastAndroid.show('Echec de l\'authentification !', ToastAndroid.SHORT);
+     //                this.setState({fingerprintFailedMsg: 'Unknown', waitingFingerprint: false,});
+     //                // await this.scanFinger();
+     //        }
+     //    }
+    
 
-     checkForFingerprints = async () => {
-          let fingerprints = await Expo.Fingerprint.isEnrolledAsync();
-          this.setState({fingerprints})
+     // handleLoginPress = () => {
+     //      if (Platform.OS === 'android') {
+     //        this.showAndroidAlert();
+     //      } else {
+     //        this.scanBiometrics();
+     //      }
+     // };
 
-          if (!biometricRecords) {
-               this.dropdown.alertWithType(
-                    'warn',
-                    'No Biometrics Found',
-                    'Please ensure you have set up biometrics in your OS settings.'
-               );
-          } else {
-               this.handleLoginPress();
-          }
-     };
+     // checkForFingerprints = async () => {
+     //      let fingerprints = await Expo.Fingerprint.isEnrolledAsync();
+     //      this.setState({fingerprints})
 
-     checkDeviceForHardware = async () => {
-          let compatible = await Expo.Fingerprint.hasHardwareAsync();
-          this.setState({ compatible });
-          if (!compatible) {
-               this.showIncompatibleAlert();
-          }
-     };
+     //      if (!biometricRecords) {
+     //           this.dropdown.alertWithType(
+     //                'warn',
+     //                'No Biometrics Found',
+     //                'Please ensure you have set up biometrics in your OS settings.'
+     //           );
+     //      } else {
+     //           this.handleLoginPress();
+     //      }
+     // };
 
-     showIncompatibleAlert = () => {
-          this.dropdown.alertWithType(
-            'error',
-            'Incompatible Device',
-            'Current device does not have the necessary hardware to use this API.'
-          );
-     };
+     // checkDeviceForHardware = async() => {
+     //      let compatible = await Expo.Fingerprint.hasHardwareAsync();
+     //      console.log("()()()()()()()() fingerPrint : " , compatible)
+     //      this.setState({ compatible });
+     //      if (!compatible) {
+     //           this.showIncompatibleAlert();
+     //      }
+     // };
+
+     // showIncompatibleAlert = () => {
+     //      this.dropdown.alertWithType(
+     //        'error',
+     //        'Incompatible Device',
+     //        'Current device does not have the necessary hardware to use this API.'
+     //      );
+     // };
 
      render(){
           const { isLoggedIn, profile, isSetData , logOut} = this.props;
@@ -264,7 +337,7 @@ class AppContainer extends Component {
 }
 
 AppContainer.propTypes = {
-     isLoggedIn : PropTypes.bool.isRequired,
+     isLoggedIn : PropTypes.bool,
 }
 
 const styles = StyleSheet.create({

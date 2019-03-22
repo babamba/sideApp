@@ -67,8 +67,8 @@ const SwipeScreen = props => (
             >
            <View style={styles.slide1}>
            {props.renderArray[0] ?
+               <GoalScreen {...props}/>
               
-              <TodayScreen  {...props} />
                 : null}
            </View>
            <View style={styles.slide2}>
@@ -86,11 +86,11 @@ const SwipeScreen = props => (
              <PurchaseScreen {...props}/>
              : null}
            </View>
-           {/* <View style={styles.slide4}>
+           <View style={styles.slide4}>
              {props.renderArray[4] ?
-             <GoalScreen {...props}/>
+            <TodayScreen  {...props} />
              : null}
-           </View> */}
+           </View>
          </Swiper>
          </View>
        );

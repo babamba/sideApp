@@ -28,7 +28,7 @@ class Container extends Component {
                isFetching : false,
                //isPlaying,
                selectedIndex:0,
-               renderArray: [true, false, false, false],
+               renderArray: [true, false, false, false, false],
                scrollControl : false,
           };
      }
@@ -91,7 +91,7 @@ class Container extends Component {
                     scrollControl: true,
                     renderArray: tempvar, selectedIndex: index
                })
-          }else if(this.state.renderArray[3] === true && index === 3){
+          }else if(this.state.renderArray[4] === true && index === 4){
                this.setState({
                     isFetching:false,
                     scrollControl: true,

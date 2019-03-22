@@ -6,19 +6,19 @@ const mapStateToProps = (state, ownProps ) => {
      const { data } = state;
      //console.log("data.TodayMealProduct : ", data.TodayMealProduct)
      return {
-          TodayMealProduct : data.TodayMealProduct,
-          currentPrice : data.TodayMealPrice
+          // TodayMealProduct : data.TodayMealProduct,
+          // currentPrice : data.TodayMealPrice
      }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
      return {
-          getDataMealToday : (date) => {
-               return dispatch(dataActions.getDataMealToday(date));
-          },
-          getDataMealMonth : (date) => {
-               return dispatch(dataActions.getDataMealMonth(date));
-          },
+          // getDataMealToday : (date) => {
+          //      return dispatch(dataActions.getDataMealToday(date));
+          // },
+          // getDataMealMonth : (date) => {
+          //      return dispatch(dataActions.getDataMealMonth(date));
+          // },
 
           // initApp: () => {
           //      dispatch(photoActions.getFeed());

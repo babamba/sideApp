@@ -108,7 +108,6 @@ class Container extends Component {
                     // refreshing={this.state.refreshing}
                     // refreshControl = {null}
                     //onDayPress={(day)=>{  } }
-                    onDayPress={(day)=>{ this.changeDay(day) }}
                     
                     // refreshControl={
                          
@@ -313,14 +312,6 @@ class Container extends Component {
                });
           }, 1000);
           // console.log(`Load Items for ${day.year}-${day.month}`);
-     }
-     changeDay = (day) => {
-          // console.log("changeDay", day)
-          // this.setState({
-          //      day : day
-          // })
-
-          console.log("current state day" , this.state.day)
      }
 
      renderItem(item) {

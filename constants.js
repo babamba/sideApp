@@ -9,3 +9,5 @@ export const SALARY_PAY_TYPE = ['MONTH','DAY'];
 
 // 0 : 수입 / 1 : 밥지출  /  2: 소비지출
 export const CONSUM_TYPE = [0, 1, 2];
+
+export const FEEL = ["좋아!", "쏘쏘?", "후회중.."]

@@ -67,7 +67,7 @@ const SwipeScreen = props => (
             >
            <View style={styles.slide1}>
            {props.renderArray[0] ?
-               <GoalScreen {...props}/>
+               <MealScreen  {...props}/>
               
                 : null}
            </View>
@@ -78,7 +78,8 @@ const SwipeScreen = props => (
             </View>
            <View style={styles.slide3}>
            {props.renderArray[2] ?
-              <MealScreen  {...props}/>
+           <TodayScreen  {...props} />
+             
              : null}
            </View>
            <View style={styles.slide4}>
@@ -88,7 +89,8 @@ const SwipeScreen = props => (
            </View>
            <View style={styles.slide4}>
              {props.renderArray[4] ?
-            <TodayScreen  {...props} />
+              <GoalScreen {...props}/>
+            
              : null}
            </View>
          </Swiper>
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   menuButtonArea:{
-    ...ifIphoneX({paddingTop: 100}, {paddingTop: 80}),
+    ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
   },
   slide1: {
     flex: 1,

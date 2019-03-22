@@ -1,5 +1,4 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import SideNavigation from "./SideNavigation";
 import MenuButton from "../components/MenuButton"
 import React from "react";
 import Swiper from "../screens/SwipeScreen";

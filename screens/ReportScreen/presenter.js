@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { View, Text,Button, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import MenuButton from "../../components/MenuButton"
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const ReportScreen = props => (
 
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
           backgroundColor: "white"
      },
      menuButtonArea:{
-          ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
      },
 });
 

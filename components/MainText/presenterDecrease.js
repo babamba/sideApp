@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
      },
      mealContainer:{
           flex:1,
-          //...ifIphoneX({marginTop:60}, {marginTop:30}),
           marginTop:60,
           alignContent: 'center',
           flexDirection: "row",
@@ -183,7 +182,6 @@ const styles = StyleSheet.create({
      }
      // container:{
      //      flex:1,
-     //      ...ifIphoneX({paddingTop: 120}, {paddingTop: 20}),
      //      backgroundColor: "white",
      //      alignItems:"center",
      //      alignContent: 'center',

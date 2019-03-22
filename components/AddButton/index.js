@@ -49,9 +49,7 @@ class AddButton extends Component {
           //console.log(this.props);
           return (
                <View>
-                    <TouchableScale
-                         activeScale={0.7}
-                    >
+
                     <TouchableHighlight 
                     activeOpacity={0.4} 
                     onPress={this._toggleModal}
@@ -92,7 +90,6 @@ class AddButton extends Component {
                          </TouchableHighlight>
                     </View>
                     </Modal>
-                    </TouchableScale>
                </View>
                
           )

@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
 import AddButton from "../../components/AddButton";
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
 

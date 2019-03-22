@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import SubList from "./presenter";
+import moment from "moment";
 
 class Container extends Component {
 
@@ -24,7 +25,7 @@ class Container extends Component {
 
      componentWillMount(){
           this.setState({
-               isFetching : false
+               refreshing : false
           });
      }
 
@@ -33,7 +34,12 @@ class Container extends Component {
           if(nextProps){
                console.log("nextProps : " , nextProps.TodayMealProduct)
                this.setState({
-                    TodayMealProduct : nextProps.TodayMealProduct
+                    TodayMealProduct : nextProps.TodayMealProduct,
+                    refreshing:false
+               })
+          }else{
+               this.setState({
+                    refreshing:false
                })
           }
      }
@@ -51,19 +57,30 @@ class Container extends Component {
 
      _onListRefresh = () => {
           console.log("refresh")
-          this.setState({refreshing : true});
-          onStop = ()=>{
+          this.setState({
+               refreshing : true
+          });
+
+          const { getDataMealToday } = this.props;
+
+          getDataMealToday(moment().format("YYYYMMDD"));
+
+          onStop = () => {
                this.setState({refreshing : false});
           }
      }
 
-     _refresh = () => {
-          //const { getSalary } = this.props;
-          this.setState({
-               isFetching : true
-          });
+     // _refresh = () => {
+     //      //const { getSalary } = this.props;
+          
+          
+     //      this.setState({
+     //           isFetching : true
+     //      });
 
-          console.log("isFetch main_text refresh")
-     }
+          
+
+     //      console.log("isFetch main_text refresh")
+     // }
 }
 export default Container;

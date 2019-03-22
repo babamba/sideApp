@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { View, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet,TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import {
      SelectMultipleButton,
@@ -91,8 +90,6 @@ const styles = StyleSheet.create({
      },
      content: {
           flex: 4,
-          ...ifIphoneX({paddingTop: 30}, {paddingTop: 0}),
-          //paddingTop: 30,
           alignItems: "center",
           justifyContent: "flex-start",
      },

@@ -11,7 +11,6 @@ import { View,
           StatusBar, 
           ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import { SelectMultipleGroupButton } from "react-native-selectmultiple-button";
 
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
      },
      content: {
           flex: 4,
-          ...ifIphoneX({paddingTop: 30}, {paddingTop: 0}),
           //paddingTop: 30,
           alignItems: "center",
           justifyContent: "flex-start",

@@ -21,9 +21,15 @@ class Container extends Component {
           if(nextProps.TodayMealProduct){
                console.log("nextProps.currentPrice : " , nextProps.currentPrice)
                this.setState({
-                    TodayMealProduct : nextProps.TodayMealProduct
+                    TodayMealProduct : nextProps.TodayMealProduct,
+                    isFetching:false
+               })
+          }else{
+               this.setState({
+                    isFetching:false
                })
           }
+          
      }
 
      componentWillMount = async () => {
@@ -81,7 +87,7 @@ class Container extends Component {
           getDataMealToday(moment().format("YYYYMMDD"));
           getDataMealMonth(moment().format("YYYYMMDD"));
 
-           this.setState({
+          this.setState({
                isFetching : true
           });
 

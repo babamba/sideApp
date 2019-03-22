@@ -1,21 +1,33 @@
 import { connect } from "react-redux";
 import Container from "./container";
-import { actionCreators as timerActions } from "../../redux/modules/timer";
+import { actionCreators as dataActions } from "../../redux/modules/data";
 
-const mapStateToProps = (state, ownProps) => {
-     const { timer } = state;
+const mapStateToProps = (state, ownProps ) => {
+     const { data } = state;
+     //console.log("data.TodayMealProduct : ", data.TodayMealProduct)
      return {
-          timer : timer.percent
-     };
-};
+          TodayMealProduct : data.TodayMealProduct,
+          currentPrice : data.TodayMealPrice
+     }
+}
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+     return {
+          getDataMealToday : (date) => {
+               return dispatch(dataActions.getDataMealToday(date));
+          },
+          getDataMealMonth : (date) => {
+               return dispatch(dataActions.getDataMealMonth(date));
+          },
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//      return {
-//           setAlreadyLaunch : (launched) => {
-//                dispatch(userActions.setAlreadyLaunch(launched));
-//           }
-//      }
-// }
+          // initApp: () => {
+          //      dispatch(photoActions.getFeed());
+          //      dispatch(photoActions.getSearch());
+          //      dispatch(userActions.getNotifications());
+          //      dispatch(userActions.getOwnProfile());
+          //      dispatch(userActions.registerForPush());
+          //    }
+     }
+}
 
-export default connect()(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

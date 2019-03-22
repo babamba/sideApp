@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
 import AddButton from "../../components/AddButton";
 
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
@@ -256,7 +255,6 @@ SalleryText.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({marginTop:50}, {marginTop:30}),
           alignItems:"flex-start",
           flexDirection: "column",
           //backgroundColor:"red"
@@ -265,7 +263,7 @@ const styles = StyleSheet.create({
           flex:1,
           flexDirection: "column",
           alignContent: 'flex-start',
-          paddingTop:200,
+          paddingTop:300,
           paddingLeft:50
      },
      textArea:{

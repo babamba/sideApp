@@ -141,6 +141,7 @@ const SalleryText = props => (
                               width={barWidth}
                               value={props.PERCENT}
                               backgroundColorOnComplete="green"
+                              backgroundColor="#fff54c"
                               barEasing={"ease"}
                               borderRadius={0}
                               borderWidth={0}
@@ -236,6 +237,7 @@ const SalleryText = props => (
                               width={barWidth}
                               value={props.PERCENT}
                               backgroundColorOnComplete="#3CC644"
+                              backgroundColor="#b770ff"
                               barEasing={"ease"}
                               borderRadius={0}
                               borderWidth={0}

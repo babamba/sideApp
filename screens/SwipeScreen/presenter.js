@@ -69,19 +69,15 @@ const SwipeScreen = props => (
            {props.renderArray[0] ?
               
               <TodayScreen  {...props} />
-              //   <CalendarScreen {...props} />
-            
                 : null}
            </View>
            <View style={styles.slide2}>
               {props.renderArray[1] ?
                 <MonthScreen {...props}/>
-                
                : null}
             </View>
            <View style={styles.slide3}>
            {props.renderArray[2] ?
-              
               <MealScreen  {...props}/>
              : null}
            </View>

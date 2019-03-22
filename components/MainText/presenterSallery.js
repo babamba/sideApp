@@ -238,6 +238,8 @@ const SalleryText = props => (
                               value={props.PERCENT}
                               backgroundColorOnComplete="#3CC644"
                               barEasing={"ease"}
+                              borderRadius={0}
+                              borderWidth={0}
                     />
                </View>
           </View>

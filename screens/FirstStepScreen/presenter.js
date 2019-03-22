@@ -12,6 +12,7 @@ import {
   Dimensions,
   Platform
 } from "react-native";
+import { FontAwesome } from "react-native-vector-icons";
 import { Constants } from "expo";
 import { RkAvoidKeyboard, RkCard } from "react-native-ui-kitten";
 import { scale, scaleVertical } from "../../utilities/scale";
@@ -47,8 +48,21 @@ const FirstStepScreen = props =>
         onResponderRelease={() => Keyboard.dismiss()}
       >
         {/* <View style={styles.header}>{renderIcon()}</View> */}
-
+        { props.backBtn ? (
+            <TouchableOpacity
+            style={styles.back}
+            onPress={props.setModalVisibleForm}
+          >
+            <FontAwesome
+              name="chevron-down"
+              size={27}
+              style={{ color: "#4A4A4A" , marginTop:20}}
+            />
+          </TouchableOpacity>
+          ) :( null )
+          }
         <View style={styles.all}>
+         
           <RkCard rkType="heroImage shadowed" style={styles.content}>
         {/* <View style={styles.container}>
           <DataModal
@@ -352,6 +366,13 @@ const styles = StyleSheet.create({
       backgroundColor: "lightgreen",
       alignItems: "center",
       justifyContent: "center",
+    },
+    back: {
+      position: "absolute",
+      alignItems:'flex-end',
+      top: Constants.statusBarHeight + 8,
+      left: width - 40,
+      zIndex: 1
     },
    });
 

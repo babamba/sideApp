@@ -11,8 +11,11 @@ import {
   StyleSheet,
   TouchableHighlight,
   Alert,
-     Text
+     Text,
+     Dimensions
 } from 'react-native';
+
+const {width, height} = Dimensions.get("window");
 
 class CircleMenu extends Component {
 
@@ -62,28 +65,56 @@ class CircleMenu extends Component {
       <View style={styles.container}>
         {/*Rest of App come ABOVE the action button component!*/}
         <ActionButton 
-          buttonColor="rgba(231,76,60,1)"
+          buttonColor="rgba(255, 255, 255,1)"
           position={"right"}
-          size={40}
+          size={48}
           verticalOrientation={"down"}
-          spacing={10}
+          backdrop={true}
+          offsetX={0}
+          spacing={26}
+          btnOutRange={'transparent'}
+          outRangeScale={1.5}
+          backgroundTappable={true}
+          buttonTextStyle={{fontSize:20}}
+          hideShadow={true}
+          renderIcon={ () => <Ionicons name="md-settings" size={38} color={'grey'}/>}
         >
-          <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => {
-                this.setModalVisibleCalendar();
-          }}>
-            <Ionicons name="md-calendar" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {
-                this.setModalVisibleSetting();
-          }}>
-            <Ionicons name="md-settings" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
-            <Ionicons name="md-close" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
+               <ActionButton.Item 
+                    buttonColor='#9b59b6' 
+                    title="달력보기" 
+                    spaceBetween={-26}
+                    textContainerStyle={{marginTop:34}}
+                    onPress={() => {
+                         this.setModalVisibleCalendar();
+                    }
+               }>
+               <Ionicons name="md-calendar" style={styles.actionButtonIcon} />
+               </ActionButton.Item>
+
+               <ActionButton.Item 
+                    buttonColor='#3498db' 
+                    title="설정" 
+                    spaceBetween={-26}
+                    textContainerStyle={{marginTop:34}}
+                    onPress={() => {
+                         this.setModalVisibleSetting();
+                    }
+               }>
+               <Ionicons name="md-settings" style={styles.actionButtonIcon} />
+               </ActionButton.Item>
+
+               <ActionButton.Item 
+                    buttonColor='#1abc9c' 
+                    title="닫기" 
+                    spaceBetween={-26}
+                    textContainerStyle={{marginTop:34}}
+                    onPress={() => {}
+               }>
+               <Ionicons name="md-close" style={styles.actionButtonIcon} />
+               </ActionButton.Item>
         </ActionButton>
 
-          <View style={{marginTop: 22}}>
+          <View>
                <Modal
                     animationType="slide"
                     transparent={false}
@@ -102,7 +133,7 @@ class CircleMenu extends Component {
           </View>
 
 
-          <View style={{marginTop: 22}}>
+          <View>
                <Modal
                     animationType="slide"
                     transparent={false}
@@ -128,17 +159,13 @@ class CircleMenu extends Component {
 
 const styles = StyleSheet.create({
      container:{
-          paddingRight:60,
-          backgroundColor: 'transparent',
-          paddingBottom:50,
-          marginRight:30,
-          marginTop:50
+          flex:1,
+          marginRight:70,
      },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
-  },
+     actionButtonIcon: {
+          fontSize: 20,
+          color: 'white',
+     },
 });
 
 export default withNavigation(CircleMenu);

@@ -31,6 +31,7 @@ class Container extends Component {
           isModalVisible: false,
           isStartModalVisible: false,
           isEndModalVisible: false,
+          backBtn: false
      }
 
      static propsType = {
@@ -39,7 +40,21 @@ class Container extends Component {
      }
 
      componentDidMount(){
+          
           //const { refresh } = this.props;
+
+     }
+
+     componentWillMount(){
+          if(this.props.backBtn){
+               this.setState({
+                    backBtn:true
+               })
+          }else{
+               this.setState({
+                    backBtn:false
+               })
+          }
      }
 
      render(){
@@ -48,6 +63,7 @@ class Container extends Component {
           return (
                     <FirstStepScreen 
                          {...this.state } 
+                         {...this.props }
                          changeSalary = {this._changeSalary}
                          changeSalaryDay = {this._changeSalaryDay}
                          changeSalaryWeek = {this._changeSalaryWeek}
@@ -187,9 +203,10 @@ class Container extends Component {
                               '등록되었습니다',
                               '',
                               [
-                                   {text: 'OK', onPress: () => { 
-                                        this.props.navigation.navigate("Side") 
-                                        this.setState({
+                                   {text: 'OK', onPress: async() => { 
+                                        //this.props.navigation.navigate("Side") 
+
+                                        await this.setState({
                                              isSubmiting : false,
                                              monthSallery : "",
                                              salaryDay : "",
@@ -197,6 +214,16 @@ class Container extends Component {
                                              startHour: "9",
                                              endHour: "18",
                                         });
+
+                                        if(this.props.backBtn){
+                                             await this.setState({
+                                                  backBtn:false
+                                             })
+                                             
+                                             this.props.toggleModalVisibleSalaryForm();
+
+                                        }
+                                        
                                    }},
                               ],
                                  { cancelable: false }

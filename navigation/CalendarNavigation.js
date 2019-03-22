@@ -23,11 +23,11 @@ const CalendarNavigation = createStackNavigator(
           },
      },
      {
-          mode: 'modal',
+          mode: 'card',
           headerMode: 'none',
           initialRouteName: 'ModalScreen', 
           defaultNavigationOptions: {
-               gesturesEnabled: false,
+               gesturesEnabled: true,
           },
 
      },

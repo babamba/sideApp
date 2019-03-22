@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import SettingScreen from "./presenter";
 import { Alert } from "react-native"
-import { NavigationActions, withNavigation } from "react-navigation";
+import { NavigationActions, withNavigation, StackActions } from "react-navigation";
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -15,6 +15,7 @@ class Container extends Component {
      state = {
           //isFetching : false
           pushNotifications: true,
+          modalVisibleSalaryForm: false,
           username:""
      };
 
@@ -24,6 +25,20 @@ class Container extends Component {
           await this.setState({
                username : screenProps.username
           })
+     }
+
+     _toggleModalVisibleSalaryForm = () => {
+          const { modalVisibleSalaryForm } = this.state;
+          console.log(modalVisibleSalaryForm)
+          if(modalVisibleSalaryForm){
+               this.setState({
+                    modalVisibleSalaryForm: false
+               });
+          }else{
+               this.setState({
+                    modalVisibleSalaryForm: true
+               });
+          }    
      }
 
 
@@ -39,14 +54,6 @@ class Container extends Component {
 
    _onPressSalaryData = () => {
      console.log(this.props)
-     this.props.navigation.actions.navigate(NavigationActions.navigate({
-          routeName: 'SettingNavigation',
-          action: NavigationActions.navigate({ routeName: 'Salary' })
-     }))
-     //    this.props.navigation.navigate(NavigationActions.navigate({
-     //      routeName: 'SettingNavigation',
-     //      action: NavigationActions.navigate({ routeName: 'Salary' })
-     //  }))
    }
  
    _logout = async() => {
@@ -84,6 +91,7 @@ class Container extends Component {
                     logout = { this._logout }
                     onChangePushNotifications = {this._onChangePushNotifications}
                     onPressSalaryData= {this._onPressSalaryData}
+                    toggleModalVisibleSalaryForm = {this._toggleModalVisibleSalaryForm}
                />
           );
      }

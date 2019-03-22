@@ -22,8 +22,6 @@ class Container extends Component {
           //console.log("calendar : " , props)
           this.state = {
                items: {},
-               refreshing: false,
-               day: null
           };
      }
 
@@ -78,13 +76,6 @@ class Container extends Component {
                console.log("nextProps.NOT : ", nextProps.AllIncreaseData)
           }
 
-
-          await this.loadItems(this.state.day)
-          await this.renderItem(this.state.items)
-
-          this.setState({
-               refreshing : false,
-          })
           // if(increaseProduct.length != this.state.increaseProduct.length
           //      || mealProduct.length != this.state.mealProduct.length
           //      || purchaseProduct.length != this.state.purchaseProduct.length
@@ -113,9 +104,9 @@ class Container extends Component {
                     renderItem={this.renderItem.bind(this)}
                     renderEmptyDate={this.renderEmptyDate.bind(this)}
                     rowHasChanged={this.rowHasChanged.bind(this)}
-                    onRefresh={this.refresh.bind(this)}
-                    refreshing={this.state.refreshing}
-                    refreshControl = {null}
+                    // onRefresh={this.refresh.bind(this)}
+                    // refreshing={this.state.refreshing}
+                    // refreshControl = {null}
                     //onDayPress={(day)=>{  } }
                     onDayPress={(day)=>{ this.changeDay(day) }}
                     
@@ -324,10 +315,10 @@ class Container extends Component {
           // console.log(`Load Items for ${day.year}-${day.month}`);
      }
      changeDay = (day) => {
-          console.log("changeDay", day)
-          this.setState({
-               day : day
-          })
+          // console.log("changeDay", day)
+          // this.setState({
+          //      day : day
+          // })
 
           console.log("current state day" , this.state.day)
      }

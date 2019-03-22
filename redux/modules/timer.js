@@ -338,7 +338,8 @@ function submitData(monthSallery, salaryDay, selectWeek, workingWeekDay , startH
 function onInitCheckStandard(){
      return async (dispatch, getState) => {
           const { timer : { standardMonth, salaryDay } } = getState();
-
+          const { timer } = getState();
+          console.log("timer state : ", timer)
           //시작시 오늘날짜와 기준 날짜 비교하여 넘었으면 기준날짜 ++ 처리
           const today = moment(new Date());
           // console.log("onInitStandard :", today.format(('YYYY-MM-DD HH:mm')));

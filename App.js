@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppLoading, Asset, Font } from "expo";
 import { StyleSheet, Text, View } from 'react-native';
-import { Ionicons, MaterialIcons } from "@expo/vector-icons"
+import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons"
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/es/integration/react";
 import configureStore from "./redux/configureStore";
@@ -49,6 +49,7 @@ class App extends React.Component {
       Font.loadAsync({
         ...Ionicons.font,
         ...MaterialIcons.font,
+        ...FontAwesome.font,
         'NanumBarunGothicUltraLight': require('./assets/font/NanumBarunGothicUltraLight.ttf'),
         'NanumBarunGothicLight': require('./assets/font/NanumBarunGothicLight.ttf'),
         'NanumBarunGothicBold': require('./assets/font/NanumBarunGothicBold.ttf'),

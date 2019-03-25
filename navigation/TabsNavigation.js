@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, 
+     MaterialCommunityIcons } from "@expo/vector-icons";
 import Swiper from "../screens/SwipeScreen";
 import SettingScreen from "../screens/SettingScreen";
 import ReportScreen from "../screens/ReportScreen"
@@ -16,11 +17,15 @@ const TabsNavigation = createBottomTabNavigator (
                screen : Swiper,
                navigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ focused }) => (
-                         <Ionicons
-                           name={focused ? 'ios-checkmark-circle-outline' : 'ios-home'}
-                           size={30}
-                           color={"black"}
-                         />
+                         <View style={focused ? styles.btnShadow : null}>
+                              <Ionicons
+                                   name={'ios-home'}
+                                   size={30}
+                                   color={ focused ? "#7fe56b" : "black"}
+                                   style={styles.icons}
+                              />
+                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>오늘</Text>
+                         </View>
                     )
                })
           },
@@ -28,37 +33,32 @@ const TabsNavigation = createBottomTabNavigator (
                screen : ReportScreen,
                navigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ focused }) => (
-                         <Ionicons
-                           name={focused ? 'ios-checkmark-circle-outline' : 'md-calendar'}
-                           size={30}
-                           color={"black"}
-                         />
+                         <View style={focused ? styles.btnShadow : null }>
+                              <Ionicons
+                                   name={'ios-analytics'}
+                                   size={30}
+                                   color={ focused ? "#7fe56b" : "black"}
+                                   style={styles.icons}
+                              />
+                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>주간</Text>
+                         </View>
                     )
                     
                })
           },
-          // Calendar : {
-          //      screen : CalendarScreen,
-          //      navigationOptions: ({ navigation }) => ({
-          //           tabBarIcon: ({ focused }) => (
-          //                <Ionicons
-          //                  name={focused ? 'ios-checkmark-circle-outline' : 'md-calendar'}
-          //                  size={30}
-          //                  color={"black"}
-          //                />
-          //           )
-                    
-          //      })
-          // },
           Goal : {
                screen : GoalScreen,
                navigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ focused }) => (
-                         <Ionicons
-                           name={focused ? 'ios-checkmark-circle-outline' : 'md-radio'}
-                           size={30}
-                           color={"black"}
-                         />
+                         <View style={focused ? styles.btnShadow : null }>
+                              <Ionicons
+                                   name={'md-checkbox-outline'}
+                                   size={30}
+                                   color={ focused ? "#7fe56b" : "black"}
+                                   style={styles.icons}
+                              />
+                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>목표</Text>
+                         </View>
                     ),
                })
           },
@@ -66,11 +66,15 @@ const TabsNavigation = createBottomTabNavigator (
                screen : SettingScreen,
                navigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ focused }) => (
-                         <Ionicons
-                           name={focused ? 'ios-checkmark-circle-outline' : 'md-settings'}
-                           size={30}
-                           color={"black"}
-                         />
+                         <View style={focused ? styles.btnShadow : null }>
+                              <MaterialCommunityIcons
+                                   name={'settings-outline'}
+                                   size={30}
+                                   color={ focused ? "#7fe56b" : "black"}
+                                   style={styles.icons}
+                              />
+                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>프로필</Text>
+                         </View>
                     ),
                })
           },
@@ -85,11 +89,23 @@ const TabsNavigation = createBottomTabNavigator (
                style:{
                     backgroundColor:"transparent",
                     borderColor:"transparent",
-                    height:55
+                    height:65
                },
           },
      },
-     
 );
+
+const styles = StyleSheet.create({
+     icons:{
+          justifyContent:'center',
+     },
+     btnShadow:{
+          shadowColor: 'gray',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.7,
+          shadowRadius: 7,
+          elevation: 1,
+     }
+})
 
 export default createAppContainer(TabsNavigation);

@@ -10,6 +10,7 @@ class Container extends Component {
      static propTypes = {
           // feed : PropTypes.array,
           // getFeed : PropTypes.func.isRequired
+
      };
 
      state = {
@@ -31,8 +32,14 @@ class Container extends Component {
 
      componentDidMount = () => {
           const { oninit } = this.props;
+
+          const{ReportIncreaseTodayPrice,
+               ReportMealTodayPrice, 
+               ReportPurchaseTodayPrice ,} = this.props;
           console.log("nextProps Report ()()()() : ", this.props.TodayReportData);
           oninit(moment().format("YYYYMMDD"));
+
+          console.log("ReportMealTodayPrice", ReportMealTodayPrice)
      };
 
      render() {

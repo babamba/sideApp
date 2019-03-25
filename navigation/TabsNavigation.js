@@ -20,11 +20,11 @@ const TabsNavigation = createBottomTabNavigator (
                          <View style={focused ? styles.btnShadow : null}>
                               <Ionicons
                                    name={'ios-home'}
-                                   size={30}
-                                   color={ focused ? "#7fe56b" : "black"}
+                                   size={20}
+                                   color={ focused ? "#ff8259" : "black"}
                                    style={styles.icons}
                               />
-                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>오늘</Text>
+                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>오늘</Text>
                          </View>
                     )
                })
@@ -36,11 +36,11 @@ const TabsNavigation = createBottomTabNavigator (
                          <View style={focused ? styles.btnShadow : null }>
                               <Ionicons
                                    name={'ios-analytics'}
-                                   size={30}
-                                   color={ focused ? "#7fe56b" : "black"}
+                                   size={20}
+                                   color={ focused ? "#ff8259" : "black"}
                                    style={styles.icons}
                               />
-                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>주간</Text>
+                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>주간</Text>
                          </View>
                     )
                     
@@ -53,11 +53,11 @@ const TabsNavigation = createBottomTabNavigator (
                          <View style={focused ? styles.btnShadow : null }>
                               <Ionicons
                                    name={'md-checkbox-outline'}
-                                   size={30}
-                                   color={ focused ? "#7fe56b" : "black"}
+                                   size={20}
+                                   color={ focused ? "#ff8259" : "black"}
                                    style={styles.icons}
                               />
-                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>목표</Text>
+                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>목표</Text>
                          </View>
                     ),
                })
@@ -69,11 +69,11 @@ const TabsNavigation = createBottomTabNavigator (
                          <View style={focused ? styles.btnShadow : null }>
                               <MaterialCommunityIcons
                                    name={'settings-outline'}
-                                   size={30}
-                                   color={ focused ? "#7fe56b" : "black"}
+                                   size={20}
+                                   color={ focused ? "#ff8259" : "black"}
                                    style={styles.icons}
                               />
-                              <Text style={{ color: focused ? "#7fe56b" : "black"}}>프로필</Text>
+                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>프로필</Text>
                          </View>
                     ),
                })
@@ -89,7 +89,7 @@ const TabsNavigation = createBottomTabNavigator (
                style:{
                     backgroundColor:"transparent",
                     borderColor:"transparent",
-                    height:65
+                    height:55
                },
           },
      },
@@ -98,13 +98,19 @@ const TabsNavigation = createBottomTabNavigator (
 const styles = StyleSheet.create({
      icons:{
           justifyContent:'center',
+          alignSelf: 'center',
+          paddingBottom: 5,
      },
      btnShadow:{
           shadowColor: 'gray',
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.7,
+          shadowOpacity: 0.5,
           shadowRadius: 7,
           elevation: 1,
+     },
+     text:{
+          fontFamily: 'NanumBarunGothicUltraLight',
+          fontSize: 12,
      }
 })
 

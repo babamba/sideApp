@@ -17,7 +17,7 @@ class Container extends Component {
           isTodayFetching : false,
           isMonthFetching: false,
           modalVisibleCalendar: false,
-
+          mode: "today"
      };
 
      componentWillReceiveProps = nextProps => {
@@ -33,9 +33,7 @@ class Container extends Component {
      componentDidMount = () => {
           const { oninit } = this.props;
 
-          const{ReportIncreaseTodayPrice,
-               ReportMealTodayPrice, 
-               ReportPurchaseTodayPrice ,} = this.props;
+          const{ReportIncreaseTodayPrice, ReportMealTodayPrice, ReportPurchaseTodayPrice ,} = this.props;
           console.log("nextProps Report ()()()() : ", this.props.TodayReportData);
           oninit(moment().format("YYYYMMDD"));
 
@@ -50,9 +48,21 @@ class Container extends Component {
                     refreshToday={this._refreshToday} 
                     refreshMonth={this._refreshMonth} 
                     setModalVisibleCalendar={this.setModalVisibleCalendar}
+                    changeToToday={this._changeToToday}
+                    changeToMonth={this._changeToMonth}
                />
           );
      }
+
+     _changeToToday = () => {
+          console.log("change today")
+          this.setState({ mode: "today"})
+     };
+
+     _changeToMonth = () => {
+          console.log("change month")
+          this.setState({ mode: "month"})
+     };
 
      setModalVisibleCalendar = () => {
           const { modalVisibleCalendar } = this.state;

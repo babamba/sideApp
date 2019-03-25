@@ -213,8 +213,6 @@ function getReportDataMonth(date){
                    let ReportPurchaseMonthPrice = 0;
 
                     if(MonthReportData.length > 0 ){
-                         
-
                          for (let i of json) {
                               //console.log(i.price)
                               let price = Number(i.price);

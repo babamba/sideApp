@@ -4,8 +4,7 @@ import { ListItem } from 'react-native-elements'
 import { StyleSheet, View, Text } from "react-native";
 import Icon from '../../components/Profile/Icon'
 
-
-const ReportListItem = props => (
+const ReportListItemToday = props => (
     <ListItem
       containerStyle={styles.listItemContainer}
       title={props.income_name}
@@ -13,13 +12,13 @@ const ReportListItem = props => (
       rightTitle={
           <View style={styles.list}>
                <Text style={styles.price}>{props.price} 원</Text>
-               {props.feeling === "1" ?
+               {props.feeling === "0" ?
                     <Text style={styles.feel}>좋아!</Text>
                : null}
-               {props.feeling === "2" ?
+               {props.feeling === "1" ?
                     <Text style={styles.feel}>쏘쏘?</Text>
                : null}
-               {props.feeling === "3" ?
+               {props.feeling === "2" ?
                     <Text style={styles.feel}>후회중..</Text>
                : null}
           </View>
@@ -50,11 +49,11 @@ const ReportListItem = props => (
      //</ListItem>
 )
 
-ReportListItem.propTypes = {
+//ReportListItem.propTypes = {
      //isFetching : PropTypes.bool.isRequired,
      //refresh: PropTypes.func.isRequired,
      //feed : PropTypes.array
-}
+//}
 
 const styles = StyleSheet.create({
      list: {
@@ -97,4 +96,4 @@ const styles = StyleSheet.create({
 
 
 
-export default ReportListItem;
+export default ReportListItemToday;

@@ -14,7 +14,7 @@ const IncreaseScreen = props =>
 
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
-              <Ionicons name="ios-arrow-down" size={20} style={styles.downArrow}/>
+              <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/>
               <View style={styles.content}>
                     <Text style={styles.mainText}>수입이 들어왔나요? </Text>
                     <View style={styles.main}>
@@ -158,12 +158,9 @@ const styles = StyleSheet.create({
           shadowOpacity: 0.5,
      },
      downArrow:{
-          flexDirection:'row' ,
-          justifyContent:'center',
           textAlign:'right',
           paddingTop:14,
           paddingRight:15
-
      },
      selectBtn:{
           marginHorizontal: 30,

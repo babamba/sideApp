@@ -2,18 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Modal,View, Text, FlatList, StyleSheet,TouchableOpacity,Dimensions } from "react-native";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import ReportListItem from "../../components/ReportListItem"
+import ReportListItemToday from "../../components/ReportTodayListItem"
+import ReportListItemMonth from "../../components/ReportMonthListItem"
 import CalendarScreen from "../CalendarScreen"
 
 import ReportConut from "../../components/ReportCount"
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 const {width, height} = Dimensions.get("window");
 const ReportScreen = props => (
      
     <View style={styles.container}>
           <View style={styles.headerMain}> 
-               <Text style={styles.headerText}>오늘의 통계</Text>
+               
+               {props.mode === "today" ? 
+                    <Text style={styles.headerText}>
+                         오늘의 통계
+                    </Text>
+                    :
+                    <Text style={styles.headerText}>이번달 통계</Text>
+               }
+         
                <View style={styles.headerCalendar}>
                     <TouchableOpacity onPress={props.setModalVisibleCalendar} style={styles.calBtn}>
                          <Ionicons name="md-calendar" size={30}/>
@@ -37,32 +46,100 @@ const ReportScreen = props => (
                
           </View>
           <View style={styles.headerCount}>
+               
+               {props.mode === "today" ? 
                     <View style={styles.profileNumbers}>
                          <ReportConut
                               number={props.ReportIncreaseTodayPrice}
                               text={"수입"}
+                              type="today"
                          />
                          <ReportConut
                               number={props.ReportMealTodayPrice}
                               text={"밥값"}
+                              type="today"
                          />
                          <ReportConut
                               number={props.ReportPurchaseTodayPrice}
                               text={"소비"}
+                              type="today"
                          />
                     </View>
-               </View>
+               :
+                    <View style={styles.profileNumbers}>
+                         <ReportConut
+                              number={props.ReportIncreaseMonthPrice}
+                              text={"수입"}
+                              type="month"
+                         />
+                         <ReportConut
+                              number={props.ReportMealMonthPrice}
+                              text={"밥값"}
+                              type="month"
+                         />
+                         <ReportConut
+                              number={props.ReportPurchaseMonthPrice}
+                              text={"소비"}
+                              type="month"
+                         />
+                    </View>
+               }
+          </View>
+          <View style={styles.modeBar}>
+               <TouchableOpacity onPressOut={props.changeToToday}>
+                    <View style={styles.modeIcon}>
+                         <MaterialCommunityIcons
+                              name={"view-agenda"}
+                              size={28}
+                              color={props.mode === "today" ? "#3e99ee" : "grey"}
+                              style={{paddingTop:3 , paddingBottom: 3,}}
+                         />
+                         <Text style={{paddingTop:3 , paddingBottom: 3,}} >오늘</Text>
+                    </View>
+               </TouchableOpacity>
+               <TouchableOpacity onPressOut={props.changeToMonth}>
+                    <View style={styles.modeIcon}>
+                         <MaterialCommunityIcons
+                              name={"view-week"}
+                              size={28}
+                              color={props.mode === "month" ? "#3e99ee" : "grey"}
+                              style={{paddingTop:3 , paddingBottom: 3,}}
+                         />
+                         <Text 
+                               style={{paddingTop:3 , paddingBottom: 3,}}
+                         >월급달</Text>
+                    </View>
+               </TouchableOpacity>
+          </View>
+
+         
           <View style={styles.listContainer} > 
+          {props.mode === "today" && (
                <FlatList
                     data={props.TodayReportData}
                     renderItem={({item}) => 
-                         <ReportListItem {...item}/>
+                         <ReportListItemToday {...item}/>
                     }
                     keyExtractor={(item, index) => item.enrollId.toString()}
                     refreshing ={props.isTodayFetching}
                     onRefresh ={props.refreshToday}
                />
+          )}
+
+          {props.mode === "month" && (
+               <FlatList
+                    data={props.MonthReportData}
+                    renderItem={({item}) => 
+                         <ReportListItemMonth {...item}/>
+                    }
+                    keyExtractor={(item, index) => item.enrollId.toString()}
+                    refreshing ={props.isMonthFetching}
+                    onRefresh ={props.refreshMonth}
+               />
+          )}
+
           </View>
+          
           {/* <Text>ReportScreen Month</Text>
           <FlatList
                data={props.MonthReportData}
@@ -89,6 +166,7 @@ const styles = StyleSheet.create({
          marginBottom: 0,
          marginTop: 0,
          borderTopWidth: 0,
+         paddingHorizontal: 10,
        },
      headerMain:{
           height:50,
@@ -109,7 +187,7 @@ const styles = StyleSheet.create({
           //backgroundColor:'blue',
      },
      headerCount: {
-          paddingVertical: 30,
+          paddingVertical: 20,
           width: width 
      },
      calBtn:{
@@ -119,6 +197,19 @@ const styles = StyleSheet.create({
           flexDirection: "row",
           marginBottom: 7,
           justifyContent: "space-between"
+     },
+     modeBar: {
+          marginTop: 5,
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          borderColor: "#bbb",
+          borderWidth: StyleSheet.hairlineWidth,
+          paddingVertical:8
+     },
+     modeIcon: {
+          width: width / 2,
+          alignItems: "center"
      },
 });
 

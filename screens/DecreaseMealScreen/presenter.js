@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
           flexDirection:'row' ,
           justifyContent:'center',
           textAlign:'right',
-          paddingTop:14,
+          paddingTop:18,
           paddingRight:15
 
      },

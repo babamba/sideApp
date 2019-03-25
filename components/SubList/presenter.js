@@ -51,13 +51,13 @@ const SubList = props => (
                     <View style={styles.list}>
                          <Text style={styles.name}>{item.income_name}</Text>
                          <Text style={styles.price}>{item.price}</Text>
-                         {item.feeling === "1" ?
+                         {item.feeling === "0" ?
                               <Text style={styles.feel}>좋아!</Text>
                          : null}
-                         {item.feeling === "2" ?
+                         {item.feeling === "1" ?
                               <Text style={styles.feel}>쏘쏘?</Text>
                          : null}
-                         {item.feeling === "3" ?
+                         {item.feeling === "2" ?
                               <Text style={styles.feel}>후회중..</Text>
                          : null}
 

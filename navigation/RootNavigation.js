@@ -5,6 +5,8 @@ import Swiper from "../screens/SwipeScreen";
 import CircleMenu from "../components/CircleMenu"
 import FirstStepScreen from "../screens/FirstStepScreen";
 import TabsNavigation from "./TabsNavigation";
+import AddPhotoNavigation from "./AddPhotoNavigation"
+import UploadPhotoScreend from "../screens/UploadPhotoScreen";
 
 const RootNavigator = createStackNavigator(
      {
@@ -13,6 +15,26 @@ const RootNavigator = createStackNavigator(
                navigationOptions:{
                     header:null
                }
+          },
+          TakePhoto : {
+               screen : AddPhotoNavigation,
+               navigationOptions : ({ navigation }) => ({
+                    header:null
+                   
+               })
+          },
+          UploadPhoto : {
+               screen : UploadPhotoScreend,
+               navigationOptions: ({navigation}) => ({
+                    title:"Upload Photo!",
+                    headerLeft: (
+                         <Button 
+                              title={"cancel"} 
+                              onPress={() => navigation.goBack(null)}
+                              color="black"
+                         />
+                    )
+               })
           },
           // Today : {
           //      screen : Swiper,
@@ -39,7 +61,7 @@ const RootNavigator = createStackNavigator(
           // },
      },
      {
-          mode : "card",
+          mode : "modal",
           headerMode: 'screen',
           headerLayoutPreset:"left",
           // headerMode:"screen",

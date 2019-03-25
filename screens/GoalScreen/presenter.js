@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
+import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import AddButton from "../../components/AddButton";
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
@@ -17,13 +17,16 @@ const GoalScreen = props => (
                     type={"Meal"}
                     refresh={props.refresh}
                /> */}
+               <TouchableOpacity onPressOut={ () => props.navigation.navigate("TakePhoto")}>
+                    <Text >사진테스트</Text>
+               </TouchableOpacity>
            </View>
      )
 
-     GoalScreen.propTypes = {
+GoalScreen.propTypes = {
           isFetching : PropTypes.bool.isRequired,
           //refresh: PropTypes.func.isRequired,
-          //feed : PropTypes.array
+     //feed : PropTypes.array
      }
 
 const styles = StyleSheet.create({
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
           justifyContent:'center',
           alignItems:"center",
           alignContent: 'center',
-          flexDirection: "row",
+          flexDirection: "column",
      },
      TextConatiner:{
           flex:1,

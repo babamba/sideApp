@@ -31,12 +31,12 @@ const SettingScreen = props => (
                          <View style={styles.name}>
                               <Text>Hello {props.username} </Text>
                          </View>     
-                         <View style={styles.closeIcon}>
+                         {/* <View style={styles.closeIcon}>
                               <Ionicons  name={"md-close"} size={30}  
                                    //onPress={() => console.log(props.navigation.toggleDrawer('Side'))}
                                    onPress={props.setModalVisible}
                               />
-                         </View>
+                         </View> */}
                          {/* <Text
                          style={{
                          color: 'gray',
@@ -283,10 +283,12 @@ const styles = StyleSheet.create({
       },
       name:{
         flex:1,
-        fontSize: 16,
+        fontSize: 22,
+        fontFamily: 'NanumBarunGothicUltraLight',
         alignItems: 'flex-start',
         alignContent: 'center',
         paddingHorizontal: 10,
+        paddingVertical: 30,
       },
       closeIcon:{
         flex:1,

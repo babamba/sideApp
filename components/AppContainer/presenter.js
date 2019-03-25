@@ -9,6 +9,7 @@ import EnterSalaryNavigation from "../../navigation/EnterSalaryNavigation"
 import { AsyncStorage } from "react-native";
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Expo , {Constants } from "expo"
+import moment from "moment";
 
 const slide = [
      {
@@ -63,7 +64,7 @@ class AppContainer extends Component {
           const showRealApp = await AsyncStorage.getItem("already");
 
           if(isLoggedIn, isSetData){
-               await initApp();
+               await initApp(moment().format("YYYYMMDD"));
           }
           
           const value = await AsyncStorage.getItem("already");
@@ -99,23 +100,23 @@ class AppContainer extends Component {
           //      console.log("error : ", error)
           // });
 
-          Expo.Fingerprint.hasHardwareAsync().then(success => {
-               // Device supports Touchid/Faceid
-               Expo.Fingerprint.authenticateAsync("Prompted message").then(success => {
-                  if (success.success === true) {
-                    Alert.alert('Touch id & faceId enable!');
-                    // authenticate successfully
-                  } else {
-                    Alert.alert('Touch id & faceId failed!');
-                    // failed to authenticate
-                  }
-               }).catch(error => {
-                  // if user was unable to anthenticate too many times, he may end up here
-                  Alert.alert('Touch id & faceId error!');
-               });
-             }).catch(error => {
-               Alert.alert('Touch id & faceId error!');
-             });
+          // Expo.Fingerprint.hasHardwareAsync().then(success => {
+          //      // Device supports Touchid/Faceid
+          //      Expo.Fingerprint.authenticateAsync("Prompted message").then(success => {
+          //         if (success.success === true) {
+          //           Alert.alert('Touch id & faceId enable!');
+          //           // authenticate successfully
+          //         } else {
+          //           Alert.alert('Touch id & faceId failed!');
+          //           // failed to authenticate
+          //         }
+          //      }).catch(error => {
+          //         // if user was unable to anthenticate too many times, he may end up here
+          //         Alert.alert('Touch id & faceId error!');
+          //      });
+          //    }).catch(error => {
+          //      Alert.alert('Touch id & faceId error!');
+          //    });
 
           // const fingerprintSupport = await this.checkDeviceForHardware();
           // this.setState({

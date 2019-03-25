@@ -25,6 +25,14 @@ const SET_DATA_TODAY_INCREASE = 'SET_DATA_TODAY_INCREASE'
 const GET_DATA_ALL = 'GET_DATA_ALL';
 const SET_DATA_ALL = 'SET_DATA_ALL'
 
+const GET_REPORT_TODAY = 'GET_REPORT_TODAY'
+const GET_REPORT_MONTH = 'GET_REPORT_MONTH'
+
+const SET_REPORT_TODAY_DATA = 'SET_REPORT_TODAY_DATA'
+const SET_REPORT_MONTH_DATA = 'SET_REPORT_MONTH_DATA'
+
+const SET_REPORT_TODAY_PRICE = 'SET_REPORT_TODAY_PRICE'
+const SET_REPORT_MONTH_PRICE = 'SET_REPORT_MONTH_PRICE'
 
 // Action Creators
 function setData(json){
@@ -47,6 +55,25 @@ function setDataMealToday(TodayMealProduct, currentPrice){
           TodayMealPrice : currentPrice
      }
 }
+
+function setReportTodayPrice(ReportIncreaseTodayPrice, ReportMealTodayPrice, ReportPurchaseTodayPrice){
+     return {
+          type: SET_REPORT_TODAY_PRICE,
+          ReportIncreaseTodayPrice,
+          ReportMealTodayPrice,
+          ReportPurchaseTodayPrice
+     }
+}
+
+function setReportMonthPrice(ReportIncreaseMonthPrice, ReportMealMonthPrice, ReportPurchaseMonthPrice){
+     return {
+          type:SET_REPORT_MONTH_PRICE,
+          ReportIncreaseMonthPrice,
+          ReportMealMonthPrice, 
+          ReportPurchaseMonthPrice,
+     }
+}
+
 
 function setDataMealMonth(MonthMealProduct, MonthMealPrice){
      return {
@@ -92,6 +119,128 @@ function setDataMonthIncrease(MonthIncreaseProduct, MonthIncreasePrice){
 function getDataPriceAll(){
      return {
           type: GET_DATA_ALL
+     }
+}
+
+function setTodayReportData(TodayReportData){
+     return {
+          type: SET_REPORT_TODAY_DATA,
+          TodayReportData
+     }
+}
+
+function setMonthReportData(MonthReportData){
+     return {
+          type: SET_REPORT_MONTH_DATA,
+          MonthReportData
+     }
+}
+
+function getReportDataToday(date){
+     return async(dispatch, getState) => {
+          const { user : { token } } = getState();
+          //const { timer : { standardMonth, salaryDay } } = getState();
+          return fetch(`${API_URL}/salary/${date}/today_report_data/`, {
+               method:"GET",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                    "Content-Type" : "application/json"
+               }
+          })
+          .then(response => response.json())
+          .then(async(json) => {
+               if(json){
+                    let TodayReportData = json;
+                   console.log("Report Today", json)
+
+
+                    
+                   let ReportIncreaseTodayPrice = 0;
+                   let ReportMealTodayPrice = 0;
+                   let ReportPurchaseTodayPrice = 0;
+
+                    if(TodayReportData.length > 0 ){
+                         
+
+                         for (let i of json) {
+                              //console.log(i.price)
+                              let price = Number(i.price);
+                              if(i.consumType === "0" ){
+                                   ReportIncreaseTodayPrice += price;
+                              }else if(i.consumType === "1" ){
+                                   ReportMealTodayPrice += price;
+                              }else if(i.consumType === "2" ){
+                                   ReportPurchaseTodayPrice += price;
+                              }
+                         }
+
+
+                    }
+
+                    console.log("$($($($($($( ReportTodayPrice" , ReportIncreaseTodayPrice)
+                    console.log("$($($($($($( ReportMealPrice" , ReportMealTodayPrice)
+                    console.log("$($($($($($( ReportPurchasePrice" , ReportPurchaseTodayPrice)
+
+                    await dispatch(setTodayReportData(TodayReportData));
+                    
+                    await dispatch(setReportTodayPrice(ReportIncreaseTodayPrice, ReportMealTodayPrice, ReportPurchaseTodayPrice))
+
+                    return json;
+               }
+          })
+     }
+}
+
+function getReportDataMonth(date){
+     return async(dispatch, getState) => {
+          const { user : { token } } = getState();
+          const { timer : { standardMonth, salaryDay } } = getState();
+          return fetch(`${API_URL}/salary/${date}/${standardMonth}/${salaryDay}/month_report_data/`, {
+               method:"GET",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                    "Content-Type" : "application/json"
+               }
+          })
+          .then(response => response.json())
+          .then(async(json) => {
+               if(json){
+                    let MonthReportData = json;
+                   console.log("Report Month", json)
+
+                   let ReportIncreaseMonthPrice = 0;
+                   let ReportMealMonthPrice = 0;
+                   let ReportPurchaseMonthPrice = 0;
+
+                    if(MonthReportData.length > 0 ){
+                         
+
+                         for (let i of json) {
+                              //console.log(i.price)
+                              let price = Number(i.price);
+                              if(i.consumType === "0" ){
+                                   ReportIncreaseMonthPrice += price;
+                              }else if(i.consumType === "1" ){
+                                   ReportMealMonthPrice += price;
+                              }else if(i.consumType === "2" ){
+                                   ReportPurchaseMonthPrice += price;
+                              }
+                         }
+
+
+                    }
+
+                    console.log("$($($($($($( ReportIncreaseMonthPrice" , ReportIncreaseMonthPrice)
+                    console.log("$($($($($($( ReportMealMonthPrice" , ReportMealMonthPrice)
+                    console.log("$($($($($($( ReportPurchaseMonthPrice" , ReportPurchaseMonthPrice)
+
+                    await dispatch(setMonthReportData(MonthReportData));
+                    
+                    await dispatch(setReportMonthPrice(ReportIncreaseMonthPrice, ReportMealMonthPrice, ReportPurchaseMonthPrice))
+
+                   return json;
+               }
+          })
      }
 }
 
@@ -212,99 +361,8 @@ function getDataIncreaseToday(date){
                dispatch(setDataTodayIncrease(TodayIncreaseProduct, TodayIncreasePrice));
           }
           })
-
-      
      }
 }
-
-// function getDataIncreaseMonth(date){
-//      return async(dispatch, getState) => {
-//           const { timer : { standardMonth, salaryDay } } = getState();
-//           const product = await AsyncStorage.getItem('products');
-          
-//           console.log("standardMonth : ", standardMonth)
-//           //console.log(JSON.parse(product))
-//           //console.log("date", date);
-
-//           const MonthIncreaseProduct = [];
-//           const TodayIncreaseProduct = [];
-//           let MonthIncreasePrice = 0;
-//           let TodayIncreasePrice = 0;
-
-//           const StartDate = moment(new Date());
-//           StartDate.set({date: salaryDay, month:standardMonth-2, hour:0, minute:0, second:0})
-          
-//           const EndDate = moment(new Date());
-//           EndDate.set({date: salaryDay, month:standardMonth-1, hour:0, minute:0, second:0})
-
-//           //console.log('StartDate',StartDate.format('YYYYMMDD'))
-//           //console.log('EndDate',EndDate.format('YYYYMMDD'))
-
-//           if(product){
-//                for (let i of JSON.parse(product)) {
-//                     let array = MonthIncreaseProduct;
-//                     let TodayArray = TodayIncreaseProduct
-//                     //console.log(product)
-//                     //console.log("index : " , i);
-//                     let id = i.id;
-//                     let type = Number(i.data.consumType);
-//                     //console.log("_@_@_@ type",type)
-     
-//                     let strArray = id.split("-")
-//                     //console.log("#_#_#_#_#_#_#_# date of dataSet" , strArray[0])
-//                     //console.log("#_#_#_#_#_#_#_# date of dataSet" , )
-//                     //console.log(type)
-//                     //console.log(typeof type)
-                    
-//                     let confirmDate = strArray[0]
-//                     //console.log("confirmDate", confirmDate)
-//                     //console.log("object length ",Object.keys(confirmDate).length)
-
-
-//                     moment(confirmDate);
-//                     // console.log("moment confirmDate", confirmDate)
-                    
-
-//                     // if(confirmDate >= StartDate.format('YYYYMMDD')){
-//                     //      console.log("confirmDate >= StartDate.format('YYYYMMDD') true")
-//                     // }else{
-//                     //      console.log("confirmDate >= StartDate.format('YYYYMMDD') false")
-//                     // }
-     
-//                     if(confirmDate >= StartDate.format('YYYYMMDD') && type === 0 && confirmDate <= EndDate.format('YYYYMMDD') ){
-//                          //console.log("_@_@_@ id", i.id)
-//                          //console.log("_@_@_@ type",type)
-//                          array.push(i)
-//                     }
-
-//                     if(type=== 0 && confirmDate === date){
-//                          TodayArray.push(i)
-//                     }
-//                }
-
-//                if(MonthIncreaseProduct.length > 0){
-//                     for (let i of MonthIncreaseProduct) {
-//                          let price = Number(i.data.price);
-//                          MonthIncreasePrice += price;
-//                     }
-//                }
-
-//                if(TodayIncreaseProduct.length >0 ){
-//                     for (let i of TodayIncreaseProduct) {
-//                          let price = Number(i.data.price);
-//                          TodayIncreasePrice += price;
-//                     }
-//                }
-
-//                //console.log("MonthIncreasePrice", MonthIncreasePrice)
-//                //console.log("TodayIncreasePrice", TodayIncreasePrice)
-     
-//                await dispatch(setDataIncrease(MonthIncreaseProduct, MonthIncreasePrice, TodayIncreasePrice));
-//           }
-
-//           return MonthIncreaseProduct;
-//      }
-// }
 
 function getDataPurchaseToday(date){
      return async (dispatch, getState) => {
@@ -613,7 +671,18 @@ const initialState = {
 
      AllIncreaseData : [],
      AllMealData : [],
-     AllPurchaseData : []
+     AllPurchaseData : [],
+
+     TodayReportData : [],
+     MonthReportData : [],
+
+     ReportIncreaseTodayPrice : 0, 
+     ReportMealTodayPrice : 0, 
+     ReportPurchaseTodayPrice :0 ,
+
+     ReportIncreaseMonthPrice : 0, 
+     ReportMealMonthPrice : 0, 
+     ReportPurchaseMonthPrice :0 ,
 
 
 };
@@ -645,6 +714,15 @@ function reducer(state = initialState, action){
                return applyGetDataAll(state, action);
           case SET_DATA_ALL :
                return applySetDataAll(state, action);
+          case SET_REPORT_TODAY_DATA :
+               return applySetReportToday(state, action);
+          case SET_REPORT_MONTH_DATA :
+               return applySetReportMonth(state, action);
+          case SET_REPORT_TODAY_PRICE :
+               return applySetReportPriceToday(state, action);
+          case SET_REPORT_MONTH_PRICE :
+               return applySetReportPriceMonth(state, action);
+
           default : 
                return state;
           }
@@ -652,6 +730,42 @@ function reducer(state = initialState, action){
 
 
 // Reducer Functions
+function applySetReportPriceToday(state, action){
+     const {ReportIncreaseTodayPrice, ReportMealTodayPrice, ReportPurchaseTodayPrice} = action;
+     return {
+          ...state,
+          ReportIncreaseTodayPrice,
+          ReportMealTodayPrice,
+          ReportPurchaseTodayPrice
+     }
+}
+
+function applySetReportPriceMonth(state, action){
+     const {ReportIncreaseMonthPrice, ReportMealMonthPrice, ReportPurchaseMonthPrice} = action;
+     return {
+          ...state,
+          ReportIncreaseMonthPrice, 
+          ReportMealMonthPrice, 
+          ReportPurchaseMonthPrice
+     }
+}
+
+
+function applySetReportToday(state, action){
+     const { TodayReportData } = action
+     return {
+          ...state,
+          TodayReportData
+     }
+}
+
+function applySetReportMonth(state, action){
+     const { MonthReportData } = action
+     return {
+          ...state,
+          MonthReportData
+     }
+}
 
 function applyGetDataAll(state, action){
      //const { AllIncreaseData , AllMealData, AllPurchaseData} = action
@@ -826,7 +940,10 @@ const actionCreators = {
      getDataIncreaseMonth,
 
      getDataPriceAll,
-     getAllData
+     getAllData,
+
+     getReportDataMonth,
+     getReportDataToday
 }
 
 export { actionCreators };

@@ -91,7 +91,7 @@ class Container extends Component {
                     scrollControl: true,
                     renderArray: tempvar, selectedIndex: index
                })
-          }else if(this.state.renderArray[4] === true && index === 4){
+          }else if(this.state.renderArray[3] === true && index === 3){
                this.setState({
                     isFetching:false,
                     scrollControl: true,

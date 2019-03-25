@@ -14,13 +14,29 @@ class AddButton extends Component {
      }
 
      state = {
-          isModalVisible: false
+          isModalVisible: false,
+          isSubmit: false
      };
+
+     _callback = async(dataFromChild) => {
+          console.log("dataFromChild", dataFromChild)
+          await this.setState({isSubmit:dataFromChild})
+
+          if(dataFromChild){
+               const { refresh } = this.props;
+               refresh();
+          }
+     }
        
      _toggleModal = () => {
           console.log("_toggleModal");
-          const { refresh } = this.props;
-          refresh();
+          const { isModalVisible, isSubmit  } = this.state;
+
+          console.log("isModalVisible : ", isModalVisible);
+          console.log("isSubmit : " , isSubmit)
+          
+          
+
           this.setState({ isModalVisible: !this.state.isModalVisible });
      }
 
@@ -76,17 +92,17 @@ class AddButton extends Component {
                          style={styles.bottomModal}
                          backdropColor={"grey"}
                          backdropOpacity={0.9}
-                         onBackdropPress={() => this.setState({ isModalVisible: false })}
-                         onBackButtonPress={() => this.setState({ isModalVisible: false })}
-                         onSwipe={() => this.setState({ isModalVisible: false })}
+                         onBackdropPress={this._toggleModal}
+                         onBackButtonPress={this._toggleModal}
+                         onSwipe={this._toggleModal}
                          swipeDirection="down"
-                         onSwipeComplete={() => this.setState({ isModalVisible: false })}
+                         onSwipeComplete={this._toggleModal}
                          swipeThreshold={10}
                     >
 
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
-                                   <IncreaseScreen toggleModal={this._toggleModal}  />
+                                   <IncreaseScreen callbackFromParent={this._callback} toggleModal={this._toggleModal}  />
                          </TouchableHighlight>
                     </View>
                     </Modal>

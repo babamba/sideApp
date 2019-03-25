@@ -15,14 +15,34 @@ class SubtractButton extends Component {
      }
 
      state = {
-          isModalVisible: false
+          isModalVisible: false,
+          isSubmit: false
      };
+
+     _callback = async(dataFromChild) => {
+          console.log("dataFromChild", dataFromChild)
+          await this.setState({isSubmit:dataFromChild})
+
+          if(dataFromChild){
+               const { refresh } = this.props;
+               refresh();
+          }
+     }
        
-     _toggleModal = () => {
+     _toggleModal = async() => {
           console.log("_toggleModal");
-          const { refresh } = this.props;
-          refresh();
-          this.setState({ isModalVisible: !this.state.isModalVisible });
+          const { isModalVisible , isSubmit } = this.state;
+
+          console.log("isModalVisible : ", isModalVisible);
+          console.log("isSubmit? : ", isSubmit);
+
+          // if(isSubmit && isModalVisible){
+          //      const { refresh } = this.props;
+          //      refresh();
+          // }
+
+          await this.setState({ isModalVisible: !this.state.isModalVisible });
+         
      }
 
      handleOnScroll = event => {
@@ -76,20 +96,20 @@ class SubtractButton extends Component {
                          style={styles.bottomModal}
                          backdropColor={"grey"}
                          backdropOpacity={0.9}
-                         onBackdropPress={() => this.setState({ isModalVisible: false })}
-                         onBackButtonPress={() => this.setState({ isModalVisible: false })}
-                         onSwipe={() => this.setState({ isModalVisible: false })}
+                         onBackdropPress={this._toggleModal}
+                         onBackButtonPress={this._toggleModal}
+                         onSwipe={this._toggleModal}
                          swipeDirection="down"
-                         onSwipeComplete={() => this.setState({ isModalVisible: false })}
+                         onSwipeComplete={this._toggleModal}
                          swipeThreshold={10}
                     >
 
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
                          { this.props.type  ===  "Meal" ? ( 
-                                   <DecreaseMealScreen toggleModal={this._toggleModal} refresh={this.props.refresh}/>
+                                   <DecreaseMealScreen callbackFromParent={this._callback}  toggleModal={this._toggleModal} refresh={this.props.refresh}/>
                               ) : (
-                                   <DecreasePurchaseScreen toggleModal={this._toggleModal} refresh={this.props.refresh}/>
+                                   <DecreasePurchaseScreen callbackFromParent={this._callback}  toggleModal={this._toggleModal} refresh={this.props.refresh}/>
                               )
                          }
                          </TouchableHighlight>

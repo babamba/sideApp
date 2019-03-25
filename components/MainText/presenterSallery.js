@@ -4,6 +4,7 @@ import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "re
 import AddButton from "../../components/AddButton";
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
@@ -265,7 +266,7 @@ const styles = StyleSheet.create({
           flex:1,
           flexDirection: "column",
           alignContent: 'flex-start',
-          paddingTop:260,
+          ...ifIphoneX({paddingTop: 250}, {paddingTop: 220}),
           paddingLeft:50
      },
      textArea:{

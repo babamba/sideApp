@@ -124,8 +124,7 @@ DecreaseText.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          marginTop:250,
-          ...ifIphoneX({marginTop:250}, {marginTop:200}),
+          ...ifIphoneX({paddingTop: 120}, {paddingTop: 100}),
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "row",
@@ -135,7 +134,6 @@ const styles = StyleSheet.create({
           marginTop:60,
           alignContent: 'center',
           flexDirection: "row",
-          //backgroundColor:"blue"
      },
      TextConatiner:{
           flex:1,

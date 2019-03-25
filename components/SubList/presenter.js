@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get("window");
 const SubList = props => (
      <View style={styles.container}  animation="fadeInDown" delay={350} easing={"ease-in-out"} useNativeDriver >
           
-          <Swiper
+          {/* <Swiper
                loadMinimal={true}
                loadMinimalSize={3}
                horizontal = {false}
@@ -44,9 +44,8 @@ const SubList = props => (
                          </View>
                     )
                }
-          
-         </Swiper>
-          {/*  <FlatList
+         </Swiper> */}
+           <FlatList
                data={props.TodayMealProduct}
                renderItem={({item}) => 
                     <View style={styles.list}>
@@ -67,7 +66,7 @@ const SubList = props => (
                keyExtractor={(item, index) => item.enrollId.toString()}
                refreshing ={props.refreshing}
                onRefresh ={props.onListRefresh}
-          /> */}
+          />
      </View>
 )
 

@@ -5,7 +5,6 @@ import { actionCreators as dataActions } from "../../redux/modules/data";
 
 const mapStateToProps = (state, ownProps) => {
      const { timer } = state;
-
      return {
           todayDate : timer.todayDate
      };

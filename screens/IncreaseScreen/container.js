@@ -25,6 +25,13 @@ class Container extends Component {
           //fbLogin:PropTypes.func.isRequired
      //}
 
+     callback = () => {
+          const { callbackFromParent }= this.props;
+          const { isSubmiting} = this.state;
+
+          callbackFromParent(isSubmiting);
+      }
+
      _groupButtonOnSelectedValuesChange = selectedValues=> {
           console.log("selectedValues : ", selectedValues)
           this.setState({ selectFeeling: selectedValues });
@@ -77,7 +84,7 @@ class Container extends Component {
           console.log("income && price" , income , "&&", price)
           if(!isSubmiting){
                if(income && price){
-                    
+                    this.callback()
                     //submit
                     this.setState({
                          isSubmiting : true
@@ -91,13 +98,18 @@ class Container extends Component {
                               isSubmiting : false
                          });
                     }else{
+                         this.callback()
+
                          Alert.alert(
                               '등록되었습니다', '',
                               [
-                                   {text: 'OK', onPress: () => toggleModal()},
+                                   {text: 'OK', onPress: () => { 
+                                        toggleModal()
+                                   }} ,
                               ],
                                  { cancelable: false }
                          )
+                         
                          this.setState({ isSubmiting : false });
                     }
                }else{

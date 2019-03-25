@@ -25,15 +25,15 @@ class Container extends Component {
           };
      }
 
-     componentWillMount = async () => {
-          //console.log("loaded")
+     componentWillMount = async() => {
+          console.log("loaded")
           const { getAllData } = this.props;
 
           const AllIncreaseData = await getAllData(moment().format("YYYYMMDD"), 0);
           const AllMealData = await getAllData(moment().format("YYYYMMDD"), 1);
           const AllPurchaseData = await getAllData(moment().format("YYYYMMDD"), 2);  
           
-          this.setState({
+          await this.setState({
                AllIncreaseData,
                AllMealData,
                AllPurchaseData
@@ -43,8 +43,7 @@ class Container extends Component {
      componentWillReceiveProps = async (nextProps) => {
           if(nextProps){
                if(nextProps.AllIncreaseData){
-                    console.log("nextProps.AllIncreaseData : ", nextProps.AllIncreaseData)
-                    console.log("state.AllIncreaseData : ", this.state.AllIncreaseData)
+                    
                     await this.setState({
                          AllIncreaseData : nextProps.AllIncreaseData,
                     })
@@ -73,7 +72,7 @@ class Container extends Component {
           
           
           }else{
-               console.log("nextProps.NOT : ", nextProps.AllIncreaseData)
+               console.log("nextProps.NOT : ")
           }
 
           // if(increaseProduct.length != this.state.increaseProduct.length

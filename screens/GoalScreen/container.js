@@ -18,12 +18,12 @@ class Container extends Component {
 
      componentWillReceiveProps = nextProps => {
           //console.log("nextProps.TodayMealProduct : ", nextProps.TodayMealProduct)
-          if(nextProps.TodayMealProduct){
-               console.log("nextProps.currentPrice : " , nextProps.currentPrice)
-               this.setState({
-                    TodayMealProduct : nextProps.TodayMealProduct
-               })
-          }
+          // if(nextProps.TodayMealProduct){
+          //      console.log("nextProps.currentPrice : " , nextProps.currentPrice)
+          //      this.setState({
+          //           TodayMealProduct : nextProps.TodayMealProduct
+          //      })
+          // }
      }
 
      componentWillMount = async () => {
@@ -55,9 +55,9 @@ class Container extends Component {
      componentDidMount = () => {
           // const { initApp } = this.props;
           // initApp();
-          const { onChangeScrollControl } = this.props;
-          onChangeScrollControl(true);
-          this._refresh();
+          // const { onChangeScrollControl } = this.props;
+          // onChangeScrollControl(true);
+          // this._refresh();
      };
 
      componentWillUnmount = () =>{

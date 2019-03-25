@@ -1,12 +1,12 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import MenuButton from "../components/MenuButton"
 import React from "react";
-import CalendarScreen from "../screens/CalendarScreen"
+import SettingScreen from "../screens/SettingScreen"
 
-const CalendarRoute = createStackNavigator(
+const SettingRoute = createStackNavigator(
      {
-          Calendar:{
-               screen: CalendarScreen,
+          Setting:{
+               screen: SettingScreen,
                navigationOptions: ({ navigation }) => ({
                     // headerTitle : (
                     //      <Image source={require("../assets/images/icon.png")}
@@ -14,11 +14,11 @@ const CalendarRoute = createStackNavigator(
                     //      />
                     // ),
                     
-                    headerLeft:(
-                         <MenuButton iconName={"md-close"} 
-                                    onPress={() => console.log("close")}
-                         />
-                    ),
+                    // headerLeft:(
+                    //      <MenuButton iconName={"md-close"} 
+                    //                 onPress={() => console.log("close")}
+                    //      />
+                    // ),
                })
           },
      },

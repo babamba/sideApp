@@ -1,30 +1,48 @@
 import { connect } from "react-redux";
 import Container from "./container";
-// import { actionCreators as userActions} from "../../redux/modules/user"
+import { actionCreators as dataActions} from "../../redux/modules/data"
 
-// const mapStateToProps = (state, ownProps ) => {
-//      const { photos : { feed } } = state
-//      //console.log(state);
-//      //console.log(feed)
-//      return {
-          
-//           feed
-//      }
-// }
+const mapStateToProps = (state, ownProps) => {
+     const { data : { 
+          TodayReportData , MonthReportData, 
+          ReportIncreaseTodayPrice,
+          ReportMealTodayPrice, 
+          ReportPurchaseTodayPrice ,
+          ReportIncreaseMonthPrice , 
+          ReportMealMonthPrice, 
+          ReportPurchaseMonthPrice ,
+     }} = state;
+     return {
+          TodayReportData , MonthReportData, 
+          ReportIncreaseTodayPrice,
+          ReportMealTodayPrice, 
+          ReportPurchaseTodayPrice ,
+          ReportIncreaseMonthPrice , 
+          ReportMealMonthPrice, 
+          ReportPurchaseMonthPrice ,
+     };
+};
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//      return {
-//           getFeed : () => {
-//                dispatch(photoActions.getFeed());
-//           },
-//           initApp: () => {
-//                dispatch(photoActions.getFeed());
-//                dispatch(photoActions.getSearch());
-//                dispatch(userActions.getNotifications());
-//                dispatch(userActions.getOwnProfile());
-//                dispatch(userActions.registerForPush());
-//              }
-//      }
-// }
+const mapDispatchToProps = (dispatch, ownProps) => {
+     return {
+          getReportDataToday : (date) => {
+               return dispatch(dataActions.getReportDataToday(date));
+          },
+          getReportDataMonth : (date) => {
+               return dispatch(dataActions.getReportDataMonth(date));
+          },
+          oninit: (date) => {
+               dispatch(dataActions.getReportDataToday(date));
+               dispatch(dataActions.getReportDataMonth(date));
+          }
+          // initApp: () => {
+          //      dispatch(photoActions.getFeed());
+          //      dispatch(photoActions.getSearch());
+          //      dispatch(userActions.getNotifications());
+          //      dispatch(userActions.getOwnProfile());
+          //      dispatch(userActions.registerForPush());
+          //    }
+     }
+}
 
-export default connect()(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

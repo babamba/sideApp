@@ -11,13 +11,14 @@ const barWidth = Dimensions.get('screen').height - 60;
 
 const MealScreen = props => (
           <View style={styles.container}>
-               <SubList  {...props} />
+               <SubList  {...props} style={styles.list}/>
                     
                <MainText 
                     progress={props.progress}
                     {...props}
                     type={"Meal"}
                     refresh={props.refresh}
+                    style={styles.text}
                />
            </View>
      )
@@ -35,6 +36,12 @@ const styles = StyleSheet.create({
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "column",
+     },
+     list:{
+          flex:1,
+     },
+     text:{
+          flex:2,
      },
      TextConatiner:{
           flex:1,

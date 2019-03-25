@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import ReportScreen from "./presenter";
-import { image } from "react-native";
+import moment from "moment";
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -13,21 +13,26 @@ class Container extends Component {
      };
 
      state = {
-          isFetching : false
+          isTodayFetching : false,
+          isMonthFetching: false,
+          modalVisibleCalendar: false,
+
      };
 
      componentWillReceiveProps = nextProps => {
-          //console.log("nextProps.feed", nextProps.feed);
-          if(nextProps.feed){
+          if(nextProps.TodayReportData){
                this.setState({
-                    isFetching : false
+                    isTodayFetching : false,
+                    isMonthFetching: false
                })
           }
      }
 
+
      componentDidMount = () => {
-          // const { initApp } = this.props;
-          // initApp();
+          const { oninit } = this.props;
+          console.log("nextProps Report ()()()() : ", this.props.TodayReportData);
+          oninit(moment().format("YYYYMMDD"));
      };
 
      render() {
@@ -35,19 +40,48 @@ class Container extends Component {
                <ReportScreen 
                     {...this.props} 
                     {...this.state} 
-                    refresh={this._refresh} 
+                    refreshToday={this._refreshToday} 
+                    refreshMonth={this._refreshMonth} 
+                    setModalVisibleCalendar={this.setModalVisibleCalendar}
                />
           );
      }
 
-     _refresh = () => {
-          //const { getSalary } = this.props;
-          this.setState({
-               isFetching : true
-          });
-          //getFeed();
-          console.log("isFetch refresh")
+     setModalVisibleCalendar = () => {
+          const { modalVisibleCalendar } = this.state;
+          console.log(modalVisibleCalendar)
+          if(modalVisibleCalendar){
+               this.setState({
+                    modalVisibleCalendar: false
+               });
+          }else{
+               this.setState({
+                    modalVisibleCalendar: true
+               });
+          }    
      }
 
+     _refreshToday = () => {
+          const { 
+               getReportDataToday , 
+               
+          } = this.props;
+          getReportDataToday(moment().format("YYYYMMDD"));
+          this.setState({
+               isTodayFetching : true
+          });
+
+          console.log("isTodayFetching refresh")
+     }
+
+     _refreshMonth = () => {
+          const { getReportDataMonth } = this.props;
+
+          getReportDataMonth(moment().format("YYYYMMDD"));
+          this.setState({
+               isMonthFetching : true
+          });
+          console.log("isMonthFetching refresh")
+     }
 }
 export default Container;

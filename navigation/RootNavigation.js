@@ -6,7 +6,9 @@ import CircleMenu from "../components/CircleMenu"
 import FirstStepScreen from "../screens/FirstStepScreen";
 import TabsNavigation from "./TabsNavigation";
 import AddPhotoNavigation from "./AddPhotoNavigation"
-import UploadPhotoScreend from "../screens/UploadPhotoScreen";
+import UploadPhotoScreen from "../screens/UploadPhotoScreen";
+
+import {Button} from "react-native";
 
 const RootNavigator = createStackNavigator(
      {
@@ -24,7 +26,7 @@ const RootNavigator = createStackNavigator(
                })
           },
           UploadPhoto : {
-               screen : UploadPhotoScreend,
+               screen : UploadPhotoScreen,
                navigationOptions: ({navigation}) => ({
                     title:"Upload Photo!",
                     headerLeft: (
@@ -62,8 +64,8 @@ const RootNavigator = createStackNavigator(
      },
      {
           mode : "modal",
-          headerMode: 'screen',
-          headerLayoutPreset:"left",
+          //headerMode: 'screen',
+          headerLayoutPreset:"center",
           // headerMode:"screen",
           headerTransitionPreset:"fade-in-place",
           //transitionConfig: noTransitionConfig,

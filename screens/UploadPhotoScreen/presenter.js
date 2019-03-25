@@ -13,6 +13,7 @@ import { View,
 import FadeIn from "react-native-fade-in-image";
 
 const { width, height } = Dimensions.get("window");
+
 const UploadPhotoScreen = props => (
      <View style={styles.container}>
      <StatusBar hidden={false} />

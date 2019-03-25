@@ -28,6 +28,6 @@
         "NSFaceIDUsageDescription": "This app will optionally use Face ID or Touch ID to save login"
       }
     },
-    "description": ""
+    "description": "통계 작업"
   }
 }

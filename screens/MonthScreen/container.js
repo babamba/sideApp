@@ -180,7 +180,7 @@ class Container extends Component {
                // console.log("PERCENT_TODAY" , PERCENT, "%");
 
                const PERCENT_MONTH = Math.floor(( INTERVAL_SECOND_MONTH / WORKING_SECOND_MONTH  ) * 100);
-               //console.log("PERCENT_MONTH" , PERCENT_MONTH, "%");
+               console.log("(%_%_%_PERCENT_MONTH" , PERCENT_MONTH, "%");
 
                //한달월급을 일하는 요일에 나눠서 일당 얼마인지 계산  -> 일당
                const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);
@@ -378,6 +378,7 @@ class Container extends Component {
                console.log('근무종료 후 ')
                console.log('this.state.REMAIN_DATE', this.state.REMAIN_DATE)
                console.log('this.state.MONTH_CURRENT_SALARY', this.state.MONTH_CURRENT_SALARY)
+               console.log('this.state.PERCENT_MONTH : ' , this.state)
 
                if(this.state.timerInterval){
                     clearInterval(this.state.timerInterval);
@@ -389,7 +390,7 @@ class Container extends Component {
                this.setState({
                     REMAIN_DATE: this.state.REMAIN_DATE,
                     MONTH_CLOSE_CURRENT_SALARY : this.state.MONTH_CLOSE_CURRENT_SALARY,
-                    PERCENT:this.state.PERCENT_MONTH
+                    PERCENT:this.state.PERCENT
                })
 
           }else if(CHECK_START_DATE === CURRENT_DATE || CHECK_START_DATE < CURRENT_DATE && isWorkingDay){
@@ -471,7 +472,7 @@ class Container extends Component {
                     // console.log("PERCENT_TODAY" , PERCENT, "%");
 
                     const PERCENT_MONTH = Math.floor(( INTERVAL_SECOND_MONTH / WORKING_SECOND_MONTH  ) * 100);
-                    //console.log("PERCENT_MONTH" , PERCENT_MONTH, "%");
+                    console.log("(%_%_%_PERCENT_MONTH" , PERCENT_MONTH, "%");
                
                     //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
                     const TODAY_SALARY = (monthSallery / WEEK_COUNT);

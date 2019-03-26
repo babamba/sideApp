@@ -132,11 +132,13 @@ function signUp(username, password, email){
  }
 
  function pushNotifications(type){
-     return async dispatch => {
+     return async (dispatch, getState) => {
+          const { user: { token } } = getState();
           return fetch(`${API_URL}/notifications/${type}/`, {
              method : "POST",
              headers:{
-                 "Content-Type" : "application/json"
+                    Authorization : `JWT ${token}`,
+                    "Content-Type" : "application/json"
              },
          })
          .then(response => 

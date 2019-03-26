@@ -28,7 +28,7 @@ class Container extends Component {
                isFetching : false,
                //isPlaying,
                selectedIndex:0,
-               renderArray: [true, false, false, false, false],
+               renderArray: [true, false, false, false],
                scrollControl : false,
           };
      }

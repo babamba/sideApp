@@ -79,7 +79,7 @@ class Container extends Component {
           console.log('selectFillng : ', selectFeeling);
           const CONSUM_TYPE = 0;
           console.log("CONSUM_TYPE : ", CONSUM_TYPE )
-          const { submitConsum, toggleModal } = this.props;
+          const { submitConsum, toggleModal} = this.props;
 
           console.log("income && price" , income , "&&", price)
           if(!isSubmiting){

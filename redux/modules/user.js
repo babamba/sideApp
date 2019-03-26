@@ -131,6 +131,62 @@ function signUp(username, password, email){
      }
  }
 
+ function pushNotifications(type){
+     return async dispatch => {
+          return fetch(`${API_URL}/notifications/${type}/`, {
+             method : "POST",
+             headers:{
+                 "Content-Type" : "application/json"
+             },
+         })
+         .then(response => 
+               console.log(response)
+          )
+     //     .then(json => {
+     //         if(json.token){
+     //              console.log(json)
+     //                //dispatch(setLogIn(json.token))
+     //         }
+     //     })
+     }
+ }
+
+
+function registerForPush() {
+          return async (dispatch, getState) => {
+               const { user: { token } } = getState();
+               const { status: existingStatus } = await Permissions.getAsync(
+                    Permissions.NOTIFICATIONS
+               );
+          let finalStatus = existingStatus;
+               if (existingStatus !== "granted") {
+                    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                    finalStatus = status;
+               }
+          if (finalStatus === "denied") {
+               return;
+          }
+     
+          let pushToken = await Notifications.getExpoPushTokenAsync();
+          console.log("push Token : ",pushToken);
+          console.log("token " , `JWT ${token}`)
+          console.log("push Token strigify : ",JSON.stringify({
+               token: pushToken
+          }));
+
+          return fetch(`${API_URL}/users/push/`, {
+               method:"POST",
+               headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${token}`
+               },
+               body: JSON.stringify({
+                    token: pushToken
+               })
+          });
+     };
+}
+
  
 // Initial State
 
@@ -216,6 +272,8 @@ const actionCreators = {
      login,
      logOut,
      signUp,
+     pushNotifications,
+     registerForPush
 }
 
 export { actionCreators };

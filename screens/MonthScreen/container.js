@@ -180,7 +180,7 @@ class Container extends Component {
                // console.log("PERCENT_TODAY" , PERCENT, "%");
 
                const PERCENT_MONTH = Math.floor(( INTERVAL_SECOND_MONTH / WORKING_SECOND_MONTH  ) * 100);
-               console.log("(%_%_%_PERCENT_MONTH" , PERCENT_MONTH, "%");
+               //console.log("(%_%_%_PERCENT_MONTH" , PERCENT_MONTH, "%");
 
                //한달월급을 일하는 요일에 나눠서 일당 얼마인지 계산  -> 일당
                const TODAY_SALARY = (monthSallery / WEEK_COUNT).toFixed(1);
@@ -472,7 +472,7 @@ class Container extends Component {
                     // console.log("PERCENT_TODAY" , PERCENT, "%");
 
                     const PERCENT_MONTH = Math.floor(( INTERVAL_SECOND_MONTH / WORKING_SECOND_MONTH  ) * 100);
-                    console.log("(%_%_%_PERCENT_MONTH" , PERCENT_MONTH, "%");
+                    //console.log("(%_%_%_PERCENT_MONTH" , PERCENT_MONTH, "%");
                
                     //const WEEK_SALARY = (monthSallery / WEEK_COUNT);
                     const TODAY_SALARY = (monthSallery / WEEK_COUNT);

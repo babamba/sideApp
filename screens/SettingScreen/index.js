@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           logOut : () => {
                dispatch(userActions.logOut());
           },
+          pushNotifications: (type) => {
+               return dispatch(userActions.pushNotifications(type));
+          },
           // resetData : () => {
           //      dispatch(timerActions.resetData());
           // }

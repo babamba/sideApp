@@ -61,6 +61,7 @@ const SettingScreen = props => (
                     activeScale={0.95} //
                     hideChevron
                     title="Push Notifications"
+                    onPress={props.pushTest}
                     switched={props.pushNotifications}
                     onSwitch={props.onChangePushNotifications}
                     containerStyle={styles.listItemContainer}

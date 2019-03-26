@@ -69,6 +69,13 @@ class Container extends Component {
            )
    }
 
+   _pushTest = async() => {
+        const { pushNotifications } = this.props;
+
+        pushNotifications("today")
+        Alert.alert("푸시 발송")
+   }
+
      componentWillReceiveProps = nextProps => {
           //console.log("nextProps.feed", nextProps.feed);
           // if(nextProps.feed){
@@ -89,6 +96,7 @@ class Container extends Component {
                     {...this.props} 
                     {...this.state} 
                     logout = { this._logout }
+                    pushTest = {this._pushTest}
                     onChangePushNotifications = {this._onChangePushNotifications}
                     onPressSalaryData= {this._onPressSalaryData}
                     toggleModalVisibleSalaryForm = {this._toggleModalVisibleSalaryForm}

@@ -147,8 +147,7 @@ const styles = StyleSheet.create({
           //backgroundColor:'blue',
      },
      addButton:{
-          width:50,
-          height:20,
+          height:34,
      },
      MainText1:{
           fontSize:40,

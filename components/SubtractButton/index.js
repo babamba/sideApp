@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView , Dimensions} from "react-native";
+import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView ,Platform, Dimensions} from "react-native";
 import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal";
 import DecreaseMealScreen from "../../screens/DecreaseMealScreen";
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
           color:"white",
           fontWeight:'900',
           textAlign:'center',
-          paddingTop:8
+          paddingTop: Platform.OS === "ios" ? 8 : 6
      },
      modalContent: {
           backgroundColor: "white",

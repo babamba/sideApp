@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView , Dimensions} from "react-native";
+import { TouchableOpacity,TouchableHighlight, View, StyleSheet, Text ,ScrollView , Dimensions, Platform} from "react-native";
 import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal";
 import IncreaseScreen from "../../screens/IncreaseScreen";
@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
           width:92,
           height:34,
           backgroundColor:"#99F089",
-          padding:8,
-          margin:10,
+          // padding:8,
+          // margin:10,
           borderRadius: 25,
           shadowColor: 'gray',
           shadowOffset: { width: 0, height: 0 },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
           color:"white",
           fontWeight:'900',
           textAlign:'center',
-          paddingTop:1
+          paddingTop: Platform.OS === "ios" ? 8 : 6
      },
      modalContent: {
           backgroundColor: "white",

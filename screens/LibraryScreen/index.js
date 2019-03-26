@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { View, Text, CameraRoll} from "react-native";
+import { View, Text, CameraRoll, Platform} from "react-native";
 import LibraryScreen from "./presenter";
 
 //const LibraryScreen = props => <Text>LibraryScreen</Text>;
@@ -14,31 +14,38 @@ class Container extends Component {
      componentWillMount = async() => {
           const cameraPhotos = await CameraRoll.getPhotos({
                first:20,
-               groupTypes:"SavedPhotos",
+               // groupTypes:Platform.OS === "ios" ? "SavedPhotos" : "",
                assetType:"Photos"
           })
-          console.log(cameraPhotos);
-          this.setState({
-               photos: cameraPhotos.edges,
-               pickedPhoto:cameraPhotos.edges[0]
-          });
-     }
+          console.log("cameraPhotos",cameraPhotos);
 
-     render() {
-          return <LibraryScreen {...this.state} pickPhoto={this._pickPhoto} approvePhoto={this._approvePhoto}refresh={this._refresh}/>;
+          if(cameraPhotos.edges.length > 0){
+               this.setState({
+                    photos: cameraPhotos.edges,
+                    pickedPhoto:cameraPhotos.edges[0]
+               });
+          }else{
+               this.setState({
+                    photos: cameraPhotos.edges,
+                    pickedPhoto:null
+               });
+          }
      }
 
      _pickPhoto = (photo) => {
-          console.log(photo)
-          this.setState({
-               pickedPhoto:photo
-          })
+          console.log("photo",photo)
+          
+          if(photo){
+               this.setState({
+                    pickedPhoto:photo
+               })
+          }
      }
 
      _refresh = async () => {
           const cameraPhotos = await CameraRoll.getPhotos({
                first:20,
-               groupTypes:"SavedPhotos",
+               // groupTypes:Platform.OS === "ios" ? "SavedPhotos" : "",
                assetType:"Photos"
           })
           console.log("refresh");
@@ -53,6 +60,12 @@ class Container extends Component {
           const { pickedPhoto } = this.state;
           navigate("UploadPhoto", { uri : pickedPhoto.node.image.uri });
      }
+
+     render() {
+          return <LibraryScreen {...this.state} pickPhoto={this._pickPhoto} approvePhoto={this._approvePhoto}refresh={this._refresh}/>;
+     }
+
+
 
 }
 

@@ -1,8 +1,10 @@
 // Imports
 import { API_URL } from "../../constants";
 import { AsyncStorage } from "react-native";
+import { actionCreators as userActions } from './user';
 import { Permissions, Notifications, Facebook } from "expo";
 //import { user } from "./user";
+import uuid from "uuid"
 
 import moment from "moment";
 // Actions
@@ -502,6 +504,41 @@ function getDataMealToday(date){
      }
 }
 
+function uploadPhoto(file, caption, location, tags){
+     const tagsArray = tags.split(",");
+     const data = new FormData();
+     data.append("caption", caption);
+     data.append("location", location);
+     data.append("file", {
+          uri:file,
+          type:"image/jpeg",
+          name:`${uuid()}.jpg`
+     });
+     data.append("tags", JSON.stringify(tagsArray));
+     return (dispatch, getState) => {
+          const { user : { token } } = getState();
+          return fetch(`${API_URL}/images/`, {
+               method:"POST",
+               headers:{
+                    Authorization : `JWT ${token}`,
+                    "Content-Type":"multipart/form-data"
+               },
+               body:data
+          })
+          .then(response => {
+               if(response.status === '401'){
+                    dispatch(userActions.logOut());
+               }else if(response.ok){
+                    //dispatch(getFeed());
+                    //dispatch(userActions.getOwnProfile());
+                    return true;
+               }else{
+                    return false;
+               }
+          });
+     }
+}
+
 // function getDataPurchaseToday(date){
 //      return async (dispatch) => {
 //           const product = await AsyncStorage.getItem('products');
@@ -941,7 +978,9 @@ const actionCreators = {
      getAllData,
 
      getReportDataMonth,
-     getReportDataToday
+     getReportDataToday,
+
+     uploadPhoto
 }
 
 export { actionCreators };

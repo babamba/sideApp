@@ -33,6 +33,9 @@ const ReportScreen = props => (
                               animationType="slide"
                               transparent={false}
                               visible={props.modalVisibleCalendar}
+                              onRequestClose={() => {
+                                   Alert.alert('Modal has been closed.');
+                              }}
                          >
                               <View style={{flex:1}}>
                               <CalendarScreen 

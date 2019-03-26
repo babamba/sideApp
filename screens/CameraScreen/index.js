@@ -8,6 +8,7 @@ import FitImage from "react-native-fit-image";
 class CameraScreen extends Component{
      state = {
           hasCamaraPermissions:null,
+          hasCameraRollPermissions:null,
           type: Camera.Constants.Type.back,
           flash:Camera.Constants.FlashMode.off,
           pictureTaken:false,
@@ -16,22 +17,27 @@ class CameraScreen extends Component{
 
      componentWillMount = async () => {
           const camera = await Permissions.askAsync(Permissions.CAMERA);
-          console.log(camera)
+          const cameraRoll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+          console.log(camera , "/ ", cameraRoll)
 
-          if(camera.status ==='granted'){
+          if(camera.status ==='granted' && cameraRoll.status === 'granted'){
                this.setState({
-                    hasCamaraPermissions : camera.status === "granted"
+                    hasCamaraPermissions : camera.status === "granted",
+                    hasCameraRollPermissions : cameraRoll.status == "granted"
                });
           }
-          
      }
 
      render() {
-          const { hasCamaraPermissions, type, flash,  pictureTaken, picture } = this.state;
+          const { hasCamaraPermissions, hasCameraRollPermissions, type, flash,  pictureTaken, picture } = this.state;
           if(hasCamaraPermissions === null){
+               return <View />;
+          }else  if(hasCameraRollPermissions === null){
                return <View />;
           }else if(hasCamaraPermissions === false){
                return <Text>No Access to Camera, check your settings</Text>;
+          }else if(hasCameraRollPermissions === false){
+               return <Text>No Access to Camera Roll, check your settings</Text>;
           }else{
                return(
                     <View style={styles.container}>

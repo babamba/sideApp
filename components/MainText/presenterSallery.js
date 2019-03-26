@@ -104,7 +104,6 @@ const SalleryText = props => (
                          />
                     </View>
                     <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
-                    
                          <AddButton 
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
@@ -290,7 +289,7 @@ const styles = StyleSheet.create({
           fontFamily: 'NanumBarunGothicUltraLight',
      },
      addButton:{
-          height:20,
+          height:34,
      },
      MainText1:{
           fontSize:38,

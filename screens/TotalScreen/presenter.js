@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { View, Text, ScrollView,TouchableHighlight, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { View, Keyboard, Text, ScrollView,TouchableHighlight, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import AddButton from "../../components/AddButton";
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
@@ -15,11 +15,11 @@ const barWidth = Dimensions.get('screen').height - 60;
 
 
 const TotalScreen = props => (
-     
+
           <View style={styles.container}>
                <ScrollView 
                     onScrollEndDrag={(e) => props.handleScroll(e)}
-                    
+                    keyboardShouldPersistTaps='always'
                >
                <Text style={styles.MainText1}>메인 스크린 할거야</Text>
                <Card title="고정급여">
@@ -47,12 +47,12 @@ const TotalScreen = props => (
                          style={styles.bottomModal}
                          backdropColor={"grey"}
                          backdropOpacity={0.9}
-                         onBackdropPress={props.toggleModal}
-                         onBackButtonPress={props.toggleModal}
-                         onSwipe={props.toggleModal}
+                         //onBackdropPress={() => Keyboard.dismiss()}
+                         //onBackButtonPress={() => Keyboard.dismiss()}
+                         // onSwipe={() => Keyboard.dismiss()}
                          swipeDirection="up"
-                         onSwipeComplete={props.toggleModal}
-                         swipeThreshold={1}
+                         // onSwipeComplete={() => Keyboard.dismiss()}
+                         swipeThreshold={10}
                     >
 
                     <View style={styles.modalContent}>

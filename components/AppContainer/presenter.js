@@ -67,14 +67,16 @@ class AppContainer extends Component {
                await initApp(moment().format("YYYYMMDD"));
           }
           
-          const value = await AsyncStorage.getItem("already");
-          console.log("value" , value)
+          // const value = await AsyncStorage.getItem("already");
+          // console.log("value" , value)
 
-          if(value == null){
+          if(showRealApp == null){
                await this.setState({showRealApp: false});
           }else{
                await this.setState({showRealApp: true});
           }
+
+          console.log("componentWillMount showRealApp : ", showRealApp)
 
           //if(showRealApp && isLoggedIn && isSetData){
                //console.log("()()()()()() chkeck hardware async : ")
@@ -190,12 +192,13 @@ class AppContainer extends Component {
 
      render(){
           const { isLoggedIn, profile, isSetData , logOut} = this.props;
+          const { showRealApp } = this.state;
           console.log("1231@#!@#!@#!@ isLogged / " , isLoggedIn);
           console.log("1231@#!@#!@#!@ profile / " , profile);
           console.log("1231@#!@#!@#!@ isSetData / " , isSetData);
 
           //앱 최초시작 후 
-          if (this.state.showRealApp) {
+          if (showRealApp) {
                
                //월급 정보를 저장했으면 
                if(isLoggedIn && profile){

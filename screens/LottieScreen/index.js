@@ -11,6 +11,7 @@ export default class lottieloader extends Component {
      };
       
      componentWillMount() {
+          console.log("lotti play ")
           this._playAnimation();
      }
 
@@ -39,6 +40,7 @@ export default class lottieloader extends Component {
         render() {
           return (
             <View style={styles.animationContainer}>
+              <Text style={styles.title}>오늘의 급여</Text>
               {this.state.animation &&
                 <Lottie
                   ref={animation => {
@@ -47,13 +49,13 @@ export default class lottieloader extends Component {
                   style={{
                     width: 400,
                     height: 400,
-                    backgroundColor: '#eee',
+                    //backgroundColor: '#eee',
                   }}
                   source={this.state.animation}
                 />}
-              <View style={styles.buttonContainer}>
+              {/* <View style={styles.buttonContainer}>
                 <Button title="Restart Animation" onPress={this._playAnimation} />
-              </View>
+              </View> */}
             </View>
           );
         }
@@ -61,13 +63,16 @@ export default class lottieloader extends Component {
 
 const styles = StyleSheet.create({
      animationContainer: {
-       backgroundColor: '#fff',
+      //  backgroundColor: '#fff',
        alignItems: 'center',
        justifyContent: 'center',
        flex: 1,
+       marginBottom:70
      },
-     buttonContainer: {
-       paddingTop: 20,
-     },
+     title:{
+      alignItems: 'center',
+      fontFamily: 'NanumBarunGothicUltraLight',
+      fontSize: 70
+     }
    });
    

@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
      },
      modalContent: {
           backgroundColor: "white",
-          ...ifIphoneX({top:200}, {top: 90}),
+          ...ifIphoneX({top:300}, {top: 90}),
           //paddingBottom: 420,
           
           padding: 22,

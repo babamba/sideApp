@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import anim from '../../assets/splash.json';
 
@@ -64,15 +65,17 @@ export default class lottieloader extends Component {
 const styles = StyleSheet.create({
      animationContainer: {
       //  backgroundColor: '#fff',
+      ...ifIphoneX({marginBottom:70}, {marginBottom: 100}),
        alignItems: 'center',
        justifyContent: 'center',
        flex: 1,
        marginBottom:70
      },
      title:{
+      ...ifIphoneX({paddingTop:0}, {paddingTop: 30}),
       alignItems: 'center',
       fontFamily: 'NanumBarunGothicUltraLight',
-      fontSize: 70
+      fontSize: 40
      }
    });
    

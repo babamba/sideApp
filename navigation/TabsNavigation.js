@@ -7,12 +7,29 @@ import Swiper from "../screens/SwipeScreen";
 import SettingScreen from "../screens/SettingScreen";
 import ReportScreen from "../screens/ReportScreen"
 import GoalScreen from "../screens/GoalScreen";
+import TotalScreen from "../screens/TotalScreen";
 
 import CalendarScreen from "../screens/CalendarScreen";
 import MenuButton from "../components/MenuButton"
 
 const TabsNavigation = createBottomTabNavigator (
      {
+          Main : {
+               screen : TotalScreen,
+               navigationOptions: ({ navigation }) => ({
+                    tabBarIcon: ({ focused }) => (
+                         <View style={focused ? styles.btnShadow : null}>
+                              <Ionicons
+                                   name={'ios-home'}
+                                   size={20}
+                                   color={ focused ? "#ff8259" : "black"}
+                                   style={styles.icons}
+                              />
+                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>메인</Text>
+                         </View>
+                    )
+               })
+          },
           Today : {
                screen : Swiper,
                navigationOptions: ({ navigation }) => ({

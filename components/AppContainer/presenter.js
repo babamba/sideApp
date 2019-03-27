@@ -201,7 +201,7 @@ class AppContainer extends Component {
           if (showRealApp) {
                
                //월급 정보를 저장했으면 
-               if(isLoggedIn && profile){
+               if(isLoggedIn && profile && isSetData){
                     return (
                          <View style={styles.container} >
                               <StatusBar hidden={false}/>

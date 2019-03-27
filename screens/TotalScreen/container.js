@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import TotalScreen from "./presenter";
 import moment from "moment";
-import {Keyboard, TextInput} from 'react-native';
+import {Keyboard} from 'react-native';
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -66,15 +66,14 @@ class Container extends Component {
                'keyboardDidShow',
                this._keyboardDidShow,
              );
-          keyboardDidHideListener = Keyboard.addListener(
+          keyboardWillHideListener = Keyboard.addListener(
                'keyboardWillHide',
-               
-               this._keyboardDidHide,
+               this._keyboardWillHide,
           );
      };
 
      componentWillUnmount = () =>{
-          console.log("Meal Unmount")
+          console.log("total Unmount");
      }
 
      render() {
@@ -103,11 +102,10 @@ class Container extends Component {
           console.log('Keyboard Shown');
      }
       
-     _keyboardDidHide = () => {
-          this._toggleModal(),
+     _keyboardWillHide = () => {
+          this._toggleModal()
           console.log('Keyboard Hidden');
      }
-      
 
      
 

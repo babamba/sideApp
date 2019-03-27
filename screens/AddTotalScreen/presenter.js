@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
 const AddTotalScreen = props => 
-     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps='always'>
+
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
               <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/>
@@ -79,7 +79,6 @@ const AddTotalScreen = props =>
             
             </View>
          </View>
-         </ScrollView>
    
 const styles = StyleSheet.create({
      container: {

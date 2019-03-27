@@ -70,6 +70,7 @@ class Container extends Component {
           //console.log(text)
           this.setState({ price : text });
      }
+     
 
      _submit = async() => {
           const { income, price, selectFeeling, isSubmiting } = this.state;

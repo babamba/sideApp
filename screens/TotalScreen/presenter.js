@@ -47,11 +47,11 @@ const TotalScreen = props => (
                          style={styles.bottomModal}
                          backdropColor={"grey"}
                          backdropOpacity={0.9}
-                         //onBackdropPress={() => Keyboard.dismiss()}
-                         //onBackButtonPress={() => Keyboard.dismiss()}
-                         // onSwipe={() => Keyboard.dismiss()}
+                         onBackdropPress={() => Keyboard.dismiss()}
+                         onBackButtonPress={() => Keyboard.dismiss()}
+                         //onSwipe={() => Keyboard.dismiss()}
                          swipeDirection="up"
-                         // onSwipeComplete={() => Keyboard.dismiss()}
+                         //onSwipeComplete={() => Keyboard.dismiss()}
                          swipeThreshold={10}
                     >
 

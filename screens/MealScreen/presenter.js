@@ -6,13 +6,13 @@ import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
 import SubList from "../../components/SubList";
 
+
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
 const MealScreen = props => (
           <View style={styles.container}>
-               <SubList  {...props} style={styles.list}/>
-                    
+               {/* <SubList  {...props} style={styles.list}/> */}
                <MainText 
                     progress={props.progress}
                     {...props}
@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
           alignContent: 'center',
           flexDirection: "column",
      },
-     list:{
-          flex:1,
-     },
-     text:{
-          flex:2,
-     },
+     // list:{
+     //      flex:1,
+     // },
+     // text:{
+     //      flex:2,
+     // },
      TextConatiner:{
           flex:1,
           flexDirection: "column",

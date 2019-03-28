@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import SalleryText from "./presenterSallery";
 import DecreaseText from "./presenterDecrease"
 import { image } from "react-native";
+import { Alert, Keyboard } from "react-native"
 
 class Container extends Component {
 
@@ -77,11 +78,17 @@ class Container extends Component {
      _toggleModal = () => {
           console.log("_toggleModal");
           const { isModalVisible, isSubmit  } = this.state;
-
+          this.setState({ 
+               isModalVisible: !this.state.isModalVisible 
+          });
           console.log("isModalVisible : ", isModalVisible);
           console.log("isSubmit : " , isSubmit)
+
+          if(isModalVisible){
+               Keyboard.dismiss();
+          }
           
-          this.setState({ isModalVisible: !this.state.isModalVisible });
+          
      }
 
      // handleOnScroll = event => {
@@ -146,6 +153,9 @@ class Container extends Component {
                     <DecreaseText 
                          {...this.props} 
                          {...this.state} 
+                         handleScroll={this._handleScroll}
+                         toggleModal={this._toggleModal}
+                         callback={this._callback}
                          // refresh={this._refresh} 
                          // handleRowPressed={this.handleRowPressed}
                          // handleDurationChange={this.handleDurationChange}

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import TotalScreen from "./presenter";
 import moment from "moment";
-import {Keyboard} from 'react-native';
+import { Alert, Keyboard } from "react-native"
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -18,6 +18,7 @@ class Container extends Component {
      state = {
           isFetching : false,
           isModalVisible: false,
+          rowIndex:0
      };
 
      componentWillReceiveProps = nextProps => {
@@ -89,6 +90,37 @@ class Container extends Component {
           console.log("total Unmount");
      }
 
+     _onSwipeOpen = (rowIndex) => {
+          this.setState({
+              rowIndex: rowIndex
+          })
+     }
+
+     _onSwipeClose = (rowIndex) => {
+          if (rowIndex === this.state.rowIndex) {
+              this.setState({ rowIndex: null });
+          }
+     } 
+
+     _deleteData = (enrollId) => {
+          const { deleteFixData } = this.props;
+          Alert.alert(
+               '삭제하시겠습니까 ?',
+               '',
+               [
+                    {
+                         text: 'OK', 
+                         onPress: () => {
+                              deleteFixData(enrollId)
+                              this._onSwipeClose(this.state.rowIndex)
+                         }
+                    },
+                    {text: 'CANCEL', onPress: () => console.log("cancel")},
+               ],
+                  { cancelable: false }
+          )
+     }
+
      render() {
           return (
                <TotalScreen 
@@ -97,6 +129,9 @@ class Container extends Component {
                     refresh={this._refresh} 
                     handleScroll={this._handleScroll}
                     toggleModal={this._toggleModal}
+                    onSwipeOpen={this._onSwipeOpen}
+                    onSwipeClose={this._onSwipeClose}
+                    deleteData={this._deleteData}
                />
           );
      }

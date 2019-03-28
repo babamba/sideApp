@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
+import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
 import SubtractButton from "../../components/SubtractButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { LinearGradient } from 'expo';
+import DecreaseMealScreen from "../../screens/DecreaseMealScreen";
+import DecreasePurchaseScreen from "../../screens/DecreasePurchaseScreen";
+import Modal from "react-native-modal";
 
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
@@ -14,10 +17,20 @@ import MoneyText from "../MoneyText";
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 180;
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
 
 const DecreaseText = props => (
      props.type  ===  "Purchase" ? ( 
           <View style={styles.container}>
+               <ScrollView
+                    onScrollEndDrag={(e) => props.handleScroll(e)}
+                    keyboardShouldPersistTaps='always'
+                    // snapToOffsets={[-5,0,200]}
+                    // snapToStart={true}
+                    showsVerticalScrollIndicator={false}
+                    //directionalLockEnabled={true}
+               >
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
@@ -37,15 +50,40 @@ const DecreaseText = props => (
                               </Text>
                          </View>
                     </View>
-                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+
+                    <Modal 
+                         isVisible={props.isModalVisible} 
+                         deviceWidth={deviceWidth}
+                         deviceHeight={deviceHeight}
+                         style={styles.bottomModal}
+                         backdropColor={"grey"}
+                         backdropOpacity={0.9}
+                         onBackdropPress={props.toggleModal}
+                         onBackButtonPress={props.toggleModal}
+                         onSwipe={props.toggleModal}
+                         swipeDirection="up"
+                         animationIn={'slideInDown'}
+                         animationOut={"slideOutUp"}
+                         onSwipeComplete={props.toggleModal}
+                         swipeThreshold={10}
+                    >
+
+                    <View style={styles.modalContent}>
+                         <TouchableHighlight >
+                                   <DecreasePurchaseScreen callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
+                         </TouchableHighlight>
+                    </View>
+                    </Modal>
+
+                    {/* <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <SubtractButton 
                               AddText={"지출등록"} 
                               onPress={() => console.log("SubtractButton")}
                               color={"#FF6565"}
                               type={props.type}
                               refresh={props.refresh}
-                         />
-                    </View>
+                         /> 
+                    </View>*/}
                </View>
                {/* <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
                     <ProgressBarAnimated
@@ -59,9 +97,18 @@ const DecreaseText = props => (
                               
                     />
                </View> */}
+               </ScrollView>
           </View>
      ) : (
-          <View style={styles.mealContainer}>
+          <View style={styles.container}>
+               <ScrollView
+                    onScrollEndDrag={(e) => props.handleScroll(e)}
+                    keyboardShouldPersistTaps='always'
+                    // snapToOffsets={[-5,0,200]}
+                    // snapToStart={true}
+                    showsVerticalScrollIndicator={false}
+                    //directionalLockEnabled={true}
+               >
                <View style={styles.TextConatiner}>
                     <View style={styles.textArea}>
                          <View animation="fadeInDown" delay={100} easing={"ease-in-out"} useNativeDriver>
@@ -81,33 +128,32 @@ const DecreaseText = props => (
                               </Text>
                          </View>
                     </View>
-                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
-                         <SubtractButton 
-                              AddText={"지출등록"} 
-                              onPress={() => console.log("SubtractButton")}
-                              color={"#FF6565"}
-                              type={props.type}
-                              refresh={props.refresh}
-                         />
-                    </View>
-               </View>
-               <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
-               {/* <ProgressBarAnimated
-                              //style={styles.progress}
-                              width={barWidth}
-                              value={90}
-                              backgroundColorOnComplete="#3CC644"
-                              barEasing={"ease"}
+                    
+                    <Modal 
+                         isVisible={props.isModalVisible} 
+                         deviceWidth={deviceWidth}
+                         deviceHeight={deviceHeight}
+                         style={styles.bottomModal}
+                         backdropColor={"grey"}
+                         backdropOpacity={0.9}
+                         onBackdropPress={props.toggleModal}
+                         onBackButtonPress={props.toggleModal}
+                         onSwipe={props.toggleModal}
+                         swipeDirection="up"
+                         animationIn={'slideInDown'}
+                         animationOut={"slideOutUp"}
+                         onSwipeComplete={props.toggleModal}
+                         swipeThreshold={10}
                     >
-                    <LinearGradient 
-                         style={{width:barWidth}}
-                         colors={['#63E2FF', '#B066FE']}
-                         start={{ x: 0, y: 1 }}
-                         end={{ x: 1, y: 1 }}
-                    />   
-               </ProgressBarAnimated> */}
-                   
+
+                    <View style={styles.modalContent}>
+                         <TouchableHighlight >
+                                   <DecreaseMealScreen callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
+                         </TouchableHighlight>
+                    </View>
+                    </Modal>
                </View>
+               </ScrollView>
           </View>
      )
 )
@@ -129,12 +175,12 @@ const styles = StyleSheet.create({
           alignContent: 'center',
           flexDirection: "row",
      },
-     mealContainer:{
-          flex:1,
-          marginTop:60,
-          alignContent: 'center',
-          flexDirection: "row",
-     },
+     // mealContainer:{
+     //      flex:1,
+     //      marginTop:60,
+     //      alignContent: 'center',
+     //      flexDirection: "row",
+     // },
      TextConatiner:{
           flex:1,
           flexDirection: "column",
@@ -166,6 +212,27 @@ const styles = StyleSheet.create({
      TodayMoneyWon:{
           fontSize:40,
           fontFamily: 'NanumBarunGothicUltraLight',
+     },
+     modalContent: {
+          backgroundColor: "white",
+          //paddingBottom: 420,
+          
+          padding: 22,
+          paddingTop:0,
+          justifyContent: "center",
+          alignItems: "center",
+          borderColor: "rgba(0, 0, 0, 0.1)",
+          shadowColor: 'gray',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.3,
+          shadowRadius: 7,
+          elevation: 1,
+          height:height / 1.6
+     },
+     bottomModal: {
+          justifyContent: "flex-start",
+          height: 0,
+          margin: 0,
      },
      // progress:{
      //      width:84,

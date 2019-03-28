@@ -40,7 +40,7 @@ const SwipeScreen = props => (
                   props.onIndexChanged(index);
                }}
                onScrollBeginDrag={props.onScrollBeginDrag}
-
+               keyboardShouldPersistTaps='always'
                onMomentumScrollBegin={props.onMomentumScrollBegin}
                onMomentumScrollEnd={props.onMomentumScrollEnd}
                onResponderRelease= {props.onResponderRelease}
@@ -67,7 +67,7 @@ const SwipeScreen = props => (
            <View style={styles.slide1}>
            {props.renderArray[0] ?
                 <TodayScreen  {...props} />
-              
+                
                 : null}
            </View>
            <View style={styles.slide2}>

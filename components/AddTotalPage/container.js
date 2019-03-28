@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Alert } from "react-native"
-import AddTotalScreen from "./presenter";
+import AddTotalPage from "./presenter";
 
 import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
@@ -48,7 +48,7 @@ class Container extends Component {
 
      render(){
           return (
-                    <AddTotalScreen 
+                    <AddTotalPage 
                          {...this.state } 
                          changeIncome = {this._changeIncome}
                          changePrice = {this._changePrice}
@@ -56,12 +56,14 @@ class Container extends Component {
                          onSelectedValuesChange={this._groupButtonOnSelectedValuesChange}
                          defaultSelectedIndex_group_insterest={defaultSelectedIndex_group_insterest}
                          multipleGroupData={multipleGroupData}
+
                          //submit={this._submit}
                          //fbLogin={this.props.fbLogin}
                     />
                );
      }
 
+     
      _changeIncome = text => {
           //console.log(text)
           this.setState({ income : text });
@@ -71,7 +73,6 @@ class Container extends Component {
           //console.log(text)
           this.setState({ price : text });
      }
-     
 
      _submit = async() => {
           const { income, price, isSubmiting, selectType } = this.state;
@@ -101,17 +102,17 @@ class Container extends Component {
                          });
                     }else{
                          this.callback()
-
-                         Alert.alert(
-                              '등록되었습니다', '',
-                              [
-                                   {text: 'OK', onPress: () => { 
-                                        toggleModal()
+                         toggleModal()
+                         // Alert.alert(
+                         //      '등록되었습니다', '',
+                         //      [
+                         //           {text: 'OK', onPress: () => { 
+                         //                toggleModal()
                                         
-                                   }} ,
-                              ],
-                                 { cancelable: false }
-                         )
+                         //           }} ,
+                         //      ],
+                         //         { cancelable: false }
+                         // )
                          
                          this.setState({ isSubmiting : false });
                     }

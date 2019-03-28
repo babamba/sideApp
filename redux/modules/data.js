@@ -525,6 +525,31 @@ function getDataMealToday(date){
      }
 }
 
+function deleteFixData(enrollId){
+     return async(dispatch, getState) => {
+          const { user : { token } } = getState();
+
+          return fetch(`${API_URL}/salary/${enrollId}/fix_consum_delete/`, {
+               method:"DELETE",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                    "Content-Type" : "application/json"
+               }
+          })
+          .then(response => {
+               if(response.status === '401'){
+                    dispatch(userActions.logOut());
+               }else if(response.ok){
+                    dispatch(getFixData())
+                    return true;
+               }else{
+                    return false;
+               }
+          });
+     }
+}
+
+
 function uploadPhoto(file, caption, location, tags){
      const tagsArray = tags.split(",");
      const data = new FormData();
@@ -1149,7 +1174,9 @@ const actionCreators = {
      getReportDataToday,
 
      uploadPhoto,
-     getFixData
+     getFixData,
+
+     deleteFixData
 }
 
 export { actionCreators };

@@ -2,7 +2,6 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import MenuButton from "../components/MenuButton"
 import React from "react";
 import Swiper from "../screens/SwipeScreen";
-import CircleMenu from "../components/CircleMenu"
 import FirstStepScreen from "../screens/FirstStepScreen";
 import TabsNavigation from "./TabsNavigation";
 import AddPhotoNavigation from "./AddPhotoNavigation"
@@ -49,10 +48,6 @@ const RootNavigator = createStackNavigator(
           //           //      />
           //           // ),
           //           // tabBarIcon: ({ focused }) => (
-
-          //           headerRight:(
-          //                <CircleMenu/>
-          //           ),
           //           headerStyle:{
           //                borderBottomWidth: 0,
           //                marginTop: -20,

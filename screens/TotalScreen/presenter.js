@@ -7,20 +7,20 @@ import MoneyText from "../../components/MoneyText"
 import Modal from "react-native-modal";
 import { Card ,ListItem } from "react-native-elements";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import AddTotalScreen from "../AddTotalScreen";
+import AddTotalPage from "../../components/AddTotalPage";
 import AnimateNumber from '@bankify/react-native-animate-number'
+import Swipeout from 'react-native-swipeout';
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
-
-
 
 const TotalScreen = props => (
 
           <View style={styles.container}>
                <ScrollView 
                     onScrollEndDrag={(e) => props.handleScroll(e)}
-                    keyboardShouldPersistTaps='handled'
+                    keyboardShouldPersistTaps='always'
+                    showsVerticalScrollIndicator={false}
                >
                <Text style={styles.MainText1}>메인 스크린 할거야</Text>
                <Card title="고정급여">
@@ -61,6 +61,36 @@ const TotalScreen = props => (
                     <View>
                     { 
                          props.FixConsumProduct.map((l, i) => (
+                              <Swipeout 
+                                   key={i}
+                                   right={
+                                        [
+                                             {
+                                                  text: 'delete',
+                                                  backgroundColor:'#fc4137',
+                                                  onPress: () => ( props.deleteData(l.enrollId) ),
+                                             }
+                                        ]
+                                   }
+                                   //right={[swipeoutBtns , { onPress: () => console.log("press ", l.enrollId)}]}
+                                   onOpen={()=>(props.onSwipeOpen(i))}
+                                   close={props.rowIndex !== i}
+                                   onClose={()=>(props.onSwipeClose(i))}
+                                   rowIndex={i}
+
+                                   sectionId={0}
+                                   //autoClose={true}
+                                   // right={[{
+                                   //      onPress: () => console.log("press ", l.enrollId),
+                                   //      component: (
+                                   //           <View>
+                                   //                <Text>삭제</Text>
+                                   //           </View>
+                                   //      ),
+                                   //  }]}>
+
+                                   sensitivity={100}
+                              >
                               <ListItem
                               key={i}
                               title={l.income_name}
@@ -81,6 +111,7 @@ const TotalScreen = props => (
                                    </Text>
                               }
                               />
+                              </Swipeout>
                          )
                     )}
                     </View>
@@ -93,11 +124,11 @@ const TotalScreen = props => (
                                    formatter={(val) => {
                                         return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    }}
-                                   //interval={10}
-                                   timing={(interval, progress) => {
-                                        // slow start, slow end
-                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
-                                   }}
+                                   interval={0.1}
+                                   // timing={(interval, progress) => {
+                                   //      // slow start, slow end
+                                   //      return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   // }}
                               /> 원
                          </Text>
                     </View>
@@ -123,7 +154,7 @@ const TotalScreen = props => (
 
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
-                                   <AddTotalScreen toggleModal={props.toggleModal}  />
+                                   <AddTotalPage toggleModal={props.toggleModal}  />
                          </TouchableHighlight>
                     </View>
                     </Modal>
@@ -201,7 +232,7 @@ const styles = StyleSheet.create({
           shadowOpacity: 0.3,
           shadowRadius: 7,
           elevation: 1,
-          height:height -340
+          height:height / 2.2
      },
      bottomModal: {
           justifyContent: "flex-start",

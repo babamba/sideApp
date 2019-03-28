@@ -11,6 +11,7 @@ import { View,
           StatusBar, 
           ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import { SelectMultipleGroupButton } from "react-native-selectmultiple-button";
 
@@ -29,11 +30,13 @@ const DecreasePurchaseScreen = props =>
                               style={styles.textInput}
                               autoCapitalize={"none"}
                               autoCorrect={false}
+                              autoFocus={true}
                               value={props.income}
                               onChangeText={props.changeIncome}
                          />
+                         <Text style={styles.defulatText1}>소비하는데</Text>
                     </View>
-                    <Text style={styles.mealText}>소비하는데</Text>
+                    
                     <View style={styles.main2}>
                          <TextInput 
                               placeholder="금액입력" 
@@ -54,9 +57,9 @@ const DecreasePurchaseScreen = props =>
                          multiple={false}
                          buttonViewStyle={styles.selectBtn}
                          containerViewStyle={{
-                              borderRadius: 6,
-                              paddingTop: 5,
-                              paddingBottom: 5,
+                              borderWidth: 0,
+                              paddingTop: 3,
+                              paddingBottom: 3,
                               fontFamily: 'NanumBarunGothicUltraLight',
                               justifyContent: "center",
                          }}
@@ -94,68 +97,61 @@ const styles = StyleSheet.create({
      },
      content: {
           flex: 4,
-          //paddingTop: 30,
+          
           alignItems: "center",
           justifyContent: "flex-start",
+          ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
      },
      main:{
-          alignSelf:'flex-start',
-          marginLeft:52,
+          flexDirection:'row',
+          paddingLeft:10
      },
      main2:{
-          flexDirection:'row'
+          flexDirection:'row',
+          paddingLeft:10
      },
      mainText:{
           // 수입이 들어왔나요?
-          fontSize:30,
+          fontSize:22,
           width:width,
           fontFamily: 'NanumBarunGothic',
-          paddingLeft:30,
-          marginBottom:30
-     },
-     mealText:{
-          // 원
-          fontSize:30,
-          width:180,
-          fontFamily: 'NanumBarunGothicUltraLight',
-          marginBottom:15,
-          alignSelf: 'flex-start',
-          marginLeft:53,
-     },
-     defulatText1:{
-          // 원
-          fontSize:30,
-          width:45,
-          fontFamily: 'NanumBarunGothicUltraLight',
-          marginBottom:15,
-     },
-     defulatText2:{
-          // 들어왔다.
-          fontSize:30,
-          width:width,
-          paddingLeft:53,
-          fontFamily: 'NanumBarunGothicUltraLight',
-          marginBottom:40,
-     },
-     textInput:{
-          height:48,
-          width: width -150,
-          marginBottom:15,
-          fontFamily: 'NanumBarunGothicUltraLight',
-          fontSize: 30
+          paddingLeft:36,
+          marginBottom:20
      },
      moneyInput:{
           height:50,
           width: width -150,
           marginBottom:15,
           fontFamily: 'NanumBarunGothicUltraLight',
-          fontSize: 30
+          fontSize: 18,
+     },
+     defulatText1:{
+          // 원
+          fontSize:18,
+          width:90,
+          fontFamily: 'NanumBarunGothicUltraLight',
+          marginBottom:15,
+     },
+     defulatText2:{
+          // 들어왔다.
+          fontSize:18,
+          width:width,
+          paddingLeft:36,
+          fontFamily: 'NanumBarunGothicUltraLight',
+          marginBottom:30,
+     },
+     textInput:{
+          height:28,
+          width: width -150,
+          marginBottom:10,
+          fontFamily: 'NanumBarunGothicUltraLight',
+          fontSize: 18
      },
      touchable : {
           borderRadius: 15,
           backgroundColor:"#FF6565",
           width: width - 45,
-          marginTop: 25,
+          marginTop: 15,
           shadowColor: '#99F089',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.3,
@@ -163,14 +159,14 @@ const styles = StyleSheet.create({
      },
      button : {
           paddingHorizontal:7,
-          height:70,
+          height:50,
           justifyContent:"center"     
      },
      btnText : {
           color:"white",
           fontWeight:"600",
           textAlign:"center",
-          fontSize:30,
+          fontSize:18,
           shadowColor: 'grey',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.5,

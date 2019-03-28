@@ -17,7 +17,6 @@ import { scale, scaleVertical } from "../../utilities/scale";
 import GradientButton from "react-native-gradient-buttons";
 import Proptypes from "prop-types";
 import { withNavigation } from "react-navigation";
-import { TextField } from 'react-native-material-textfield';
 
 const styles = StyleSheet.create({
   screen: {

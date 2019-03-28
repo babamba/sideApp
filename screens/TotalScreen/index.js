@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
      return {
           getFixData : () => {
                return dispatch(dataActions.getFixData());
+          },
+          deleteFixData : (enrollId) => {
+               return dispatch(dataActions.deleteFixData(enrollId));
           }
           // getDataMealToday : (date) => {
           //      return dispatch(dataActions.getDataMealToday(date));

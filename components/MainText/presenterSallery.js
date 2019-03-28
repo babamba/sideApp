@@ -41,10 +41,8 @@ const SalleryText = props => (
                <View style={styles.container}>
                <ScrollView
                     onScrollEndDrag={(e) => props.handleScroll(e)}
-                    keyboardShouldPersistTaps='handled'
-                    // snapToOffsets={[-5,0,200]}
-                    // snapToStart={true}
-                    directionalLockEnabled={true}
+                    keyboardShouldPersistTaps='always'
+                    showsVerticalScrollIndicator={false}
                >
                <View style={styles.TextConatiner}>
                     <View style={styles.remainArea} 
@@ -115,15 +113,41 @@ const SalleryText = props => (
                                Moneytype={"INCREASE_TODAY"}
                          />
                     </View>
-                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+                    {/* <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
                               color={"#99F089"}
                               refresh={props.refresh}
                          /> 
-                    </View>
+                    </View> */}
                </View>
+               
+                    <Modal 
+                         isVisible={props.isModalVisible} 
+                         avoidKeyboard={true}
+                         animationIn={'slideInDown'}
+                         animationOut={"slideOutUp"}
+                         deviceWidth={deviceWidth}
+                         deviceHeight={deviceHeight}
+                         style={styles.bottomModal}
+                         backdropColor={"grey"}
+                         backdropOpacity={0.9}
+                         onBackButtonPress={props.toggleModal}
+                         onBackdropPress={props.toggleModal}
+                         onSwipe={props.toggleModal}
+                         onSwipeComplete={props.toggleModal}
+                         swipeDirection="up"
+                         swipeThreshold={10}
+                    >
+
+                    <View style={styles.modalContent}>
+                         <TouchableHighlight >
+                                   <IncreaseScreen callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
+                         </TouchableHighlight>
+                    </View>
+                    </Modal>
+               </ScrollView>
                <View style={styles.progress} 
                     animation="fadeIn" 
                     delay={100} 
@@ -140,29 +164,7 @@ const SalleryText = props => (
                               // indeterminate={true}
                          /> */}
                     
-               </View>
-               <Modal 
-                         isVisible={props.isModalVisible} 
-                         deviceWidth={deviceWidth}
-                         deviceHeight={deviceHeight}
-                         style={styles.bottomModal}
-                         backdropColor={"grey"}
-                         backdropOpacity={0.9}
-                         onBackdropPress={props.toggleModal}
-                         onBackButtonPress={props.toggleModal}
-                         onSwipe={props.toggleModal}
-                         swipeDirection="down"
-                         onSwipeComplete={props.toggleModal}
-                         swipeThreshold={10}
-                    >
-
-                    <View style={styles.modalContent}>
-                         <TouchableHighlight >
-                                   <IncreaseScreen callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
-                         </TouchableHighlight>
-                    </View>
-               </Modal>
-               </ScrollView>
+               
                {props.PERCENT === 100 ? (
                          <ProgressBarAnimated
                               width={barWidth}
@@ -183,6 +185,7 @@ const SalleryText = props => (
                               borderWidth={0}
                          />
                     )}
+               </View>
           </View>
          
 
@@ -222,6 +225,14 @@ const SalleryText = props => (
           
           ) : (
           <View style={styles.container}>
+               <ScrollView
+                    onScrollEndDrag={(e) => props.handleScroll(e)}
+                    keyboardShouldPersistTaps='always'
+                    // snapToOffsets={[-5,0,200]}
+                    // snapToStart={true}
+                    showsVerticalScrollIndicator={false}
+                    //directionalLockEnabled={true}
+               >
                <View style={styles.TextConatiner}>
                     <View style={styles.remainArea} animation="fadeInDown" delay={180} easing={"ease-in-out"} useNativeDriver>
 
@@ -255,15 +266,41 @@ const SalleryText = props => (
                                Moneytype={"INCREASE_MONTH"}
                          />
                     </View>
-                    <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+                    {/* <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"수입등록"} 
                               onPress={() => console.log("addButton")}
                               color={"#99F089"}
                               refresh={props.refresh}
                          />
-                    </View>
+                    </View> */}
                </View>
+               <Modal 
+                         isVisible={props.isModalVisible} 
+                         deviceWidth={deviceWidth}
+                         deviceHeight={deviceHeight}
+                         style={styles.bottomModal}
+                         backdropColor={"grey"}
+                         backdropOpacity={0.9}
+                         onBackdropPress={props.toggleModal}
+                         onBackButtonPress={props.toggleModal}
+                         onSwipe={props.toggleModal}
+                         swipeDirection="up"
+                         animationIn={'slideInDown'}
+                         animationOut={"slideOutUp"}
+                         avoidKeyboard={true}
+                         onSwipeComplete={props.toggleModal}
+                         swipeThreshold={10}
+                    >
+
+                    <View style={styles.modalContent}>
+                         <TouchableHighlight >
+                                   <IncreaseScreen callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
+                         </TouchableHighlight>
+                    </View>
+                    </Modal>
+               </ScrollView>
+
                <View style={styles.progress} animation="fadeIn" delay={100} useNativeDriver>
                     <ProgressBarAnimated
                               //{...progressCustomStyles}
@@ -345,31 +382,51 @@ const styles = StyleSheet.create({
           width: barWidth
      },
 
-
-
      modalContent: {
           backgroundColor: "white",
-          ...ifIphoneX({top:300}, {top: 90}),
           //paddingBottom: 420,
           
           padding: 22,
           paddingTop:0,
           justifyContent: "center",
           alignItems: "center",
-          borderRadius: 22,
           borderColor: "rgba(0, 0, 0, 0.1)",
           shadowColor: 'gray',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.3,
           shadowRadius: 7,
           elevation: 1,
+          height:height / 1.55
      },
      bottomModal: {
-          justifyContent: "flex-end",
-          height: 700,
-          borderRadius: 4,
+          justifyContent: "flex-start",
+          height: 0,
           margin: 0,
      },
+
+     // modalContent: {
+     //      backgroundColor: "white",
+     //      ...ifIphoneX({top:300}, {top: 90}),
+     //      //paddingBottom: 420,
+          
+     //      padding: 22,
+     //      paddingTop:0,
+     //      justifyContent: "center",
+     //      alignItems: "center",
+     //      borderRadius: 22,
+     //      borderColor: "rgba(0, 0, 0, 0.1)",
+     //      shadowColor: 'gray',
+     //      shadowOffset: { width: 0, height: 0 },
+     //      shadowOpacity: 0.3,
+     //      shadowRadius: 7,
+     //      elevation: 1,
+     // },
+     // bottomModal: {
+     //      justifyContent: "flex-end",
+     //      height: 700,
+     //      borderRadius: 4,
+     //      margin: 0,
+     // },
 });
 
 

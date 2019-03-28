@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { View, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet,TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 import {
      SelectMultipleButton,
      SelectMultipleGroupButton
@@ -10,11 +10,11 @@ import {
 const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
-const AddTotalScreen = props => 
+const AddTotalPage = props => 
 
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
-              <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/>
+              {/* <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/> */}
               <View style={styles.content}>
                     <View style={styles.main}>
                          <TextInput 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
           flex: 1,
           alignItems: "center",
           justifyContent: "flex-start",
-          paddingTop:50
+          ...ifIphoneX({paddingTop: 100}, {paddingTop: 80}),
      },
      main:{
           flexDirection:'row'
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
      
 })
 
-export default AddTotalScreen
+export default AddTotalPage

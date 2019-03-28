@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { View, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet,TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import {
      SelectMultipleButton,
@@ -11,7 +12,6 @@ const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
 const IncreaseScreen = props => 
-
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
               <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/>
@@ -49,11 +49,9 @@ const IncreaseScreen = props =>
                          multiple={false}
                          buttonViewStyle={styles.selectBtn}
                          containerViewStyle={{
-                              borderWidth: 0.3,
-                              borderColor: "#D3D3D3",
-                              borderRadius: 6,
-                              paddingTop: 18,
-                              paddingBottom: 18,
+                              borderWidth: 0,
+                              paddingTop: 3,
+                              paddingBottom: 3,
                               fontFamily: 'NanumBarunGothicUltraLight',
                               justifyContent: "center",
                          }}
@@ -93,52 +91,53 @@ const styles = StyleSheet.create({
           flex: 4,
           alignItems: "center",
           justifyContent: "flex-start",
+          ...ifIphoneX({paddingTop: 40}, {paddingTop: 20}),
      },
      main:{
           flexDirection:'row'
      },
      mainText:{
           // 수입이 들어왔나요?
-          fontSize:30,
+          fontSize:22,
           width:width,
           fontFamily: 'NanumBarunGothic',
-          paddingLeft:30,
-          marginBottom:30
+          paddingLeft:36,
+          marginBottom:20
      },
      defulatText1:{
           // 원
-          fontSize:30,
+          fontSize:18,
           width:45,
           fontFamily: 'NanumBarunGothicUltraLight',
           marginBottom:15,
      },
      defulatText2:{
           // 들어왔다.
-          fontSize:30,
+          fontSize:18,
           width:width,
           paddingLeft:53,
           fontFamily: 'NanumBarunGothicUltraLight',
-          marginBottom:45,
+          marginBottom:30,
      },
      textInput:{
-          height:48,
+          height:28,
           width: width -150,
-          marginBottom:15,
+          marginBottom:10,
           fontFamily: 'NanumBarunGothicUltraLight',
-          fontSize: 30
+          fontSize: 18
      },
      moneyInput:{
           height:50,
           width: width -150,
           marginBottom:15,
           fontFamily: 'NanumBarunGothicUltraLight',
-          fontSize: 30
+          fontSize: 18
      },
      touchable : {
           borderRadius: 15,
           backgroundColor:"#99F089",
           width: width - 45,
-          marginTop: 25,
+          marginTop: 15,
           shadowColor: '#99F089',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.3,
@@ -146,14 +145,14 @@ const styles = StyleSheet.create({
      },
      button : {
           paddingHorizontal:7,
-          height:80,
+          height:50,
           justifyContent:"center"     
      },
      btnText : {
           color:"white",
           fontWeight:"600",
           textAlign:"center",
-          fontSize:30,
+          fontSize:18,
           shadowColor: 'grey',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.5,

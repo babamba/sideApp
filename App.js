@@ -111,7 +111,7 @@ class App extends React.Component {
       this.setState({
         isAppReady: true
       })
-    },3000);
+    },1000);
   };
 }
 

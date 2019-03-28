@@ -11,7 +11,9 @@ class Container extends Component {
           duration: 1000,
           toggledOn: false,
           fadeinOut : false,
-          fill: 60
+          fill: 60,
+          isModalVisible: false,
+          isSubmit: false
      }
 
      componentDidMount(){
@@ -52,32 +54,74 @@ class Container extends Component {
           }
      }
 
-        textRef = null;
-        handleTextRef = ref => {
-          this.textRef = ref;
-        };
-      
-        handleDurationChange = duration => {
-          this.setState({ duration: Math.round(duration) });
-        };
-      
-        handleRowPressed = (componentRef, animationType) => {
-          componentRef.setNativeProps({
-            style: {
-              zIndex: 1,
-            },
-          });
-          componentRef.animate(animationType, this.state.duration).then(() => {
-            componentRef.setNativeProps({
-              style: {
-                zIndex: 0,
-              },
-            });
-          });
-          if (this.textRef) {
-            this.textRef[animationType](this.state.duration);
+     _handleScroll = (event) => {
+          console.log("_handleScroll")
+          const getOffsetY = event.nativeEvent.contentOffset.y;
+          console.log(event.nativeEvent.contentOffset.y);
+          if(getOffsetY <= -3){
+               this._toggleModal();
+               console.log("toggle")
           }
-        };
+     }
+
+     _callback = async(dataFromChild) => {
+          console.log("dataFromChild", dataFromChild)
+          await this.setState({isSubmit:dataFromChild})
+
+          if(dataFromChild){
+               const { refresh } = this.props;
+               refresh();
+          }
+     }
+       
+     _toggleModal = () => {
+          console.log("_toggleModal");
+          const { isModalVisible, isSubmit  } = this.state;
+
+          console.log("isModalVisible : ", isModalVisible);
+          console.log("isSubmit : " , isSubmit)
+          
+          this.setState({ isModalVisible: !this.state.isModalVisible });
+     }
+
+     // handleOnScroll = event => {
+     //      this.setState({
+     //        scrollOffset: event.nativeEvent.contentOffset.y,
+     //      });
+     //    };
+      
+     // handleScrollTo = p => {
+     //      if (this.scrollViewRef) {
+     //        this.scrollViewRef.scrollTo(p);
+     //      }
+     // }
+
+     //    textRef = null;
+     //    handleTextRef = ref => {
+     //      this.textRef = ref;
+     //    };
+      
+     //    handleDurationChange = duration => {
+     //      this.setState({ duration: Math.round(duration) });
+     //    };
+      
+     //    handleRowPressed = (componentRef, animationType) => {
+     //      componentRef.setNativeProps({
+     //        style: {
+     //          zIndex: 1,
+     //        },
+     //      });
+     //      componentRef.animate(animationType, this.state.duration).then(() => {
+     //        componentRef.setNativeProps({
+     //          style: {
+     //            zIndex: 0,
+     //          },
+     //        });
+     //      });
+     //      if (this.textRef) {
+     //        this.textRef[animationType](this.state.duration);
+     //      }
+     //    };
     
      render() {
           //console.log("type : " , this.props.type);
@@ -86,6 +130,9 @@ class Container extends Component {
                     <SalleryText 
                          {...this.props} 
                          {...this.state} 
+                         handleScroll={this._handleScroll}
+                         toggleModal={this._toggleModal}
+                         callback={this._callback}
                          // refresh={this._refresh} 
                          // handleRowPressed={this.handleRowPressed}
                          // handleDurationChange={this.handleDurationChange}

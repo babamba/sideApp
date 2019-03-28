@@ -50,7 +50,7 @@ const AddTotalScreen = props =>
                               borderWidth: 0,
                               fontFamily: 'NanumBarunGothicUltraLight',
                               justifyContent: "center",
-                              paddingRight:40
+                              paddingRight:6
                          }}
                          defaultSelectedIndexes={props.defaultSelectedIndex_group_insterest}
                          highLightStyle={{
@@ -137,14 +137,15 @@ const styles = StyleSheet.create({
      },
      touchable : {
           backgroundColor:"#99F089",
-          width: 45,
+          width: 60,
           height:40,
           alignItems:'center',
-          justifyContent:'center',
           shadowColor: '#99F089',
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.3,
           shadowRadius: 7,
+          marginTop:5,
+          borderRadius: 2,
      },
      button : {
           paddingHorizontal:7,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
           paddingRight:15
      },
      selectBtn:{
-          width: 40, 
+          width: 60, 
           height: 40, 
           justifyContent:'space-around'
      }

@@ -1,15 +1,18 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions } from "react-native";
+import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
 import AddButton from "../../components/AddButton";
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-
+import Modal from "react-native-modal";
 import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
 import MoneyText from "../MoneyText";
 import SubMoneyText from "../SubMoneyText";
+
+
+import IncreaseScreen from "../../screens/IncreaseScreen";
 
 const {width, height} = Dimensions.get("window");
 const barHeight = Dimensions.get('screen').height - 180;
@@ -28,12 +31,21 @@ const progressGradient = {
      end: {x: 1, y: 0}
  };
 
+ const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
+
 const SalleryText = props => (
      props.type  ===  "Today" ? ( 
 
           props.isWorkingDay ? (
                <View style={styles.container}>
-               
+               <ScrollView
+                    onScrollEndDrag={(e) => props.handleScroll(e)}
+                    keyboardShouldPersistTaps='handled'
+                    // snapToOffsets={[-5,0,200]}
+                    // snapToStart={true}
+                    directionalLockEnabled={true}
+               >
                <View style={styles.TextConatiner}>
                     <View style={styles.remainArea} 
                     animation="fadeInDown"
@@ -127,7 +139,31 @@ const SalleryText = props => (
                               animationType={"spring"}
                               // indeterminate={true}
                          /> */}
-                    {props.PERCENT === 100 ? (
+                    
+               </View>
+               <Modal 
+                         isVisible={props.isModalVisible} 
+                         deviceWidth={deviceWidth}
+                         deviceHeight={deviceHeight}
+                         style={styles.bottomModal}
+                         backdropColor={"grey"}
+                         backdropOpacity={0.9}
+                         onBackdropPress={props.toggleModal}
+                         onBackButtonPress={props.toggleModal}
+                         onSwipe={props.toggleModal}
+                         swipeDirection="down"
+                         onSwipeComplete={props.toggleModal}
+                         swipeThreshold={10}
+                    >
+
+                    <View style={styles.modalContent}>
+                         <TouchableHighlight >
+                                   <IncreaseScreen callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
+                         </TouchableHighlight>
+                    </View>
+               </Modal>
+               </ScrollView>
+               {props.PERCENT === 100 ? (
                          <ProgressBarAnimated
                               width={barWidth}
                               value={props.PERCENT}
@@ -147,11 +183,8 @@ const SalleryText = props => (
                               borderWidth={0}
                          />
                     )}
-                    
-               </View>
-               
-               
           </View>
+         
 
           ) : (
                <View style={styles.container}>
@@ -310,7 +343,33 @@ const styles = StyleSheet.create({
      },
      progress:{
           width: barWidth
-     }
+     },
+
+
+
+     modalContent: {
+          backgroundColor: "white",
+          ...ifIphoneX({top:300}, {top: 90}),
+          //paddingBottom: 420,
+          
+          padding: 22,
+          paddingTop:0,
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 22,
+          borderColor: "rgba(0, 0, 0, 0.1)",
+          shadowColor: 'gray',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.3,
+          shadowRadius: 7,
+          elevation: 1,
+     },
+     bottomModal: {
+          justifyContent: "flex-end",
+          height: 700,
+          borderRadius: 4,
+          margin: 0,
+     },
 });
 
 

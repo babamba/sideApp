@@ -24,6 +24,7 @@ const IncreaseScreen = props =>
                               autoCapitalize={"none"}
                               autoCorrect={false}
                               value={props.income}
+                              autoFocus={true}
                               onChangeText={props.changeIncome}
                          />
                          <Text style={styles.defulatText1}>가</Text>

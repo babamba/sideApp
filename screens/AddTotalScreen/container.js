@@ -4,11 +4,10 @@ import AddTotalScreen from "./presenter";
 
 import PropTypes from "prop-types";
 //import { FB_APP_ID } from "../../constant";
-const defaultSelectedIndex_group_insterest = [1];
+const defaultSelectedIndex_group_insterest = [0];
 const multipleGroupData = [
      { value: 0, displayValue: "수입" },
-     { value: 1, displayValue: "고정"},
-     { value: 2, displayValue: "기타" },
+     { value: 3, displayValue: "고정" },
 ];
 
 class Container extends Component {
@@ -17,7 +16,8 @@ class Container extends Component {
           income : "",
           price : "",
           isSubmiting : false,
-          selectFeeling : defaultSelectedIndex_group_insterest,
+          selectType : 0,
+
      }
 
      //static propsType = {
@@ -26,15 +26,16 @@ class Container extends Component {
      //}
 
      callback = () => {
-          const { callbackFromParent }= this.props;
-          const { isSubmiting} = this.state;
+          console.log("callback")
+          // const { callbackFromParent }= this.props;
+          // const { isSubmiting} = this.state;
 
-          callbackFromParent(isSubmiting);
+          // callbackFromParent(isSubmiting);
       }
 
      _groupButtonOnSelectedValuesChange = selectedValues=> {
           console.log("selectedValues : ", selectedValues)
-          this.setState({ selectFeeling: selectedValues });
+          this.setState({ selectType: selectedValues[0] });
      }
       
      _groupButtonOnSelectedValuesChange_limited = selectedValues=> {
@@ -73,14 +74,13 @@ class Container extends Component {
      
 
      _submit = async() => {
-          const { income, price, selectFeeling, isSubmiting } = this.state;
+          const { income, price, isSubmiting, selectType } = this.state;
+          const FELLING = 3;
 
           console.log('income : ', income);
           console.log('price : ', price);
-          console.log('selectFillng : ', selectFeeling);
-          const CONSUM_TYPE = 0;
-          console.log("CONSUM_TYPE : ", CONSUM_TYPE )
-          const { submitConsum, toggleModal} = this.props;
+          console.log("CONSUM_TYPE : ", selectType )
+          const { submitFixConsum, toggleModal, getFixData } = this.props;
 
           console.log("income && price" , income , "&&", price)
           if(!isSubmiting){
@@ -91,7 +91,8 @@ class Container extends Component {
                          isSubmiting : true
                     })
                     //redux action  결과값을 얻는방식으로 할수 있는게 더생김
-                    const submitResult = await submitConsum(income, price, selectFeeling[0] , CONSUM_TYPE)
+                    const submitResult = await submitFixConsum(income, price ,FELLING, selectType)
+                    
                     console.log("------ submitResult" , submitResult)
                     if(!submitResult){
                          Alert.alert('Something went wrong, try again');
@@ -106,6 +107,7 @@ class Container extends Component {
                               [
                                    {text: 'OK', onPress: () => { 
                                         toggleModal()
+                                        
                                    }} ,
                               ],
                                  { cancelable: false }

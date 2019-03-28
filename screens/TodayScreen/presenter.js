@@ -10,6 +10,7 @@ const barWidth = Dimensions.get('screen').height - 60;
 
 const TodayScreen = props => (
 
+     
           <View style={styles.container}>
                <MainText 
                     progress={props.progress}

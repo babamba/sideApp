@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                dispatch(timerActions.onInitCheckStandard());
                dispatch(userActions.registerForPush());
                dispatch(dataActions.getReportDataToday(date));
+               dispatch(dataActions.getFixData());
           }
      }
 }

@@ -21,16 +21,26 @@ class Container extends Component {
      };
 
      componentWillReceiveProps = nextProps => {
-          //console.log("nextProps.TodayMealProduct : ", nextProps.TodayMealProduct)
-          // if(nextProps.TodayMealProduct){
-          //      console.log("nextProps.currentPrice : " , nextProps.currentPrice)
-          //      this.setState({
-          //           TodayMealProduct : nextProps.TodayMealProduct
-          //      })
-          // }
+          console.log(nextProps);
+
+          if(nextProps){
+               console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct)
+               console.log("nextProps.currentPrice : " , nextProps.FixConsumPrice)
+               this.setState({
+                    FixConsumProduct : nextProps.FixConsumProduct,
+                    FixConsumPrice : nextProps.FixConsumPrice,
+                    BudgetPrice: nextProps.BudgetPrice
+               })
+          }
      }
 
      componentWillMount = async () => {
+          const {FixConsumProduct, FixConsumPrice, BudgetPrice} = this.props;
+          this.setState({
+               FixConsumProduct,
+               FixConsumPrice,
+               BudgetPrice
+          })
           //const { getDataMealToday, TodayMealProduct } = this.props;
           //const Today = moment(new Date());
           
@@ -57,19 +67,22 @@ class Container extends Component {
      }
 
      componentDidMount = () => {
+          
+
           // const { initApp } = this.props;
           // initApp();
           // const { onChangeScrollControl } = this.props;
           // onChangeScrollControl(true);
           // this._refresh();
-          keyboardDidShowListener = Keyboard.addListener(
-               'keyboardDidShow',
-               this._keyboardDidShow,
-             );
-          keyboardWillHideListener = Keyboard.addListener(
-               'keyboardWillHide',
-               this._keyboardWillHide,
-          );
+          // keyboardDidShowListener = Keyboard.addListener(
+          //      'keyboardDidShow',
+          //      this._keyboardDidShow,
+          //    );
+
+          // keyboardWillHideListener = Keyboard.addListener(
+          //      'keyboardWillHide',
+          //      this._keyboardWillHide,
+          // );
      };
 
      componentWillUnmount = () =>{
@@ -95,6 +108,10 @@ class Container extends Component {
                isModalVisible: !this.state.isModalVisible 
           });
 
+          if(isModalVisible){
+               Keyboard.dismiss();
+          }
+          
           console.log("isModalVisible : ", isModalVisible);
      }
 
@@ -103,19 +120,17 @@ class Container extends Component {
      }
       
      _keyboardWillHide = () => {
-          this._toggleModal()
+          //this._toggleModal()
           console.log('Keyboard Hidden');
      }
 
-     
-
      _handleScroll = (event) => {
+          console.log("_handleScroll")
           const getOffsetY = event.nativeEvent.contentOffset.y;
           console.log(event.nativeEvent.contentOffset.y);
           if(getOffsetY <= -3){
                this._toggleModal();
                console.log("toggle")
-               
           }
      }
 

@@ -5,9 +5,10 @@ import AddButton from "../../components/AddButton";
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
 import Modal from "react-native-modal";
-import { Card } from "react-native-elements";
+import { Card ,ListItem } from "react-native-elements";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import AddTotalScreen from "../AddTotalScreen";
+import AnimateNumber from '@bankify/react-native-animate-number'
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
@@ -19,27 +20,92 @@ const TotalScreen = props => (
           <View style={styles.container}>
                <ScrollView 
                     onScrollEndDrag={(e) => props.handleScroll(e)}
-                    keyboardShouldPersistTaps='always'
+                    keyboardShouldPersistTaps='handled'
                >
                <Text style={styles.MainText1}>메인 스크린 할거야</Text>
                <Card title="고정급여">
-                    <View >
-                         <Text>{props.monthSallery}원 </Text>
+                    <View style={styles.cardContainer}>
+                         <Text style={styles.moneyText}>
+                              <AnimateNumber 
+                                   value={props.monthSallery} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
+                              /> 원
+                         </Text>
                     </View>
                </Card>
                <Card title="고정지출">
+                    <View style={styles.cardContainer}>
+                         <Text style={styles.moneyText}>
+                              <AnimateNumber 
+                                   value={props.FixConsumPrice} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
+                              /> 원
+                         </Text>
+                    </View>
+               </Card>
+               <Card>
                     <View>
-                         <Text> 123원 </Text>
+                    { 
+                         props.FixConsumProduct.map((l, i) => (
+                              <ListItem
+                              key={i}
+                              title={l.income_name}
+                              //rightTitle={l.price + " 원"}
+                              rightTitle={
+                                   <Text style={styles.moneyText}>
+                                   <AnimateNumber 
+                                        value={l.price} 
+                                        formatter={(val) => {
+                                             return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                        }}
+                                        //interval={10}
+                                        timing={(interval, progress) => {
+                                             // slow start, slow end
+                                             return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                        }}
+                                   /> 원
+                                   </Text>
+                              }
+                              />
+                         )
+                    )}
                     </View>
                </Card>
                <Card title="예산금액">
-                    <View>
-                         <Text>123원 </Text>
+                    <View style={styles.cardContainer}>
+                         <Text style={styles.moneyText}>
+                         <AnimateNumber 
+                                   value={props.BudgetPrice} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
+                              /> 원
+                         </Text>
                     </View>
                </Card>
                
                <Modal 
                          isVisible={props.isModalVisible} 
+                         avoidKeyboard={true}
                          animationIn={'slideInDown'}
                          animationOut={"slideOutUp"}
                          deviceWidth={width}
@@ -47,17 +113,17 @@ const TotalScreen = props => (
                          style={styles.bottomModal}
                          backdropColor={"grey"}
                          backdropOpacity={0.9}
-                         onBackdropPress={() => Keyboard.dismiss()}
-                         onBackButtonPress={() => Keyboard.dismiss()}
-                         //onSwipe={() => Keyboard.dismiss()}
+                         onBackButtonPress={props.toggleModal}
+                         onBackdropPress={props.toggleModal}
+                         onSwipe={props.toggleModal}
+                         onSwipeComplete={props.toggleModal}
                          swipeDirection="up"
-                         //onSwipeComplete={() => Keyboard.dismiss()}
                          swipeThreshold={10}
                     >
 
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
-                                   <AddTotalScreen callbackFromParent={this._callback} toggleModal={this._toggleModal}  />
+                                   <AddTotalScreen toggleModal={props.toggleModal}  />
                          </TouchableHighlight>
                     </View>
                     </Modal>
@@ -142,6 +208,13 @@ const styles = StyleSheet.create({
           height: 0,
           margin: 0,
      },
+     cardContainer:{
+          alignItems:'center'
+     },
+     moneyText:{
+          fontFamily: 'NanumBarunGothicUltraLight',
+          fontSize:18,
+     }
      // progress:{
      //      width:84,
      //      transform: [{ rotate: '270deg'}],

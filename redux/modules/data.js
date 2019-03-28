@@ -3,7 +3,7 @@ import { API_URL } from "../../constants";
 import { AsyncStorage } from "react-native";
 import { actionCreators as userActions } from './user';
 import { Permissions, Notifications, Facebook } from "expo";
-//import { user } from "./user";
+import { timer } from "./timer";
 import uuid from "uuid"
 
 import moment from "moment";
@@ -35,6 +35,10 @@ const SET_REPORT_MONTH_DATA = 'SET_REPORT_MONTH_DATA'
 
 const SET_REPORT_TODAY_PRICE = 'SET_REPORT_TODAY_PRICE'
 const SET_REPORT_MONTH_PRICE = 'SET_REPORT_MONTH_PRICE'
+
+const SET_FIX_DATA = 'SET_FIX_DATA'
+
+const SET_BUDGET_PRICE = 'SET_BUDGET_PRICE'
 
 // Action Creators
 function setData(json){
@@ -118,6 +122,21 @@ function setDataMonthIncrease(MonthIncreaseProduct, MonthIncreasePrice){
      }
 }
 
+function setFixData(FixConsumProduct, FixConsumPrice){
+     return {
+          type:SET_FIX_DATA,
+          FixConsumProduct,
+          FixConsumPrice
+     }
+}
+
+function setBudgetPrice(monthSallery){
+     return {
+          type:SET_BUDGET_PRICE,
+          monthSallery
+     }
+}
+
 function getDataPriceAll(){
      return {
           type: GET_DATA_ALL
@@ -153,7 +172,7 @@ function getReportDataToday(date){
           .then(async(json) => {
                if(json){
                     let TodayReportData = json;
-                   console.log("Report Today", json)
+                   //console.log("Report Today", json)
 
 
                     
@@ -499,6 +518,8 @@ function getDataMealToday(date){
                //console.log("MonthIncreasePrice", MonthIncreasePrice)
                //console.log("TodayIncreasePrice", TodayIncreasePrice)
                dispatch(setDataMealToday(TodayMealProduct, TodayMealPrice));
+
+               return json;
           }
           })
      }
@@ -536,6 +557,48 @@ function uploadPhoto(file, caption, location, tags){
                     return false;
                }
           });
+     }
+}
+
+function getFixData(){
+     return async(dispatch, getState) => {
+          const { user : { token } } = getState();
+          const { timer : { monthSallery } } = getState();
+          //const { timer : { standardMonth, salaryDay } } = getState();
+
+          return fetch(`${API_URL}/salary/fix_consum_data/`, {
+               method:"GET",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                    "Content-Type" : "application/json"
+               }
+          })
+
+          .then(response => response.json())
+          .then(json => {
+               if(json){
+                    console.log("json inner")
+                    let FixConsumPrice = 0;
+                    let FixConsumProduct = json;
+
+                    if(json.length > 0 ){
+                         for (let i of json) {
+                              //console.log(i.price)
+                              let price = Number(i.price);
+                              FixConsumPrice += price;
+                         }
+                    }
+
+                    //console.log("FixConsumPrice", FixConsumPrice)
+                    //console.log("FixConsumProduct", FixConsumProduct)
+
+               //console.log("MonthIncreasePrice", MonthIncreasePrice)
+               //console.log("TodayIncreasePrice", TodayIncreasePrice)
+               dispatch(setFixData(FixConsumProduct, FixConsumPrice));
+               dispatch(setBudgetPrice(monthSallery));
+               console.log("dispatch end")
+          }
+          })
      }
 }
 
@@ -630,8 +693,83 @@ function uploadPhoto(file, caption, location, tags){
 // }
 
 // API Actions
-function submitConsum(income_name, price, feeling, consumType){
+function submitFixConsum(income_name, price, feeling, consumType){
      console.log("!@# submitConsum / ", income_name, price, feeling, consumType);
+
+     return (dispatch , getState) => {
+          const { user : { token } } = getState();
+          const { timer : { monthSallery } } = getState();
+
+          return fetch(`${API_URL}/salary/consum/`, {
+               method:"POST",
+               headers: {
+                    Authorization : `JWT ${token}`,
+                     "Content-Type" : "application/json"
+               },
+               body: JSON.stringify({
+                    income_name,
+                    price,
+                    feeling,
+                    consumType
+               })
+               
+          })
+          .then(response => {
+               if(response.ok){
+                    console.log(response)
+                    return response.json()
+               }else{
+                    return false;
+               }
+               
+          })
+          .then(async(json) => {
+               if(json){
+                    console.log("json inner")
+                    let FixConsumPrice = 0;
+                    let FixConsumProduct = json;
+
+                    if(json.length > 0 ){
+                         for (let i of json) {
+                              //console.log(i.price)
+                              let price = Number(i.price);
+                              FixConsumPrice += price;
+                         }
+                    }
+
+                    console.log("()()() FixConsumPrice", FixConsumPrice)
+                    console.log("()()() FixConsumProduct", FixConsumProduct)
+                    console.log("()()() monthSallery",monthSallery)
+
+                    //console.log("MonthIncreasePrice", MonthIncreasePrice)
+                    //console.log("TodayIncreasePrice", TodayIncreasePrice)
+                    await dispatch(getFixData());
+                    await dispatch(setBudgetPrice(monthSallery));
+
+                    console.log("dispatch end")
+                    return true;
+               }else{
+                    return true;
+               }
+               
+          })
+          // .then(response => {
+          //      console.log(response)
+          //      // if(response.status === 401){
+          //      //      dispatch(userActions.logOut());
+          //      // }else 
+          //      if(response.ok){
+          //           console.log(JSON.parse(response))
+          //           return true;
+          //      }else{
+          //           return false;
+          //      }
+          // })
+     }
+}
+
+function submitConsum(income_name, price, feeling, consumType){
+     console.log("!@#  submitFixConsum / ", income_name, price, feeling, consumType);
 
      return (dispatch , getState) => {
           const { user : { token } } = getState();
@@ -664,7 +802,7 @@ function submitConsum(income_name, price, feeling, consumType){
 
                console.log("response created_at : ", json.created_at)
                //console.log("response enrollId : ", json.enrollId)
-               dispatch(setData(json))
+               dispatch(setFixData(json))
                return true;
           })
           // .then(response => {
@@ -719,6 +857,10 @@ const initialState = {
      ReportMealMonthPrice : 0, 
      ReportPurchaseMonthPrice :0 ,
 
+     FixConsumProduct : [],
+     FixConsumPrice : 0,
+
+     BudgetPrice : 0
 
 };
 
@@ -757,7 +899,10 @@ function reducer(state = initialState, action){
                return applySetReportPriceToday(state, action);
           case SET_REPORT_MONTH_PRICE :
                return applySetReportPriceMonth(state, action);
-
+          case SET_FIX_DATA :
+               return applySetFixData(state, action);
+          case SET_BUDGET_PRICE:
+               return applySetBudgetPrice(state, action);
           default : 
                return state;
           }
@@ -900,11 +1045,33 @@ function applysetDataPurchase(state, action){
 function applysetDataPurchaseMonth(state, action){
      const {MonthPurchaseProduct, MonthPurchasePrice} = action;
 
-     console.log();
      return {
           ...state,
           MonthPurchaseProduct,
           MonthPurchasePrice
+     }
+}
+
+function applySetBudgetPrice(state, action){
+     const { FixConsumPrice }  = state;
+     const { monthSallery } = action;
+
+     console.log("@#@#@# monthSallery", monthSallery)
+     console.log("@#@#@# FixConsumPrice", FixConsumPrice)
+     console.log("Budget price = " , monthSallery - FixConsumPrice )
+     return {
+          ...state,
+          BudgetPrice : monthSallery - FixConsumPrice 
+     }
+}
+
+function applySetFixData(state, action){
+     const { FixConsumProduct, FixConsumPrice } = action;
+     console.log("applyFix : ", FixConsumProduct , FixConsumPrice)
+     return {
+          ...state,
+          FixConsumProduct,
+          FixConsumPrice
      }
 }
 
@@ -964,6 +1131,7 @@ async function applySetData(state, action){
 const actionCreators = {
      //login,
      submitConsum,
+     submitFixConsum,
 
      getDataMealToday,
      getDataMealMonth,
@@ -980,7 +1148,8 @@ const actionCreators = {
      getReportDataMonth,
      getReportDataToday,
 
-     uploadPhoto
+     uploadPhoto,
+     getFixData
 }
 
 export { actionCreators };

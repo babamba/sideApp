@@ -16,7 +16,9 @@ class Container extends Component {
           //isFetching : false
           pushNotifications: true,
           modalVisibleSalaryForm: false,
-          username:""
+          username:"",
+          switchValue: this.props.locked
+          
      };
 
      componentWillMount = async() =>{
@@ -41,40 +43,46 @@ class Container extends Component {
           }    
      }
 
+     _toggleSwitch = (value) => {
+          const { setLocked } = this.props;
+          setLocked(value)
+          this.setState({switchValue: value})
+     }
 
-  _onPressOptions = () => {
-     this.props.navigation.navigate('options')
-   }
- 
-   _onChangePushNotifications = () => {
-     this.setState(state => ({
-       pushNotifications: !state.pushNotifications,
-     }))
-   }
 
-   _onPressSalaryData = () => {
-     console.log(this.props)
-   }
- 
-   _logout = async() => {
-        const { logOut } = this.props;
- 
-           Alert.alert(
-                '로그아웃 하시겠습니까 ?', '',
-                [
-                     {text: '예', onPress: await this.props.logOut },
-                     {text: '아니오', onPress: () => console.log("cancel")},
-                ],
-                   { cancelable: false }
-           )
-   }
+     _onPressOptions = () => {
+          this.props.navigation.navigate('options')
+     }
+     
+     _onChangePushNotifications = () => {
+          this.setState(state => ({
+          pushNotifications: !state.pushNotifications,
+          }))
+     }
 
-   _pushTest = async() => {
-        const { pushNotifications } = this.props;
+     _onPressSalaryData = () => {
+          console.log(this.props)
+     }
+     
+     _logout = async() => {
+          const { logOut } = this.props;
+     
+               Alert.alert(
+                    '로그아웃 하시겠습니까 ?', '',
+                    [
+                         {text: '예', onPress: await this.props.logOut },
+                         {text: '아니오', onPress: () => console.log("cancel")},
+                    ],
+                    { cancelable: false }
+               )
+     }
 
-        pushNotifications("today")
-        Alert.alert("푸시 발송")
-   }
+     _pushTest = async() => {
+          const { pushNotifications } = this.props;
+
+          pushNotifications("today")
+          Alert.alert("푸시 발송")
+     }
 
      componentWillReceiveProps = nextProps => {
           //console.log("nextProps.feed", nextProps.feed);
@@ -100,6 +108,7 @@ class Container extends Component {
                     onChangePushNotifications = {this._onChangePushNotifications}
                     onPressSalaryData= {this._onPressSalaryData}
                     toggleModalVisibleSalaryForm = {this._toggleModalVisibleSalaryForm}
+                    toggleSwitch= {this._toggleSwitch}
                />
           );
      }

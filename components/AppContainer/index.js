@@ -6,9 +6,10 @@ import { actionCreators as timerActions } from "../../redux/modules/timer";
 
 const mapStateToProps = (state, ownProps) => {
      const { user, timer } = state;
-     console.log("mapStateToProps", user.isLoggedIn);
+     //console.log("mapStateToProps", user.isLoggedIn);
      //console.log(user.already)
      return {
+          locked: user.locked,
           isLoggedIn: user.isLoggedIn,
           profile: user.profile,
           isSetData : timer.isSetData,

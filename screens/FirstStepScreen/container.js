@@ -56,7 +56,7 @@ class Container extends Component {
           if(isSetData){
                this.setState({
                     monthSallery : Number(monthSallery),
-                    salaryDay : Number(salaryDay),
+                    salaryDay : salaryDay,
                     selectWeek,
                     startHour : Number(startHour),
                     endHour :  Number(endHour),

@@ -16,7 +16,9 @@ class App extends React.Component {
     isLoadingComplete: false,
     isSplashReady: false,
     isAppReady: false,
+    
   };
+
   render() {
     //store.dispatch({type:"LOG_OUT"});
     const { isLoadingComplete } = this.state;

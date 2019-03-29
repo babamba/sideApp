@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, Text,Button, Modal, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
+import { View, Text,Button, Modal, FlatList, Switch, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import MenuButton from "../../components/MenuButton"
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Ionicons } from "@expo/vector-icons"
@@ -80,6 +80,30 @@ const SettingScreen = props => (
                <ListItem
                     title="기본정보 설정"
                     rightTitle=""
+                    // onPress={() => this.onPressOptions()}
+                    onPress={props.toggleModalVisibleSalaryForm}
+                    containerStyle={styles.listItemContainer}
+                    Component={TouchableScale}
+                    friction={70} //
+                    tension={100} // These props are passed to the parent component (here TouchableScale)
+                    activeScale={0.95} //
+                    leftIcon={
+                    <Icon
+                         containerStyle={{ backgroundColor: '#FAD291' }}
+                         icon={{
+                         type: 'font-awesome',
+                         name: 'money',
+                         }}
+                    />
+                    }
+               />
+
+               <ListItem
+                    title="touchId"
+                    rightTitle={<Switch 
+                         onValueChange = {props.toggleSwitch}
+                         value = {props.switchValue}
+                    />}
                     // onPress={() => this.onPressOptions()}
                     onPress={props.toggleModalVisibleSalaryForm}
                     containerStyle={styles.listItemContainer}

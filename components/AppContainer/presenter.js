@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from "prop-types";
-import { View, Text, Image, StatusBar, StyleSheet, Platform, Alert } from "react-native";
+import { AppState, View, Text, Image, StatusBar, StyleSheet, Platform, Alert } from "react-native";
 import { LinearGradient } from 'expo';
 import LoggedOutNavigation from "../../navigation/LoggedOutNavigation"
 import RootNavigation from "../../navigation/RootNavigation"
 import EnterSalaryNavigation from "../../navigation/EnterSalaryNavigation"
 import { AsyncStorage } from "react-native";
 import AppIntroSlider from 'react-native-app-intro-slider';
-import Expo , {Constants } from "expo"
+// import Expo , { Constants } from "expo"
+import { LocalAuthentication } from 'expo';
 import moment from "moment";
 
 const slide = [
@@ -39,6 +40,7 @@ const slide = [
      unifiedErrors: false, // use unified error messages (default false)
      passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
    };
+
 class AppContainer extends Component {
 
      constructor(props){
@@ -48,8 +50,9 @@ class AppContainer extends Component {
                launched : false,
                AppRefreash: false,
                compatible: false,
-               fingerprints: false,
-               result: ''
+               scanResult : false,
+               enorollCount: 0,
+               appState: AppState.currentState,
           };
      }
 
@@ -79,154 +82,197 @@ class AppContainer extends Component {
           }else{
                await this.setState({launched: true});
           }
-
+          // await this.checkDeviceForHardware();
+          
           console.log("componentWillMount launched : ", launched)
-
-          //if(showRealApp && isLoggedIn && isSetData){
-               //console.log("()()()()()() chkeck hardware async : ")
-               // await this.checkDeviceForHardware();
-               // await this.checkForFingerprints();
-          //}
+          console.log("AppState.currentState, ", AppState.currentState,)
      }
+
+     _handleAppStateChange = (nextAppState) => {
+          console.log("this.state.appState : " , this.state.appState)
+          console.log(typeof this.state.appState)
+          console.log("nextAppState : " , nextAppState)
+
+          if ( this.state.appState.match(/inactive/) && nextAppState === 'active') {
+               console.log('App has come to the foreground!');
+               this.setState({
+                    appState: nextAppState
+               });
+
+          }else if(this.state.appState.match(/background/) && nextAppState === 'active'){
+               this.checkDeviceForHardware();
+               this.setState({
+                    appState: nextAppState
+               });
+          }else{
+               console.log('App has come to the background!');
+               this.setState({
+                    appState: nextAppState,
+                    scanResult : false
+               });
+          }
+          
+          // if(this.state.appState.match(/inactive|background/) && nextAppState === 'active'){
+          //      this.checkDeviceForHardware();
+          // }
+     };
 
      componentDidMount = async() => {
           const { isLoggedIn, isSetData } = this.props;
-          console.log("()()()()()() chkeck hardware async : ")
-          
-          console.log(isLoggedIn)
-          console.log(isSetData)
 
-          // TouchID.authenticate('to demo this react-native component', optionalConfigObject)
-          // .then(success => {
-          // // Success code
-          //      console.log("success")
-          // })
-          // .catch(error => {
-          // // Failure code
-          //      console.log("error : ", error)
-          // });
+          const { appState } = this.state;
+          await AppState.addEventListener('change', this._handleAppStateChange);
+          console.log("componentDidMount", appState);
+          this.checkDeviceForHardware();
 
-          // Expo.Fingerprint.hasHardwareAsync().then(success => {
-          //      // Device supports Touchid/Faceid
-          //      Expo.Fingerprint.authenticateAsync("Prompted message").then(success => {
-          //         if (success.success === true) {
-          //           Alert.alert('Touch id & faceId enable!');
-          //           // authenticate successfully
-          //         } else {
-          //           Alert.alert('Touch id & faceId failed!');
-          //           // failed to authenticate
-          //         }
-          //      }).catch(error => {
-          //         // if user was unable to anthenticate too many times, he may end up here
-          //         Alert.alert('Touch id & faceId error!');
-          //      });
-          //    }).catch(error => {
-          //      Alert.alert('Touch id & faceId error!');
-          //    });
-
-          // const fingerprintSupport = await this.checkDeviceForHardware();
-          // this.setState({
-          //      fingerprintSupport
-          // })
-          //console.log("fingerprintSupport : ", fingerprintSupport)
-
-          // if (this.state.fingerprintSupport){
+          console.log("_#_#_#_#_#_#_#_#_# componentDidMount appState : " , appState)
+          // if(appState === 'active'){
                
-          //      await this.scanFinger();
           // }
+          
+          // console.log(isLoggedIn)
+          // console.log(isSetData)
+          console.log("check hardware async : ")
      }
 
-     // async scanFinger() {
-     //      //this.setState({ waitingFingerprint: true });
-    
-     //            let result = await Expo.Fingerprint.authenticateAsync('Waiting for TouchID');
-                
-     //            console.log("result : ", result)
-     //            if (result.success) {
-     //                ToastAndroid.show('Success !', ToastAndroid.SHORT);
-     //                this.setState({ waitingFingerprint: false });
-     //                this.props.navigation.navigate('App');
-     //            }else {
-     //                ToastAndroid.show('Echec de l\'authentification !', ToastAndroid.SHORT);
-     //                this.setState({fingerprintFailedMsg: 'Unknown', waitingFingerprint: false,});
-     //                // await this.scanFinger();
-     //        }
-     //    }
-    
+     componentWillUnmount = async() => {
+          await AppState.removeEventListener('change', this._handleAppStateChange);
+     }
 
-     // handleLoginPress = () => {
-     //      if (Platform.OS === 'android') {
-     //        this.showAndroidAlert();
-     //      } else {
-     //        this.scanBiometrics();
-     //      }
-     // };
+     checkDeviceForHardware = async() => {
+          let compatible = await LocalAuthentication.hasHardwareAsync()
+          console.log("()()()()()()()() fingerPrint has hardware : " , compatible)
+          this.setState({ compatible });
+          let supportType = await LocalAuthentication.supportedAuthenticationTypesAsync()
+          console.log("supportType : " , supportType)
 
-     // checkForFingerprints = async () => {
-     //      let fingerprints = await Expo.Fingerprint.isEnrolledAsync();
-     //      this.setState({fingerprints})
+          if (!compatible) {
+               this.showIncompatibleAlert();
+          }else{
+               this.checkForBiometrics();
+          }
+     };
 
-     //      if (!biometricRecords) {
-     //           this.dropdown.alertWithType(
-     //                'warn',
-     //                'No Biometrics Found',
-     //                'Please ensure you have set up biometrics in your OS settings.'
-     //           );
-     //      } else {
-     //           this.handleLoginPress();
-     //      }
-     // };
+     checkForBiometrics = async () => {
+          let biometricRecords = await LocalAuthentication.isEnrolledAsync();
 
-     // checkDeviceForHardware = async() => {
-     //      let compatible = await Expo.Fingerprint.hasHardwareAsync();
-     //      console.log("()()()()()()()() fingerPrint : " , compatible)
-     //      this.setState({ compatible });
-     //      if (!compatible) {
-     //           this.showIncompatibleAlert();
-     //      }
-     // };
+          if (!biometricRecords) {
+               console.log( 'warn',
+               'No Biometrics Found',
+               'Please ensure you have set up biometrics in your OS settings.')
+            this.dropdown.alertWithType(
+              'warn',
+              'No Biometrics Found',
+              'Please ensure you have set up biometrics in your OS settings.'
+            );
+          } else {
+            this.handleLoginPress();
+          }
+     };
 
-     // showIncompatibleAlert = () => {
-     //      this.dropdown.alertWithType(
-     //        'error',
-     //        'Incompatible Device',
-     //        'Current device does not have the necessary hardware to use this API.'
-     //      );
-     // };
+     handleLoginPress = () => {
+          if (Platform.OS === 'android') {
+            this.showAndroidAlert();
+          } else {
+            this.scanBiometrics();
+          }
+        };
+
+     showIncompatibleAlert = () => {
+          console.log('error',
+          'Incompatible Device',
+          'Current device does not have the necessary hardware to use this API.')
+     };
+
+     showAndroidAlert = () => {
+          Alert.alert('Fingerprint Scan', 'Place your finger over the touch sensor.');
+          this.scanBiometrics();
+     };
+     
+     scanBiometrics = async () => {
+       const { enorollCount } = this.state;
+       let result = await LocalAuthentication.authenticateAsync('Biometric Scan.');
+
+            if (result.success) {
+                 console.log("finger result success")
+                 await this.setState({
+                      scanResult : true,
+                 })
+     
+               } else {
+                    console.log("finger result failed : " , enorollCount)
+          }
+       
+     };
 
      render(){
-          const { isLoggedIn, profile, isSetData , logOut} = this.props;
-          const { launched } = this.state;
-          console.log("1231@#!@#!@#!@ isLogged / " , isLoggedIn);
-          console.log("1231@#!@#!@#!@ profile / " , profile);
-          console.log("1231@#!@#!@#!@ isSetData / " , isSetData);
+          const { isLoggedIn, profile, isSetData , logOut, locked} = this.props;
+          const { launched , compatible, scanResult } = this.state;
+          console.log("!@#!@#!@#fingerPrint : " , locked)
+          // console.log("1231@#!@#!@#!@ isLogged / " , isLoggedIn);
+          // console.log("1231@#!@#!@#!@ profile / " , profile);
+          // console.log("1231@#!@#!@#!@ isSetData / " , isSetData);
 
           //앱 최초시작 후 
           if (launched) {
-               console.log("!@#!@#!@#!@# 이미봤따", launched);
-               //월급 정보를 저장했으면 
-               if(isLoggedIn && profile && isSetData){
-                    return (
-                         <View style={styles.container} >
-                              <StatusBar hidden={false}/>
-                              { isSetData ? (
-                                   <RootNavigation screenProps = {{username: profile.username ,isLoggedIn, logOut}} /> 
-                              ) : (
-                                   <EnterSalaryNavigation />
-                              )}
-                         </View>
-                    );
-               //월급 정보를 저장안헀으면
-               }else{
-                    return (
-                         <View style={styles.container} >
+
+               if(compatible && locked){
+                    console.log("!@#!@#!@#!@# 이미봤따", launched);
+                    //월급 정보를 저장했으면 
+                    if(isLoggedIn && profile && isSetData && !scanResult){
+                         console.log("!@#!@#!@#!@# 인증해", launched);
+                         
+                         return (
+                              <View style={[styles.container, { alignItems:'center'}]} >
+                                   <StatusBar hidden={true}/>
+                                   <Text>인증해주세요</Text>
+                              </View>
+                         )
+                    }else if(isLoggedIn && profile && isSetData && scanResult ){
+                         return (
+                              <View style={styles.container} >
                                    <StatusBar hidden={false}/>
-                                   <LoggedOutNavigation />
-                         </View>
-                    )
+                                   { isSetData ? (
+                                        <RootNavigation screenProps = {{username: profile.username ,isLoggedIn, logOut}} /> 
+                                   ) : (
+                                        <EnterSalaryNavigation />
+                                   )}
+                              </View>
+                         );
+                    //월급 정보를 저장안헀으면
+                    }else{
+                         return (
+                              <View style={styles.container} >
+                                        <StatusBar hidden={false}/>
+                                        <LoggedOutNavigation />
+                              </View>
+                         )
+                    }
+               }else{
+                    console.log("!@#!@#!@#!@# 이미봤따", launched);
+                    //월급 정보를 저장했으면 
+                    if(isLoggedIn && profile && isSetData || appState==='active' ){
+                         return (
+                              <View style={styles.container} >
+                                   <StatusBar hidden={false}/>
+                                   { isSetData ? (
+                                        <RootNavigation screenProps = {{username: profile.username ,isLoggedIn, logOut}} /> 
+                                   ) : (
+                                        <EnterSalaryNavigation />
+                                   )}
+                              </View>
+                         );
+                    //월급 정보를 저장안헀으면
+                    }else{
+                         return (
+                              <View style={styles.container} >
+                                        <StatusBar hidden={false}/>
+                                        <LoggedOutNavigation />
+                              </View>
+                         )
+                    }
                }
                
-
           // 앱 최초시작 전
           }else if(!launched){
                console.log("!@#!@#!@#!@# 안봤다", launched);

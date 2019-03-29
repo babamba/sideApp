@@ -25,7 +25,8 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSFaceIDUsageDescription": "This app will optionally use Face ID or Touch ID to save login"
+        "NSFaceIDUsageDescription": "This app will optionally use Face ID or Touch ID to save login",
+        "NSCameraUsageDescription": "This app uses the camera to content post"
       }
     },
     "description": "메인작업"

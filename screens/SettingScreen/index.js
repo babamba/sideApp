@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
      return {
           isLoggedIn: user.isLoggedIn,
           profile: user.profile,
+          locked: user.locked
      };
 };
 
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           pushNotifications: (type) => {
                return dispatch(userActions.pushNotifications(type));
           },
+          setLocked: (value) => {
+               return dispatch(userActions.setLocked(value))
+          }
           // resetData : () => {
           //      dispatch(timerActions.resetData());
           // }

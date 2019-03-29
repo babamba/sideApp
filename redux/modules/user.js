@@ -9,6 +9,7 @@ const AlREADY_LAUNCH = "AlREADY_LAUNCH";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT"
 const SET_USER = "SET_USER";
+const SET_LOCKED = "SET_LOCKED";
 
 // Action Creators
 function setLogIn(token){
@@ -29,6 +30,13 @@ function setUser(user){
      return {
           type: SET_USER,
           user
+     }
+}
+
+function setLocked(value){
+     return {
+          type:SET_LOCKED,
+          value
      }
 }
 
@@ -81,8 +89,8 @@ function login(username, password){
                if(json.user && json.token){
                     //console.log(json)
                    
-                    console.log(getData);
-                    console.log(timer);
+                    //console.log(getData);
+                    //console.log(timer);
 
                     await dispatch(setLogIn(json.token));
                     const getData = await dispatch(timerActions.getData())
@@ -196,7 +204,8 @@ function registerForPush() {
 // 로그인 후에는 state를 폰에 저장 
 const initialState = {
      isLoggedIn: false,
-     launched: false
+     launched: false,
+     locked: false
 };
 
 // Reducer
@@ -213,6 +222,8 @@ function reducer(state = initialState, action){
                return applySetUser(state, action);  
           case LOG_OUT :
                return applyLogOut(state, action);
+          case SET_LOCKED :
+               return applyLocked(state, action);
           default : 
                return state;
           }
@@ -239,6 +250,14 @@ async function applyAlreadyLaunch(state, action){
 //        token: token
 //      };
 // }
+
+function applyLocked(state, action){
+     const { value } = action;
+     return {
+          ...state,
+          locked : value
+     }
+}    
 
 function applyLogIn(state, action){
      const { token } = action;
@@ -275,7 +294,8 @@ const actionCreators = {
      logOut,
      signUp,
      pushNotifications,
-     registerForPush
+     registerForPush,
+     setLocked
 }
 
 export { actionCreators };

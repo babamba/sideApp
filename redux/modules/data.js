@@ -1019,9 +1019,9 @@ function applysetDataMonthIncrease(state, action){
 }
 function applysetDataTodayIncrease(state, action){
      const { TodayIncreaseProduct, TodayIncreasePrice } = action;
-
-     console.log("applysetDataTodayIncrease" , TodayIncreaseProduct)
-     console.log("applysetDataTodayIncrease" , TodayIncreasePrice)
+     console.log("applysetDataTodayIncrease")
+     //console.log("applysetDataTodayIncrease" , TodayIncreaseProduct)
+     //console.log("applysetDataTodayIncrease" , TodayIncreasePrice)
 
      return {
           ...state,
@@ -1080,10 +1080,10 @@ function applysetDataPurchaseMonth(state, action){
 function applySetBudgetPrice(state, action){
      const { FixConsumPrice }  = state;
      const { monthSallery } = action;
-
-     console.log("@#@#@# monthSallery", monthSallery)
-     console.log("@#@#@# FixConsumPrice", FixConsumPrice)
-     console.log("Budget price = " , monthSallery - FixConsumPrice )
+     console.log("@#@#@# applySetBudgetPrice")
+     //console.log("@#@#@# monthSallery", monthSallery)
+     //console.log("@#@#@# FixConsumPrice", FixConsumPrice)
+    // console.log("Budget price = " , monthSallery - FixConsumPrice )
      return {
           ...state,
           BudgetPrice : monthSallery - FixConsumPrice 
@@ -1092,7 +1092,8 @@ function applySetBudgetPrice(state, action){
 
 function applySetFixData(state, action){
      const { FixConsumProduct, FixConsumPrice } = action;
-     console.log("applyFix : ", FixConsumProduct , FixConsumPrice)
+     console.log("@#@#@# applySetFixData")
+     //console.log("applyFix : ", FixConsumProduct , FixConsumPrice)
      return {
           ...state,
           FixConsumProduct,
@@ -1105,7 +1106,7 @@ async function applySetData(state, action){
      const { data } = action;
      const id = data.created_at
      moment(id);
-     console.log("id : " , moment(id).format("YYYYMMDD-hhmmss"))
+     //console.log("id : " , moment(id).format("YYYYMMDD-hhmmss"))
 
      const existingProducts = await AsyncStorage.getItem('products');
 

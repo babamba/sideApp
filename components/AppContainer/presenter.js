@@ -89,6 +89,7 @@ class AppContainer extends Component {
      }
 
      _handleAppStateChange = (nextAppState) => {
+          const { locked } = this.props;
           console.log("this.state.appState : " , this.state.appState)
           console.log(typeof this.state.appState)
           console.log("nextAppState : " , nextAppState)
@@ -100,7 +101,10 @@ class AppContainer extends Component {
                });
 
           }else if(this.state.appState.match(/background/) && nextAppState === 'active'){
-               this.checkDeviceForHardware();
+               if(locked){
+                    this.checkDeviceForHardware();
+               }
+               
                this.setState({
                     appState: nextAppState
                });
@@ -118,12 +122,15 @@ class AppContainer extends Component {
      };
 
      componentDidMount = async() => {
-          const { isLoggedIn, isSetData } = this.props;
+          const { isLoggedIn, isSetData , locked} = this.props;
 
           const { appState } = this.state;
           await AppState.addEventListener('change', this._handleAppStateChange);
           console.log("componentDidMount", appState);
-          this.checkDeviceForHardware();
+
+          if(locked){
+               this.checkDeviceForHardware();
+          }
 
           console.log("_#_#_#_#_#_#_#_#_# componentDidMount appState : " , appState)
           // if(appState === 'active'){
@@ -223,7 +230,7 @@ class AppContainer extends Component {
                          console.log("!@#!@#!@#!@# 인증해", launched);
                          
                          return (
-                              <View style={[styles.container, { alignItems:'center'}]} >
+                              <View style={[styles.container, { alignItems:'center', alignContent: 'center',}]} >
                                    <StatusBar hidden={true}/>
                                    <Text>인증해주세요</Text>
                               </View>

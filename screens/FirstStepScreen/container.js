@@ -46,6 +46,23 @@ class Container extends Component {
      }
 
      componentWillMount(){
+          const { isSetData,
+               monthSallery,
+               salaryDay,
+               selectWeek,
+               startHour,
+               endHour } = this.props
+
+          if(isSetData){
+               this.setState({
+                    monthSallery : Number(monthSallery),
+                    salaryDay : Number(salaryDay),
+                    selectWeek,
+                    startHour : Number(startHour),
+                    endHour :  Number(endHour),
+               })
+          }
+
           if(this.props.backBtn){
                this.setState({
                     backBtn:true

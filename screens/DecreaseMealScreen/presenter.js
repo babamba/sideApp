@@ -6,6 +6,7 @@ import {
      SelectMultipleButton,
      SelectMultipleGroupButton
    } from "react-native-selectmultiple-button";
+import { Haptic } from 'expo';
 
 const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
@@ -15,6 +16,8 @@ class DecreaseMealScreen extends Component {
      nameInput = null;
 
      componentDidMount(){
+          Haptic.impact(Haptic.ImpactFeedbackStyle.Medium)
+          
           setTimeout(() => {
                this.nameInput.focus();
           }, 30);

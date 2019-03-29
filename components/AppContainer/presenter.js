@@ -45,7 +45,7 @@ class AppContainer extends Component {
           super(props);
           //console.log(props)
           this.state = {
-               showRealApp : false,
+               launched : false,
                AppRefreash: false,
                compatible: false,
                fingerprints: false,
@@ -60,9 +60,9 @@ class AppContainer extends Component {
 
      componentWillMount = async() => {
 
-          const { isLoggedIn , initApp, isSetData } = this.props;
-          const showRealApp = await AsyncStorage.getItem("already");
-
+          const { isLoggedIn , initApp, isSetData, launched } = this.props;
+          //const showRealApp = await AsyncStorage.getItem("already");
+          console.log("already ", launched);
           if(isLoggedIn, isSetData){
                await initApp(moment().format("YYYYMMDD"));
           }
@@ -70,13 +70,17 @@ class AppContainer extends Component {
           // const value = await AsyncStorage.getItem("already");
           // console.log("value" , value)
 
-          if(showRealApp == null){
-               await this.setState({showRealApp: false});
+          // AsyncStorage.getItem("already").then((value) => {
+          //      await this.setState({showRealApp: false});
+          //  })
+
+          if(launched == null){
+               await this.setState({launched: false});
           }else{
-               await this.setState({showRealApp: true});
+               await this.setState({launched: true});
           }
 
-          console.log("componentWillMount showRealApp : ", showRealApp)
+          console.log("componentWillMount launched : ", launched)
 
           //if(showRealApp && isLoggedIn && isSetData){
                //console.log("()()()()()() chkeck hardware async : ")
@@ -192,14 +196,14 @@ class AppContainer extends Component {
 
      render(){
           const { isLoggedIn, profile, isSetData , logOut} = this.props;
-          const { showRealApp } = this.state;
+          const { launched } = this.state;
           console.log("1231@#!@#!@#!@ isLogged / " , isLoggedIn);
           console.log("1231@#!@#!@#!@ profile / " , profile);
           console.log("1231@#!@#!@#!@ isSetData / " , isSetData);
 
           //앱 최초시작 후 
-          if (showRealApp) {
-               
+          if (launched) {
+               console.log("!@#!@#!@#!@# 이미봤따", launched);
                //월급 정보를 저장했으면 
                if(isLoggedIn && profile && isSetData){
                     return (
@@ -224,7 +228,8 @@ class AppContainer extends Component {
                
 
           // 앱 최초시작 전
-          }else{
+          }else if(!launched){
+               console.log("!@#!@#!@#!@# 안봤다", launched);
                return (
                     <AppIntroSlider
                     slides={slide}
@@ -302,14 +307,14 @@ class AppContainer extends Component {
           // After user finished the intro slides. Show real app through
           // navigation or simply by controlling state
           setAlreadyLaunch(true);
-          this.setState({ showRealApp: true });
+          this.setState({ launched: true });
      };
       _onSkip = () => {
           const { setAlreadyLaunch } = this.props;
           // After user skip the intro slides. Show real app through
           // navigation or simply by controlling state
           setAlreadyLaunch(true);
-          this.setState({ showRealApp: true });
+          this.setState({ launched: true });
      };
 
      _renderItem = props => (

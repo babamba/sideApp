@@ -32,11 +32,11 @@ function setUser(user){
      }
 }
 
-function setAlreadyLaunch(already){
-     console.log("!@# setAlreadyLaunch / " + already);
+function setAlreadyLaunch(launched){
+     console.log("!@# setAlreadyLaunch / " + launched);
      return {
           type : AlREADY_LAUNCH,
-          already
+          launched
      }
 }
 
@@ -196,7 +196,7 @@ function registerForPush() {
 // 로그인 후에는 state를 폰에 저장 
 const initialState = {
      isLoggedIn: false,
-     already: false
+     launched: false
 };
 
 // Reducer
@@ -222,11 +222,11 @@ function reducer(state = initialState, action){
 
 async function applyAlreadyLaunch(state, action){
      await AsyncStorage.setItem('already', 'true');
-     const { already } = action;
-     console.log("reducer action alreadyLaunched : " , already)
+     const { launched } = action;
+     console.log("reducer action alreadyLaunched : " , launched)
      return {  
           ...state,
-          already : already
+          launched
      }
 }
 

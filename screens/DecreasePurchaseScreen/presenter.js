@@ -18,7 +18,18 @@ import { SelectMultipleGroupButton } from "react-native-selectmultiple-button";
 const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
-const DecreasePurchaseScreen = props => 
+//const DecreasePurchaseScreen = props => 
+class DecreasePurchaseScreen extends Component {
+     nameInput = null;
+
+     componentDidMount(){
+          setTimeout(() => {
+               this.nameInput.focus();
+          }, 30);
+     }
+
+     render() {
+          return (
          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
               <Ionicons name="ios-arrow-down" size={20} style={styles.downArrow}/>
@@ -31,8 +42,8 @@ const DecreasePurchaseScreen = props =>
                               autoCapitalize={"none"}
                               autoCorrect={false}
                               autoFocus={true}
-                              value={props.income}
-                              onChangeText={props.changeIncome}
+                              value={this.props.income}
+                              onChangeText={this.props.changeIncome}
                          />
                          <Text style={styles.defulatText1}>소비하는데</Text>
                     </View>
@@ -43,8 +54,8 @@ const DecreasePurchaseScreen = props =>
                               style={styles.moneyInput} 
                               autoCapitalize={"none"}
                               //   secureTextEntry={true}
-                              value={props.price}
-                              onChangeText={props.changePrice}
+                              value={this.props.price}
+                              onChangeText={this.props.changePrice}
                               returnKeyType={"send"}
                               keyboardType={"number-pad"}
                          />
@@ -63,7 +74,7 @@ const DecreasePurchaseScreen = props =>
                               fontFamily: 'NanumBarunGothicUltraLight',
                               justifyContent: "center",
                          }}
-                         defaultSelectedIndexes={props.defaultSelectedIndex_group_insterest}
+                         defaultSelectedIndexes={this.props.defaultSelectedIndex_group_insterest}
                          highLightStyle={{
                               borderColor: "gray",
                               backgroundColor: "transparent",
@@ -72,13 +83,13 @@ const DecreasePurchaseScreen = props =>
                               backgroundTintColor: "transparent",
                               textTintColor: ios_blue
                          }}
-                         onSelectedValuesChange={props.onSelectedValuesChange}
-                         group={props.multipleGroupData}
+                         onSelectedValuesChange={this.props.onSelectedValuesChange}
+                         group={this.props.multipleGroupData}
                     />
 
-                      <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
+                      <TouchableOpacity style={styles.touchable} onPressOut={this.props.submit}>
                           <View style={styles.button}>
-                                {props.isSubmiting ? ( 
+                                {this.props.isSubmiting ? ( 
                                     <ActivityIndicator size="small" color="white" /> 
                                     ) : ( 
                                     <Text style={styles.btnText }>등록하기</Text> 
@@ -89,6 +100,9 @@ const DecreasePurchaseScreen = props =>
             
             </View>
          </View>
+          );
+     }
+}
    
 const styles = StyleSheet.create({
      container: {

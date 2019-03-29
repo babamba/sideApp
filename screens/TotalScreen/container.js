@@ -163,7 +163,7 @@ class Container extends Component {
           console.log("_handleScroll")
           const getOffsetY = event.nativeEvent.contentOffset.y;
           console.log(event.nativeEvent.contentOffset.y);
-          if(getOffsetY <= -3){
+          if(getOffsetY <= -15){
                this._toggleModal();
                console.log("toggle")
           }

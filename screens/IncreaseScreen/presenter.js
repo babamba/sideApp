@@ -11,21 +11,36 @@ import {
 const { width, height } = Dimensions.get("window");
 const ios_blue = "#007AFF";
 
-const IncreaseScreen = props => 
-         <View style={{ flex: 2 }}>
+//const IncreaseScreen = props => 
+class IncreaseScreen extends Component {
+
+     nameInput = null;
+
+     componentDidMount(){
+          setTimeout(() => {
+               this.nameInput.focus();
+          }, 30);
+     }
+
+     render() {
+          return (
+          <View style={{ flex: 2 }}>
             <View style={styles.container}> 
               <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/>
               <View style={styles.content}>
                     <Text style={styles.mainText}>수입이 들어왔나요? </Text>
                     <View style={styles.main}>
                          <TextInput 
+                              ref={ref => {
+                                   this.nameInput = ref;
+                              }}
                               placeholder="내용입력" 
                               style={styles.textInput}
                               autoCapitalize={"none"}
                               autoCorrect={false}
-                              value={props.income}
-                              autoFocus={true}
-                              onChangeText={props.changeIncome}
+                              value={this.props.income}
+                              //autoFocus={true}
+                              onChangeText={this.props.changeIncome}
                          />
                          <Text style={styles.defulatText1}>가</Text>
                     </View>
@@ -35,8 +50,8 @@ const IncreaseScreen = props =>
                               style={styles.moneyInput} 
                               autoCapitalize={"none"}
                               //   secureTextEntry={true}
-                              value={props.price}
-                              onChangeText={props.changePrice}
+                              value={this.props.price}
+                              onChangeText={this.props.changePrice}
                               returnKeyType={"send"}
                               keyboardType={"number-pad"}
                          />
@@ -55,7 +70,7 @@ const IncreaseScreen = props =>
                               fontFamily: 'NanumBarunGothicUltraLight',
                               justifyContent: "center",
                          }}
-                         defaultSelectedIndexes={props.defaultSelectedIndex_group_insterest}
+                         defaultSelectedIndexes={this.props.defaultSelectedIndex_group_insterest}
                          highLightStyle={{
                               borderColor: "gray",
                               backgroundColor: "transparent",
@@ -64,13 +79,13 @@ const IncreaseScreen = props =>
                               backgroundTintColor: "transparent",
                               textTintColor: ios_blue
                          }}
-                         onSelectedValuesChange={props.onSelectedValuesChange}
-                         group={props.multipleGroupData}
+                         onSelectedValuesChange={this.props.onSelectedValuesChange}
+                         group={this.props.multipleGroupData}
                     />
 
-                      <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
+                      <TouchableOpacity style={styles.touchable} onPressOut={this.props.submit}>
                           <View style={styles.button}>
-                                {props.isSubmiting ? ( 
+                                {this.props.isSubmiting ? ( 
                                     <ActivityIndicator size="small" color="white" /> 
                                     ) : ( 
                                     <Text style={styles.btnText }>등록하기</Text> 
@@ -81,7 +96,9 @@ const IncreaseScreen = props =>
             
             </View>
          </View>
-   
+       );
+     }
+}
 const styles = StyleSheet.create({
      container: {
           flex: 1,
@@ -91,7 +108,7 @@ const styles = StyleSheet.create({
           flex: 4,
           alignItems: "center",
           justifyContent: "flex-start",
-          ...ifIphoneX({paddingTop: 40}, {paddingTop: 20}),
+          ...ifIphoneX({paddingTop: 20}, {paddingTop: 0}),
      },
      main:{
           flexDirection:'row'

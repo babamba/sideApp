@@ -41,7 +41,9 @@ class DecreasePurchaseScreen extends Component {
                               style={styles.textInput}
                               autoCapitalize={"none"}
                               autoCorrect={false}
-                              autoFocus={true}
+                              ref={ref => {
+                                   this.nameInput = ref;
+                              }}
                               value={this.props.income}
                               onChangeText={this.props.changeIncome}
                          />

@@ -91,17 +91,30 @@ class AppContainer extends Component {
 
      _handleAppStateChange = (nextAppState) => {
           const { locked } = this.props;
+          const { scanResult } = this.state;
           //console.log("this.state.appState : " , this.state.appState)
           //console.log(typeof this.state.appState)
-          //console.log("nextAppState : " , nextAppState)
+          console.log("nextAppState : " , nextAppState)
 
           if ( this.state.appState.match(/inactive/) && nextAppState === 'active') {
                console.log('App has come to the foreground!');
+               if(locked && !scanResult ){
+                    this.checkDeviceForHardware();
+               }
+
                this.setState({
                     appState: nextAppState
                });
 
           }else if(this.state.appState.match(/background/) && nextAppState === 'active'){
+               if(locked){
+                    this.checkDeviceForHardware();
+               }
+               
+               this.setState({
+                    appState: nextAppState
+               });
+          }else if(this.state.appState.match(/background/) && nextAppState === 'inactive'){
                if(locked){
                     this.checkDeviceForHardware();
                }

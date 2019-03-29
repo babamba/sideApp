@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
+import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableHighlight, Platform } from "react-native";
 import AddButton from "../../components/AddButton";
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
@@ -40,10 +40,16 @@ const SalleryText = props => (
           props.isWorkingDay ? (
                <View style={styles.container}>
                <ScrollView
+                    onScroll={()=> console.log('onScroll')}
                     onScrollEndDrag={(e) => props.handleScroll(e)}
                     keyboardShouldPersistTaps='always'
-                    showsVerticalScrollIndicator={false}
+                    // showsVerticalScrollIndicator={false}
+                    overScrollMode='always'
+                    //showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1, width:'100%', height:'100%' }}
+                    //nestedScrollEnabled={true}
                >
+               
                <View style={styles.TextConatiner}>
                     <View style={styles.remainArea} 
                     animation="fadeInDown"
@@ -113,6 +119,16 @@ const SalleryText = props => (
                                Moneytype={"INCREASE_TODAY"}
                          />
                     </View>
+
+                    {Platform.OS === 'android' && 
+                         <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+                              <AddButton 
+                                   AddText={"수입등록"} 
+                                   onPress={props.toggleModal}
+                                   color={"#99F089"}
+                              />
+                         </View>
+                    }
                     {/* <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"수입등록"} 
@@ -231,6 +247,7 @@ const SalleryText = props => (
                     // snapToOffsets={[-5,0,200]}
                     // snapToStart={true}
                     showsVerticalScrollIndicator={false}
+                    overScrollMode='always'
                     //directionalLockEnabled={true}
                >
                <View style={styles.TextConatiner}>
@@ -266,6 +283,15 @@ const SalleryText = props => (
                                Moneytype={"INCREASE_MONTH"}
                          />
                     </View>
+                    {Platform.OS === 'android' && 
+                         <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+                              <AddButton 
+                                   AddText={"수입등록"} 
+                                   onPress={props.toggleModal}
+                                   color={"#99F089"}
+                              />
+                         </View>
+                    }
                     {/* <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <AddButton 
                               AddText={"수입등록"} 
@@ -327,14 +353,14 @@ SalleryText.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          alignItems:"flex-start",
-          flexDirection: "column",
+          //alignItems:"flex-start",
+          //flexDirection: "column",
           //backgroundColor:"red"
      },
      TextConatiner:{
-          flex:1,
-          flexDirection: "column",
-          alignContent: 'flex-start',
+          // flex:1,
+          //flexDirection: "column",
+          //alignContent: 'flex-start',
           ...ifIphoneX({paddingTop: 250}, {paddingTop: 220}),
           paddingLeft:50
      },

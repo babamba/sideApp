@@ -16,7 +16,7 @@ const SettingScreen = props => (
           {/* <View style={styles.menuButtonArea} >
                     
           </View> */}
-          <ScrollView style={styles.scroll}> 
+          <ScrollView style={styles.scroll} overScrollMode={'always'} > 
                <View style={styles.userRow}>
                {/* <View style={styles.userImage}>
                     <Avatar

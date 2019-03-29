@@ -15,7 +15,7 @@ class SubtractButton extends Component {
      }
 
      state = {
-          isModalVisible: false,
+          //isModalVisible: false,
           isSubmit: false
      };
 
@@ -29,33 +29,33 @@ class SubtractButton extends Component {
           }
      }
        
-     _toggleModal = async() => {
-          console.log("_toggleModal");
-          const { isModalVisible , isSubmit } = this.state;
+     // _toggleModal = async() => {
+     //      console.log("_toggleModal");
+     //      const { isModalVisible , isSubmit } = this.state;
 
-          console.log("isModalVisible : ", isModalVisible);
-          console.log("isSubmit? : ", isSubmit);
+     //      console.log("isModalVisible : ", isModalVisible);
+     //      console.log("isSubmit? : ", isSubmit);
 
-          // if(isSubmit && isModalVisible){
-          //      const { refresh } = this.props;
-          //      refresh();
-          // }
+     //      // if(isSubmit && isModalVisible){
+     //      //      const { refresh } = this.props;
+     //      //      refresh();
+     //      // }
 
-          await this.setState({ isModalVisible: !this.state.isModalVisible });
+     //      await this.setState({ isModalVisible: !this.state.isModalVisible });
          
-     }
+     // }
 
-     handleOnScroll = event => {
-          this.setState({
-            scrollOffset: event.nativeEvent.contentOffset.y,
-          });
-        };
+     // handleOnScroll = event => {
+     //      this.setState({
+     //        scrollOffset: event.nativeEvent.contentOffset.y,
+     //      });
+     //    };
       
-     handleScrollTo = p => {
-          if (this.scrollViewRef) {
-            this.scrollViewRef.scrollTo(p);
-          }
-     }
+     // handleScrollTo = p => {
+     //      if (this.scrollViewRef) {
+     //        this.scrollViewRef.scrollTo(p);
+     //      }
+     // }
       
           
      
@@ -72,7 +72,7 @@ class SubtractButton extends Component {
                <View>
                     <TouchableHighlight 
                     activeOpacity={0.4} 
-                    onPress={this._toggleModal}
+                    onPress={ this.props.onPress }
                     style={[
                          styles.button,
                          {
@@ -89,7 +89,7 @@ class SubtractButton extends Component {
                     </View>
                     </TouchableHighlight>
 
-                    <Modal 
+                    {/* <Modal 
                          isVisible={this.state.isModalVisible} 
                          deviceWidth={deviceWidth}
                          deviceHeight={deviceHeight}
@@ -114,7 +114,7 @@ class SubtractButton extends Component {
                          }
                          </TouchableHighlight>
                          </View>
-                    </Modal>
+                    </Modal> */}
                </View>
                
           )

@@ -149,7 +149,6 @@ const FirstStepScreen = props =>
               onChangeText={props.changeWorkStart}
               pointerEvents="none"
             />
-
           </TouchableOpacity>
 
           <Modal

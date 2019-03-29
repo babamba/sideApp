@@ -29,9 +29,9 @@ const SwipeScreen = props => (
 
  
         <View style={styles.container}>
-           <View style={styles.menuButtonArea} >
+           {/* <View style={styles.menuButtonArea} >
 
-           </View>
+           </View> */}
           <Swiper
                style={styles.wrapper} 
                onMomentumScrollEnd={props.onMomentumScrollEnd}
@@ -48,6 +48,7 @@ const SwipeScreen = props => (
                showsButtons={true}
                scrollEnabled={props.scrollControl}
                //scrollEnabled={false}
+               overScrollMode='always'
                
                loadMinimal 
                loadMinimalSize={3}
@@ -62,6 +63,7 @@ const SwipeScreen = props => (
                paginationStyle={styles.paginationStyle}
                nextButton={<Text style={styles.nextButton}>›</Text>}
                prevButton={<Text style={styles.prevButton}>‹</Text>}
+
                automaticallyAdjustContentInsets={false}
             >
            <View style={styles.slide1}>

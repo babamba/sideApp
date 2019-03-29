@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { View, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet,TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
+import { View, Platform, Text, FlatList, ScrollView,Dimensions, RefreshControl, StyleSheet,TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
@@ -18,7 +18,10 @@ class IncreaseScreen extends Component {
      nameInput = null;
 
      componentDidMount(){
-          Haptic.impact(Haptic.ImpactFeedbackStyle.Medium)
+          if(Platform.OS === 'ios'){
+               Haptic.impact(Haptic.ImpactFeedbackStyle.Medium)
+          }
+          
 
           setTimeout(() => {
                this.nameInput.focus();

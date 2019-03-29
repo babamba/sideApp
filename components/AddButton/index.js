@@ -14,7 +14,7 @@ class AddButton extends Component {
      }
 
      state = {
-          isModalVisible: false,
+          //isModalVisible: false,
           isSubmit: false
      };
 
@@ -28,29 +28,29 @@ class AddButton extends Component {
           }
      }
        
-     _toggleModal = () => {
-          console.log("_toggleModal");
-          const { isModalVisible, isSubmit  } = this.state;
+     // _toggleModal = () => {
+     //      console.log("_toggleModal");
+     //      const { isModalVisible, isSubmit  } = this.state;
 
-          console.log("isModalVisible : ", isModalVisible);
-          console.log("isSubmit : " , isSubmit)
+     //      console.log("isModalVisible : ", isModalVisible);
+     //      console.log("isSubmit : " , isSubmit)
           
           
 
-          this.setState({ isModalVisible: !this.state.isModalVisible });
-     }
+     //      this.setState({ isModalVisible: !this.state.isModalVisible });
+     // }
 
-     handleOnScroll = event => {
-          this.setState({
-            scrollOffset: event.nativeEvent.contentOffset.y,
-          });
-        };
+     // handleOnScroll = event => {
+     //      this.setState({
+     //        scrollOffset: event.nativeEvent.contentOffset.y,
+     //      });
+     //    };
       
-     handleScrollTo = p => {
-          if (this.scrollViewRef) {
-            this.scrollViewRef.scrollTo(p);
-          }
-     }
+     // handleScrollTo = p => {
+     //      if (this.scrollViewRef) {
+     //        this.scrollViewRef.scrollTo(p);
+     //      }
+     // }
       
           
      
@@ -65,18 +65,17 @@ class AddButton extends Component {
           //console.log(this.props);
           return (
                <View>
-
                     <TouchableHighlight 
-                    activeOpacity={0.4} 
-                    onPress={this._toggleModal}
-                    style={[
-                         styles.button,
-                         {
-                           backgroundColor: color,
-                         },
-                       ]}
-                       
-                    underlayColor={"transparent"}
+                         activeOpacity={0.4} 
+                         onPress={ this.props.onPress }
+                         style={[
+                              styles.button,
+                              {
+                              backgroundColor: color,
+                              },
+                         ]}
+                         
+                         underlayColor={"transparent"}
                     >
                     <View>
                          <Text style={styles.text}>
@@ -84,8 +83,7 @@ class AddButton extends Component {
                          </Text>
                     </View>
                     </TouchableHighlight>
-
-                    <Modal 
+                    {/* <Modal 
                          isVisible={this.state.isModalVisible} 
                          deviceWidth={deviceWidth}
                          deviceHeight={deviceHeight}
@@ -105,7 +103,7 @@ class AddButton extends Component {
                                    <IncreaseScreen callbackFromParent={this._callback} toggleModal={this._toggleModal}  />
                          </TouchableHighlight>
                     </View>
-                    </Modal>
+                    </Modal> */}
                </View>
                
           )

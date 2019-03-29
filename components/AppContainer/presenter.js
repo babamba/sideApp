@@ -86,13 +86,14 @@ class AppContainer extends Component {
           
           console.log("componentWillMount launched : ", launched)
           console.log("AppState.currentState, ", AppState.currentState,)
+          console.log("this.state.appState : " , this.state.appState)
      }
 
      _handleAppStateChange = (nextAppState) => {
           const { locked } = this.props;
-          console.log("this.state.appState : " , this.state.appState)
-          console.log(typeof this.state.appState)
-          console.log("nextAppState : " , nextAppState)
+          //console.log("this.state.appState : " , this.state.appState)
+          //console.log(typeof this.state.appState)
+          //console.log("nextAppState : " , nextAppState)
 
           if ( this.state.appState.match(/inactive/) && nextAppState === 'active') {
                console.log('App has come to the foreground!');
@@ -258,7 +259,7 @@ class AppContainer extends Component {
                }else{
                     console.log("!@#!@#!@#!@# 이미봤따", launched);
                     //월급 정보를 저장했으면 
-                    if(isLoggedIn && profile && isSetData || appState==='active' ){
+                    if(isLoggedIn && profile && isSetData ){
                          return (
                               <View style={styles.container} >
                                    <StatusBar hidden={false}/>

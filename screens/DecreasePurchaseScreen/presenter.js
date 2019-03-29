@@ -9,6 +9,7 @@ import { View,
           TouchableOpacity, 
           TextInput, 
           StatusBar, 
+          Platform,
           ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -24,7 +25,9 @@ class DecreasePurchaseScreen extends Component {
      nameInput = null;
 
      componentDidMount(){
-          Haptic.impact(Haptic.ImpactFeedbackStyle.Medium)
+          if(Platform.OS === 'ios'){
+               Haptic.impact(Haptic.ImpactFeedbackStyle.Medium)
+          }
           setTimeout(() => {
                this.nameInput.focus();
           }, 30);

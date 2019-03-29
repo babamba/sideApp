@@ -21,7 +21,10 @@ const TotalScreen = props => (
                     onScrollEndDrag={(e) => props.handleScroll(e)}
                     keyboardShouldPersistTaps='always'
                     showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1, width:'100%', height:'100%' }}
+                    overScrollMode='always'
                >
+
                <Text style={styles.MainText1}>메인 스크린 할거야</Text>
                <Card title="고정급여">
                     <View style={styles.cardContainer}>
@@ -186,9 +189,9 @@ const styles = StyleSheet.create({
           flex:1,
           ...ifIphoneX({paddingTop: 80}, {paddingTop: 50}),
           backgroundColor: "white",
-          justifyContent:'center',
-          alignItems:"center",
-          alignContent: 'center',
+          //justifyContent:'center',
+          //alignItems:"center",
+          //alignContent: 'center',
           flexDirection: "column",
      },
      TextConatiner:{

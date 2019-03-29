@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
+import { FlatList, Platform, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableHighlight } from "react-native";
 import SubtractButton from "../../components/SubtractButton";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
@@ -74,6 +74,17 @@ const DecreaseText = props => (
                          </TouchableHighlight>
                     </View>
                     </Modal>
+
+                    {Platform.OS === 'android' && 
+                         <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+                              <SubtractButton 
+                                   AddText={"밥값등록"} 
+                                   onPress={props.toggleModal}
+                                   type={props.type}
+                                   color={"#FF6565"}
+                              />
+                         </View>
+                    }
 
                     {/* <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
                          <SubtractButton 
@@ -152,6 +163,16 @@ const DecreaseText = props => (
                          </TouchableHighlight>
                     </View>
                     </Modal>
+                    {Platform.OS === 'android' && 
+                         <View style={styles.addButton} animation="fadeInDown" delay={0} easing={"ease-in-out"} useNativeDriver >
+                              <SubtractButton 
+                                   AddText={"밥값등록"} 
+                                   onPress={props.toggleModal}
+                                   type={props.type}
+                                   color={"#FF6565"}
+                              />
+                         </View>
+                    }
                </View>
                </ScrollView>
           </View>

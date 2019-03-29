@@ -25,7 +25,7 @@ class Container extends Component {
           console.log(nextProps);
 
           if(nextProps){
-               console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct)
+               console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct.length)
                console.log("nextProps.currentPrice : " , nextProps.FixConsumPrice)
                this.setState({
                     FixConsumProduct : nextProps.FixConsumProduct,
@@ -37,6 +37,7 @@ class Container extends Component {
 
      componentWillMount = async () => {
           const {FixConsumProduct, FixConsumPrice, BudgetPrice} = this.props;
+
           this.setState({
                FixConsumProduct,
                FixConsumPrice,

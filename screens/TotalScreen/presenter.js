@@ -57,10 +57,12 @@ const TotalScreen = props => (
                          </Text>
                     </View>
                </Card>
+
+               { props.FixConsumProduct.length > 0 &&  
+
                <Card>
                     <View>
-                    { 
-                         props.FixConsumProduct.map((l, i) => (
+                    { props.FixConsumProduct.map((l, i) => (
                               <Swipeout 
                                    key={i}
                                    right={
@@ -114,8 +116,10 @@ const TotalScreen = props => (
                               </Swipeout>
                          )
                     )}
+                    
                     </View>
                </Card>
+               }
                <Card title="예산금액">
                     <View style={styles.cardContainer}>
                          <Text style={styles.moneyText}>

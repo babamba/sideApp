@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import CarouselList from "./presenter";
 
 import ImageSliderEntry from "./ImageSliderEntry";
+import SliderEntry from "./SliderEntry"
 
 const SLIDER_1_FIRST_ITEM = 0;
 
@@ -26,16 +27,36 @@ class Container extends Component {
           return <ImageSliderEntry data={item} even={(index + 1) % 2 === 0} />;
      }
 
-     _renderItemWithParallax ({item, index}, parallaxProps) {
-          return (
-              <ImageSliderEntry
+     _renderItemWithParallax = ({item, index}, parallaxProps) => {
+        console.log('list type :' , this.props.carouselType)
+
+        if( this.props.carouselType === 'image'){
+              return (
+                <ImageSliderEntry
+                  data={item}
+                  even={(index + 1) % 2 === 0}
+                  parallax={true}
+                  parallaxProps={parallaxProps}
+                />
+            );
+        }else if( this.props.carouselType === 'default'){
+            return (
+              <SliderEntry
                 data={item}
                 even={(index + 1) % 2 === 0}
-                parallax={true}
-                parallaxProps={parallaxProps}
+                parallax={false}
               />
-          );
-     }
+            );
+      }else{
+        return (
+          <SliderEntry
+            data={item}
+            even={(index + 1) % 2 === 0}
+            parallax={false}
+          />
+        );
+      }
+    }
 
      _renderLightItem ({item, index}) {
           return <ImageSliderEntry data={item} even={false} />;

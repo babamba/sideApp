@@ -5,19 +5,13 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import ImageSliderEntry from './ImageSliderEntry';
 import { scrollInterpolators, animatedStyles } from './animations';
 
-import { ifIphoneX } from 'react-native-iphone-x-helper'
+
 
 const IS_ANDROID = Platform.OS === 'android';
 const IS_IOS = Platform.OS === 'ios';
 
 const {width, height} = Dimensions.get("window");
-const colors = {
-     black: '#1a1917',
-     gray: '#888888',
-     background1: '#fff7bc',
-     background2: '#ffb987'
- };
- 
+
  function wp (percentage) {
      const value = (percentage * width) / 100;
      return Math.round(value);
@@ -31,6 +25,13 @@ const sliderWidth = width;
 const itemWidth = slideWidth + itemHorizontalMargin * 2;
  
 const entryBorderRadius = 8;
+
+const colors = {
+     black: '#1a1917',
+     gray: '#888888',
+     background1: '#fff7bc',
+     background2: '#ffb987'
+ };
 
 class CarouselList extends Component {
 
@@ -51,16 +52,7 @@ class CarouselList extends Component {
 //         );
 //     }
 
-    get gradient () {
-        return (
-            <LinearGradient
-              colors={[colors.background1, colors.background2]}
-              startPoint={{ x: 1, y: 0 }}
-              endPoint={{ x: 0, y: 1 }}
-              style={styles.gradient}
-            />
-        );
-    }
+    
 
     render () {
         //const example1 = this.mainExample(1, 'Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');
@@ -68,66 +60,42 @@ class CarouselList extends Component {
         const { navigation } = this.props;
 
         return (
-          //   <SafeAreaView style={styles.safeArea}>
-                <View style={styles.container}>
-                    <StatusBar
-                      translucent={true}
-                      backgroundColor={'rgba(0, 0, 0, 0.3)'}
-                      barStyle={'light-content'}
-                    />
-                    { this.gradient }
-                    <ScrollView
-                      style={styles.scrollview}
-                      scrollEventThrottle={200}
-                      directionalLockEnabled={true}
-                    >
-                    <View style={styles.headerTitle}>
-                         <Text style={styles.MainText1}>저축스크린 할거야</Text>
-                         <TouchableOpacity onPressOut={ () => navigation.navigate("TakePhoto")}>
-                              <Text >사진테스트</Text>
-                         </TouchableOpacity>
-                    </View>
-                    <View style={styles.exampleContainer}>
-                              {/* <Text style={styles.title}>{`Example ${number}`}</Text> */}
-                              {/* <Text style={styles.subtitle}>{title}</Text> */}
-                              <Carousel
-                                   ref={c => this.props._slider1Ref = c}
-                                   data={this.props.entries}
-                                   renderItem={this.props.renderItemWithParallax}
-                                   sliderWidth={sliderWidth}
-                                   itemWidth={itemWidth}
-                                   hasParallaxImages={true}
-                                   firstItem={this.props.slider1ActiveSlide}
-                                   inactiveSlideScale={0.9}
-                                   inactiveSlideOpacity={0.7}
-                                   layout={'default'} layoutCardOffset={18}
+               <View>
+                    <Carousel
+                         ref={c => this.props._slider1Ref = c}
+                         data={this.props.entries}
+                         renderItem={this.props.renderItemWithParallax}
+                         sliderWidth={sliderWidth}
+                         itemWidth={itemWidth}
+                         hasParallaxImages={true}
+                         firstItem={this.props.slider1ActiveSlide}
+                         inactiveSlideScale={0.9}
+                         inactiveSlideOpacity={0.7}
+                         layout={'default'} layoutCardOffset={18}
 
-                                   // inactiveSlideShift={20}
-                                   containerCustomStyle={styles.slider}
-                                   contentContainerCustomStyle={styles.sliderContentContainer}
-                                   loop={true}
-                                   loopClonesPerSide={2}
-                                   autoplay={false}
-                                   autoplayDelay={1000}
-                                   autoplayInterval={3000}
-                                   onSnapToItem={(index) => this.props.onSnapToItem(index) }
-                              />
-                              <Pagination
-                                   dotsLength={this.props.entries.length}
-                                   activeDotIndex={this.props.slider1ActiveSlide}
-                                   containerStyle={styles.paginationContainer}
-                                   dotColor={'rgba(255, 255, 255, 0.92)'}
-                                   dotStyle={styles.paginationDot}
-                                   inactiveDotColor={colors.black}
-                                   inactiveDotOpacity={0.4}
-                                   inactiveDotScale={0.6}
-                                   carouselRef={this.props._slider1Ref}
-                                   tappableDots={!!this.props._slider1Ref}
-                              />
-                         </View>
-                    </ScrollView>
-                </View>
-          //   </SafeAreaView>
+                         // inactiveSlideShift={20}
+                         containerCustomStyle={styles.slider}
+                         contentContainerCustomStyle={styles.sliderContentContainer}
+                         loop={true}
+                         loopClonesPerSide={2}
+                         autoplay={false}
+                         autoplayDelay={1000}
+                         autoplayInterval={3000}
+                         onSnapToItem={(index) => this.props.onSnapToItem(index) }
+                    />
+                    <Pagination
+                         dotsLength={this.props.entries.length}
+                         activeDotIndex={this.props.slider1ActiveSlide}
+                         containerStyle={styles.paginationContainer}
+                         dotColor={'rgba(255, 255, 255, 0.92)'}
+                         dotStyle={styles.paginationDot}
+                         inactiveDotColor={this.props.colors.black}
+                         inactiveDotOpacity={0.4}
+                         inactiveDotScale={0.6}
+                         carouselRef={this.props._slider1Ref}
+                         tappableDots={!!this.props._slider1Ref}
+                    />
+               </View>
         );
     }
 }
@@ -136,13 +104,7 @@ export default CarouselList;
 
 
 const styles = StyleSheet.create({
-     headerTitle:{
-          flex:1,
-          justifyContent:'center',
-          alignItems:"center",
-          alignContent: 'center',
-          flexDirection: "column",
-     },
+     
      MainText1:{
           fontSize:45,
           justifyContent: 'center',
@@ -157,16 +119,10 @@ const styles = StyleSheet.create({
      container: {
          flex: 1,
          backgroundColor: colors.background1,
-         ...ifIphoneX({paddingTop: 70}, {paddingTop: 50}),
      },
-     gradient: {
-         ...StyleSheet.absoluteFillObject
-     },
+     
      scrollview: {
          flex: 1,
-     },
-     exampleContainer: {
-         paddingVertical: 10
      },
      exampleContainerDark: {
          backgroundColor: colors.black

@@ -142,6 +142,12 @@ class AppContainer extends Component {
           await AppState.addEventListener('change', this._handleAppStateChange);
           console.log("componentDidMount", appState);
 
+          // if(isLoggedIn, isSetData){
+          //      console.log("getFixData")
+          //      await getFixData();
+          // }
+          
+
           if(locked){
                this.checkDeviceForHardware();
           }
@@ -278,6 +284,7 @@ class AppContainer extends Component {
                     //월급 정보를 저장여부확인
                     if(isLoggedIn && profile){
                          console.log("!@#!@#!@#!@# 월급설정 했으니 메인화면 ");
+                         console.log("isSetData : ", isSetData)
                          return (
                               <View style={styles.container} >
                                    <StatusBar hidden={false}/>

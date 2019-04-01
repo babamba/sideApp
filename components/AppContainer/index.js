@@ -6,7 +6,8 @@ import { actionCreators as timerActions } from "../../redux/modules/timer";
 
 const mapStateToProps = (state, ownProps) => {
      const { user, timer } = state;
-     console.log("mapStateToProps", user.isLoggedIn);
+     console.log("mapStateToProps isLoggedIn", user.isLoggedIn);
+     console.log("mapStateToProps profile", user.profile);
      //console.log(user.already)
      return {
           locked: user.locked,
@@ -31,8 +32,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                dispatch(timerActions.onInitCheckStandard());
                dispatch(userActions.registerForPush());
                dispatch(dataActions.getReportDataToday(date));
-               dispatch(dataActions.getFixData());
-          }
+          },
+          // getFixData: () => {
+          //      dispatch(dataActions.getFixData());
+          // }
+          
      }
 }
 

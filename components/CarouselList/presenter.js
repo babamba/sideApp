@@ -125,13 +125,15 @@ class CarouselList extends Component {
                                    firstItem={SLIDER_1_FIRST_ITEM}
                                    inactiveSlideScale={0.9}
                                    inactiveSlideOpacity={0.7}
+                                   layout={'default'} layoutCardOffset={18}
+
                                    // inactiveSlideShift={20}
                                    containerCustomStyle={styles.slider}
                                    contentContainerCustomStyle={styles.sliderContentContainer}
                                    loop={true}
                                    loopClonesPerSide={2}
-                                   autoplay={true}
-                                   autoplayDelay={500}
+                                   autoplay={false}
+                                   autoplayDelay={1000}
                                    autoplayInterval={3000}
                                    onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
                               />

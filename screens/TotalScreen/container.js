@@ -9,6 +9,12 @@ class Container extends Component {
      // static navigationOptions  = ({ navigation }) => ({
      // })
 
+     constructor (props) {
+          super(props);
+          console.log("this.props", this.props)
+          this.props.getFixData();
+      }
+
      static propTypes = {
           // feed : PropTypes.array,
           // getFeed : PropTypes.func.isRequired
@@ -37,13 +43,16 @@ class Container extends Component {
      }
 
      componentWillMount = async () => {
-          const {FixConsumProduct, FixConsumPrice, BudgetPrice} = this.props;
+          const {FixConsumProduct, FixConsumPrice, BudgetPrice, getFixData} = this.props;
 
           this.setState({
                FixConsumProduct,
                FixConsumPrice,
                BudgetPrice
           })
+
+          
+          
           //const { getDataMealToday, TodayMealProduct } = this.props;
           //const Today = moment(new Date());
           

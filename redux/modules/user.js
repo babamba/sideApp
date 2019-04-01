@@ -90,9 +90,11 @@ function login(username, password){
                     console.log("json",json.user, json.token);
 
                     await dispatch(setLogIn(json.token));
+                    await dispatch(timerActions.getData())
+
                     await dispatch(setUser(json.user))
 
-                    await dispatch(timerActions.getData())
+                    
 
                     // if(getData){
                     //      console.log("getData",getData)

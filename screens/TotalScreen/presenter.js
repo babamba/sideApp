@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
           ...ifIphoneX({paddingTop: 80}, {paddingTop: 50}),
           backgroundColor: "white",
           //justifyContent:'center',
-          //alignItems:"center",
+          alignItems:"center",
           //alignContent: 'center',
           flexDirection: "column",
      },

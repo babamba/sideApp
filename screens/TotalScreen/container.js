@@ -69,7 +69,7 @@ class Container extends Component {
                BudgetPrice
           })
 
-          
+          console.log(this.props.navigation.getScreenProps('isLoggedIn'))
           
           //const { getDataMealToday, TodayMealProduct } = this.props;
           //const Today = moment(new Date());

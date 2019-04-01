@@ -10,7 +10,7 @@ import AddTotalPage from "../../components/AddTotalPage";
 import AnimateNumber from '@bankify/react-native-animate-number'
 import Swipeout from 'react-native-swipeout';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import CarouselList from '../../components/CarouselList';
+import MiniCarouselList from '../../components/MiniCarouselList';
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
@@ -29,13 +29,14 @@ const TotalScreen = props => (
                     onScrollEndDrag={(e) => props.handleScroll(e)}
                     keyboardShouldPersistTaps='always'
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ flexGrow: 1, width:'100%', height:'100%' }}
-                    overScrollMode='always'
+                    // contentContainerStyle={{ flexGrow: 1, width:'100%', height:'100%' }}
                     scrollEnabled={props.swipeScrollEnabled ? true : false}
                >
 
-               <Text style={styles.MainText1}>메인 스크린 할거야</Text>
-               <CarouselList {...props} colors={colors} carouselType='default'/>
+               <Text style={styles.MainText1}>Hello </Text>
+
+               <MiniCarouselList {...props} colors={colors} carouselType='default'/>
+
                <Card title="고정급여">
                     <View style={styles.cardContainer}>
                          <Text style={styles.moneyText}>

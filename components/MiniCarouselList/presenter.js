@@ -17,23 +17,23 @@ const {width, height} = Dimensions.get("window");
      return Math.round(value);
  }
  
- const slideHeight = height * 0.36;
+ const slideHeight = height * 0.26;
  const slideWidth = wp(75);
  const itemHorizontalMargin = wp(2);
  
 const sliderWidth = width;
-const itemWidth = slideWidth + itemHorizontalMargin * 2;
+const itemWidth = slideWidth + itemHorizontalMargin * 1.3;
  
 const entryBorderRadius = 8;
 
 const colors = {
      black: '#1a1917',
      gray: '#888888',
-     background1: '#fff7bc',
+     background1: 'white',
      background2: '#ffb987'
  };
 
-class CarouselList extends Component {
+class MiniCarouselList extends Component {
 
     constructor (props) {
         super(props);
@@ -50,7 +50,7 @@ class CarouselList extends Component {
         const { navigation } = this.props;
 
         return (
-               <View>
+               <View style={styles.container}>
                     <Carousel
                          ref={c => this.props._slider1Ref = c}
                          data={this.props.entries}
@@ -72,6 +72,7 @@ class CarouselList extends Component {
                          autoplayDelay={1000}
                          autoplayInterval={3000}
                          onSnapToItem={(index) => this.props.onSnapToItem(index) }
+                         enableMomentum={true}
                     />
                     <Pagination
                          dotsLength={this.props.entries.length}
@@ -90,7 +91,7 @@ class CarouselList extends Component {
     }
 }
 
-export default CarouselList;
+export default MiniCarouselList;
 
 
 const styles = StyleSheet.create({
@@ -107,8 +108,12 @@ const styles = StyleSheet.create({
          backgroundColor: colors.black
      },
      container: {
-         flex: 1,
+         height: slideHeight + 100,
          backgroundColor: colors.background1,
+     },
+     
+     scrollview: {
+         flex: 1,
      },
      exampleContainerDark: {
          backgroundColor: colors.black
@@ -138,8 +143,7 @@ const styles = StyleSheet.create({
      },
      slider: {
          marginTop: 15,
-         overflow: 'visible', // for custom animations
-
+         overflow: 'visible' // for custom animations
      },
      sliderContentContainer: {
          paddingVertical: 10, // for custom animation

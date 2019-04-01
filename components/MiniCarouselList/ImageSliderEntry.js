@@ -21,14 +21,14 @@ function wp (percentage) {
 
 const entryBorderRadius = 8;
 
-const slideHeight = height * 0.30;
+const slideHeight = height * 0.6;
 const slideWidth = wp(75);
 const itemHorizontalMargin = wp(2);
 
 export const sliderWidth = width;
 export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-class SliderEntry extends Component {
+class ImageSliderEntry extends Component {
 
     static propTypes = {
         data: PropTypes.object.isRequired,
@@ -51,7 +51,10 @@ class SliderEntry extends Component {
               {...parallaxProps}
             />
         ) : (
-            null
+            <Image
+              source={{ uri: illustration }}
+              style={styles.image}
+            />
         );
     }
 
@@ -173,4 +176,4 @@ const styles = StyleSheet.create({
       }
 })
 
-export default SliderEntry
+export default ImageSliderEntry

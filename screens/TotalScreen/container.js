@@ -18,7 +18,7 @@ class Container extends Component {
      state = {
           isFetching : false,
           isModalVisible: false,
-          swipeScrollEnabled: false,
+          swipeScrollEnabled: true,
           rowIndex:0
      };
 

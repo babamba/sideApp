@@ -14,22 +14,7 @@ import MenuButton from "../components/MenuButton"
 
 const TabsNavigation = createBottomTabNavigator (
      {
-          Today : {
-               screen : Swiper,
-               navigationOptions: ({ navigation }) => ({
-                    tabBarIcon: ({ focused }) => (
-                         <View style={focused ? styles.btnShadow : null}>
-                              <Ionicons
-                                   name={'ios-home'}
-                                   size={20}
-                                   color={ focused ? "#ff8259" : "black"}
-                                   style={styles.icons}
-                              />
-                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>오늘</Text>
-                         </View>
-                    )
-               })
-          },
+          
           Main : {
                screen : TotalScreen,
                navigationOptions: ({ navigation }) => ({
@@ -46,7 +31,22 @@ const TabsNavigation = createBottomTabNavigator (
                     )
                })
           },
-          
+          Today : {
+               screen : Swiper,
+               navigationOptions: ({ navigation }) => ({
+                    tabBarIcon: ({ focused }) => (
+                         <View style={focused ? styles.btnShadow : null}>
+                              <Ionicons
+                                   name={'ios-home'}
+                                   size={20}
+                                   color={ focused ? "#ff8259" : "black"}
+                                   style={styles.icons}
+                              />
+                              <Text style={[styles.text, { color: focused ? "#ff8259" : "black" }]}>오늘</Text>
+                         </View>
+                    )
+               })
+          },
           Report : {
                screen : ReportScreen,
                navigationOptions: ({ navigation }) => ({

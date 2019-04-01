@@ -6,10 +6,10 @@ import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
 import Modal from "react-native-modal";
 import { Card ,ListItem } from "react-native-elements";
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import AddTotalPage from "../../components/AddTotalPage";
 import AnimateNumber from '@bankify/react-native-animate-number'
 import Swipeout from 'react-native-swipeout';
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;

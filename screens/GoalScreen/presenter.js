@@ -1,25 +1,21 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
-import AddButton from "../../components/AddButton";
-import MainText from "../../components/MainText"
-import MoneyText from "../../components/MoneyText"
+import CarouselList from '../../components/CarouselList';
 
 const {width, height} = Dimensions.get("window");
 const barWidth = Dimensions.get('screen').height - 60;
 
 const GoalScreen = props => (
           <View style={styles.container}>
-               <Text style={styles.MainText1}>저축스크린 할거야</Text>
                {/* <MainText 
                     progress={props.progress}
                     {...props}
                     type={"Meal"}
                     refresh={props.refresh}
                /> */}
-               <TouchableOpacity onPressOut={ () => props.navigation.navigate("TakePhoto")}>
-                    <Text >사진테스트</Text>
-               </TouchableOpacity>
+               
+               <CarouselList {...props}/>
            </View>
      )
 

@@ -2,15 +2,9 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import CarouselList from "./presenter";
 
-import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView  } from "react-native";
-import { LinearGradient } from 'expo';
+import ImageSliderEntry from "./ImageSliderEntry";
 
-import SliderEntry from "./SliderEntry";
-
-import { ENTRIES1, ENTRIES2 } from './entries';
-
-const IS_ANDROID = Platform.OS === 'android';
-const SLIDER_1_FIRST_ITEM = 1;
+const SLIDER_1_FIRST_ITEM = 0;
 
 class Container extends Component {
      constructor (props) {
@@ -22,18 +16,19 @@ class Container extends Component {
      }
 
      _onSnapToItem = (index) => {
+       console.log("snap index : ", index)
         this.setState({ 
             slider1ActiveSlide: index 
         })
      }
 
      _renderItem ({item, index}) {
-          return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
+          return <ImageSliderEntry data={item} even={(index + 1) % 2 === 0} />;
      }
 
      _renderItemWithParallax ({item, index}, parallaxProps) {
           return (
-              <SliderEntry
+              <ImageSliderEntry
                 data={item}
                 even={(index + 1) % 2 === 0}
                 parallax={true}
@@ -43,11 +38,11 @@ class Container extends Component {
      }
 
      _renderLightItem ({item, index}) {
-          return <SliderEntry data={item} even={false} />;
+          return <ImageSliderEntry data={item} even={false} />;
       }
   
       _renderDarkItem ({item, index}) {
-          return <SliderEntry data={item} even={true} />;
+          return <ImageSliderEntry data={item} even={true} />;
       }
 
      componentWillReceiveProps = nextProps => {
@@ -74,6 +69,8 @@ class Container extends Component {
               {...this.props } 
               onSnapToItem = { this._onSnapToItem}
               renderItem= {this._renderItem}
+              renderItemWithParallax={this._renderItemWithParallax}
+              entries={this.props.data}
             />
           );
       }

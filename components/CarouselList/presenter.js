@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import { Platform, View, ScrollView, Text, StatusBar, SafeAreaView,Dimensions, StyleSheet,TouchableOpacity } from 'react-native';
 import {LinearGradient} from 'expo';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import SliderEntry from './SliderEntry';
-import { ENTRIES1, ENTRIES2 } from './entries';
+import ImageSliderEntry from './ImageSliderEntry';
 import { scrollInterpolators, animatedStyles } from './animations';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 const IS_ANDROID = Platform.OS === 'android';
 const IS_IOS = Platform.OS === 'ios';
-
-const SLIDER_1_FIRST_ITEM = 1;
 
 const {width, height} = Dimensions.get("window");
 const colors = {
@@ -41,31 +38,9 @@ class CarouselList extends Component {
         super(props);
         console.log("this.props", this.props)
         this.state = {
-            slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+            //slider1ActiveSlide: this.props.SLIDER_1_FIRST_ITEM
+            slider1ActiveSlide: this.props.slider1ActiveSlide
         };
-    }
-
-    _renderItem ({item, index}) {
-        return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
-    }
-
-    _renderItemWithParallax ({item, index}, parallaxProps) {
-        return (
-            <SliderEntry
-              data={item}
-              even={(index + 1) % 2 === 0}
-              parallax={true}
-              parallaxProps={parallaxProps}
-            />
-        );
-    }
-
-    _renderLightItem ({item, index}) {
-        return <SliderEntry data={item} even={false} />;
-    }
-
-    _renderDarkItem ({item, index}) {
-        return <SliderEntry data={item} even={true} />;
     }
 
 //     mainExample (number, title) {
@@ -116,13 +91,13 @@ class CarouselList extends Component {
                               {/* <Text style={styles.title}>{`Example ${number}`}</Text> */}
                               {/* <Text style={styles.subtitle}>{title}</Text> */}
                               <Carousel
-                                   ref={c => this._slider1Ref = c}
-                                   data={ENTRIES1}
-                                   renderItem={this._renderItemWithParallax}
+                                   ref={c => this.props._slider1Ref = c}
+                                   data={this.props.entries}
+                                   renderItem={this.props.renderItemWithParallax}
                                    sliderWidth={sliderWidth}
                                    itemWidth={itemWidth}
                                    hasParallaxImages={true}
-                                   firstItem={SLIDER_1_FIRST_ITEM}
+                                   firstItem={this.props.slider1ActiveSlide}
                                    inactiveSlideScale={0.9}
                                    inactiveSlideOpacity={0.7}
                                    layout={'default'} layoutCardOffset={18}
@@ -135,19 +110,19 @@ class CarouselList extends Component {
                                    autoplay={false}
                                    autoplayDelay={1000}
                                    autoplayInterval={3000}
-                                   onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index }) }
+                                   onSnapToItem={(index) => this.props.onSnapToItem(index) }
                               />
                               <Pagination
-                                   dotsLength={ENTRIES1.length}
-                                   activeDotIndex={slider1ActiveSlide}
+                                   dotsLength={this.props.entries.length}
+                                   activeDotIndex={this.props.slider1ActiveSlide}
                                    containerStyle={styles.paginationContainer}
                                    dotColor={'rgba(255, 255, 255, 0.92)'}
                                    dotStyle={styles.paginationDot}
                                    inactiveDotColor={colors.black}
                                    inactiveDotOpacity={0.4}
                                    inactiveDotScale={0.6}
-                                   carouselRef={this._slider1Ref}
-                                   tappableDots={!!this._slider1Ref}
+                                   carouselRef={this.props._slider1Ref}
+                                   tappableDots={!!this.props._slider1Ref}
                               />
                          </View>
                     </ScrollView>

@@ -28,7 +28,7 @@ const itemHorizontalMargin = wp(2);
 export const sliderWidth = width;
 export const itemWidth = slideWidth + itemHorizontalMargin * 2;
 
-class SliderEntry extends Component {
+class ImageSliderEntry extends Component {
 
     static propTypes = {
         data: PropTypes.object.isRequired,
@@ -176,4 +176,4 @@ const styles = StyleSheet.create({
       }
 })
 
-export default SliderEntry
+export default ImageSliderEntry

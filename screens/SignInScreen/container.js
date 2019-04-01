@@ -43,7 +43,6 @@ class Container extends Component {
 
      _submit = async() => {
           console.log("submit")
-          console.log("jumpLogin", this._getNavigationParams());
           const { username, password, isSubmiting } = this.state;
           const { login } = this.props;
           if(!isSubmiting){

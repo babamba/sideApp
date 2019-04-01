@@ -18,6 +18,7 @@ class Container extends Component {
      state = {
           isFetching : false,
           isModalVisible: false,
+          swipeScrollEnabled: false,
           rowIndex:0
      };
 
@@ -133,8 +134,13 @@ class Container extends Component {
                     onSwipeOpen={this._onSwipeOpen}
                     onSwipeClose={this._onSwipeClose}
                     deleteData={this._deleteData}
+                    allowScroll={this._allowScroll}
                />
           );
+     }
+
+     _allowScroll = (swipeScrollEnabled) => {
+          this.setState({ swipeScrollEnabled: swipeScrollEnabled })
      }
 
      _toggleModal = () => {

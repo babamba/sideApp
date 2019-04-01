@@ -42,6 +42,10 @@ const renderIcon = () => (
     );
 
 const FirstStepScreen = props => 
+    props.isSetData ? (
+      //  ----------
+      //     수정
+      //  ----------
       <RkAvoidKeyboard
         style={styles.screen}
         onStartShouldSetResponder={() => true}
@@ -87,6 +91,238 @@ const FirstStepScreen = props =>
               style={styles.input}
               autoCapitalize={"none"}
               value={props.salaryDay}
+              onChangeText={props.changeSalaryDay}
+              pointerEvents="none"
+            />
+            </TouchableOpacity>
+
+            <Modal
+              isVisible={props.isModalVisible}
+              onBackdropPress={props.toggleModal}
+              style={styles.bottomModal}>
+              
+              <View style={styles.modalContent}>
+                <Text>월급 날짜를 선택해주세요!</Text>
+                <Picker
+                  style={{ backgroundColor: 'white', width: width, height: 200 }}
+                  selectedValue={props.salaryDay}
+                  pickerData={pickerData}
+                  onValueChange={props.changeSalaryDay}
+                  itemSpace={30} // this only support in android
+                />
+                {/* <TouchableOpacity onPress={props.toggleModal}>
+                  <View style={styles.button}>
+                    <Text>날짜선택</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+            </Modal>
+
+            <SelectMultipleGroupButton
+               containerViewStyle={{
+                    borderWidth: 0.3,
+                    borderColor: "#D3D3D3",
+                    borderRadius: 6,
+                    paddingTop: 18,
+                    paddingBottom: 18,
+                    fontFamily: 'NanumBarunGothicUltraLight',
+                    justifyContent: "center"
+               }}
+               defaultSelectedIndexes={props.state_selectWeek}
+               highLightStyle={{
+                    borderColor: "gray",
+                    backgroundColor: "transparent",
+                    textColor: "gray",
+                    borderTintColor: ios_blue,
+                    backgroundTintColor: "transparent",
+                    textTintColor: ios_blue
+               }}
+               onSelectedValuesChange={props.onSelectedValuesChange}
+               group={props.multipleGroupData}
+          />
+
+        <TouchableOpacity onPress={props.toggleModalstart}>
+          <TextInput
+              textContentType="name"
+              placeholder="근무 시작시간을 입력해주세요"
+              placeholderTextColor="#707070"
+              style={styles.input}
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              value={props.startHour}
+              onChangeText={props.changeWorkStart}
+              pointerEvents="none"
+            />
+          </TouchableOpacity>
+
+          <Modal
+              isVisible={props.isStartModalVisible}
+              style={styles.bottomModal}
+              onBackdropPress={props.toggleModalstart}
+          >
+              <View style={styles.modalContent}>
+                <Text>근무 시작 시간를 선택해주세요!</Text>
+                <View style={{flexDirection:'row'}}>
+                {/* <Picker
+                  style={{ backgroundColor: 'white', width: width / 2, height: 200 }}
+                  selectedValue='AM'
+                  pickerData={['AM','PM']}
+                  onValueChange={props.changeWorkStartAMPM}
+                  itemSpace={30} // this only support in android
+                /> */}
+                <Picker
+                  style={{ backgroundColor: 'white', width: width, height: 200 }}
+                  selectedValue={props.startHour}
+                  pickerData={hoursData}
+                  onValueChange={props.changeWorkStart}
+                  itemSpace={30} // this only support in android
+                />
+                </View>
+                {/* <TouchableOpacity onPress={props.toggleModalstart}>
+                  <View style={styles.button}>
+                    <Text>시작일자 선택</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+          </Modal>
+        
+
+        <TouchableOpacity onPress={props.toggleModalend}>
+          <TextInput
+              textContentType="name"
+              placeholder="근무 종료시간을 입력해주세요"
+              placeholderTextColor="#707070"
+              style={styles.input}
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              value={props.endHour}
+              onChangeText={props.changeWorkEnd}
+              pointerEvents="none"
+            />
+        </TouchableOpacity>
+
+        <Modal
+              isVisible={props.isEndModalVisible}
+              style={styles.bottomModal}
+              onBackdropPress={props.toggleModalend}
+            >
+              <View style={styles.modalContent}>
+                <Text>근무 종료시간을 선택해주세요!</Text>
+                <View style={{flexDirection:'row'}}>
+                {/* <Picker
+                  style={{ backgroundColor: 'white', width: width / 2, height: 200 }}
+                  selectedValue='AM'
+                  pickerData={['AM','PM']}
+                  onValueChange={props.changeWorkStartAMPM}
+                  itemSpace={30} // this only support in android
+                /> */}
+                <Picker
+                  style={{ backgroundColor: 'white', width: width , height: 200 }}
+                  selectedValue='18'
+                  pickerData={hoursData}
+                  onValueChange={props.changeWorkEnd}
+                  itemSpace={30} // this only support in android
+                />
+                </View>
+                {/* <TouchableOpacity onPress={props.toggleModalend}>
+                  <View style={styles.button}>
+                    <Text>종료시간 선택</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+            </Modal>
+
+            <TextInput
+              textContentType="name"
+              placeholder="월급을 입력해주세요"
+              placeholderTextColor="#707070"
+              style={styles.input}
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              value={props.monthSallery}
+              onChangeText={props.changeSalary}
+              keyboardType={"number-pad"}
+            />
+
+          {/* {props.isSubmiting ? ( 
+               <GradientButton
+                    style={{ marginTop: 8 ,shadowColor: 'gray',
+                         shadowOffset: { width: 0, height: 0 },
+                         shadowOpacity: 0.5,
+                         shadowRadius: 7,}}
+                    textStyle={{ fontSize: 20 }}
+                    text="등록 중..."
+                    height={50}
+                    blueViolet
+               >
+               </GradientButton>  
+                    
+               ) : (  */}
+                    <GradientButton
+                         style={{ marginTop: 8 ,shadowColor: 'gray',
+                         shadowOffset: { width: 0, height: 0 },
+                         shadowOpacity: 0.5,
+                         shadowRadius: 7,}}
+                         textStyle={{ fontSize: 20 }}
+                         text="등록하기"
+                         height={50}
+                         blueViolet
+                         onPressAction={() => props.submit()}
+                    />  
+          {/* )} */}
+          </RkCard>
+        </View>
+      </RkAvoidKeyboard>
+
+    ) : (
+      //  ----------
+      //    최초입력
+      //  ----------
+      <RkAvoidKeyboard
+        style={styles.screen}
+        onStartShouldSetResponder={() => true}
+        onResponderRelease={() => Keyboard.dismiss()}
+      >
+        {/* <View style={styles.header}>{renderIcon()}</View> */}
+        { props.backBtn ? (
+            <TouchableOpacity
+            style={styles.back}
+            onPress={props.setModalVisibleForm}
+          >
+            <FontAwesome
+              name="chevron-down"
+              size={27}
+              style={{ color: "#4A4A4A" , marginTop:20}}
+            />
+          </TouchableOpacity>
+          ) :( null )
+          }
+        <View style={styles.all}>
+         
+          <RkCard rkType="heroImage shadowed" style={styles.content}>
+        {/* <View style={styles.container}>
+          <DataModal
+            isVisible={props.isModalVisible}
+            style={styles.bottomModal}>
+             <View style={styles.modalContent}>
+              <Text>Hello!</Text>
+              <TouchableOpacity onPress={props.toggleModal}>
+              <View style={styles.button}>
+                <Text>asdfasdf</Text>
+              </View>
+            </TouchableOpacity>
+            </View>
+          </DataModal>
+        </View> */}
+
+          <TouchableOpacity onPress={props.toggleModal}>
+            <TextInput
+              textContentType="name"
+              placeholder="월급받는 날짜를 입력하세요"
+              placeholderTextColor="#707070"
+              style={styles.input}
+              autoCapitalize={"none"}
+              value={`${props.salaryDay}`}
               onChangeText={props.changeSalaryDay}
               pointerEvents="none"
             />
@@ -235,7 +471,7 @@ const FirstStepScreen = props =>
               style={styles.input}
               autoCapitalize={"none"}
               autoCorrect={false}
-              value={props.monthSallery}
+              value={`${props.monthSallery}`}
               onChangeText={props.changeSalary}
               keyboardType={"number-pad"}
             />
@@ -269,6 +505,9 @@ const FirstStepScreen = props =>
           </RkCard>
         </View>
       </RkAvoidKeyboard>
+
+    )
+
 
 FirstStepScreen.Proptypes = {
      isSubmiting: Proptypes.bool.isRequired,

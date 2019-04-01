@@ -181,11 +181,11 @@ class AppContainer extends Component {
                console.log( 'warn',
                'No Biometrics Found',
                'Please ensure you have set up biometrics in your OS settings.')
-            this.dropdown.alertWithType(
-              'warn',
-              'No Biometrics Found',
-              'Please ensure you have set up biometrics in your OS settings.'
-            );
+          //   this.dropdown.alertWithType(
+          //     'warn',
+          //     'No Biometrics Found',
+          //     'Please ensure you have set up biometrics in your OS settings.'
+          //   );
           } else {
             this.handleLoginPress();
           }
@@ -236,9 +236,9 @@ class AppContainer extends Component {
 
           //앱 최초시작 후 
           if (launched) {
-
+               console.log("app state changed")
                if(compatible && locked){
-                    console.log("!@#!@#!@#!@# 이미봤따", launched);
+                    console.log("!@#!@#!@#!@# 이미봤따 잠금 설정상태 true", launched);
                     //월급 정보를 저장했으면 
                     if(isLoggedIn && profile && isSetData && !scanResult){
                          console.log("!@#!@#!@#!@# 인증해", launched);
@@ -250,6 +250,9 @@ class AppContainer extends Component {
                               </View>
                          )
                     }else if(isLoggedIn && profile && isSetData && scanResult ){
+                         console.log("!@#!@#!@#!@# scanResult", scanResult);
+
+                         console.log("!@#!@#!@#!@# isSetData", isSetData);
                          return (
                               <View style={styles.container} >
                                    <StatusBar hidden={false}/>
@@ -262,6 +265,7 @@ class AppContainer extends Component {
                          );
                     //월급 정보를 저장안헀으면
                     }else{
+                         console.log("!@#!@#!@#!@# 로그아웃", isLoggedIn);
                          return (
                               <View style={styles.container} >
                                         <StatusBar hidden={false}/>
@@ -270,9 +274,10 @@ class AppContainer extends Component {
                          )
                     }
                }else{
-                    console.log("!@#!@#!@#!@# 이미봤따", launched);
-                    //월급 정보를 저장했으면 
-                    if(isLoggedIn && profile && isSetData ){
+                    console.log("!@#!@#!@#!@# 이미봤따  잠금 설정상태 false", launched);
+                    //월급 정보를 저장여부확인
+                    if(isLoggedIn && profile){
+                         console.log("!@#!@#!@#!@# 월급설정 했으니 메인화면 ");
                          return (
                               <View style={styles.container} >
                                    <StatusBar hidden={false}/>
@@ -283,8 +288,9 @@ class AppContainer extends Component {
                                    )}
                               </View>
                          );
-                    //월급 정보를 저장안헀으면
+                    //로그아웃
                     }else{
+                         console.log("!@#!@#!@#!@# 월급 정보 입력 ");
                          return (
                               <View style={styles.container} >
                                         <StatusBar hidden={false}/>

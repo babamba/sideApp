@@ -23,6 +23,7 @@ const TotalScreen = props => (
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1, width:'100%', height:'100%' }}
                     overScrollMode='always'
+                    scrollEnabled={props.swipeScrollEnabled ? true : false}
                >
 
                <Text style={styles.MainText1}>메인 스크린 할거야</Text>
@@ -82,7 +83,7 @@ const TotalScreen = props => (
                                    close={props.rowIndex !== i}
                                    onClose={()=>(props.onSwipeClose(i))}
                                    rowIndex={i}
-
+                                   scroll={event => props.allowScroll(event)}
                                    sectionId={0}
                                    //autoClose={true}
                                    // right={[{

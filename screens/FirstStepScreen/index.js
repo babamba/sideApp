@@ -12,11 +12,11 @@ const mapStateToProps = (state, ownProps) => {
           isLoggedIn: user.isLoggedIn,
           profile: user.profile,
           isSetData : timer.isSetData,
-          monthSallery: timer.monthSallery,
-          salaryDay : timer.salaryDay,
-          selectWeek : timer.selectWeek,
-          startHour: timer.startHour,
-          endHour : timer.endHour
+          state_monthSallery: timer.monthSallery,
+          state_salaryDay : timer.salaryDay,
+          state_selectWeek : timer.selectWeek,
+          state_startHour: timer.startHour,
+          state_endHour : timer.endHour
      };
 };
 

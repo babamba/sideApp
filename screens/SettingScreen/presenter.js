@@ -99,13 +99,13 @@ const SettingScreen = props => (
                />
 
                <ListItem
-                    title="touchId"
+                    title="잠금설정"
                     rightTitle={<Switch 
                          onValueChange = {props.toggleSwitch}
                          value = {props.switchValue}
                     />}
                     // onPress={() => this.onPressOptions()}
-                    onPress={props.toggleModalVisibleSalaryForm}
+                    //onPress={props.toggleModalVisibleSalaryForm}
                     containerStyle={styles.listItemContainer}
                     Component={TouchableScale}
                     friction={70} //

@@ -236,7 +236,7 @@ function getData(){
                          return true;
                }else{
                     dispatch(resetData())
-                    return true;
+                    return false;
                }
 
                     

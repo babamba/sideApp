@@ -40,26 +40,37 @@ class Container extends Component {
      }
 
      componentDidMount(){
-          
-          //const { refresh } = this.props;
+          // const { isSetData,
+          //      monthSallery,
+          //      salaryDay,
+          //      selectWeek,
+          //      startHour,
+          //      endHour } = this.props
+
+          // console.log('monthSallery' , monthSallery)
+          // console.log('salaryDay' , salaryDay)
+          // console.log('selectWeek' , selectWeek)
+          // console.log('startHour' , startHour)
+          // console.log('endHour' , endHour)
 
      }
 
      componentWillMount(){
           const { isSetData,
-               monthSallery,
-               salaryDay,
-               selectWeek,
-               startHour,
-               endHour } = this.props
-
+               state_monthSallery,
+               state_salaryDay,
+               state_selectWeek,
+               state_startHour,
+               state_endHour } = this.props
+          
           if(isSetData){
+               console.log('isSetData true')
                this.setState({
-                    monthSallery : Number(monthSallery),
-                    salaryDay : salaryDay,
-                    selectWeek,
-                    startHour : Number(startHour),
-                    endHour :  Number(endHour),
+                    monthSallery : String(state_monthSallery),
+                    salaryDay : String(state_salaryDay),
+                    selectWeek: state_selectWeek,
+                    startHour : String(state_startHour),
+                    endHour :  String(state_endHour),
                })
           }
 
@@ -221,24 +232,25 @@ class Container extends Component {
                               '',
                               [
                                    {text: 'OK', onPress: async() => { 
+                                             this.setState({
+                                                  isSubmiting : false
+                                             });
                                         //this.props.navigation.navigate("Side") 
 
-                                        await this.setState({
-                                             isSubmiting : false,
-                                             monthSallery : "",
-                                             salaryDay : "",
-                                             selectWeek : defaultSelectedIndex_group_insterest,
-                                             startHour: "9",
-                                             endHour: "18",
-                                        });
+                                        // await this.setState({
+                                        //      isSubmiting : false,
+                                        //      monthSallery : "",
+                                        //      salaryDay : "",
+                                        //      selectWeek : defaultSelectedIndex_group_insterest,
+                                        //      startHour: "9",
+                                        //      endHour: "18",
+                                        // });
 
                                         if(this.props.backBtn){
                                              await this.setState({
                                                   backBtn:false
                                              })
-                                             
                                              this.props.toggleModalVisibleSalaryForm();
-
                                         }
                                         
                                    }},

@@ -74,6 +74,21 @@ class Container extends Component {
                          this.setState({
                               isSubmiting : false
                          });
+                    }else{
+                         Alert.alert(
+                              '가입되었습니다.',
+                              '로그인해주십시오',
+                              [
+                                   {
+                                        text: 'OK', 
+                                        onPress: () => {
+                                             this.props.navigation.goBack();
+                                        }
+                                   },
+                                   //{text: 'CANCEL', onPress: () => console.log("cancel")},
+                              ],
+                                 { cancelable: false }
+                         )
                     }
                }else{
                     Alert.alert('All fileds are require')

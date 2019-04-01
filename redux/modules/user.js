@@ -85,20 +85,20 @@ function login(username, password){
                })
           })
           .then(response => response.json())
-          .then(async json => {
+          .then(async(json) => {
                if(json.user && json.token){
-                    //console.log(json)
-                   
-                    //console.log(getData);
-                    //console.log(timer);
+                    console.log("json",json.user, json.token);
 
                     await dispatch(setLogIn(json.token));
-                    const getData = await dispatch(timerActions.getData())
+                    await dispatch(setUser(json.user))
 
-                    if(getData){
-                         await dispatch(setUser(json.user))
-                         console.log("able login")
-                    }
+                    await dispatch(timerActions.getData())
+
+                    // if(getData){
+                    //      console.log("getData",getData)
+                    //      await dispatch(setUser(json.user))
+                    //      console.log("able login")
+                    // }
                     
                     console.log(json.token)
                     return true;
@@ -129,13 +129,23 @@ function signUp(username, password, email){
                  email
              })
          })
-         .then(response => response.json())
-         .then(json => {
-             if(json.token){
-                    dispatch(setLogIn(json.token))
-                    dispatch(setUser(json.user))
-             }
+         .then(response => {
+               if(response.ok){
+                    console.log("response.json()",response)
+                    //return response.json()
+                    return true;
+               }else{
+                    return false;
+               }
          })
+         //.then(response => response.json())
+     //     .then(json => {
+     //         if(json.token){
+     //                // dispatch(setLogIn(json.token))
+     //                // dispatch(setUser(json.user))
+     //                return true;
+     //         }
+     //     })
      }
  }
 
@@ -261,6 +271,7 @@ function applyLocked(state, action){
 
 function applyLogIn(state, action){
      const { token } = action;
+     console.log("applyLogIn", token);
      return {
           ...state,
           isLoggedIn : true,
@@ -270,7 +281,7 @@ function applyLogIn(state, action){
 
 function applySetUser(state, action){
      const { user } = action;
-     console.log(user);
+     console.log("applySetUser", user);
      return {
           ...state,
           profile : user
@@ -282,7 +293,8 @@ function applyLogOut(state, action){
      return {
           isLoggedIn:false,
           profile:"",
-          token:""
+          token:"",
+          locked: false
      }
 }
 

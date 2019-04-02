@@ -60,7 +60,7 @@ class MiniCarouselList extends Component {
                          hasParallaxImages={true}
                          firstItem={this.props.slider1ActiveSlide}
                          inactiveSlideScale={0.9}
-                         inactiveSlideOpacity={0.7}
+                         inactiveSlideOpacity={0.5}
                          layout={'default'} 
                          layoutCardOffset={18}
                          // inactiveSlideShift={20}

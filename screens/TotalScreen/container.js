@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import TotalScreen from "./presenter";
 import moment from "moment";
 import { Alert, Keyboard } from "react-native"
-const listColor = ['#C4E9E4','#F0D9C7','#FCD0D0','#F79CB1','#37898C','#9DD8D4']
+                   //좋아요     // 글쎄    //후회중 
+const listColor = ['#C4E9E4','#F0D9C7','#FCD0D0']
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -37,7 +38,7 @@ class Container extends Component {
      };
 
      componentWillReceiveProps = nextProps => {
-          //console.log(nextProps);
+          console.log(" total componentWillReceiveProps");
 
           if(nextProps){
                console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct.length)
@@ -67,6 +68,17 @@ class Container extends Component {
           return a[Math.floor(Math.random() * a.length)];
      }
 
+     _callback = async(dataFromChild) => {
+          console.log("dataFromChild", dataFromChild)
+          this._refresh();
+          // await this.setState({isFetching:dataFromChild})
+
+          // if(dataFromChild){
+          //      const { refresh } = this.props;
+          //      refresh();
+          // }
+     }
+
      _replaceFixData = data => {
           let newArray = [];
           if(data.length > 0 ){
@@ -77,6 +89,8 @@ class Container extends Component {
                     obj.subtitle = i.price
                     obj.date = ""
                     obj.backgroundColor = this.randomItem(listColor);
+                    
+                    
                     newArray.push(obj)
                }
           }
@@ -96,7 +110,29 @@ class Container extends Component {
                     obj.title = i.income_name
                     obj.subtitle = i.price
                     obj.date = i.created_at.substring(0, 10)
-                    obj.backgroundColor = this.randomItem(listColor);
+
+                    if(type === 0){
+                         obj.backgroundColor = listColor[0]
+                    }else{
+                         if(Number(i.feeling) === 0){
+                              obj.backgroundColor = listColor[1]
+                         }else if(Number(i.feeling) === 1){
+                              obj.backgroundColor = listColor[2]
+                         }else{
+                              obj.backgroundColor = listColor[3]
+                         }
+                    }
+                    
+                    //obj.backgroundColor = this.randomItem(listColor);
+
+                    // if(Number(i.feeling) === 0){
+                    //      obj.backgroundColor = listColor[1]
+                    // }else if(Number(i.feeling) === 1){
+                    //      obj.backgroundColor = listColor[2]
+                    // }else{
+                    //      obj.backgroundColor = listColor[3]
+                    // }
+
                     if(Number(i.consumType) === type){
                          newArray.push(obj) 
                     }
@@ -106,21 +142,17 @@ class Container extends Component {
      }
 
      componentWillMount (){
-          const {FixConsumProduct, 
-               FixConsumPrice, 
-               BudgetPrice, 
-               getFixData, 
-               navigation, 
-               monthSallery,
-               MonthReportData,
-               ReportIncreaseMonthPrice, 
-               ReportMealMonthPrice, 
-               ReportPurchaseMonthPrice
-          } = this.props;
+          console.log(" total componentWillMount");
+          const {   FixConsumProduct, 
+                    FixConsumPrice, 
+                    BudgetPrice, 
+                    getFixData, 
+                    navigation, 
+                    monthSallery,
+                    MonthReportData,
+               } = this.props;
           //console.log('screen props: ', this.props.navigation.getScreenProps())
           //console.log('MonthReportData :' , MonthReportData)
-
-          
 
           const screenProps = this.props.navigation.getScreenProps('username')
 
@@ -280,6 +312,7 @@ class Container extends Component {
                     increasedata={this.state.increasedata}
                     mealdata={this.state.mealdata}
                     purchasedata={this.state.purchasedata}
+                    callback={this._callback}
                />
           );
      }

@@ -27,11 +27,11 @@ class Container extends Component {
 
      callback = () => {
           console.log("callback")
-          // const { callbackFromParent }= this.props;
-          // const { isSubmiting} = this.state;
+          const { callbackFromParent }= this.props;
+          const { isSubmiting } = this.state;
 
-          // callbackFromParent(isSubmiting);
-      }
+          callbackFromParent(isSubmiting);
+     }
 
      _groupButtonOnSelectedValuesChange = selectedValues=> {
           console.log("selectedValues : ", selectedValues)
@@ -86,7 +86,7 @@ class Container extends Component {
           console.log("income && price" , income , "&&", price)
           if(!isSubmiting){
                if(income && price){
-                    this.callback()
+                    
                     //submit
                     this.setState({
                          isSubmiting : true

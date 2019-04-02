@@ -32,7 +32,7 @@ class IncreaseScreen extends Component {
           return (
           <View style={{ flex: 2 }}>
             <View style={styles.container}> 
-              <Ionicons name="ios-arrow-down" size={24} style={styles.downArrow}/>
+              <Ionicons name="ios-arrow-up" size={24} style={styles.downArrow}/>
               <View style={styles.content}>
                     <Text style={styles.mainText}>수입이 들어왔나요? </Text>
                     <View style={styles.main}>
@@ -98,9 +98,8 @@ class IncreaseScreen extends Component {
                                 )}
                           </View>
                       </TouchableOpacity>
-            </View>
-            
-            </View>
+                    </View>
+               </View>
          </View>
        );
      }
@@ -182,7 +181,7 @@ const styles = StyleSheet.create({
      },
      downArrow:{
           textAlign:'right',
-          paddingTop:14,
+          paddingTop:40,
           paddingRight:15
      },
      selectBtn:{

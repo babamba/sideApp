@@ -95,7 +95,7 @@ class SliderEntry extends Component {
                         </Text>
                     </View>
                     <Text style={[styles.subtitle]} numberOfLines={2}>
-                    { subtitle } 
+                    { subtitle } 원
                     </Text>
                     
                 </View>
@@ -119,10 +119,11 @@ const styles = StyleSheet.create({
           right: itemHorizontalMargin,
           bottom: 18,
           shadowColor: colors.black,
-          shadowOpacity: 0.55,
+          shadowOpacity: 0.14,
           shadowOffset: { width: 0, height: 10 },
           shadowRadius: 10,
-          borderRadius: entryBorderRadius
+          borderRadius: entryBorderRadius,
+          backgroundColor:'grey'
       },
       imageContainer: {
           flex: 1,
@@ -154,39 +155,45 @@ const styles = StyleSheet.create({
           backgroundColor: colors.black
       },
       textContainer: {
-          justifyContent: 'center',
+          justifyContent:'space-between',
           paddingTop: 20 - entryBorderRadius,
           paddingBottom: 20,
           paddingHorizontal: 16,
           backgroundColor: 'white',
           borderBottomLeftRadius: entryBorderRadius,
-          borderBottomRightRadius: entryBorderRadius
+          borderBottomRightRadius: entryBorderRadius,
+          flexDirection:'row'
+          
       },
       textContainerEven: {
           backgroundColor: colors.black
       },
       title: {
           color: colors.black,
-          fontSize: 13,
+          fontSize: 23,
           fontWeight: 'bold',
           letterSpacing: 0.5
       },
 
       subDate:{
-        color: colors.black,
+        color: colors.gray,
         fontSize: 13,
         letterSpacing: 0.5,
         fontWeight: 'bold',
+        paddingLeft:14,
+        alignSelf: 'center',
 
     },
       titleEven: {
           color: 'white'
       },
       subtitle: {
-            marginTop: 6,
-            color: colors.gray,
-            fontSize: 12,
-            fontStyle: 'italic'
+            //marginTop: 6,
+            color: colors.black,
+            fontSize: 18,
+            fontWeight: 'bold',
+            fontStyle: 'italic',
+            alignSelf: 'center',
       },
       subtitleEven: {
           color: 'rgba(255, 255, 255, 0.7)'

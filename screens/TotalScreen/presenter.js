@@ -48,7 +48,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>나의 급여</Text>
+                         <Text style={styles.title}>나의 급여_</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.monthSallery} 
@@ -75,7 +75,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>나의 예산</Text>
+                         <Text style={styles.title}>나의 예산_</Text>
                          <Text style={styles.moneyText}>
                          <AnimateNumber 
                                    value={props.BudgetPrice} 
@@ -103,7 +103,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>주기적 지출</Text>
+                         <Text style={styles.title}>주기적 지출_</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.FixConsumPrice} 
@@ -144,7 +144,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>수입현황</Text>
+                         <Text style={styles.title}>수입 현황_</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.ReportIncreaseMonthPrice} 
@@ -185,7 +185,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>밥값 소비현황</Text>
+                         <Text style={styles.title}>밥값 현황_</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.ReportMealMonthPrice} 
@@ -291,7 +291,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>개인적 지출</Text>
+                         <Text style={styles.title}>개인적 지출_</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.ReportPurchaseMonthPrice} 
@@ -337,7 +337,7 @@ const TotalScreen = props => (
                >
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
-                                   <AddTotalPage toggleModal={props.toggleModal}  />
+                                   <AddTotalPage callbackFromParent={props.callback} toggleModal={props.toggleModal}  />
                          </TouchableHighlight>
                     </View>
 

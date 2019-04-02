@@ -27,7 +27,7 @@ class Container extends Component {
 
      callback = () => {
           const { callbackFromParent }= this.props;
-          const { isSubmiting} = this.state;
+          const { isSubmiting } = this.state;
 
           callbackFromParent(isSubmiting);
      }

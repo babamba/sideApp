@@ -235,7 +235,6 @@ const styles = StyleSheet.create({
      modalContent: {
           backgroundColor: "white",
           //paddingBottom: 420,
-          
           padding: 22,
           paddingTop:0,
           justifyContent: "center",

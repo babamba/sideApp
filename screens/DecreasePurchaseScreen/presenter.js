@@ -118,10 +118,9 @@ const styles = StyleSheet.create({
      },
      content: {
           flex: 4,
-          
+          ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
           alignItems: "center",
           justifyContent: "flex-start",
-          ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
      },
      main:{
           flexDirection:'row',
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
           flexDirection:'row' ,
           justifyContent:'center',
           textAlign:'right',
-          paddingTop:14,
+          paddingTop:24,
           paddingRight:15
 
      },

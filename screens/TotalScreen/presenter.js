@@ -34,7 +34,7 @@ const TotalScreen = props => (
                >
 
                <View style={styles.header}>
-                    <Text style={styles.MainText1}>Hello {props.username}?</Text>
+                    <Text style={styles.MainText1}>Hello {props.username}</Text>
                     <Text style={styles.MainText2}>이번달 예산이에요</Text>
                </View>
 
@@ -97,10 +97,11 @@ const TotalScreen = props => (
                          {...props} 
                          colors={colors} 
                          carouselType='default'
+                         data={props.Fixdata}
                     />
                </View>
 
-               
+
                { props.FixConsumProduct.length > 0 &&  
                <Card>
                     <View>
@@ -238,7 +239,7 @@ const TotalScreen = props => (
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 80}, {paddingTop: 50}),
+          ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
           backgroundColor: "white",
           //justifyContent:'center',
           alignItems:"center",
@@ -271,6 +272,7 @@ const styles = StyleSheet.create({
           fontFamily: 'NanumBarunGothicBold',
      },
      MainText2:{
+          paddingLeft:3,
           fontSize:28,
           justifyContent: 'center',
           textAlign:'left',

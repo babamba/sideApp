@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import TotalScreen from "./presenter";
 import moment from "moment";
 import { Alert, Keyboard } from "react-native"
+const listColor = ['#C4E9E4','#F0D9C7','#F79CB1']
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -42,39 +43,61 @@ class Container extends Component {
           }
      }
 
+     randomItem = (a) => {
+          return a[Math.floor(Math.random() * a.length)];
+     }
+
+     _replaceData = data => {
+          let newArray = [];
+          if(data.length > 0 ){
+               for (let i of data) {
+                    let obj = {};
+                    obj.title = i.income_name
+                    obj.subtitle = i.price
+                    obj.backgroundColor = this.randomItem(listColor);
+                    newArray.push(obj)
+               }
+          }
+          console.log("newArray", newArray)
+          return newArray;
+     }
+
      componentWillMount = async () => {
           const {FixConsumProduct, FixConsumPrice, BudgetPrice, getFixData, navigation, monthSallery} = this.props;
           console.log('screen props: ', this.props.navigation.getScreenProps())
           const screenProps = this.props.navigation.getScreenProps('username')
 
+          const Fixdata = this._replaceData(FixConsumProduct)
           //임시
-          const data = [
-               {
-                    title: '이번달 급여',
-                    subtitle: monthSallery,
-                    backgroundColor:"#C4E9E4",
-                    illustration: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/image/AppleInc/aos/published/images/i/pa/ipad/pro/ipad-pro-12-11-select-201810_GEO_KR?wid=870&amp;hei=1100&amp;fmt=jpeg&amp;qlt=95&amp;op_usm=0.5,0.5&amp;.v=1540576022267'
-               },
-               {
-                    title: '고정지출',
-                    subtitle: FixConsumPrice,
-                    illustration: 'https://cdn.clien.net/web/api/file/F01/7642247/afd0e9da5919e.jpg?w=780&h=30000',
-                    backgroundColor:"#F0D9C7"
-               },
-               {
-                    title: '예산금액',
-                    subtitle: BudgetPrice,
-                    illustration: 'http://www.autodaily.co.kr/news/photo/201812/406447_33632_195.jpg',
-                    backgroundColor:"#F79CB1"
-               },
-          ]
+          // const data = [
+          //      {
+          //           title: '이번달 급여',
+          //           subtitle: monthSallery,
+          //           backgroundColor:"#C4E9E4",
+          //           illustration: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/image/AppleInc/aos/published/images/i/pa/ipad/pro/ipad-pro-12-11-select-201810_GEO_KR?wid=870&amp;hei=1100&amp;fmt=jpeg&amp;qlt=95&amp;op_usm=0.5,0.5&amp;.v=1540576022267'
+          //      },
+          //      {
+          //           title: '고정지출',
+          //           subtitle: FixConsumPrice,
+          //           illustration: 'https://cdn.clien.net/web/api/file/F01/7642247/afd0e9da5919e.jpg?w=780&h=30000',
+          //           backgroundColor:"#F0D9C7"
+          //      },
+          //      {
+          //           title: '예산금액',
+          //           subtitle: BudgetPrice,
+          //           illustration: 'http://www.autodaily.co.kr/news/photo/201812/406447_33632_195.jpg',
+          //           backgroundColor:"#F79CB1"
+          //      },
+          // ]
+
+          
 
           this.setState({
                FixConsumProduct,
                FixConsumPrice,
                BudgetPrice,
                username: screenProps.username,
-               data
+               Fixdata
           })
           
           
@@ -169,7 +192,7 @@ class Container extends Component {
                     onSwipeClose={this._onSwipeClose}
                     deleteData={this._deleteData}
                     allowScroll={this._allowScroll}
-                    data={this.state.data}
+                    Fixdata={this.state.Fixdata}
                />
           );
      }

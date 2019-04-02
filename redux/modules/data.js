@@ -607,7 +607,7 @@ function getFixData(){
           })
 
           .then(response => response.json())
-          .then(json => {
+          .then(async(json) => {
                if(json){
                     console.log("json inner")
                     let FixConsumPrice = 0;
@@ -626,8 +626,8 @@ function getFixData(){
 
                //console.log("MonthIncreasePrice", MonthIncreasePrice)
                //console.log("TodayIncreasePrice", TodayIncreasePrice)
-               dispatch(setFixData(FixConsumProduct, FixConsumPrice));
-               dispatch(setBudgetPrice(monthSallery));
+               await dispatch(setFixData(FixConsumProduct, FixConsumPrice));
+               await dispatch(setBudgetPrice(monthSallery));
                console.log("dispatch end")
           }
           })
@@ -775,6 +775,7 @@ function submitFixConsum(income_name, price, feeling, consumType){
 
                     //console.log("MonthIncreasePrice", MonthIncreasePrice)
                     //console.log("TodayIncreasePrice", TodayIncreasePrice)
+                    await dispatch(getReportDataMonth(moment().format("YYYYMMDD")))
                     await dispatch(getFixData());
                     await dispatch(setBudgetPrice(monthSallery));
 
@@ -805,6 +806,7 @@ function submitConsum(income_name, price, feeling, consumType){
 
      return (dispatch , getState) => {
           const { user : { token } } = getState();
+          const { timer : { monthSallery } } = getState();
 
           return fetch(`${API_URL}/salary/consum/`, {
                method:"POST",
@@ -829,12 +831,15 @@ function submitConsum(income_name, price, feeling, consumType){
                }
                
           })
-          .then( json => {
+          .then( async(json) => {
                // response 기준으로 loacl storage 저장
 
                console.log("response created_at : ", json.created_at)
                //console.log("response enrollId : ", json.enrollId)
-               dispatch(setFixData(json))
+               //await dispatch(setFixData(json))
+               await dispatch(getReportDataMonth(moment().format("YYYYMMDD")))
+               await dispatch(getFixData());
+               await dispatch(setBudgetPrice(monthSallery));
                return true;
           })
           // .then(response => {

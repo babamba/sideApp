@@ -63,7 +63,7 @@ class MiniCarouselList extends Component {
                          inactiveSlideOpacity={0.5}
                          layout={'default'} 
                          layoutCardOffset={18}
-                         // inactiveSlideShift={20}
+                         inactiveSlideShift={18}
                          containerCustomStyle={styles.slider}
                          contentContainerCustomStyle={styles.sliderContentContainer}
                          loop={false}
@@ -76,7 +76,7 @@ class MiniCarouselList extends Component {
                          activeAnimationType={'spring'}
                          activeSlideAlignment={'start'}
                         activeAnimationOptions={{
-                            friction: 4,
+                            friction: 3,
                             tension: 20
                         }}
                     />

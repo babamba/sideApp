@@ -37,25 +37,29 @@ class Container extends Component {
           rowIndex:0
      };
 
-     componentWillReceiveProps = nextProps => {
+     componentWillReceiveProps = async(nextProps) => {
           console.log(" total componentWillReceiveProps");
-
+          console.log("nextProps.componentWillReceiveProps : ", nextProps)
           if(nextProps){
-               console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct.length)
-               console.log("nextProps.currentPrice : " , nextProps.FixConsumPrice)
-
-               const Fixdata = this._replaceFixData(nextProps.FixConsumProduct)
-
-               const increasedata = this._replaceConsumData(nextProps.MonthReportData , 0)
-               const mealdata = this._replaceConsumData(nextProps.MonthReportData , 1)
-               const purchasedata = this._replaceConsumData(nextProps.MonthReportData , 2)
+               console.log("nextProps.MonthReportData : ", nextProps.MonthReportData.length)
+               
+               //await nextProps.getReportDataMonth(moment().format("YYYYMMDD"));
+               const Fixdata = await this._replaceFixData(nextProps.FixConsumProduct)
+               const increasedata = await this._replaceConsumData(nextProps.MonthReportData , 0)
+               const mealdata = await this._replaceConsumData(nextProps.MonthReportData , 1)
+               const purchasedata = await this._replaceConsumData(nextProps.MonthReportData , 2)
           
 
-               this.setState({
-                    FixConsumProduct : nextProps.FixConsumProduct,
-                    FixConsumPrice : nextProps.FixConsumPrice,
+               await this.setState({
+                    // FixConsumProduct : nextProps.FixConsumProduct,
+                    // FixConsumPrice : nextProps.FixConsumPrice,
+                    //BudgetPrice: nextProps.BudgetPrice,
+
                     BudgetPrice: nextProps.BudgetPrice,
                     isFetching: false,
+                    
+                    FixConsumProduct : nextProps.FixConsumProduct,
+                    FixConsumPrice : nextProps.FixConsumPrice,
                     Fixdata,
                     increasedata,
                     mealdata,
@@ -282,10 +286,10 @@ class Container extends Component {
                [
                     {
                          text: 'OK', 
-                         onPress: () => {
-                              deleteFixData(enrollId)
-                              getFixData()
-                              getReportDataMonth(moment().format("YYYYMMDD"))
+                         onPress: async() => {
+                              await deleteFixData(enrollId)
+                              await getFixData()
+                              await getReportDataMonth(moment().format("YYYYMMDD"))
                               this._refresh();
                               // this._onSwipeClose(this.state.rowIndex)
                          }

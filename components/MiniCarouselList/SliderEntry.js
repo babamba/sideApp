@@ -23,7 +23,7 @@ const entryBorderRadius = 8;
 
 const slideHeight = height * 0.30;
 const slideWidth = wp(75);
-const itemHorizontalMargin = wp(2);
+const itemHorizontalMargin = wp(3);
 
 export const sliderWidth = width;
 export const itemWidth = slideWidth + itemHorizontalMargin * 1.3;
@@ -181,19 +181,19 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
         fontWeight: 'bold',
         paddingTop:6,
-        alignSelf: 'center',
+        alignSelf: 'flex-start',
 
     },
       titleEven: {
           color: 'white'
       },
       subtitle: {
-            //marginTop: 6,
+            paddingTop: 4,
             color: colors.black,
             fontSize: 18,
             fontWeight: 'bold',
             fontStyle: 'italic',
-            alignSelf: 'center',
+            alignSelf: 'flex-start',
       },
       subtitleEven: {
           color: 'rgba(255, 255, 255, 0.7)'

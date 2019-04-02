@@ -48,7 +48,7 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>고정급여</Text>
+                         <Text style={styles.title}>나의 급여</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.monthSallery} 
@@ -64,7 +64,7 @@ const TotalScreen = props => (
                          </Text>
                     </View>
                </Card>
-
+               
                <Card
                     containerStyle={{
                          borderWidth:0, 
@@ -75,7 +75,35 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>고정지출</Text>
+                         <Text style={styles.title}>나의 예산</Text>
+                         <Text style={styles.moneyText}>
+                         <AnimateNumber 
+                                   value={props.BudgetPrice} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   interval={0.1}
+                                   // timing={(interval, progress) => {
+                                   //      // slow start, slow end
+                                   //      return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   // }}
+                              /> 원
+                         </Text>
+                    </View>
+               </Card>
+
+               {/* 주기적지출 start */}
+               <Card
+                    containerStyle={{
+                         borderWidth:0, 
+                         shadowOpacity: 0,
+                    }}
+                    dividerStyle={{
+                        width:0
+                    }}
+               >
+                    <View style={styles.cardContainer}>
+                         <Text style={styles.title}>주기적 지출</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.FixConsumPrice} 
@@ -94,15 +122,96 @@ const TotalScreen = props => (
                
                <View style={{paddingHorizontal: 20}}>
                     <MiniCarouselList 
-                         {...props} 
                          colors={colors} 
                          carouselType='default'
                          data={props.Fixdata}
+                         
                     />
                </View>
+               {/* 주기적지출 end */}
 
 
-               { props.FixConsumProduct.length > 0 &&  
+               {/* 수입 start */}
+
+               <Card
+                    containerStyle={{
+                         borderWidth:0, 
+                         shadowOpacity: 0,
+                    }}
+                    dividerStyle={{
+                        width:0
+                    }}
+               >
+                    <View style={styles.cardContainer}>
+                         <Text style={styles.title}>수입현황</Text>
+                         <Text style={styles.moneyText}>
+                              <AnimateNumber 
+                                   value={props.ReportIncreaseMonthPrice} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
+                              /> 원
+                         </Text>
+                    </View>
+               </Card>
+               
+               <View style={{paddingHorizontal: 20}}>
+                    <MiniCarouselList 
+                         colors={colors} 
+                         carouselType='default'
+                         data={props.increasedata}
+                    />
+               </View>
+               
+               {/* 수입 end */}
+
+
+ {/* 수입 start */}
+
+                <Card
+                    containerStyle={{
+                         borderWidth:0, 
+                         shadowOpacity: 0,
+                    }}
+                    dividerStyle={{
+                        width:0
+                    }}
+               >
+                    <View style={styles.cardContainer}>
+                         <Text style={styles.title}>밥값 소비현황</Text>
+                         <Text style={styles.moneyText}>
+                              <AnimateNumber 
+                                   value={props.ReportMealMonthPrice} 
+                                   formatter={(val) => {
+                                        return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                   }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
+                              /> 원
+                         </Text>
+                    </View>
+               </Card>
+               
+               <View style={{paddingHorizontal: 20}}>
+                    <MiniCarouselList 
+                         colors={colors} 
+                         carouselType='default'
+                         data={props.mealdata}
+                    />
+               </View>
+               
+               {/* 수입 end */}
+
+
+               {/* { props.FixConsumProduct.length > 0 &&  
                <Card>
                     <View>
                     { props.FixConsumProduct.map((l, i) => (
@@ -163,9 +272,12 @@ const TotalScreen = props => (
                     </View>
                </Card>
                
-               }
+               } */}
 
-              
+
+
+               {/* 개인적지출 start */}
+
                <Card
                     containerStyle={{
                          borderWidth:0, 
@@ -176,23 +288,32 @@ const TotalScreen = props => (
                     }}
                >
                     <View style={styles.cardContainer}>
-                         <Text style={styles.title}>예산</Text>
+                         <Text style={styles.title}>개인적 지출</Text>
                          <Text style={styles.moneyText}>
-                         <AnimateNumber 
-                                   value={props.BudgetPrice} 
+                              <AnimateNumber 
+                                   value={props.ReportPurchaseMonthPrice} 
                                    formatter={(val) => {
                                         return Math.floor(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    }}
-                                   interval={0.1}
-                                   // timing={(interval, progress) => {
-                                   //      // slow start, slow end
-                                   //      return interval * (1 - Math.sin(Math.PI*progress) )*3
-                                   // }}
+                                   //interval={10}
+                                   timing={(interval, progress) => {
+                                        // slow start, slow end
+                                        return interval * (1 - Math.sin(Math.PI*progress) )*3
+                                   }}
                               /> 원
                          </Text>
                     </View>
                </Card>
                
+               <View style={{paddingHorizontal: 20}}>
+                    <MiniCarouselList 
+                         colors={colors} 
+                         carouselType='default'
+                         data={props.purchasedata}
+                    />
+               </View>
+               
+               {/* 개인적지출 end */}
                <Modal 
                     isVisible={props.isModalVisible} 
                     avoidKeyboard={true}
@@ -262,6 +383,7 @@ const styles = StyleSheet.create({
      },
      header:{
           paddingHorizontal: 20,
+          paddingTop: 10,
           marginBottom: 10,
      },
      MainText1:{
@@ -270,6 +392,7 @@ const styles = StyleSheet.create({
           textAlign:'left',
           alignItems: 'center',
           fontFamily: 'NanumBarunGothicBold',
+          paddingBottom:8
      },
      MainText2:{
           paddingLeft:3,

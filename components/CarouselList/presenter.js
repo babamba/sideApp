@@ -37,7 +37,7 @@ class CarouselList extends Component {
 
     constructor (props) {
         super(props);
-        console.log("this.props", this.props)
+        //console.log("this.props", this.props)
         this.state = {
             //slider1ActiveSlide: this.props.SLIDER_1_FIRST_ITEM
             slider1ActiveSlide: this.props.slider1ActiveSlide

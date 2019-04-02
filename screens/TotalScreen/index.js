@@ -4,15 +4,20 @@ import { actionCreators as dataActions} from "../../redux/modules/data"
 import { actionCreators as timerActions} from "../../redux/modules/timer"
 
 
-const mapStateToProps = (state, ownProps ) => {
+const mapStateToProps = (state, ownProps) => {
      const { data, timer } = state;
-     console.log("mapStateToProps FixConsumProduct", data.FixConsumProduct)
-     console.log("mapStateToProps FixConsumPrice", data.FixConsumPrice)
+     //console.log("mapStateToProps FixConsumProduct", data.FixConsumProduct)
+     //console.log("mapStateToProps FixConsumPrice", data.FixConsumPrice)
+     //console.log("month data report : " , data.MonthReportData)
      return {
           monthSallery : timer.monthSallery,
           FixConsumProduct : data.FixConsumProduct,
           FixConsumPrice : data.FixConsumPrice,
-          BudgetPrice : data.BudgetPrice
+          BudgetPrice : data.BudgetPrice,
+          MonthReportData :  data.MonthReportData, 
+          ReportIncreaseMonthPrice : data.ReportIncreaseMonthPrice, 
+          ReportMealMonthPrice : data.ReportMealMonthPrice, 
+          ReportPurchaseMonthPrice :data.ReportPurchaseMonthPrice
      }
 }
 
@@ -23,7 +28,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           },
           deleteFixData : (enrollId) => {
                return dispatch(dataActions.deleteFixData(enrollId));
-          }
+          },
+          getReportDataMonth : (date) => {
+               return dispatch(dataActions.getReportDataMonth(date));
+          },
           // getDataMealToday : (date) => {
           //      return dispatch(dataActions.getDataMealToday(date));
           // },

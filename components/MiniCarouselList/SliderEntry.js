@@ -60,7 +60,7 @@ class SliderEntry extends Component {
     }
 
     render () {
-        const { data: { title, subtitle, backgroundColor } } = this.props;
+        const { data: { title, subtitle, backgroundColor, date } } = this.props;
 
         const uppercaseTitle = title ? (
             <Text
@@ -84,10 +84,16 @@ class SliderEntry extends Component {
                 </View>
                     
                 <View style={[styles.textContainer]}>
-                    { uppercaseTitle }
+                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                        { uppercaseTitle }
+                        <Text style={[styles.subDate]}>
+                            { date }
+                        </Text>
+                    </View>
                     <Text style={[styles.subtitle]} numberOfLines={2}>
-                    { subtitle }
+                    { subtitle } 
                     </Text>
+                    
                 </View>
             </TouchableOpacity>
         );
@@ -161,14 +167,22 @@ const styles = StyleSheet.create({
           fontWeight: 'bold',
           letterSpacing: 0.5
       },
+
+      subDate:{
+        color: colors.black,
+        fontSize: 13,
+        letterSpacing: 0.5,
+        fontWeight: 'bold',
+
+    },
       titleEven: {
           color: 'white'
       },
       subtitle: {
-          marginTop: 6,
-          color: colors.gray,
-          fontSize: 12,
-          fontStyle: 'italic'
+            marginTop: 6,
+            color: colors.gray,
+            fontSize: 12,
+            fontStyle: 'italic'
       },
       subtitleEven: {
           color: 'rgba(255, 255, 255, 0.7)'

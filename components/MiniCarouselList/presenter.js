@@ -37,7 +37,7 @@ class MiniCarouselList extends Component {
 
     constructor (props) {
         super(props);
-        console.log("this.props", this.props)
+        //console.log("this.props", this.props)
         this.state = {
             //slider1ActiveSlide: this.props.SLIDER_1_FIRST_ITEM
             slider1ActiveSlide: this.props.slider1ActiveSlide
@@ -53,7 +53,7 @@ class MiniCarouselList extends Component {
                <View style={styles.container}>
                     <Carousel
                          ref={c => this.props._slider1Ref = c}
-                         data={this.props.entries}
+                         data={this.props.data}
                          renderItem={this.props.renderItemWithParallax}
                          sliderWidth={sliderWidth}
                          itemWidth={itemWidth}
@@ -77,7 +77,7 @@ class MiniCarouselList extends Component {
                          activeSlideAlignment={'start'}
                         activeAnimationOptions={{
                             friction: 4,
-                            tension: 30
+                            tension: 20
                         }}
                     />
                     {/* <Pagination

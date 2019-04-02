@@ -17,7 +17,7 @@ class Container extends Component {
      }
 
      _onSnapToItem = (index) => {
-       console.log("snap index : ", index)
+       //console.log("snap index : ", index)
         this.setState({ 
             slider1ActiveSlide: index 
         })
@@ -28,7 +28,7 @@ class Container extends Component {
      }
 
      _renderItemWithParallax = ({item, index}, parallaxProps) => {
-        console.log('list type :' , this.props.carouselType)
+        //console.log('list type :' , this.props.carouselType)
 
         if( this.props.carouselType === 'image'){
               return (
@@ -67,10 +67,10 @@ class Container extends Component {
       }
 
      componentWillReceiveProps = nextProps => {
-          console.log(nextProps)
+         // console.log(nextProps)
      }
      componentDidMount () {
-          console.log("Carousel : ", this.props);
+         // console.log("Carousel : ", this.props);
      }
 
 

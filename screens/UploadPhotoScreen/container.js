@@ -12,7 +12,7 @@ class Container extends Component {
 
 
      render(){
-          console.log(this.props);
+          //console.log(this.props);
           const { navigation : { state : {params : { uri }}}} = this.props;
           return (
                <UploadPhotoScreen

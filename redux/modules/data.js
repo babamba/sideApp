@@ -227,7 +227,7 @@ function getReportDataMonth(date){
           .then(async(json) => {
                if(json){
                     let MonthReportData = json;
-                   console.log("Report Month", json)
+                   //console.log("Report Month", json)
 
                    let ReportIncreaseMonthPrice = 0;
                    let ReportMealMonthPrice = 0;
@@ -249,9 +249,9 @@ function getReportDataMonth(date){
 
                     }
 
-                    console.log("$($($($($($( ReportIncreaseMonthPrice" , ReportIncreaseMonthPrice)
-                    console.log("$($($($($($( ReportMealMonthPrice" , ReportMealMonthPrice)
-                    console.log("$($($($($($( ReportPurchaseMonthPrice" , ReportPurchaseMonthPrice)
+                    //console.log("$($($($($($( ReportIncreaseMonthPrice" , ReportIncreaseMonthPrice)
+                    //console.log("$($($($($($( ReportMealMonthPrice" , ReportMealMonthPrice)
+                    //console.log("$($($($($($( ReportPurchaseMonthPrice" , ReportPurchaseMonthPrice)
 
                     await dispatch(setMonthReportData(MonthReportData));
                     
@@ -1008,8 +1008,8 @@ function applySetDataAll(state, action){
 function applysetDataMonthIncrease(state, action){
      const { MonthIncreaseProduct, MonthIncreasePrice } = action;
 
-     console.log("applysetDataMonthIncrease" , MonthIncreasePrice)
-     console.log("applysetDataMonthIncrease" , MonthIncreasePrice)
+     //console.log("applysetDataMonthIncrease" , MonthIncreasePrice)
+     console.log("applysetDataMonthIncrease")
 
      return {
           ...state,

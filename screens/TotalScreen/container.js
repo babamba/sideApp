@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import TotalScreen from "./presenter";
 import moment from "moment";
 import { Alert, Keyboard } from "react-native"
-const listColor = ['#C4E9E4','#F0D9C7','#F79CB1']
+const listColor = ['#C4E9E4','#F0D9C7','#FCD0D0','#F79CB1','#37898C','#9DD8D4']
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -12,7 +12,7 @@ class Container extends Component {
 
      constructor (props) {
           super(props);
-          console.log("this.props", this.props)
+          //console.log("this.props", this.props)
           this.props.getFixData();
       }
 
@@ -30,7 +30,7 @@ class Container extends Component {
      };
 
      componentWillReceiveProps = nextProps => {
-          console.log(nextProps);
+          //console.log(nextProps);
 
           if(nextProps){
                console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct.length)
@@ -47,27 +47,76 @@ class Container extends Component {
           return a[Math.floor(Math.random() * a.length)];
      }
 
-     _replaceData = data => {
+     _replaceFixData = data => {
           let newArray = [];
           if(data.length > 0 ){
                for (let i of data) {
                     let obj = {};
                     obj.title = i.income_name
                     obj.subtitle = i.price
+                    obj.date = ""
                     obj.backgroundColor = this.randomItem(listColor);
                     newArray.push(obj)
                }
           }
-          console.log("newArray", newArray)
+          //console.log("newArray", newArray)
           return newArray;
      }
 
-     componentWillMount = async () => {
-          const {FixConsumProduct, FixConsumPrice, BudgetPrice, getFixData, navigation, monthSallery} = this.props;
-          console.log('screen props: ', this.props.navigation.getScreenProps())
+     _replaceConsumData = (data, type) => {
+          //let all =[];
+
+          let newArray = [];
+
+          if(data.length > 0 ){
+               for (let i of data) {
+                    let obj = {};
+                    obj.title = i.income_name
+                    obj.subtitle = i.price
+                    obj.date = i.created_at.substring(0, 10)
+                    obj.backgroundColor = this.randomItem(listColor);
+                    if(Number(i.consumType) === type){
+                         newArray.push(obj) 
+                    }
+               }
+          }
+          return newArray;
+     }
+
+     componentWillMount(){
+          const {FixConsumProduct, 
+               FixConsumPrice, 
+               BudgetPrice, 
+               getFixData, 
+               navigation, 
+               monthSallery,
+               MonthReportData,
+               ReportIncreaseMonthPrice, 
+               ReportMealMonthPrice, 
+               ReportPurchaseMonthPrice
+          } = this.props;
+          //console.log('screen props: ', this.props.navigation.getScreenProps())
+          //console.log('MonthReportData :' , MonthReportData)
+
           const screenProps = this.props.navigation.getScreenProps('username')
 
-          const Fixdata = this._replaceData(FixConsumProduct)
+          const Fixdata = this._replaceFixData(FixConsumProduct)
+
+          const increasedata = this._replaceConsumData(MonthReportData , 0)
+          const mealdata = this._replaceConsumData(MonthReportData , 1)
+          const purchasedata = this._replaceConsumData(MonthReportData , 2)
+          
+
+          //console.log('increasedata :' , increasedata)
+          // const increasedata = await this._replaceConsumData(MonthReportData , 0)
+          // const mealdata = await this._replaceConsumData(MonthReportData , 1)
+          // const purchasedata = await this._replaceConsumData(MonthReportData , 2)
+
+
+
+          //const AllData = await this._replaceConsumData(MonthReportData)
+
+          //console.log('AllData : ' , AllData)
           //임시
           // const data = [
           //      {
@@ -97,7 +146,13 @@ class Container extends Component {
                FixConsumPrice,
                BudgetPrice,
                username: screenProps.username,
-               Fixdata
+               Fixdata,
+               increasedata,
+               mealdata,
+               purchasedata
+               // increasedata,
+               // mealdata,
+               // purchasedata
           })
           
           
@@ -143,6 +198,7 @@ class Container extends Component {
           //      'keyboardWillHide',
           //      this._keyboardWillHide,
           // );
+          console.log('state data : ' , this.state.increasedata)
      };
 
      componentWillUnmount = () =>{
@@ -193,6 +249,9 @@ class Container extends Component {
                     deleteData={this._deleteData}
                     allowScroll={this._allowScroll}
                     Fixdata={this.state.Fixdata}
+                    increasedata={this.state.increasedata}
+                    mealdata={this.state.mealdata}
+                    purchasedata={this.state.purchasedata}
                />
           );
      }

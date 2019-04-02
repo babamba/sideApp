@@ -88,7 +88,7 @@ class SliderEntry extends Component {
                 </View>
                     
                 <View style={[styles.textContainer]}>
-                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                    <View style={{flexDirection:'column',justifyContent:'space-between'}}>
                         { uppercaseTitle }
                         <Text style={[styles.subDate]}>
                             { date }
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         letterSpacing: 0.5,
         fontWeight: 'bold',
-        paddingLeft:14,
+        paddingTop:6,
         alignSelf: 'center',
 
     },

@@ -5,8 +5,6 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import ImageSliderEntry from './ImageSliderEntry';
 import { scrollInterpolators, animatedStyles } from './animations';
 
-
-
 const IS_ANDROID = Platform.OS === 'android';
 const IS_IOS = Platform.OS === 'ios';
 
@@ -17,8 +15,8 @@ const {width, height} = Dimensions.get("window");
      return Math.round(value);
  }
  
- const slideHeight = height * 0.36;
- const slideWidth = wp(75);
+ const slideHeight = height * 0.6;
+ const slideWidth = wp(70);
  const itemHorizontalMargin = wp(2);
  
 const sliderWidth = width;
@@ -61,7 +59,8 @@ class CarouselList extends Component {
                          firstItem={this.props.slider1ActiveSlide}
                          inactiveSlideScale={0.9}
                          inactiveSlideOpacity={0.7}
-                         layout={'default'} layoutCardOffset={18}
+                         layout={'default'} 
+                         layoutCardOffset={18}
 
                          // inactiveSlideShift={20}
                          containerCustomStyle={styles.slider}
@@ -102,13 +101,9 @@ const styles = StyleSheet.create({
           alignItems: 'center',
           fontFamily: 'NanumBarunGothicUltraLight',
      },
-     safeArea: {
-         flex: 1,
-         backgroundColor: colors.black
-     },
      container: {
          flex: 1,
-         backgroundColor: colors.background1,
+         backgroundColor: 'red',
      },
      exampleContainerDark: {
          backgroundColor: colors.black
@@ -118,7 +113,6 @@ const styles = StyleSheet.create({
      },
      title: {
          paddingHorizontal: 30,
-         backgroundColor: 'transparent',
          color: 'rgba(255, 255, 255, 0.9)',
          fontSize: 20,
          fontWeight: 'bold',
@@ -137,15 +131,15 @@ const styles = StyleSheet.create({
          textAlign: 'center'
      },
      slider: {
-         marginTop: 15,
+         //marginTop: 4,
          overflow: 'visible', // for custom animations
 
      },
      sliderContentContainer: {
-         paddingVertical: 10, // for custom animation
+         paddingVertical: 4, // for custom animation
      },
      paginationContainer: {
-         paddingVertical: 8
+         paddingVertical: 4
      },
      paginationDot: {
          width: 8,

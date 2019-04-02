@@ -34,12 +34,12 @@ class GoalScreen extends Component {
   
           return (
                <View style={styles.container}>
-                    <StatusBar
+                    {/* <StatusBar
                          translucent={true}
                          backgroundColor={'rgba(0, 0, 0, 0.3)'}
                          barStyle={'light-content'}
-                    />
-                    { this.gradient }
+                    /> */}
+                    {/* { this.gradient } */}
                     
                     <View style={styles.listContainer}>
                          <View style={styles.headerTitle}>
@@ -65,11 +65,11 @@ GoalScreen.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
           justifyContent:'center',
           alignItems:"center",
           alignContent: 'center',
           flexDirection: "column",
+          paddingTop:50
      },
      listContainer: {
           paddingVertical: 10

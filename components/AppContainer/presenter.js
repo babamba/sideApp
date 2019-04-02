@@ -9,6 +9,7 @@ import EnterSalaryNavigation from "../../navigation/EnterSalaryNavigation"
 import { AsyncStorage } from "react-native";
 import AppIntroSlider from 'react-native-app-intro-slider';
 // import Expo , { Constants } from "expo"
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { LocalAuthentication } from 'expo';
 import moment from "moment";
 
@@ -436,6 +437,7 @@ AppContainer.propTypes = {
 const styles = StyleSheet.create({
      container : {
         flex: 1,
+        ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
         backgroundColor: '#fff',
      },
      mainContent: {

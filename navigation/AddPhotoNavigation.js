@@ -29,7 +29,6 @@ const AddPhotoNavigation = createMaterialTopTabNavigator (
                showLabel:true,
                upperCaseLabel:true,
                style: {
-                 ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
                  backgroundColor: 'white',
                },
                labelStyle:{

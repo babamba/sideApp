@@ -296,7 +296,6 @@ const styles = StyleSheet.create({
        marginRight: 12,
      },
      listContainer: {
-        ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
         flex:1,
        marginBottom: 0,
        marginTop: 0,

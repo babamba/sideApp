@@ -62,7 +62,7 @@ const RootNavigator = createStackNavigator(
           //headerMode: 'screen',
           headerLayoutPreset:"center",
           // headerMode:"screen",
-          headerTransitionPreset:"fade-in-place",
+          // headerTransitionPreset:"fade-in-place",
           //transitionConfig: noTransitionConfig,
 
          

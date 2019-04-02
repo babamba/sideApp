@@ -9,7 +9,6 @@ import { Card ,ListItem } from "react-native-elements";
 import AddTotalPage from "../../components/AddTotalPage";
 import AnimateNumber from '@bankify/react-native-animate-number'
 import Swipeout from 'react-native-swipeout';
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import MiniCarouselList from '../../components/MiniCarouselList';
 
 const {width, height} = Dimensions.get("window");
@@ -365,7 +364,6 @@ const TotalScreen = props => (
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
           backgroundColor: "white",
           //justifyContent:'center',
           alignItems:"center",

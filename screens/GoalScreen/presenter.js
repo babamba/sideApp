@@ -65,8 +65,7 @@ GoalScreen.propTypes = {
 const styles = StyleSheet.create({
      container:{
           flex:1,
-          ...ifIphoneX({paddingTop: 100}, {paddingTop: 80}),
-          backgroundColor: "white",
+          ...ifIphoneX({paddingTop: 50}, {paddingTop: 30}),
           justifyContent:'center',
           alignItems:"center",
           alignContent: 'center',

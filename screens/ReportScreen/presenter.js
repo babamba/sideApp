@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Modal,View, Text, FlatList, StyleSheet,TouchableOpacity,Dimensions } from "react-native";
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import ReportListItemToday from "../../components/ReportTodayListItem"
 import ReportListItemMonth from "../../components/ReportMonthListItem"
 import CalendarScreen from "../CalendarScreen"
@@ -161,7 +160,6 @@ const ReportScreen = props => (
 const styles = StyleSheet.create({
      container : {
           flex:1,
-          ...ifIphoneX({paddingTop: 70}, {paddingTop: 50}),
           backgroundColor: "white"
      },
      listContainer: {

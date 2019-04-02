@@ -1130,15 +1130,34 @@ function applysetDataPurchaseMonth(state, action){
 }
 
 function applySetBudgetPrice(state, action){
-     const { FixConsumPrice }  = state;
+     const { FixConsumPrice, ReportIncreaseMonthPrice , ReportMealMonthPrice, ReportPurchaseMonthPrice }  = state;
      const { monthSallery } = action;
      console.log("@#@#@# applySetBudgetPrice")
+     // ReportIncreaseMonthPrice : 0, 
+     //      ReportMealMonthPrice : 0, 
+     //      ReportPurchaseMonthPrice :0 ,
      //console.log("@#@#@# monthSallery", monthSallery)
      //console.log("@#@#@# FixConsumPrice", FixConsumPrice)
-    // console.log("Budget price = " , monthSallery - FixConsumPrice )
+     // console.log("Budget price = " , monthSallery - FixConsumPrice )
+     // 
+     /** 
+      *   monthSallery  월급
+      *   FixConsumPrice 고정지출
+      *   MonthPurchasePrice 월 개인소비내역
+      *   MonthIncreasePrice 월 수입내역
+      *   MonthMealPrice 월 밥값
+      */
+     //console.log("BudgetPrice :" , BudgetPrice)
+     console.log("monthSallery :" , monthSallery)
+     console.log("FixConsumPrice :" , FixConsumPrice)
+     console.log("ReportIncreaseMonthPrice :" , ReportIncreaseMonthPrice)
+     console.log("ReportMealMonthPrice :" , ReportMealMonthPrice)
+     console.log("ReportPurchaseMonthPrice :" , ReportPurchaseMonthPrice)
+     
+     
      return {
           ...state,
-          BudgetPrice : monthSallery - FixConsumPrice 
+          BudgetPrice : (monthSallery - FixConsumPrice - ReportPurchaseMonthPrice - ReportMealMonthPrice) + ReportIncreaseMonthPrice
      }
 }
 

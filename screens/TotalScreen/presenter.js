@@ -29,14 +29,21 @@ const TotalScreen = props => (
                     onScrollEndDrag={(e) => props.handleScroll(e)}
                     keyboardShouldPersistTaps='always'
                     showsVerticalScrollIndicator={false}
-                    // contentContainerStyle={{ flexGrow: 1, width:'100%', height:'100%' }}
+                    contentContainerStyle={{ flexGrow: 1, width:width}}
                     scrollEnabled={props.swipeScrollEnabled ? true : false}
                >
 
-               <Text style={styles.MainText1}>Hello </Text>
+               <View style={styles.header}>
+                    <Text style={styles.MainText1}>Hello {props.username}?</Text>
 
-               <MiniCarouselList {...props} colors={colors} carouselType='default'/>
+                    <MiniCarouselList 
+                         {...props} 
+                         colors={colors} 
+                         carouselType='default'
+                    />
+               </View>
 
+              
                <Card title="고정급여">
                     <View style={styles.cardContainer}>
                          <Text style={styles.moneyText}>
@@ -133,6 +140,7 @@ const TotalScreen = props => (
                     
                     </View>
                </Card>
+               
                }
                <Card title="예산금액">
                     <View style={styles.cardContainer}>
@@ -153,29 +161,29 @@ const TotalScreen = props => (
                </Card>
                
                <Modal 
-                         isVisible={props.isModalVisible} 
-                         avoidKeyboard={true}
-                         animationIn={'slideInDown'}
-                         animationOut={"slideOutUp"}
-                         deviceWidth={width}
-                         deviceHeight={height}
-                         style={styles.bottomModal}
-                         backdropColor={"grey"}
-                         backdropOpacity={0.9}
-                         onBackButtonPress={props.toggleModal}
-                         onBackdropPress={props.toggleModal}
-                         onSwipe={props.toggleModal}
-                         onSwipeComplete={props.toggleModal}
-                         swipeDirection="up"
-                         swipeThreshold={10}
-                    >
-
+                    isVisible={props.isModalVisible} 
+                    avoidKeyboard={true}
+                    animationIn={'slideInDown'}
+                    animationOut={"slideOutUp"}
+                    deviceWidth={width}
+                    deviceHeight={height}
+                    style={styles.bottomModal}
+                    backdropColor={"grey"}
+                    backdropOpacity={0.9}
+                    onBackButtonPress={props.toggleModal}
+                    onBackdropPress={props.toggleModal}
+                    onSwipe={props.toggleModal}
+                    onSwipeComplete={props.toggleModal}
+                    swipeDirection="up"
+                    swipeThreshold={10}
+               >
                     <View style={styles.modalContent}>
                          <TouchableHighlight >
                                    <AddTotalPage toggleModal={props.toggleModal}  />
                          </TouchableHighlight>
                     </View>
-                    </Modal>
+
+               </Modal>
                {/* <MainText 
                     progress={props.progress}
                     {...props}
@@ -219,12 +227,15 @@ const styles = StyleSheet.create({
      addButton:{
           height:20
      },
+     header:{
+          paddingHorizontal: 20,
+     },
      MainText1:{
           fontSize:45,
           justifyContent: 'center',
           textAlign:'left',
           alignItems: 'center',
-          fontFamily: 'NanumBarunGothicUltraLight',
+          fontFamily: 'NanumBarunGothicBold',
      },
      MainText2:{
           fontSize:45,

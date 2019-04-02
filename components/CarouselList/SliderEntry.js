@@ -21,7 +21,7 @@ function wp (percentage) {
 
 const entryBorderRadius = 8;
 
-const slideHeight = height * 0.30;
+const slideHeight = height * 0.90;
 const slideWidth = wp(75);
 const itemHorizontalMargin = wp(2);
 

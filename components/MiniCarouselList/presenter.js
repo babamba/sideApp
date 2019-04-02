@@ -17,7 +17,7 @@ const {width, height} = Dimensions.get("window");
      return Math.round(value);
  }
  
- const slideHeight = height * 0.26;
+ const slideHeight = height * 0.30;
  const slideWidth = wp(75);
  const itemHorizontalMargin = wp(2);
  
@@ -61,20 +61,26 @@ class MiniCarouselList extends Component {
                          firstItem={this.props.slider1ActiveSlide}
                          inactiveSlideScale={0.9}
                          inactiveSlideOpacity={0.7}
-                         layout={'default'} layoutCardOffset={18}
-
+                         layout={'default'} 
+                         layoutCardOffset={18}
                          // inactiveSlideShift={20}
                          containerCustomStyle={styles.slider}
                          contentContainerCustomStyle={styles.sliderContentContainer}
-                         loop={true}
-                         loopClonesPerSide={2}
+                         loop={false}
+                         //loopClonesPerSide={2}
                          autoplay={false}
                          autoplayDelay={1000}
                          autoplayInterval={3000}
                          onSnapToItem={(index) => this.props.onSnapToItem(index) }
                          enableMomentum={true}
+                         activeAnimationType={'spring'}
+                         activeSlideAlignment={'start'}
+                        activeAnimationOptions={{
+                            friction: 4,
+                            tension: 30
+                        }}
                     />
-                    <Pagination
+                    {/* <Pagination
                          dotsLength={this.props.entries.length}
                          activeDotIndex={this.props.slider1ActiveSlide}
                          containerStyle={styles.paginationContainer}
@@ -85,7 +91,7 @@ class MiniCarouselList extends Component {
                          inactiveDotScale={0.6}
                          carouselRef={this.props._slider1Ref}
                          tappableDots={!!this.props._slider1Ref}
-                    />
+                    /> */}
                </View>
         );
     }
@@ -108,7 +114,7 @@ const styles = StyleSheet.create({
          backgroundColor: colors.black
      },
      container: {
-         height: slideHeight + 100,
+         height: slideHeight + 20,
          backgroundColor: colors.background1,
      },
      
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
           width: itemWidth,
           height: slideHeight,
           paddingHorizontal: itemHorizontalMargin,
-          paddingBottom: 18 // needed for shadow
+          paddingBottom: 8 // needed for shadow
       },
       shadow: {
           position: 'absolute',
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
           right: itemHorizontalMargin,
           bottom: 18,
           shadowColor: colors.black,
-          shadowOpacity: 0.25,
+          shadowOpacity: 0.9,
           shadowOffset: { width: 0, height: 10 },
           shadowRadius: 10,
           borderRadius: entryBorderRadius

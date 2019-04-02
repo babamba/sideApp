@@ -39,6 +39,7 @@ const SET_REPORT_MONTH_PRICE = 'SET_REPORT_MONTH_PRICE'
 const SET_FIX_DATA = 'SET_FIX_DATA'
 
 const SET_BUDGET_PRICE = 'SET_BUDGET_PRICE'
+const RESET_DATA = 'RESET_DATA';
 
 // Action Creators
 function setData(json){
@@ -154,6 +155,12 @@ function setMonthReportData(MonthReportData){
      return {
           type: SET_REPORT_MONTH_DATA,
           MonthReportData
+     }
+}
+
+function resetData(){
+     return {
+          type : RESET_DATA,
      }
 }
 
@@ -928,6 +935,8 @@ function reducer(state = initialState, action){
                return applySetFixData(state, action);
           case SET_BUDGET_PRICE:
                return applySetBudgetPrice(state, action);
+          case RESET_DATA :
+               return applyResetData(state, action);
           default : 
                return state;
           }
@@ -935,6 +944,49 @@ function reducer(state = initialState, action){
 
 
 // Reducer Functions
+
+function applyResetData(state, action){
+     console.log('apply reset Product Data')
+     return{
+          TodayMealProduct : [],
+          TodayMealPrice : 0,
+          MonthMealProduct : [],
+          MonthMealPrice : 0,
+
+          TodayPurchaseProduct : [],
+          TodayPurchasePrice : 0,
+          MonthPurchaseProduct :[],
+          MonthPurchasePrice : 0,
+
+          product : [],
+
+          MonthIncreaseProduct : [],
+          MonthIncreasePrice : 0,
+          TodayIncreaseProduct : [],
+          TodayIncreasePrice : 0,
+
+          AllIncreaseData : [],
+          AllMealData : [],
+          AllPurchaseData : [],
+
+          TodayReportData : [],
+          MonthReportData : [],
+
+          ReportIncreaseTodayPrice : 0, 
+          ReportMealTodayPrice : 0, 
+          ReportPurchaseTodayPrice :0 ,
+
+          ReportIncreaseMonthPrice : 0, 
+          ReportMealMonthPrice : 0, 
+          ReportPurchaseMonthPrice :0 ,
+
+          FixConsumProduct : [],
+          FixConsumPrice : 0,
+
+          BudgetPrice : 0
+     }
+}
+
 function applySetReportPriceToday(state, action){
      const {ReportIncreaseTodayPrice, ReportMealTodayPrice, ReportPurchaseTodayPrice} = action;
      return {
@@ -1177,7 +1229,8 @@ const actionCreators = {
      uploadPhoto,
      getFixData,
 
-     deleteFixData
+     deleteFixData,
+     resetData
 }
 
 export { actionCreators };

@@ -32,6 +32,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           getReportDataMonth : (date) => {
                return dispatch(dataActions.getReportDataMonth(date));
           },
+          oninit: (date) => {
+               dispatch(dataActions.getReportDataMonth(date));
+          }
+
+          // initApp: (date) => {
+          //      //앱시작시 기준날짜 관리
+          //      dispatch(dataActions.getDataMealMonth(date));
+          //      dispatch(dataActions.getDataPurchaseMonth(date));
+          //      dispatch(dataActions.getDataIncreaseMonth(date));
+          // },
+          // getAllData : (date, type) => {
+          //      dispatch(dataActions.getAllData(date, type));
+          // }
           // getDataMealToday : (date) => {
           //      return dispatch(dataActions.getDataMealToday(date));
           // },

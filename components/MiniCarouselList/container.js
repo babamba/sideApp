@@ -12,7 +12,8 @@ class Container extends Component {
           super(props);
           this.state = {
               slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
-              slider1Ref: null
+              slider1Ref: null,
+              isFetching:false
           };
      }
 
@@ -29,7 +30,6 @@ class Container extends Component {
 
      _renderItemWithParallax = ({item, index}, parallaxProps) => {
         //console.log('list type :' , this.props.carouselType)
-
         if( this.props.carouselType === 'image'){
               return (
                 <ImageSliderEntry
@@ -45,6 +45,8 @@ class Container extends Component {
                 data={item}
                 even={(index + 1) % 2 === 0}
                 parallax={false}
+                deleteData={this.props.deleteData}
+                refresh={this._refresh}
               />
             );
       }else{
@@ -58,6 +60,13 @@ class Container extends Component {
       }
     }
 
+    _removeItem = (item) => {
+      console.log(item);
+    }
+    _updateItem = (item) => {
+      console.log(item);
+    }
+
      _renderLightItem ({item, index}) {
           return <ImageSliderEntry data={item} even={false} />;
       }
@@ -67,12 +76,23 @@ class Container extends Component {
       }
 
      componentWillReceiveProps = nextProps => {
-         // console.log(nextProps)
+          console.log(nextProps.data)
+
+         this.setState({
+            isFetching : false
+        });
      }
      componentDidMount () {
          // console.log("Carousel : ", this.props);
      }
 
+     _refresh = () => {
+        this.setState({
+            isFetching : true
+        });
+
+      console.log("isFetch refresh")
+    }
 
      render () {
           //const example1 = this.mainExample(1, 'Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');

@@ -63,11 +63,14 @@ class AppContainer extends Component {
 
      componentWillMount = async() => {
 
-          const { isLoggedIn , initApp, isSetData, launched } = this.props;
+          const { isLoggedIn , initApp, isSetData, launched , getAllData} = this.props;
           //const showRealApp = await AsyncStorage.getItem("already");
           console.log("already ", launched);
           if(isLoggedIn, isSetData){
                await initApp(moment().format("YYYYMMDD"));
+               // await getAllData(moment().format("YYYYMMDD"), 0);
+               // await getAllData(moment().format("YYYYMMDD"), 1);
+               // await getAllData(moment().format("YYYYMMDD"), 2);  
           }
           
           // const value = await AsyncStorage.getItem("already");

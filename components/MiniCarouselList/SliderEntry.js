@@ -60,8 +60,8 @@ class SliderEntry extends Component {
     }
 
     render () {
-        const { data: { title, subtitle, backgroundColor, date } } = this.props;
-
+        const { data: { id, title, subtitle, backgroundColor, date } } = this.props;
+        //console.log('this.props',this.props)
         const uppercaseTitle = title ? (
             <Text
               style={[styles.title]}
@@ -75,7 +75,11 @@ class SliderEntry extends Component {
             <TouchableOpacity
               activeOpacity={1}
               style={[styles.slideInnerContainer]}
-            //   onPress={() => { alert(`You've clicked '${title}'`); }}
+              onLongPress={ () => {
+                  this.props.deleteData(id)
+                //   this.props.refresh()
+
+                }}
               >
                 <View style={styles.shadow} />
                 <View style={[styles.imageContainer, {backgroundColor:backgroundColor }]}>

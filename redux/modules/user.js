@@ -2,6 +2,7 @@
 import { API_URL } from "../../constants";
 import { AsyncStorage } from "react-native";
 import { actionCreators as timerActions } from "../modules/timer";
+import { actionCreators as dataActions } from "../modules/data";
 import { Permissions, Notifications, Facebook } from "expo";
 // Actions
 
@@ -64,6 +65,7 @@ function setAlreadyLaunch(launched){
 function logOut() {
      return ( dispatch, getState ) => {
           dispatch(timerActions.resetData())
+          dispatch(dataActions.resetData())
           dispatch(setLogOut());
      }
 }

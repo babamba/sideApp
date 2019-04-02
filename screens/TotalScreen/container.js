@@ -13,7 +13,14 @@ class Container extends Component {
      constructor (props) {
           super(props);
           //console.log("this.props", this.props)
-          this.props.getFixData();
+          const {getFixData ,oninit } = this.props
+          getFixData();
+          // getAllData(moment().format("YYYYMMDD"), 0);
+          // getAllData(moment().format("YYYYMMDD"), 1);
+          // getAllData(moment().format("YYYYMMDD"), 2);  
+
+          oninit(moment().format("YYYYMMDD"));
+         
       }
 
      static propTypes = {
@@ -35,10 +42,23 @@ class Container extends Component {
           if(nextProps){
                console.log("nextProps.FixConsumProduct : ", nextProps.FixConsumProduct.length)
                console.log("nextProps.currentPrice : " , nextProps.FixConsumPrice)
+
+               const Fixdata = this._replaceFixData(nextProps.FixConsumProduct)
+
+               const increasedata = this._replaceConsumData(nextProps.MonthReportData , 0)
+               const mealdata = this._replaceConsumData(nextProps.MonthReportData , 1)
+               const purchasedata = this._replaceConsumData(nextProps.MonthReportData , 2)
+          
+
                this.setState({
                     FixConsumProduct : nextProps.FixConsumProduct,
                     FixConsumPrice : nextProps.FixConsumPrice,
-                    BudgetPrice: nextProps.BudgetPrice
+                    BudgetPrice: nextProps.BudgetPrice,
+                    isFetching: false,
+                    Fixdata,
+                    increasedata,
+                    mealdata,
+                    purchasedata,
                })
           }
      }
@@ -52,6 +72,7 @@ class Container extends Component {
           if(data.length > 0 ){
                for (let i of data) {
                     let obj = {};
+                    obj.id = i.enrollId
                     obj.title = i.income_name
                     obj.subtitle = i.price
                     obj.date = ""
@@ -71,6 +92,7 @@ class Container extends Component {
           if(data.length > 0 ){
                for (let i of data) {
                     let obj = {};
+                    obj.id = i.enrollId
                     obj.title = i.income_name
                     obj.subtitle = i.price
                     obj.date = i.created_at.substring(0, 10)
@@ -83,7 +105,7 @@ class Container extends Component {
           return newArray;
      }
 
-     componentWillMount(){
+     componentWillMount (){
           const {FixConsumProduct, 
                FixConsumPrice, 
                BudgetPrice, 
@@ -97,6 +119,8 @@ class Container extends Component {
           } = this.props;
           //console.log('screen props: ', this.props.navigation.getScreenProps())
           //console.log('MonthReportData :' , MonthReportData)
+
+          
 
           const screenProps = this.props.navigation.getScreenProps('username')
 
@@ -149,7 +173,8 @@ class Container extends Component {
                Fixdata,
                increasedata,
                mealdata,
-               purchasedata
+               purchasedata,
+               
                // increasedata,
                // mealdata,
                // purchasedata
@@ -198,7 +223,7 @@ class Container extends Component {
           //      'keyboardWillHide',
           //      this._keyboardWillHide,
           // );
-          console.log('state data : ' , this.state.increasedata)
+          //console.log('state data : ' , this.state.increasedata)
      };
 
      componentWillUnmount = () =>{
@@ -218,7 +243,7 @@ class Container extends Component {
      } 
 
      _deleteData = (enrollId) => {
-          const { deleteFixData } = this.props;
+          const { deleteFixData, getFixData, getReportDataMonth } = this.props;
           Alert.alert(
                '삭제하시겠습니까 ?',
                '',
@@ -227,7 +252,10 @@ class Container extends Component {
                          text: 'OK', 
                          onPress: () => {
                               deleteFixData(enrollId)
-                              this._onSwipeClose(this.state.rowIndex)
+                              getFixData()
+                              getReportDataMonth(moment().format("YYYYMMDD"))
+                              this._refresh();
+                              // this._onSwipeClose(this.state.rowIndex)
                          }
                     },
                     {text: 'CANCEL', onPress: () => console.log("cancel")},

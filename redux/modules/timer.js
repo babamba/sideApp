@@ -448,6 +448,7 @@ function reducer(state = initialState, action){
 // Reducer Functions
 
 function applyResetData(state, action){
+     console.log('apply reset timer Data')
      return{
           isSetData : false,
           monthSallery : 0,

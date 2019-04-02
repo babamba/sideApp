@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                //앱시작시 기준날짜 관리
                dispatch(timerActions.onInitCheckStandard());
                dispatch(userActions.registerForPush());
-               dispatch(dataActions.getReportDataToday(date));
           },
+          
           // getFixData: () => {
           //      dispatch(dataActions.getFixData());
           // }

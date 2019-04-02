@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { View, Keyboard, Text, ScrollView,TouchableHighlight, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { View, Keyboard, Text, ScrollView,TouchableHighlight, StyleSheet, Dimensions, TouchableOpacity, StatusBar } from "react-native";
 import AddButton from "../../components/AddButton";
 import MainText from "../../components/MainText"
 import MoneyText from "../../components/MoneyText"
@@ -25,6 +25,7 @@ const colors = {
 const TotalScreen = props => (
 
           <View style={styles.container}>
+               <StatusBar barStyle={"default"}/>
                <ScrollView 
                     onScrollEndDrag={(e) => props.handleScroll(e)}
                     keyboardShouldPersistTaps='always'
@@ -125,6 +126,7 @@ const TotalScreen = props => (
                          colors={colors} 
                          carouselType='default'
                          data={props.Fixdata}
+                         deleteData={props.deleteData}
                          
                     />
                </View>
@@ -165,6 +167,7 @@ const TotalScreen = props => (
                          colors={colors} 
                          carouselType='default'
                          data={props.increasedata}
+                         deleteData={props.deleteData}
                     />
                </View>
                
@@ -205,6 +208,7 @@ const TotalScreen = props => (
                          colors={colors} 
                          carouselType='default'
                          data={props.mealdata}
+                         deleteData={props.deleteData}
                     />
                </View>
                
@@ -310,6 +314,7 @@ const TotalScreen = props => (
                          colors={colors} 
                          carouselType='default'
                          data={props.purchasedata}
+                         deleteData={props.deleteData}
                     />
                </View>
                

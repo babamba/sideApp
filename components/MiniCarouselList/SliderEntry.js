@@ -51,12 +51,16 @@ class SliderEntry extends Component {
               {...parallaxProps}
             />
         ) : (
+            // <Image
+            //   source={{ uri: illustration }}
+            //   style={styles.image}
+            // />
             null
         );
     }
 
     render () {
-        const { data: { title, subtitle, backgroundColor }, even } = this.props;
+        const { data: { title, subtitle, backgroundColor } } = this.props;
 
         const uppercaseTitle = title ? (
             <Text
@@ -71,20 +75,18 @@ class SliderEntry extends Component {
             <TouchableOpacity
               activeOpacity={1}
               style={[styles.slideInnerContainer]}
-              onPress={() => { alert(`You've clicked '${title}'`); }}
+            //   onPress={() => { alert(`You've clicked '${title}'`); }}
               >
                 <View style={styles.shadow} />
                 <View style={[styles.imageContainer, {backgroundColor:backgroundColor }]}>
-                    { this.image }
+                    {/* { this.image } */}
                     <View style={[styles.radiusMask]} />
                 </View>
+                    
                 <View style={[styles.textContainer]}>
                     { uppercaseTitle }
-                    <Text
-                      style={[styles.subtitle]}
-                      numberOfLines={2}
-                    >
-                        { subtitle }
+                    <Text style={[styles.subtitle]} numberOfLines={2}>
+                    { subtitle }
                     </Text>
                 </View>
             </TouchableOpacity>

@@ -35,17 +35,20 @@ const TotalScreen = props => (
 
                <View style={styles.header}>
                     <Text style={styles.MainText1}>Hello {props.username}?</Text>
-
-                    <MiniCarouselList 
-                         {...props} 
-                         colors={colors} 
-                         carouselType='default'
-                    />
+                    <Text style={styles.MainText2}>이번달 예산이에요</Text>
                </View>
 
-              
-               <Card title="고정급여">
+               <Card
+                    containerStyle={{
+                         borderWidth:0, 
+                         shadowOpacity: 0,
+                    }}
+                    dividerStyle={{
+                        width:0
+                    }}
+               >
                     <View style={styles.cardContainer}>
+                         <Text style={styles.title}>고정급여</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.monthSallery} 
@@ -61,8 +64,18 @@ const TotalScreen = props => (
                          </Text>
                     </View>
                </Card>
-               <Card title="고정지출">
+
+               <Card
+                    containerStyle={{
+                         borderWidth:0, 
+                         shadowOpacity: 0,
+                    }}
+                    dividerStyle={{
+                        width:0
+                    }}
+               >
                     <View style={styles.cardContainer}>
+                         <Text style={styles.title}>고정지출</Text>
                          <Text style={styles.moneyText}>
                               <AnimateNumber 
                                    value={props.FixConsumPrice} 
@@ -78,9 +91,17 @@ const TotalScreen = props => (
                          </Text>
                     </View>
                </Card>
+               
+               <View style={{paddingHorizontal: 20}}>
+                    <MiniCarouselList 
+                         {...props} 
+                         colors={colors} 
+                         carouselType='default'
+                    />
+               </View>
 
+               
                { props.FixConsumProduct.length > 0 &&  
-
                <Card>
                     <View>
                     { props.FixConsumProduct.map((l, i) => (
@@ -119,7 +140,7 @@ const TotalScreen = props => (
                               title={l.income_name}
                               //rightTitle={l.price + " 원"}
                               rightTitle={
-                                   <Text style={styles.moneyText}>
+                                   <Text style={styles.listMoneyText}>
                                    <AnimateNumber 
                                         value={l.price} 
                                         formatter={(val) => {
@@ -142,8 +163,19 @@ const TotalScreen = props => (
                </Card>
                
                }
-               <Card title="예산금액">
+
+              
+               <Card
+                    containerStyle={{
+                         borderWidth:0, 
+                         shadowOpacity: 0,
+                    }}
+                    dividerStyle={{
+                        width:0
+                    }}
+               >
                     <View style={styles.cardContainer}>
+                         <Text style={styles.title}>예산</Text>
                          <Text style={styles.moneyText}>
                          <AnimateNumber 
                                    value={props.BudgetPrice} 
@@ -229,6 +261,7 @@ const styles = StyleSheet.create({
      },
      header:{
           paddingHorizontal: 20,
+          marginBottom: 10,
      },
      MainText1:{
           fontSize:45,
@@ -238,7 +271,7 @@ const styles = StyleSheet.create({
           fontFamily: 'NanumBarunGothicBold',
      },
      MainText2:{
-          fontSize:45,
+          fontSize:28,
           justifyContent: 'center',
           textAlign:'left',
           fontFamily: 'NanumBarunGothicUltraLight',
@@ -269,11 +302,23 @@ const styles = StyleSheet.create({
           margin: 0,
      },
      cardContainer:{
-          alignItems:'center'
+          //alignItems:'center',
+          flexDirection:'row',
+          justifyContent:'space-between'
+     },
+     title:{
+          fontSize:32,
+          alignSelf:'flex-start',
+          fontFamily: 'NanumBarunGothicBold',
      },
      moneyText:{
-          fontFamily: 'NanumBarunGothicUltraLight',
-          fontSize:18,
+          fontFamily: 'NanumBarunGothic',
+          alignSelf:'flex-end',
+          color:'#4c4c4c',
+          fontSize:22,
+     },
+     listMoneyText:{
+          fontSize:14,
      }
      // progress:{
      //      width:84,

@@ -3,27 +3,6 @@ import PropTypes from "prop-types";
 import TotalScreen from "./presenter";
 import moment from "moment";
 import { Alert, Keyboard } from "react-native"
-//임시
-const data = [
-     {
-          title: '아이패드프로',
-          subtitle: '살거야 으아아아아니',
-          backgroundColor:"#C4E9E4"
-          // illustration: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/image/AppleInc/aos/published/images/i/pa/ipad/pro/ipad-pro-12-11-select-201810_GEO_KR?wid=870&amp;hei=1100&amp;fmt=jpeg&amp;qlt=95&amp;op_usm=0.5,0.5&amp;.v=1540576022267'
-      },
-      {
-          title: '아이맥',
-          subtitle: '아이맥있으면 좋을것 같은데말이야',
-          //illustration: 'https://cdn.clien.net/web/api/file/F01/7642247/afd0e9da5919e.jpg?w=780&h=30000'
-          backgroundColor:"#F0D9C7"
-      },
-      {
-          title: '팰리세이드',
-          subtitle: '차도 하나 사고싶어 절약절약',
-          // illustration: 'http://www.autodaily.co.kr/news/photo/201812/406447_33632_195.jpg'
-          backgroundColor:"#F79CB1"
-      },
-]
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
@@ -64,18 +43,39 @@ class Container extends Component {
      }
 
      componentWillMount = async () => {
-          const {FixConsumProduct, FixConsumPrice, BudgetPrice, getFixData, navigation} = this.props;
+          const {FixConsumProduct, FixConsumPrice, BudgetPrice, getFixData, navigation, monthSallery} = this.props;
           console.log('screen props: ', this.props.navigation.getScreenProps())
           const screenProps = this.props.navigation.getScreenProps('username')
-          
+
+          //임시
+          const data = [
+               {
+                    title: '이번달 급여',
+                    subtitle: monthSallery,
+                    backgroundColor:"#C4E9E4",
+                    illustration: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/image/AppleInc/aos/published/images/i/pa/ipad/pro/ipad-pro-12-11-select-201810_GEO_KR?wid=870&amp;hei=1100&amp;fmt=jpeg&amp;qlt=95&amp;op_usm=0.5,0.5&amp;.v=1540576022267'
+               },
+               {
+                    title: '고정지출',
+                    subtitle: FixConsumPrice,
+                    illustration: 'https://cdn.clien.net/web/api/file/F01/7642247/afd0e9da5919e.jpg?w=780&h=30000',
+                    backgroundColor:"#F0D9C7"
+               },
+               {
+                    title: '예산금액',
+                    subtitle: BudgetPrice,
+                    illustration: 'http://www.autodaily.co.kr/news/photo/201812/406447_33632_195.jpg',
+                    backgroundColor:"#F79CB1"
+               },
+          ]
 
           this.setState({
                FixConsumProduct,
                FixConsumPrice,
                BudgetPrice,
-               username: screenProps.username
+               username: screenProps.username,
+               data
           })
-
           
           
           //const { getDataMealToday, TodayMealProduct } = this.props;
@@ -169,7 +169,7 @@ class Container extends Component {
                     onSwipeClose={this._onSwipeClose}
                     deleteData={this._deleteData}
                     allowScroll={this._allowScroll}
-                    data={data}
+                    data={this.state.data}
                />
           );
      }

@@ -17,6 +17,7 @@ class Container extends Component {
                // groupTypes:Platform.OS === "ios" ? "SavedPhotos" : "",
                assetType:"Photos"
           })
+          
           console.log("cameraPhotos",cameraPhotos);
 
           if(cameraPhotos.edges.length > 0){

@@ -28,13 +28,16 @@ const RootNavigator = createStackNavigator(
                screen : UploadPhotoScreen,
                navigationOptions: ({navigation}) => ({
                     title:"Upload Photo!",
-                    headerLeft: (
-                         <Button 
-                              title={"cancel"} 
-                              onPress={() => navigation.goBack(null)}
-                              color="black"
-                         />
-                    )
+                    // headerRight: (
+                    //      <Button 
+                    //           title={"cancel"} 
+                    //           onPress={() => navigation.goBack(null)}
+                    //           color="black"
+                    //      />
+                    // ),
+                    headerStyle:{
+                         marginTop: -50,
+                    },
                })
           },
           // Today : {

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import GoalScreen from "./presenter";
 import moment from "moment";
+import { ImagePicker } from 'expo';
 
 //임시
 const data = [
@@ -32,7 +33,8 @@ class Container extends Component {
      };
 
      state = {
-          isFetching : false
+          isFetching : false,
+          pickedPhoto: null
      };
 
      componentWillReceiveProps = nextProps => {
@@ -79,6 +81,45 @@ class Container extends Component {
           // this._refresh();
      };
 
+     _pickImage = async () => {
+          let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:"Images",
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality:0,
+            exif:true
+          });
+      
+          console.log(result);
+      
+          if (!result.cancelled) {
+            await this.setState({ pickedPhoto: result.uri });
+            this._approvePhoto();
+          }
+     };
+
+     _openCamera = async() => {
+          let result = await ImagePicker.launchCameraAsync({
+               mediaTypes:"Images",
+               allowsEditing: true,
+               aspect: [4, 3],
+               quality:0,
+               exif:true
+          });
+
+          if (!result.cancelled) {
+               await this.setState({ pickedPhoto: result.uri });
+               this._approvePhoto();
+          }
+     }
+
+     _approvePhoto = () =>{
+          const { navigation: {navigate} } = this.props;
+          const { pickedPhoto } = this.state;
+          console.log(pickedPhoto);
+          navigate("UploadPhoto", { uri : pickedPhoto });
+     }
+
      componentWillUnmount = () =>{
           console.log("Meal Unmount")
      }
@@ -90,6 +131,8 @@ class Container extends Component {
                     {...this.state} 
                     refresh={this._refresh} 
                     data={data}
+                    pickImage={this._pickImage}
+                    openCamera= {this._openCamera}
                />
           );
      }

@@ -535,6 +535,7 @@ function getDataMealToday(date){
 function deleteFixData(enrollId){
      return async(dispatch, getState) => {
           const { user : { token } } = getState();
+          const { timer : { monthSallery } } = getState();
 
           return fetch(`${API_URL}/salary/${enrollId}/fix_consum_delete/`, {
                method:"DELETE",
@@ -543,11 +544,14 @@ function deleteFixData(enrollId){
                     "Content-Type" : "application/json"
                }
           })
-          .then(response => {
+          .then(async(response) => {
                if(response.status === '401'){
                     dispatch(userActions.logOut());
                }else if(response.ok){
-                    dispatch(getFixData())
+
+                    await dispatch(getReportDataMonth(moment().format("YYYYMMDD")))
+                    await dispatch(getFixData());
+                    await dispatch(setBudgetPrice(monthSallery));
                     return true;
                }else{
                     return false;

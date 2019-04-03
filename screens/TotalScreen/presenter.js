@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.3,
           shadowRadius: 7,
-          elevation: 1,
+          elevation: 4,
           height:height / 2.2
      },
      bottomModal: {
@@ -432,7 +432,8 @@ const styles = StyleSheet.create({
      cardContainer:{
           //alignItems:'center',
           flexDirection:'row',
-          justifyContent:'space-between'
+          justifyContent:'space-between',
+          elevation: 0,
      },
      title:{
           fontSize:32,

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import CarouselList from "./presenter";
 
 import ImageSliderEntry from "./ImageSliderEntry";
-import SliderEntry from "./SliderEntry"
 
 const SLIDER_1_FIRST_ITEM = 0;
 

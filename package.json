@@ -10,7 +10,7 @@
     "@bankify/react-native-animate-number": "^0.2.1",
     "@expo/vector-icons": "^9.0.0",
     "expo": "^32.0.0",
-    "expo-cli": "^2.11.6",
+    "expo-cli": "^2.14.0",
     "moment": "^2.24.0",
     "prop-types": "^15.6.2",
     "react": "16.5.0",
